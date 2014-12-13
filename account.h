@@ -8,11 +8,12 @@
 class UserInfo;
 
 class Account {
-protected:
-    Username* usr;
+private:
     UserInfo* info;
+protected:
+    Username* user;
 public:
-    void alterAccount();
-    UserInfo* displayProfile() const;
+    UserInfo* getInfo() const;
+    void setInfo(const UserInfo&);
 };
 #endif

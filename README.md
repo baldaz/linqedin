@@ -9,3 +9,5 @@ P2 Project 2014
             - UserInfo
             - UserName
 
+    - LinQNet -> contacts network
+        use map / vector

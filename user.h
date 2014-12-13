@@ -4,15 +4,21 @@
 #include "account.h"
 #include "username.h"
 
-class Network;
+class LinQNet;
 
 class User {
 public:
     Account* acc;
-    Network* net;
+    LinQNet* net;
     Username usr;
     User(Username);
     virtual ~User();
 };
+
+class Basic : public User {};
+
+class Business : public Basic {};
+
+class Executive : public Business {};
 
 #endif
