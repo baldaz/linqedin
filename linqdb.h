@@ -4,6 +4,8 @@
 #include <vector>
 #include "user.h"
 
+class User;
+
 class LinqDB {
 private:
     class SPUser {
