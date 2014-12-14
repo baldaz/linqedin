@@ -3,7 +3,6 @@
 
 // #include <map>
 #include <vector>
-#include "user.h"
 #include "linqdb.h"
 
 class LinQNet {

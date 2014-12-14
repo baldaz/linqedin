@@ -11,3 +11,5 @@ P2 Project 2014
 
     - LinQNet -> contacts network
         use map / vector
+
+    - lib QT 4.8 or 5.3

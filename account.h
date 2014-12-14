@@ -4,7 +4,7 @@
 #include "username.h"
 #include "userinfo.h"
 
-class UserInfo;
+// class UserInfo;
 
 class Account {
 private:

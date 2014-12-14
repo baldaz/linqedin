@@ -11,6 +11,7 @@ public:
     Account* _acc;
     LinQNet* _net;
     Username _usr;
+    int references;
     User(Username);
     virtual ~User();
 };
