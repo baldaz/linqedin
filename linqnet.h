@@ -9,8 +9,8 @@
 class LinQNet {
 private:
     // map<SPUser*, Account*> net;
-    vector<SPUser*> net;
-    LinqDB* db;
+    vector<SPUser*> _net;
+    LinqDB* _db;
 public:
     LinQNet();
     void addUser(const User&, const Account&);

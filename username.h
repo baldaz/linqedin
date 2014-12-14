@@ -7,8 +7,8 @@ using std::string;
 
 class Username {
 private:
-    string login;
-    string password;
+    string _login;
+    string _password;
 public:
     Username(string, string);
     string getLogin() const;

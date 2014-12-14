@@ -3,11 +3,11 @@
 
 class UserInfo {
 private:
-    string name;
-    string surname;
-    string birthdate;
-    string email;
-    string telephon;
+    string _name;
+    string _surname;
+    string _birthdate;
+    string _email;
+    string _telephon;
 public:
     string getName() const;
     string getSurname() const;

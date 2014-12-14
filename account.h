@@ -9,9 +9,9 @@ class UserInfo;
 
 class Account {
 private:
-    UserInfo* info;
+    UserInfo* _info;
 protected:
-    Username* user;
+    Username* _user;
 public:
     UserInfo* getInfo() const;
     void setInfo(const UserInfo&);

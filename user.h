@@ -8,9 +8,9 @@ class LinQNet;
 
 class User {
 public:
-    Account* acc;
-    LinQNet* net;
-    Username usr;
+    Account* _acc;
+    LinQNet* _net;
+    Username _usr;
     User(Username);
     virtual ~User();
 };

@@ -10,7 +10,7 @@ class LinqDB {
 private:
     class SPUser {
     public:
-        User* usr;
+        User* _usr;
         SPUser(User*);
         SPUser(const SPUser&);
         ~SPUser();
@@ -21,7 +21,7 @@ private:
         bool operator!=(const SPUser&) const;
     };
 public:
-    vector<SPUser> db;
+    vector<SPUser> _db;
     void load();
     void save() const;
     User* find(Username);

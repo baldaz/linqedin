@@ -1,15 +1,15 @@
 #include "username.h"
 
-Username::Username(string l, string p) : login(l), password(p){}
+Username::Username(string l, string p) : _login(l), _password(p){}
 string Username::getLogin() const {
-    return login;
+    return _login;
 }
 string Username::getPassword() const {
-    return password;
+    return _password;
 }
 void Username::setLogin(string l) {
-    login = l;
+    _login = l;
 }
 void Username::setPassword(string p) {
-    password = p;
+    _password = p;
 }
