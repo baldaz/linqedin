@@ -7,12 +7,12 @@
 class LinQNet;
 
 class User {
-public:
+protected:
     Account* _acc;
     LinQNet* _net;
-    Username _usr;
+public:
     int references;
-    User(Username);
+    User(Account*, LinQNet*);
     virtual ~User();
 };
 

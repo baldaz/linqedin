@@ -5,6 +5,8 @@
 #include <vector>
 #include "linqdb.h"
 
+using std::vector;
+
 class LinQNet {
 private:
     // map<SPUser*, Account*> net;

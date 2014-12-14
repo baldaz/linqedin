@@ -9,7 +9,6 @@
 class Account {
 private:
     UserInfo* _info;
-protected:
     Username* _user;
 public:
     Account(UserInfo*, Username*);

@@ -4,10 +4,14 @@
 #include <vector>
 #include "user.h"
 
+using std::vector;
+
 class User;
 
 class LinqDB {
 private:
+    void writeXML(); /*scrivere su XML*/
+public:
     class SPUser {
     public:
         User* _p_usr;
@@ -20,8 +24,6 @@ private:
         bool operator==(const SPUser&) const;
         bool operator!=(const SPUser&) const;
     };
-    void writeXML(); /*scrivere su XML*/
-public:
     vector<SPUser> _db;
     void load();
     void save() const;
