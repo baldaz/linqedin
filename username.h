@@ -1,6 +1,10 @@
 #ifndef USERNAME_H
 #define USERNAME_H
 
+#include <string>
+
+using std::string;
+
 class Username {
 private:
     string login;
