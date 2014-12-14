@@ -1,7 +1,6 @@
 #ifndef ACCOUNT_H
 #define ACCOUNT_H
 
-#include "user.h"
 #include "username.h"
 #include "userinfo.h"
 
@@ -13,7 +12,8 @@ private:
 protected:
     Username* _user;
 public:
+    Account(UserInfo*, Username*);
     UserInfo* getInfo() const;
-    void setInfo(const UserInfo&);
+    void setInfo(UserInfo*);
 };
 #endif

@@ -1,16 +1,12 @@
 #include <iostream>
-#include "username.h"
+#include "account.h"
 
 using std::cout;
 using std::endl;
 
 main() {
-    string login = "Andrea";
-    string pwd = "password";
-    Username usr(login, pwd);
-    Username usr2("Baldan", "ciao");
-    cout << usr.getLogin() << endl;
-    cout << usr2.getLogin() << endl;
-    usr.setPassword("pwd");
-    cout << usr.getPassword() << endl;
+    Username usr("Andrea", "password");
+    UserInfo uf("Andrea", "Baldan", "08-10-1988", "a.g.baldan@gmail.com", "3450515048");
+    Account acc(&uf, &usr);
+    cout << acc.getInfo()->getName() << endl;
 }
