@@ -12,6 +12,7 @@ protected:
     LinQNet* _net;
 public:
     int references;
+    User();
     User(Account*, LinQNet*);
     virtual ~User();
 };

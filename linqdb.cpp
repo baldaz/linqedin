@@ -1,5 +1,8 @@
 #include "linqdb.h"
 
+using std::ostream;
+using std::endl;
+
 LinqDB::SPUser::SPUser(User* usr) : _p_usr(usr) {
     if(_p_usr)
         _p_usr->references++;
@@ -27,15 +30,29 @@ LinqDB::SPUser& LinqDB::SPUser::operator=(const SPUser& spusr) {
     }
     return *this;
 }
-LinqDB::SPUser::User& LinqDB::SPUser::operator*() const {
+User& LinqDB::SPUser::operator*() const {
     return *_p_usr;
 }
-LinqDB::User* LinqDB::SPUser::operator->() const {
+User* LinqDB::SPUser::operator->() const {
     return _p_usr;
 }
-bool LinqDB::SPUser::operator==(const SPUser& spu) {
+bool LinqDB::SPUser::operator==(const SPUser& spu) const {
     return(_p_usr == spu._p_usr);
 }
-bool LinqDB::SPUser::operator!=(const SPUser& spu) {
+bool LinqDB::SPUser::operator!=(const SPUser& spu) const {
     return(_p_usr != spu._p_usr);
+}
+/* parte db */
+void LinqDB::addUser(const SPUser& spu) {
+    // LinqDB::SPUser spu(u);
+    _db.push_back(spu);
+}
+ostream& operator<<(ostream& os, const LinqDB& db) {
+    if(!db._db.size()) os << "Nessun utente inserito" << endl;
+    else {
+        // for(int i = 0; i < db._db.size(); ++i)
+        //     os << db._db[i] << " - ";
+        os << db._db.size() << endl;
+    }
+    return os;
 }
