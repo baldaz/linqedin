@@ -3,17 +3,20 @@
 
 #include "account.h"
 #include "username.h"
+#include "linqdb.h"
 
-class LinQNet;
+class LinqNet;
 
 class User {
 protected:
     Account* _acc;
-    LinQNet* _net;
+    LinqNet* _net;
 public:
     int references;
     User();
-    User(Account*, LinQNet*);
+    User(Account*, LinqNet*);
+    User(const User&);
+    Username* getUsername() const;
     virtual ~User();
 };
 

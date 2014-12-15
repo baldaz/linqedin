@@ -12,6 +12,7 @@ private:
     Username* _user;
 public:
     Account(UserInfo*, Username*);
+    Username* getUsername() const;
     UserInfo* getInfo() const;
     void setInfo(UserInfo*);
 };

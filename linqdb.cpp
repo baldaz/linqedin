@@ -43,16 +43,18 @@ bool LinqDB::SPUser::operator!=(const SPUser& spu) const {
     return(_p_usr != spu._p_usr);
 }
 /* parte db */
-void LinqDB::addUser(const SPUser& spu) {
-    // LinqDB::SPUser spu(u);
+void LinqDB::addUser(const User& u) {
+    SPUser spu(new User(u));
     _db.push_back(spu);
 }
 ostream& operator<<(ostream& os, const LinqDB& db) {
     if(!db._db.size()) os << "Nessun utente inserito" << endl;
     else {
-        // for(int i = 0; i < db._db.size(); ++i)
-        //     os << db._db[i] << " - ";
-        os << db._db.size() << endl;
+        for(int i = 0; i < db._db.size(); ++i){
+            os << db._db[i]->getUsername()->getLogin() << " : ";
+            os << db._db[i]->getUsername()->getPassword() << endl;
+        }
+        os << "DB size: " << db._db.size() << endl;
     }
     return os;
 }

@@ -7,7 +7,7 @@ class SPUser {
 private:
     User* _p_usr;
 public:
-    SPUser(User* =0);
+    SPUser(User*);
     SPUser(const SPUser&);
     ~SPUser();
     SPUser& operator=(const SPUser&);

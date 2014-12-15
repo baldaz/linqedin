@@ -1,20 +1,16 @@
 #ifndef LINQNET_H
 #define LINQNET_H
 
-// #include <map>
 #include <vector>
-#include "linqdb.h"
+#include "spuser.h"
 
 using std::vector;
 
-class LinQNet {
+class LinqNet {
 private:
-    // map<SPUser*, Account*> net;
-    vector<SPUser*> _net;
-    LinqDB* _db;
+    vector<SPUser> _net;
 public:
-    LinQNet();
-    void addUser(const User&, const Account&);
+    void addUser(const User&);
     void delUser(const User&);
 };
 #endif

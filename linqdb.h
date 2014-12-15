@@ -8,7 +8,7 @@
 using std::ostream;
 using std::vector;
 
-// class User;
+class User;
 
 class LinqDB {
 private:
@@ -30,7 +30,7 @@ public:
     vector<SPUser> _db;
     void load();
     void save() const;
-    void addUser(const SPUser&);
+    void addUser(const User&);
     void removeUser(const SPUser&);
     User* find(Username);
     friend ostream& operator<<(ostream&, const LinqDB&);
