@@ -3,10 +3,12 @@
 
 #include <iostream>
 #include <vector>
+// #include <set>
 #include "user.h"
 
 using std::ostream;
 using std::vector;
+// using std::set;
 
 class User;
 
@@ -25,14 +27,17 @@ private:
         bool operator==(const SPUser&) const;
         bool operator!=(const SPUser&) const;
     };
+    vector<SPUser> _db;
     void writeXML(); /*scrivere su XML*/
 public:
-    vector<SPUser> _db;
+    // set<SPUser> _db;
+    int getSize() const;
     void load();
     void save() const;
     void addUser(const User&);
-    void removeUser(const SPUser&);
+    void removeUser(const User&);
     User* find(Username);
+    SPUser operator[](const int&) const;
     friend ostream& operator<<(ostream&, const LinqDB&);
 };
 #endif

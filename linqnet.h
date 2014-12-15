@@ -12,5 +12,8 @@ private:
 public:
     void addUser(const User&);
     void delUser(const User&);
+    int getSize() const;
+    SPUser operator[](const int&) const;
+    friend ostream& operator<<(ostream&, const LinqNet&);
 };
 #endif
