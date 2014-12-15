@@ -7,6 +7,8 @@ using std::cout;
 using std::endl;
 
 main() {
+    LinqDB db; /*DB utenti*/
+    LinqNet net; /*Rete amicizie*/
     Username usr("Andrea", "password");
     UserInfo uf("Andrea", "Baldan", "08-10-1988", "a.g.baldan@gmail.com", "3450515048");
     Username usr2("Pablo", "maurissio");
@@ -14,8 +16,6 @@ main() {
     Account acc(&uf, &usr);
     Account acc2(&uf2, &usr2);
     // cout << acc.getInfo()->getName() << endl;
-    LinqDB db;
-    // LinqNet net;
     User s(&acc, 0);
     User s2(&acc2, 0);
     db.addUser(s);
