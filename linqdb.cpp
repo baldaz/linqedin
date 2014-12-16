@@ -51,6 +51,12 @@ void LinqDB::addUser(const User& u) {
     _db.push_back(spu);
     // _db.insert(spu);
 }
+void LinqDB::removeUser(const User& usr) {
+    for(int i = 0; i < this->getSize(); i++) {
+        if(_db[i]->getUsername()->getLogin() == usr.getUsername()->getLogin())
+            _db.erase(_db.begin() + i);
+    }
+}
 LinqDB::SPUser LinqDB::operator[](const int& i) const {
     return _db[i];
 }

@@ -3,12 +3,18 @@
 using std::cout;
 using std::endl;
 
+int LinqNet::getSize() const {
+    return _net.size();
+}
 void LinqNet::addUser(const User& usr) {
     SPUser spu(new User(usr));
     _net.push_back(spu);
 }
-int LinqNet::getSize() const {
-    return _net.size();
+void LinqNet::delUser(const User& usr) {
+    for(int i = 0; i < this->getSize(); i++) {
+        if(_net[i]->getUsername()->getLogin() == usr.getUsername()->getLogin())
+            _net.erase(_net.begin() + i);
+    }
 }
 SPUser LinqNet::operator[](const int& i) const {
     return _net[i];
@@ -16,9 +22,8 @@ SPUser LinqNet::operator[](const int& i) const {
 ostream& operator<<(ostream& os, const LinqNet& net) {
     if(!net.getSize()) { os << "Nessun amico per te" << endl; }
     else {
-        for(int i = 0; i < net.getSize(); ++i){
-            os << net[i]->getUsername()->getLogin() << endl;
-        }
+        for(int i = 0; i < net.getSize(); ++i)
+            os << net[i]->getUsername()->getLogin() << " ";
     }
     return os;
 }

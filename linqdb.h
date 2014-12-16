@@ -31,9 +31,9 @@ private:
     void writeXML(); /*scrivere su XML*/
 public:
     // set<SPUser> _db;
-    int getSize() const;
     void load();
     void save() const;
+    int getSize() const;
     void addUser(const User&);
     void removeUser(const User&);
     User* find(Username);
