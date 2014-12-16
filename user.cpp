@@ -11,6 +11,14 @@ Username* User::getUsername() const {
 BasicUser::BasicUser() : User() {}
 BasicUser::BasicUser(Account* ac, LinqNet* lq) : User(ac, lq) {}
 BasicUser::BasicUser(const BasicUser& usr) : User(usr) {}
-void BasicUser::userSearch(const LinqDB& db) const {
+void BasicUser::userSearch(const LinqDB& db) const {}
 
-}
+BusinessUser::BusinessUser() : BasicUser() {}
+BusinessUser::BusinessUser(Account* ac, LinqNet* lq) : BasicUser(ac, lq) {}
+BusinessUser::BusinessUser(const BusinessUser& usr) : BasicUser(usr) {}
+void BusinessUser::userSearch(const LinqDB& db) const {}
+
+ExecutiveUser::ExecutiveUser() : BusinessUser() {}
+ExecutiveUser::ExecutiveUser(Account* ac, LinqNet* lq) : BusinessUser(ac, lq) {}
+ExecutiveUser::ExecutiveUser(const ExecutiveUser& usr) : BusinessUser(usr) {}
+void ExecutiveUser::userSearch(const LinqDB& db) const {}

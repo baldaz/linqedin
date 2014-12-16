@@ -30,8 +30,20 @@ public:
     virtual void userSearch(const LinqDB&) const;
 };
 
-class BusinessUser : public BasicUser {};
+class BusinessUser : public BasicUser {
+public:
+    BusinessUser();
+    BusinessUser(Account*, LinqNet*);
+    BusinessUser(const BusinessUser&);
+    virtual void userSearch(const LinqDB&) const;
+};
 
-class ExecutiveUser : public BusinessUser {};
+class ExecutiveUser : public BusinessUser {
+public:
+    ExecutiveUser();
+    ExecutiveUser(Account*, LinqNet*);
+    ExecutiveUser(const ExecutiveUser&);
+    virtual void userSearch(const LinqDB&) const;
+};
 
 #endif

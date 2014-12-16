@@ -9,7 +9,7 @@ private:
     User* _usr;
     LinqDB* _db;
 public:
-    LinqClient(User u);
+    LinqClient(Username);
     void displayProfile() const;
     void alterProfile();
     void addFriend();
