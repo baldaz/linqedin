@@ -6,6 +6,7 @@
 #include "linqdb.h"
 
 class LinqNet;
+class LinqDB;
 
 class User {
 protected:
@@ -16,14 +17,21 @@ public:
     User();
     User(Account*, LinqNet*);
     User(const User&);
-    Username* getUsername() const;
     virtual ~User();
+    Username* getUsername() const;
+    virtual void userSearch(const LinqDB&) const =0;
 };
 
-class Basic : public User {};
+class BasicUser : public User {
+public:
+    BasicUser();
+    BasicUser(Account*, LinqNet*);
+    BasicUser(const BasicUser&);
+    virtual void userSearch(const LinqDB&) const;
+};
 
-class Business : public Basic {};
+class BusinessUser : public BasicUser {};
 
-class Executive : public Business {};
+class ExecutiveUser : public BusinessUser {};
 
 #endif

@@ -34,8 +34,8 @@ public:
     void load();
     void save() const;
     int getSize() const;
-    void addUser(const User&);
-    void removeUser(const User&);
+    void addUser(User*);
+    void removeUser(User*);
     User* find(Username);
     SPUser operator[](const int&) const;
     friend ostream& operator<<(ostream&, const LinqDB&);

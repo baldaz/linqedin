@@ -10,8 +10,8 @@ class LinqNet {
 private:
     vector<SPUser> _net;
 public:
-    void addUser(const User&);
-    void delUser(const User&);
+    void addUser(User*);
+    void delUser(User*);
     int getSize() const;
     SPUser operator[](const int&) const;
     friend ostream& operator<<(ostream&, const LinqNet&);

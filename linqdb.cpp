@@ -46,14 +46,14 @@ bool LinqDB::SPUser::operator!=(const SPUser& spu) const {
 int LinqDB::getSize() const {
     return _db.size();
 }
-void LinqDB::addUser(const User& u) {
-    SPUser spu(new User(u));
+void LinqDB::addUser(User* u) {
+    SPUser spu(u);
     _db.push_back(spu);
     // _db.insert(spu);
 }
-void LinqDB::removeUser(const User& usr) {
+void LinqDB::removeUser(User* usr) {
     for(int i = 0; i < this->getSize(); i++) {
-        if(_db[i]->getUsername()->getLogin() == usr.getUsername()->getLogin())
+        if(_db[i]->getUsername()->getLogin() == usr->getUsername()->getLogin())
             _db.erase(_db.begin() + i);
     }
 }

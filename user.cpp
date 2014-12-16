@@ -7,3 +7,10 @@ User::~User() {}
 Username* User::getUsername() const {
     return _acc->getUsername();
 }
+
+BasicUser::BasicUser() : User() {}
+BasicUser::BasicUser(Account* ac, LinqNet* lq) : User(ac, lq) {}
+BasicUser::BasicUser(const BasicUser& usr) : User(usr) {}
+void BasicUser::userSearch(const LinqDB& db) const {
+
+}

@@ -6,13 +6,13 @@ using std::endl;
 int LinqNet::getSize() const {
     return _net.size();
 }
-void LinqNet::addUser(const User& usr) {
-    SPUser spu(new User(usr));
+void LinqNet::addUser(User* usr) {
+    SPUser spu(usr);
     _net.push_back(spu);
 }
-void LinqNet::delUser(const User& usr) {
+void LinqNet::delUser(User* usr) {
     for(int i = 0; i < this->getSize(); i++) {
-        if(_net[i]->getUsername()->getLogin() == usr.getUsername()->getLogin())
+        if(_net[i]->getUsername()->getLogin() == usr->getUsername()->getLogin())
             _net.erase(_net.begin() + i);
     }
 }

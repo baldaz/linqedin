@@ -21,9 +21,9 @@ main() {
     Account acc2(&uf2, &usr2);
     Account acc3(&uf3, &usr3);
     // cout << acc.getInfo()->getName() << endl;
-    User s3(&acc3, &net3);
-    User s2(&acc2, &net2);
-    User s(&acc, &net);
+    User* s3 = new BasicUser(&acc3, &net3);
+    User* s2 = new BasicUser(&acc2, &net2);
+    User* s = new BasicUser(&acc, &net);
     net.addUser(s2); /*inserisco pablo negli amici di andrea*/
     net.addUser(s3);
     net2.addUser(s3);
