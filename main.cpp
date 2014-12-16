@@ -12,11 +12,11 @@ main() {
     LinqNet net2;
     LinqNet net3;
     Username usr("Andrea", "password");
-    UserInfo uf("Andrea", "Baldan", "08-10-1988", "a.g.baldan@gmail.com", "3450515048");
+    UserInfo uf(1, "Andrea", "Baldan", "08-10-1988", "a.g.baldan@gmail.com", "via 4 novembre 12", "3450515048");
     Username usr2("Pablos", "maurisio");
-    UserInfo uf2("Pablos", "Escobar", "15-12-1923", "escobar@cartello.cb", "9873478233");
+    UserInfo uf2(1, "Pablos", "Escobar", "15-12-1923", "escobar@cartello.cb", "calle de la muerte 1", "9873478233");
     Username usr3("Atos", "piovra");
-    UserInfo uf3("Atos", "Bierta", "15-10-1973", "atos@bierta.es", "4872474213");
+    UserInfo uf3(1, "Atos", "Bierta", "15-10-1973", "atos@bierta.es", "calle de la muerte 2", "4872474213");
     Account acc(&uf, &usr);
     Account acc2(&uf2, &usr2);
     Account acc3(&uf3, &usr3);

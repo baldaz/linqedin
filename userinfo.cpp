@@ -1,7 +1,7 @@
 #include "userinfo.h"
 
-UserInfo::UserInfo(string n, string s, string b, string e, string t) :
-                _name(n), _surname(s), _birthdate(b), _email(e), _telephon(t){}
+UserInfo::UserInfo(bool sx, string n, string s, string b, string e, string a, string t) :
+                _sex(sx), _name(n), _surname(s), _birthdate(b), _email(e), _address(a), _telephon(t){}
 string UserInfo::getName() const {
     return _name;
 }
@@ -14,8 +14,15 @@ string UserInfo::getBirthdate() const {
 string UserInfo::getEmail() const {
     return _email;
 }
+string UserInfo::getAddress() const {
+    return _address;
+}
 string UserInfo::getTelephon() const {
     return _telephon;
+}
+string UserInfo::getSex() const {
+    if(_sex) return "Maschio";
+    else return "Femmina";
 }
 void UserInfo::setName(string n) {
     _name = n;

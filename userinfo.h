@@ -10,24 +10,24 @@ using std::vector;
 
 class UserInfo {
 private:
-    bool sex;
+    bool _sex;
     string _name, _surname, _birthdate, _email, _address, _telephon;
     vector<string> _skills;
     vector<Experience*> _formations;
     vector<Experience*> _exps;
 public:
-    UserInfo(string, string, string, string, string);
+    UserInfo(bool, string, string, string, string, string, string);
     string getName() const;
     string getSurname() const;
     string getBirthdate() const;
     string getEmail() const;
     string getAddress() const;
     string getTelephon() const;
-    bool getSex() const;
+    string getSex() const;
     vector<string>* getSkills() const;
     vector<Experience*> getFormations() const;
     vector<Experience*> getExperiences() const;
-    bool setSex(bool) const;
+    void setSex(bool) const;
     void setName(string);
     void setSurname(string);
     void setBirthdate(string);
