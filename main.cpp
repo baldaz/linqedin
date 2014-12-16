@@ -34,9 +34,9 @@ main() {
     cout<<endl;
     cout<<db;
     net.delUser(s3);
-    cout << "Andrea >> " << net << endl;
-    cout << "Pablos >> " << net2 << endl;
-    cout << "Atos >> " << net3 << endl;
+    cout << "Andrea - " << s->getUsername()->getLogin() << " >> " << net << endl;
+    cout << "Pablos - " << uf2.getSex() << " >> " << net2 << endl;
+    cout << "Atos - " << uf3.getSex() << " >> " << net3 << endl;
     cout<<endl;
     // SPUser sp(s);
     // db.addUser(sp);
