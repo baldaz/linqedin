@@ -17,9 +17,9 @@ main() {
     Info* uf2 = new UserInfo(1, "Pablos", "Escobar", "15-12-1923", "escobar@cartello.cb", "calle de la muerte 1", "9873478233");
     Username usr3("Atilio", "piovra");
     Info* uf3 = new UserInfo(1, "Atos", "Bierta", "15-10-1973", "atos@bierta.es", "calle de la muerte 2", "4872474213");
-    Account acc(uf, &usr);
-    Account acc2(uf2, &usr2);
-    Account acc3(uf3, &usr3);
+    Account acc(uf, &usr, basic);
+    Account acc2(uf2, &usr2, basic);
+    Account acc3(uf3, &usr3, basic);
     // cout << acc.getInfo()->getName() << endl;
     User* s3 = new BasicUser(&acc3, &net3);
     User* s2 = new BasicUser(&acc2, &net2);

@@ -1,6 +1,6 @@
 #include "account.h"
 
-Account::Account(Info* uf, Username* us) : _info(uf), _user(us){}
+Account::Account(Info* uf, Username* us, privLevel l = basic) : _info(uf), _user(us), _privilege(l) {}
 Username* Account::getUsername() const {
     return _user;
 }

@@ -13,3 +13,6 @@ void Username::setLogin(string l) {
 void Username::setPassword(string p) {
     _password = p;
 }
+bool Username::operator==(const Username& usr) const {
+    return (usr._login == _login) && (usr._password == _password);
+}

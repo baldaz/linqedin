@@ -52,11 +52,26 @@ void LinqDB::addUser(User* u) {
     // _db.insert(spu);
 }
 void LinqDB::removeUser(User* usr) {
-    for(int i = 0; i < this->getSize(); i++) {
+    for(int i = 0; i < this->getSize(); ++i) {
         if(_db[i]->getAccount()->getUsername()->getLogin() == usr->getAccount()->getUsername()->getLogin())
             _db.erase(_db.begin() + i);
     }
 }
+// User* LinqDB::find(Username usr) {
+//     User* ret = NULL;
+//     for(int i = 0; i < this->getSize(); ++i) {
+//         if(_db[i]->getAccount()->getUsername() == usr) {
+//             switch(_db[i]->getAccount()->getPrLevel()) {
+//                 case basic:
+//                 break;
+//                 case business:
+//                 break;
+//                 case executive:
+//                 break;
+//             }
+//         }
+//     }
+// }
 LinqDB::SPUser LinqDB::operator[](const int& i) const {
     return _db[i];
 }

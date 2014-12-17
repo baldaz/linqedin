@@ -15,5 +15,6 @@ public:
     string getPassword() const;
     void setLogin(string);
     void setPassword(string);
+    bool operator==(const Username&) const;
 };
 #endif
