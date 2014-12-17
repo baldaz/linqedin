@@ -1,12 +1,12 @@
 #include "account.h"
 
-Account::Account(UserInfo* uf, Username* us) : _info(uf), _user(us){}
+Account::Account(Info* uf, Username* us) : _info(uf), _user(us){}
 Username* Account::getUsername() const {
     return _user;
 }
-UserInfo* Account::getInfo() const {
+Info* Account::getInfo() const {
     return _info;
 }
-void Account::setInfo(UserInfo* uf) {
+void Account::setInfo(Info* uf) {
     _info = uf;
 }

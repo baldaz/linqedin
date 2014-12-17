@@ -2,18 +2,18 @@
 #define ACCOUNT_H
 
 #include "username.h"
-#include "userinfo.h"
+#include "info.h"
 
 // class UserInfo;
 
 class Account {
 private:
-    UserInfo* _info;
+    Info* _info;
     Username* _user;
 public:
-    Account(UserInfo*, Username*);
+    Account(Info*, Username*);
     Username* getUsername() const;
-    UserInfo* getInfo() const;
-    void setInfo(UserInfo*);
+    Info* getInfo() const;
+    void setInfo(Info*);
 };
 #endif

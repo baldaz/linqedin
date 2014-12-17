@@ -3,7 +3,6 @@
 
 #include <iostream>
 #include <vector>
-// #include <set>
 #include "user.h"
 
 using std::ostream;
@@ -30,7 +29,6 @@ private:
     vector<SPUser> _db;
     void writeXML(); /*scrivere su XML*/
 public:
-    // set<SPUser> _db;
     void load();
     void save() const;
     int getSize() const;

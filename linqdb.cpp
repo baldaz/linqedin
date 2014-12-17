@@ -53,7 +53,7 @@ void LinqDB::addUser(User* u) {
 }
 void LinqDB::removeUser(User* usr) {
     for(int i = 0; i < this->getSize(); i++) {
-        if(_db[i]->getUsername()->getLogin() == usr->getUsername()->getLogin())
+        if(_db[i]->getAccount()->getUsername()->getLogin() == usr->getAccount()->getUsername()->getLogin())
             _db.erase(_db.begin() + i);
     }
 }
@@ -64,8 +64,8 @@ ostream& operator<<(ostream& os, const LinqDB& db) {
     if(!db.getSize()) os << "Nessun utente inserito" << endl;
     else {
         for(int i = 0; i < db.getSize(); ++i){
-            os << db[i]->getUsername()->getLogin() << " : ";
-            os << db[i]->getUsername()->getPassword() << endl;
+            os << db[i]->getAccount()->getUsername()->getLogin() << " : ";
+            os << db[i]->getAccount()->getUsername()->getPassword() << endl;
         }
         os << "DB size: " << db.getSize() << endl;
     }

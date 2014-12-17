@@ -8,7 +8,13 @@
 using std::string;
 using std::vector;
 
-class UserInfo {
+class Info {
+public:
+    virtual ~Info();
+    virtual string print() const =0;
+};
+
+class UserInfo : public Info {
 private:
     bool _sex;
     string _name, _surname, _birthdate, _email, _address, _telephon;
@@ -16,7 +22,9 @@ private:
     vector<Experience*> _formations;
     vector<Experience*> _exps;
 public:
+    UserInfo();
     UserInfo(bool, string, string, string, string, string, string);
+    // virtual ~UserInfo();
     string getName() const;
     string getSurname() const;
     string getBirthdate() const;
@@ -24,9 +32,9 @@ public:
     string getAddress() const;
     string getTelephon() const;
     string getSex() const;
-    vector<string>* getSkills() const;
+    vector<string> getSkills() const;
+    vector<Experience*> getExperience() const;
     vector<Experience*> getFormations() const;
-    vector<Experience*> getExperiences() const;
     void setSex(bool) const;
     void setName(string);
     void setSurname(string);
@@ -35,7 +43,9 @@ public:
     void setAddress(string);
     void setTelephon(string);
     void addSkill(string);
-    void addFormation(Experience*);
     void addExperience(Experience*);
+    void addFormation(Experience*);
+    virtual string print() const;
 };
+
 #endif
