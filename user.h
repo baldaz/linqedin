@@ -2,8 +2,7 @@
 #define USER_H
 
 #include "account.h"
-#include "username.h"
-#include "linqdb.h"
+// #include "linqdb.h"
 
 class LinqNet;
 class LinqDB;

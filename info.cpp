@@ -43,6 +43,6 @@ void UserInfo::setTelephon(QString t = "") {
 }
 QString UserInfo::print() const {
     QString ret ="";
-    ret += _name + " : " + _surname + " : " + this->sex() + " : " + _address + " : " + _telephon;
+    ret += _name + " , " + _surname + " , " + this->sex() + " , " + _address + " , " + _telephon;
     return ret;
 }

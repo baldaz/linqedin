@@ -2,37 +2,25 @@
 #define LINQDB_H
 
 #include <iostream>
+#include <algorithm>
 #include <vector>
 #include <QFile>
 #include <QJsonObject>
+#include <QJsonArray>
 #include <QJsonDocument>
 #include <QString>
-#include "user.h"
+#include "spuser.h"
 
 using std::ostream;
 using std::vector;
 
-class User;
-
 class LinqDB {
 private:
-    class SPUser {
-    private:
-        User* _p_usr;
-    public:
-        SPUser(User*);
-        SPUser(const SPUser&);
-        ~SPUser();
-        SPUser& operator=(const SPUser&);
-        User& operator*() const;
-        User* operator->() const;
-        bool operator==(const SPUser&) const;
-        bool operator!=(const SPUser&) const;
-    };
     vector<SPUser> _db;
-    void read(const QJsonObject&);
+    vector<SPUser> fromJsonObject();
+    vector<SPUser> read(const QJsonObject&);
+    vector<QJsonObject> toJsonObject() const;
     void write(vector<QJsonObject>) const;
-    vector<QJsonObject> toJson() const;
 public:
     void load();
     void save() const;

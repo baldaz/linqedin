@@ -1,10 +1,12 @@
 #ifndef LINQNET_H
 #define LINQNET_H
 
+#include <iostream>
 #include <vector>
 #include "spuser.h"
 
 using std::vector;
+using std::ostream;
 
 class LinqNet {
 private:
