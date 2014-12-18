@@ -3,11 +3,14 @@
 
 #include <iostream>
 #include <vector>
+#include <QFile>
+#include <QJsonObject>
+#include <QJsonDocument>
+#include <QString>
 #include "user.h"
 
 using std::ostream;
 using std::vector;
-// using std::set;
 
 class User;
 
@@ -27,11 +30,13 @@ private:
         bool operator!=(const SPUser&) const;
     };
     vector<SPUser> _db;
-    void writeXML(); /*scrivere su XML*/
+    void read(const QJsonObject&);
+    void write(vector<QJsonObject>) const;
+    vector<QJsonObject> toJson() const;
 public:
     void load();
     void save() const;
-    int getSize() const;
+    int size() const;
     void addUser(User*);
     void removeUser(User*);
     User* find(Username);

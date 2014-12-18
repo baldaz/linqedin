@@ -12,7 +12,7 @@ private:
 public:
     void addUser(User*);
     void delUser(User*);
-    int getSize() const;
+    int size() const;
     SPUser operator[](const int&) const;
     friend ostream& operator<<(ostream&, const LinqNet&);
 };

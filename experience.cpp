@@ -1,35 +1,34 @@
 #include "experience.h"
 
-using std::string;
-
+Experience::~Experience() {}
 Instruction::Instruction() {}
-Instruction::Instruction(string l, string f, string t) : _location(l), _from(f), _to(t) {}
-string Instruction::getLocation() const {
+Instruction::Instruction(QString l, QString f, QString t) : _location(l), _from(f), _to(t) {}
+QString Instruction::location() const {
     return _location;
 }
-string Instruction::getFrom() const {
+QString Instruction::from() const {
     return _from;
 }
-string Instruction::getTo() const {
+QString Instruction::to() const {
     return _to;
 }
-void Instruction::setLocation(string l = "") {
+void Instruction::setLocation(QString l = "") {
     _location = l;
 }
-void Instruction::setFrom(string f = "") {
+void Instruction::setFrom(QString f = "") {
     _from = f;
 }
-void Instruction::setTo(string t = "") {
+void Instruction::setTo(QString t = "") {
     _to = t;
 }
-string Instruction::print() const {}
+QString Instruction::print() const { return 0;}
 
 Work::Work() : Instruction() {}
-Work::Work(string l, string d, string f, string t) : Instruction(s, f, t), _description(d) {}
-string Work::getDescription() const {
+Work::Work(QString l, QString d, QString f, QString t) : Instruction(l, f, t), _description(d) {}
+QString Work::description() const {
     return _description;
 }
-void Work::setDescription(string d = "") {
+void Work::setDescription(QString d = "") {
     _description = d;
 }
-string Work::print() const {}
+QString Work::print() const { return 0; }

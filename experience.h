@@ -1,41 +1,40 @@
 #ifndef EXPERIENCE_H
 #define EXPERIENCE_H
 
-#include <string>
-
-using std::string;
+#include <QString>
 
 class Experience {
+public:
     virtual ~Experience();
-    virtual string print() const =0;
+    virtual QString print() const =0;
 };
 
 class Instruction : public Experience {
 protected:
-    string _location, _from, _to;
+    QString _location, _from, _to;
 public:
     Instruction();
-    Instruction(string, string, string);
-    virtual ~Instruction();
-    string getLocation() const;
-    string getFrom() const;
-    string getTo() const;
-    void setLocation(string);
-    void setFrom(string);
-    void setTo(string);
-    virtual string print() const;
+    Instruction(QString, QString, QString);
+    // ~Instruction();
+    QString location() const;
+    QString from() const;
+    QString to() const;
+    void setLocation(QString);
+    void setFrom(QString);
+    void setTo(QString);
+    virtual QString print() const;
 };
 
 class Work : public Instruction {
 protected:
-    string _description;
+    QString _description;
 public:
     Work();
-    Work(string, string, string, string);
-    virtual ~Work();
-    string getDescription() const;
-    void setDescription(string);
-    virtual string print() const;
+    Work(QString, QString, QString, QString);
+    // ~Work();
+    QString description() const;
+    void setDescription(QString);
+    virtual QString print() const;
 };
 
 #endif

@@ -18,7 +18,7 @@ public:
     User(Account*, LinqNet*);
     User(const User&);
     virtual ~User();
-    Account* getAccount() const;
+    Account* account() const;
     virtual void userSearch(const LinqDB&) const =0;
 };
 

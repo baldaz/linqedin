@@ -2,47 +2,47 @@
 
 Info::~Info() {}
 UserInfo::UserInfo() {}
-UserInfo::UserInfo(bool sx, string n, string s, string b, string e, string a, string t) :
+UserInfo::UserInfo(bool sx, QString n, QString s, QString b, QString e, QString a, QString t) :
                 _sex(sx), _name(n), _surname(s), _birthdate(b), _email(e), _address(a), _telephon(t){}
-string UserInfo::getName() const {
+QString UserInfo::name() const {
     return _name;
 }
-string UserInfo::getSurname() const {
+QString UserInfo::surname() const {
     return _surname;
 }
-string UserInfo::getBirthdate() const {
+QString UserInfo::birthdate() const {
     return _birthdate;
 }
-string UserInfo::getEmail() const {
+QString UserInfo::email() const {
     return _email;
 }
-string UserInfo::getAddress() const {
+QString UserInfo::address() const {
     return _address;
 }
-string UserInfo::getTelephon() const {
+QString UserInfo::telephon() const {
     return _telephon;
 }
-string UserInfo::getSex() const {
+QString UserInfo::sex() const {
     if(_sex) return "Maschio";
     else return "Femmina";
 }
-void UserInfo::setName(string n = "") {
+void UserInfo::setName(QString n = "") {
     _name = n;
 }
-void UserInfo::setSurname(string s = "") {
+void UserInfo::setSurname(QString s = "") {
     _surname = s;
 }
-void UserInfo::setBirthdate(string b = "") {
+void UserInfo::setBirthdate(QString b = "") {
     _birthdate = b;
 }
-void UserInfo::setEmail(string e = "") {
+void UserInfo::setEmail(QString e = "") {
     _email = e;
 }
-void UserInfo::setTelephon(string t = "") {
+void UserInfo::setTelephon(QString t = "") {
     _telephon = t;
 }
-string UserInfo::print() const {
-    string ret ="";
-    ret += _name + " : " + _surname + " : " + this->getSex() + " : " + _address + " : " + _telephon;
+QString UserInfo::print() const {
+    QString ret ="";
+    ret += _name + " : " + _surname + " : " + this->sex() + " : " + _address + " : " + _telephon;
     return ret;
 }

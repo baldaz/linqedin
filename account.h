@@ -14,8 +14,9 @@ private:
     privLevel _privilege;
 public:
     Account(Info*, Username*, privLevel);
-    Username* getUsername() const;
-    Info* getInfo() const;
+    Username* username() const;
+    Info* info() const;
+    privLevel prLevel() const;
     void setInfo(Info*);
 };
 #endif

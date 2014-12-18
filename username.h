@@ -1,20 +1,18 @@
 #ifndef USERNAME_H
 #define USERNAME_H
 
-#include <string>
-
-using std::string;
+#include <QString>
 
 class Username {
 private:
-    string _login;
-    string _password;
+    QString _login;
+    QString _password;
 public:
-    Username(string, string);
-    string getLogin() const;
-    string getPassword() const;
-    void setLogin(string);
-    void setPassword(string);
+    Username(QString, QString);
+    QString login() const;
+    void setLogin(QString);
+    QString password() const;
+    void setPassword(QString);
     bool operator==(const Username&) const;
 };
 #endif

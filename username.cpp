@@ -1,16 +1,17 @@
 #include "username.h"
+#include <QString>
 
-Username::Username(string l, string p) : _login(l), _password(p){}
-string Username::getLogin() const {
+Username::Username(QString l, QString p) : _login(l), _password(p){}
+QString Username::login() const {
     return _login;
 }
-string Username::getPassword() const {
+QString Username::password() const {
     return _password;
 }
-void Username::setLogin(string l) {
+void Username::setLogin(QString l) {
     _login = l;
 }
-void Username::setPassword(string p) {
+void Username::setPassword(QString p) {
     _password = p;
 }
 bool Username::operator==(const Username& usr) const {

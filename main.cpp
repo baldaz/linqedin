@@ -6,7 +6,7 @@
 using std::cout;
 using std::endl;
 
-main() {
+int main() {
     LinqDB db; /*DB utenti*/
     LinqNet net; /*Rete amicizie*/
     LinqNet net2;
@@ -35,15 +35,17 @@ main() {
     cout<<db;
     net.delUser(s3);
     cout << "*******" << endl;
-    cout << s->getAccount()->getUsername()->getLogin() << endl << uf->print() << " >> " << net << endl;
+    cout << s->account()->username()->login().toStdString() << endl << uf->print().toStdString() << " >> " << net << endl;
     cout << "*******" << endl;
-    cout << s2->getAccount()->getUsername()->getLogin() << endl << uf2->print() << " >> " << net2 << endl;
+    cout << s2->account()->username()->login().toStdString() << endl << uf2->print().toStdString() << " >> " << net2 << endl;
     cout << "*******" << endl;
-    cout << s3->getAccount()->getUsername()->getLogin() << endl << uf3->print() << " >> " << net3 << endl;
+    cout << s3->account()->username()->login().toStdString() << endl << uf3->print().toStdString() << " >> " << net3 << endl;
     cout << "*******" << endl;
+    db.save();
     // SPUser sp(s);
     // db.addUser(sp);
     // cout<<db;
     // User s;
     // db.addUser(s);
+    return 0;
 }

@@ -1,5 +1,6 @@
 #include "linqdb.h"
 
+using std::for_each;
 using std::ostream;
 using std::endl;
 
@@ -43,7 +44,32 @@ bool LinqDB::SPUser::operator!=(const SPUser& spu) const {
     return(_p_usr != spu._p_usr);
 }
 /* parte db */
-int LinqDB::getSize() const {
+/*con std::for_each funzione in meno, per ogni elemento nel db creare json e scriverlo nella stessa funzione*/
+vector<QJsonObject> LinqDB::toJson() const {
+    vector<QJsonObject> vjs;
+    for(int i = 0; i < this->size(); ++i) {
+        QJsonObject jo;
+        jo["username"] = _db[i]->account()->username()->login();
+        jo["password"] = _db[i]->account()->username()->password();
+        vjs.push_back(jo);
+    }
+    return vjs;
+}
+void LinqDB::write(vector<QJsonObject> json) const {
+    QFile saveDB(QStringLiteral("database.json"));
+    if (!saveDB.open(QIODevice::WriteOnly))
+        qWarning("Couldn't open database.");
+    for(int i = 0; i < json.size(); ++i) {
+        QJsonDocument doc(json[i]);
+        saveDB.write(doc.toJson());
+    }
+}
+void LinqDB::save() const {
+    vector<QJsonObject> js;
+    js = toJson();
+    write(js);
+}
+int LinqDB::size() const {
     return _db.size();
 }
 void LinqDB::addUser(User* u) {
@@ -52,16 +78,16 @@ void LinqDB::addUser(User* u) {
     // _db.insert(spu);
 }
 void LinqDB::removeUser(User* usr) {
-    for(int i = 0; i < this->getSize(); ++i) {
-        if(_db[i]->getAccount()->getUsername()->getLogin() == usr->getAccount()->getUsername()->getLogin())
+    for(int i = 0; i < this->size(); ++i) {
+        if(_db[i]->account()->username()->login() == usr->account()->username()->login())
             _db.erase(_db.begin() + i);
     }
 }
 // User* LinqDB::find(Username usr) {
 //     User* ret = NULL;
-//     for(int i = 0; i < this->getSize(); ++i) {
-//         if(_db[i]->getAccount()->getUsername() == usr) {
-//             switch(_db[i]->getAccount()->getPrLevel()) {
+//     for(int i = 0; i < this->size(); ++i) {
+//         if(_db[i]->account()->username() == usr) {
+//             switch(_db[i]->account()->prLevel()) {
 //                 case basic:
 //                 break;
 //                 case business:
@@ -76,20 +102,20 @@ LinqDB::SPUser LinqDB::operator[](const int& i) const {
     return _db[i];
 }
 ostream& operator<<(ostream& os, const LinqDB& db) {
-    if(!db.getSize()) os << "Nessun utente inserito" << endl;
+    if(!db.size()) os << "Nessun utente inserito" << endl;
     else {
-        for(int i = 0; i < db.getSize(); ++i){
-            os << db[i]->getAccount()->getUsername()->getLogin() << " : ";
-            os << db[i]->getAccount()->getUsername()->getPassword() << endl;
+        for(int i = 0; i < db.size(); ++i){
+            os << db[i]->account()->username()->login().toStdString() << " : ";
+            os << db[i]->account()->username()->password().toStdString() << endl;
         }
-        os << "DB size: " << db.getSize() << endl;
+        os << "DB size: " << db.size() << endl;
     }
     return os;
     // // if(!db._db.size()) os << "Nessun utente inserito" << endl;
     // // else {
     // //     for(db._db::iterator it = db._db.begin(); it != db._db.end(); ++it) {
-    // //         os << *it->getUsername()->getLogin() << " : ";
-    // //         os << *it->getUsername()->getPassword() << endl;
+    // //         os << *it->username()->login() << " : ";
+    // //         os << *it->username()->password() << endl;
     // //     }
     // // }
     // return os;
