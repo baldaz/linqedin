@@ -4,17 +4,30 @@ using std::for_each;
 using std::ostream;
 using std::endl;
 
-vector<SPUser> LinqDB::fromJsonObject() {
+bool LinqDB::fromJsonObject() {
     QFile loadDB(QStringLiteral("database.json"));
-    if (!loadDB.open(QIODevice::ReadOnly))
+    if (!loadDB.open(QIODevice::ReadOnly)) {
         qWarning("Couldn't open database.");
-    vector<SPUser> vsp;
+        return false;
+    }
     QByteArray saveData = loadDB.readAll();
+    loadDB.close();
+
     QJsonDocument doc(QJsonDocument::fromJson(saveData));
-    vsp = read(doc.object());
-    return vsp;
+    read(doc.array());
+    return true;
 }
-vector<SPUser> LinqDB::read(const QJsonObject& qjs) {}
+void LinqDB::read(const QJsonArray& qjs) {
+    for(int i = 0; i < qjs.size(); ++i) {
+        QJsonObject obj = qjs[i].toObject();
+        Username usr(obj["username"].toString(), obj["password"].toString());
+        Info* uf = new UserInfo(1, "Andrea", "Baldan", "08-10-1988", "a.g.baldan@gmail.com", "via 4 novembre 12", "3450515048");
+        Account acc(uf, &usr, basic);
+        LinqNet net;
+        User* s = new BasicUser(&acc, &net);
+        addUser(s);
+    }
+}
 vector<QJsonObject> LinqDB::toJsonObject() const {
     vector<QJsonObject> vjs;
     for(int i = 0; i < size(); ++i) {
@@ -23,7 +36,11 @@ vector<QJsonObject> LinqDB::toJsonObject() const {
         jUser["username"] = _db[i]->account()->username()->login();
         jUser["password"] = _db[i]->account()->username()->password();
         jUser["info"] = _db[i]->account()->info()->print();
-        jArr.append(jInfo);
+        jUser["privilege"] = _db[i]->account()->prLevel();
+        vector<Username*> list = _db[i]->net()->username();
+        for(int i = 0; i < list.size(); ++i)
+            jArr.append(list[i]->login());
+        jUser["net"] = jArr;
         vjs.push_back(jUser);
     }
     return vjs;
@@ -36,9 +53,15 @@ void LinqDB::write(vector<QJsonObject> json) const {
         QJsonDocument doc(json[i]);
         saveDB.write(doc.toJson());
     }
+    saveDB.close();
 }
 void LinqDB::save() const {
     write(toJsonObject());
+}
+void LinqDB::load() {
+    bool s = fromJsonObject();
+    if(!s) std::cout<<"Errore";
+    else std::cout<<"OK";
 }
 int LinqDB::size() const {
     return _db.size();
@@ -46,7 +69,6 @@ int LinqDB::size() const {
 void LinqDB::addUser(User* u) {
     SPUser spu(u);
     _db.push_back(spu);
-    // _db.insert(spu);
 }
 void LinqDB::removeUser(User* usr) {
     for(int i = 0; i < this->size(); ++i) {

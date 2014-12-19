@@ -1,15 +1,28 @@
 {
     "info": "Andrea , Baldan , Maschio , via 4 novembre 12 , 3450515048",
+    "net": [
+        "Pablito",
+        "Atilio"
+    ],
     "password": "password",
+    "privilege": 0,
     "username": "Baldaz"
 }
 {
     "info": "Pablos , Escobar , Maschio , calle de la muerte 1 , 9873478233",
+    "net": [
+        "Atilio"
+    ],
     "password": "maurisio",
+    "privilege": 0,
     "username": "Pablito"
 }
 {
     "info": "Atos , Bierta , Maschio , calle de la muerte 2 , 4872474213",
+    "net": [
+        "Pablito"
+    ],
     "password": "piovra",
+    "privilege": 0,
     "username": "Atilio"
 }

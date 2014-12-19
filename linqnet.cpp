@@ -16,6 +16,12 @@ void LinqNet::delUser(User* usr) {
             _net.erase(_net.begin() + i);
     }
 }
+vector<Username*> LinqNet::username() const {
+    vector<Username*> list;
+    for(int i = 0; i < size(); ++i)
+        list.push_back(_net[i]->account()->username());
+    return list;
+}
 SPUser LinqNet::operator[](const int& i) const {
     return _net[i];
 }

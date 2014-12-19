@@ -15,6 +15,7 @@ public:
     void addUser(User*);
     void delUser(User*);
     int size() const;
+    vector<Username*> username() const;
     SPUser operator[](const int&) const;
     friend ostream& operator<<(ostream&, const LinqNet&);
 };

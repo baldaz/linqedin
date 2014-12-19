@@ -10,6 +10,7 @@
 #include <QJsonDocument>
 #include <QString>
 #include "spuser.h"
+#include "linqnet.h"
 
 using std::ostream;
 using std::vector;
@@ -17,8 +18,8 @@ using std::vector;
 class LinqDB {
 private:
     vector<SPUser> _db;
-    vector<SPUser> fromJsonObject();
-    vector<SPUser> read(const QJsonObject&);
+    bool fromJsonObject();
+    void read(const QJsonArray&);
     vector<QJsonObject> toJsonObject() const;
     void write(vector<QJsonObject>) const;
 public:

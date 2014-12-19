@@ -2,7 +2,7 @@
 #define USER_H
 
 #include "account.h"
-// #include "linqdb.h"
+#include <vector>
 
 class LinqNet;
 class LinqDB;
@@ -18,6 +18,7 @@ public:
     User(const User&);
     virtual ~User();
     Account* account() const;
+    LinqNet* net() const;
     virtual void userSearch(const LinqDB&) const =0;
 };
 
