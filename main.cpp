@@ -31,7 +31,7 @@ int main() {
     // db.addUser(s);
     // db.addUser(s2);
     // db.addUser(s3);
-    cout<<endl;
+    // cout<<endl;
     // cout<<db;
     // net.delUser(s3);
     cout << "*******" << endl;

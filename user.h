@@ -12,7 +12,6 @@ protected:
     Account* _acc;
     LinqNet* _net;
 public:
-    int ref;
     User();
     User(Account*, LinqNet*);
     User(const User&);

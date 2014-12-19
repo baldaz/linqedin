@@ -18,14 +18,17 @@ bool LinqDB::fromJsonObject() {
     return true;
 }
 void LinqDB::read(const QJsonArray& qjs) {
+    UserInfo* uif;
     for(int i = 0; i < qjs.size(); ++i) {
         QJsonObject obj = qjs[i].toObject();
         Username* usr = new Username(obj["username"].toString(), obj["password"].toString());
-        Info* uf = new UserInfo(1, "Andrea", "Baldan", "08-10-1988", "a.g.baldan@gmail.com", "via 4 novembre 12", "3450515048");
+        Info* uf = new UserInfo();
+        uif = dynamic_cast<UserInfo*> (uf);
         Account* acc = new Account(uf, usr, basic);
         LinqNet* net = new LinqNet();
+        uif->setName(obj["name"].toString());
+        uif->setSurname(obj["surname"].toString());
         User* s = new BasicUser(acc, net);
-        std::cout << i ;
         addUser(s);
     }
 }
@@ -33,16 +36,23 @@ vector<QJsonObject> LinqDB::toJsonObject() const {
     vector<QJsonObject> vjs;
     UserInfo* uif;
     for(int i = 0; i < size(); ++i) {
-        QJsonObject jUser;
+        QJsonObject jUser, jInf;
         QJsonArray jArr, jInfo;
         uif = dynamic_cast<UserInfo*> (_db[i]->account()->info()); /*downcast a userinfo*/
-        jInfo.append(uif->name());
-        jInfo.append(uif->surname());
-        jInfo.append(uif->telephon());
-        jInfo.append(uif->birthdate());
-        jInfo.append(uif->email());
-        jInfo.append(uif->sex());
-        jInfo.append(uif->address());
+        // jInfo.append(uif->name());
+        // jInfo.append(uif->surname());
+        // jInfo.append(uif->telephon());
+        // jInfo.append(uif->birthdate());
+        // jInfo.append(uif->email());
+        // jInfo.append(uif->sex());
+        // jInfo.append(uif->address());
+        jInf["name"] = uif->name();
+        jInf["surname"] = uif->surname();
+        jInf["telephon"] = uif->telephon();
+        jInf["birthdate"] = uif->birthdate();
+        jInf["email"] = uif->email();
+        jInf["sex"] = uif->sex();
+        jInf["address"] = uif->address();
         jUser["username"] = _db[i]->account()->username()->login();
         jUser["password"] = _db[i]->account()->username()->password();
         // jUser["info"] = _db[i]->account()->info()->print();
@@ -51,7 +61,7 @@ vector<QJsonObject> LinqDB::toJsonObject() const {
         for(int i = 0; i < list.size(); ++i)
             jArr.append(list[i]->login());
         jUser["net"] = jArr;
-        jUser["info"] = jInfo;
+        jUser["info"] = jInf;
         vjs.push_back(jUser);
     }
     return vjs;

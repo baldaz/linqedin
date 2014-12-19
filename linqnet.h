@@ -12,6 +12,7 @@ class LinqNet {
 private:
     vector<SPUser> _net;
 public:
+    ~LinqNet();
     void addUser(User*);
     void delUser(User*);
     int size() const;

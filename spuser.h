@@ -5,7 +5,14 @@
 
 class SPUser {
 private:
+    class RefCounter {
+        int count;
+    public:
+        void addRef();
+        int release();
+    };
     User* _p_usr;
+    RefCounter* ref;
 public:
     SPUser(User*);
     SPUser(const SPUser&);

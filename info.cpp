@@ -41,6 +41,9 @@ void UserInfo::setEmail(QString e = "") {
 void UserInfo::setTelephon(QString t = "") {
     _telephon = t;
 }
+void UserInfo::setAddress(QString a = "") {
+    _address = a;
+}
 QString UserInfo::print() const {
     QString ret ="";
     ret += _name + " , " + _surname + " , " + this->sex() + " , " + _address + " , " + _telephon;

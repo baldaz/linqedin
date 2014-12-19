@@ -3,6 +3,7 @@
 using std::cout;
 using std::endl;
 
+LinqNet::~LinqNet() {}
 int LinqNet::size() const {
     return _net.size();
 }

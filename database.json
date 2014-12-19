@@ -1,14 +1,14 @@
 [
     {
-        "info": [
-            "Andrea",
-            "Baldan",
-            "3450515048",
-            "08-10-1988",
-            "a.g.baldan@gmail.com",
-            "Maschio",
-            "via 4 novembre 12"
-        ],
+        "info": {
+            "address": "via 4 novembre 12",
+            "birthdate": "08-10-1988",
+            "email": "a.g.baldan@gmail.com",
+            "name": "Andrea",
+            "sex": "Maschio",
+            "surname": "Baldan",
+            "telephon": "3450515048"
+        },
         "net": [
             "Pablito",
             "Atilio"
@@ -18,15 +18,15 @@
         "username": "Baldaz"
     },
     {
-        "info": [
-            "Pablos",
-            "Escobar",
-            "9873478233",
-            "15-12-1923",
-            "escobar@cartello.cb",
-            "Maschio",
-            "calle de la muerte 1"
-        ],
+        "info": {
+            "address": "calle de la muerte 1",
+            "birthdate": "15-12-1923",
+            "email": "escobar@cartello.cb",
+            "name": "Pablos",
+            "sex": "Maschio",
+            "surname": "Escobar",
+            "telephon": "9873478233"
+        },
         "net": [
             "Atilio"
         ],
@@ -35,15 +35,15 @@
         "username": "Pablito"
     },
     {
-        "info": [
-            "Atos",
-            "Bierta",
-            "4872474213",
-            "15-10-1973",
-            "atos@bierta.es",
-            "Maschio",
-            "calle de la muerte 2"
-        ],
+        "info": {
+            "address": "calle de la muerte 2",
+            "birthdate": "15-10-1973",
+            "email": "atos@bierta.es",
+            "name": "Atos",
+            "sex": "Maschio",
+            "surname": "Bierta",
+            "telephon": "4872474213"
+        },
         "net": [
             "Pablito"
         ],

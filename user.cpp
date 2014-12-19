@@ -3,9 +3,9 @@
 
 using std::vector;
 
-User::User() : ref(0) {}
-User::User(Account* ac, LinqNet* lq) : _acc(ac), _net(lq), ref(0) {}
-User::User(const User& usr) : _acc(usr._acc), _net(usr._net), ref(0) {}
+User::User() {}
+User::User(Account* ac, LinqNet* lq) : _acc(ac), _net(lq) {}
+User::User(const User& usr) : _acc(usr._acc), _net(usr._net) {}
 User::~User() { delete _acc; delete _net; }
 Account* User::account() const {
     return _acc;

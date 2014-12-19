@@ -1,29 +1,33 @@
 #include "spuser.h"
 
-SPUser::SPUser(User* usr) : _p_usr(usr) {
-    if(_p_usr)
-        _p_usr->ref++;
+void SPUser::RefCounter::addRef() {
+    count++;
 }
-SPUser::SPUser(const SPUser& spusr) : _p_usr(spusr._p_usr) {
-    if(_p_usr)
-        _p_usr->ref++;
+int SPUser::RefCounter::release() {
+    return --count;
+}
+SPUser::SPUser(User* usr) : _p_usr(usr), ref(0) {
+    ref = new RefCounter();
+    ref->addRef();
+}
+SPUser::SPUser(const SPUser& spusr) : _p_usr(spusr._p_usr), ref(spusr.ref) {
+    ref->addRef();
 }
 SPUser::~SPUser() {
-    if(_p_usr) {
-        _p_usr->ref--;
-        if(!_p_usr->ref)
-            delete _p_usr;
+    if(!ref->release()) {
+        delete _p_usr;
+        delete ref;
     }
 }
 SPUser& SPUser::operator=(const SPUser& spusr) {
-    if(this != &spusr) {
-        User* u = _p_usr;
-        _p_usr = spusr._p_usr;
-        if(_p_usr) _p_usr->ref++;
-        if(u) {
-            u->ref--;
-            if(!u->ref) delete u;
+    if (this != &spusr) {
+        if(ref->release() == 0) {
+            delete _p_usr;
+            delete ref;
         }
+        _p_usr = spusr._p_usr;
+        ref = spusr.ref;
+        ref->addRef();
     }
     return *this;
 }
