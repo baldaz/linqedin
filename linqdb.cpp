@@ -20,27 +20,38 @@ bool LinqDB::fromJsonObject() {
 void LinqDB::read(const QJsonArray& qjs) {
     for(int i = 0; i < qjs.size(); ++i) {
         QJsonObject obj = qjs[i].toObject();
-        Username usr(obj["username"].toString(), obj["password"].toString());
+        Username* usr = new Username(obj["username"].toString(), obj["password"].toString());
         Info* uf = new UserInfo(1, "Andrea", "Baldan", "08-10-1988", "a.g.baldan@gmail.com", "via 4 novembre 12", "3450515048");
-        Account acc(uf, &usr, basic);
-        LinqNet net;
-        User* s = new BasicUser(&acc, &net);
+        Account* acc = new Account(uf, usr, basic);
+        LinqNet* net = new LinqNet();
+        User* s = new BasicUser(acc, net);
+        std::cout << i ;
         addUser(s);
     }
 }
 vector<QJsonObject> LinqDB::toJsonObject() const {
     vector<QJsonObject> vjs;
+    UserInfo* uif;
     for(int i = 0; i < size(); ++i) {
-        QJsonObject jUser,jInfo;
-        QJsonArray jArr;
+        QJsonObject jUser;
+        QJsonArray jArr, jInfo;
+        uif = dynamic_cast<UserInfo*> (_db[i]->account()->info()); /*downcast a userinfo*/
+        jInfo.append(uif->name());
+        jInfo.append(uif->surname());
+        jInfo.append(uif->telephon());
+        jInfo.append(uif->birthdate());
+        jInfo.append(uif->email());
+        jInfo.append(uif->sex());
+        jInfo.append(uif->address());
         jUser["username"] = _db[i]->account()->username()->login();
         jUser["password"] = _db[i]->account()->username()->password();
-        jUser["info"] = _db[i]->account()->info()->print();
+        // jUser["info"] = _db[i]->account()->info()->print();
         jUser["privilege"] = _db[i]->account()->prLevel();
         vector<Username*> list = _db[i]->net()->username();
         for(int i = 0; i < list.size(); ++i)
             jArr.append(list[i]->login());
         jUser["net"] = jArr;
+        jUser["info"] = jInfo;
         vjs.push_back(jUser);
     }
     return vjs;
@@ -49,10 +60,12 @@ void LinqDB::write(vector<QJsonObject> json) const {
     QFile saveDB(QStringLiteral("database.json"));
     if (!saveDB.open(QIODevice::WriteOnly))
         qWarning("Couldn't open database.");
-    for(int i = 0; i < json.size(); ++i) {
-        QJsonDocument doc(json[i]);
-        saveDB.write(doc.toJson());
-    }
+    QJsonArray jarr;
+    for(int i = 0; i < json.size(); ++i)
+        jarr.append(json[i]);
+
+    QJsonDocument doc(jarr);
+    saveDB.write(doc.toJson());
     saveDB.close();
 }
 void LinqDB::save() const {

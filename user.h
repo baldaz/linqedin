@@ -12,11 +12,12 @@ protected:
     Account* _acc;
     LinqNet* _net;
 public:
-    int references;
+    int ref;
     User();
     User(Account*, LinqNet*);
     User(const User&);
     virtual ~User();
+    virtual User* clone() const =0;
     Account* account() const;
     LinqNet* net() const;
     virtual void userSearch(const LinqDB&) const =0;
@@ -27,6 +28,7 @@ public:
     BasicUser();
     BasicUser(Account*, LinqNet*);
     BasicUser(const BasicUser&);
+    virtual User* clone() const;
     virtual void userSearch(const LinqDB&) const;
 };
 
@@ -35,6 +37,7 @@ public:
     BusinessUser();
     BusinessUser(Account*, LinqNet*);
     BusinessUser(const BusinessUser&);
+    virtual User* clone() const;
     virtual void userSearch(const LinqDB&) const;
 };
 
@@ -43,6 +46,7 @@ public:
     ExecutiveUser();
     ExecutiveUser(Account*, LinqNet*);
     ExecutiveUser(const ExecutiveUser&);
+    virtual User* clone() const;
     virtual void userSearch(const LinqDB&) const;
 };
 

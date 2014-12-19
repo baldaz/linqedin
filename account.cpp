@@ -1,6 +1,7 @@
 #include "account.h"
 
 Account::Account(Info* uf, Username* us, privLevel l = basic) : _info(uf), _user(us), _privilege(l) {}
+Account::~Account() { delete _user; delete _info;}
 Username* Account::username() const {
     return _user;
 }

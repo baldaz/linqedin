@@ -2,6 +2,7 @@
 #include <QString>
 
 Username::Username(QString l, QString p) : _login(l), _password(p){}
+Username::~Username() {}
 QString Username::login() const {
     return _login;
 }

@@ -2,16 +2,16 @@
 
 SPUser::SPUser(User* usr) : _p_usr(usr) {
     if(_p_usr)
-        _p_usr->references++;
+        _p_usr->ref++;
 }
 SPUser::SPUser(const SPUser& spusr) : _p_usr(spusr._p_usr) {
     if(_p_usr)
-        _p_usr->references++;
+        _p_usr->ref++;
 }
 SPUser::~SPUser() {
     if(_p_usr) {
-        _p_usr->references--;
-        if(!_p_usr->references)
+        _p_usr->ref--;
+        if(!_p_usr->ref)
             delete _p_usr;
     }
 }
@@ -19,10 +19,10 @@ SPUser& SPUser::operator=(const SPUser& spusr) {
     if(this != &spusr) {
         User* u = _p_usr;
         _p_usr = spusr._p_usr;
-        if(_p_usr) _p_usr->references++;
+        if(_p_usr) _p_usr->ref++;
         if(u) {
-            u->references--;
-            if(!u->references) delete u;
+            u->ref--;
+            if(!u->ref) delete u;
         }
     }
     return *this;

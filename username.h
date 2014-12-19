@@ -9,6 +9,7 @@ private:
     QString _password;
 public:
     Username(QString, QString);
+    ~Username();
     QString login() const;
     void setLogin(QString);
     QString password() const;
