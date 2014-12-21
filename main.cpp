@@ -1,7 +1,8 @@
 #include <iostream>
-#include "account.h"
-#include "linqnet.h"
-#include "linqdb.h"
+// #include "account.h"
+// #include "linqnet.h"
+// #include "linqdb.h"
+#include "linqclient.h"
 
 using std::cout;
 using std::endl;
@@ -34,15 +35,21 @@ int main() {
     // cout<<endl;
     // cout<<db;
     // net.delUser(s3);
-    cout << "*******" << endl;
+    // cout << "*******" << endl;
     // cout << s->account()->username()->login().toStdString() << endl << uf->print().toStdString() << " >> " << net << endl;
     // cout << "*******" << endl;
     // cout << s2->account()->username()->login().toStdString() << endl << uf2->print().toStdString() << " >> " << net2 << endl;
     // cout << "*******" << endl;
     // cout << s3->account()->username()->login().toStdString() << endl << uf3->print().toStdString() << " >> " << net3 << endl;
-    cout << "*******" << endl;
+    // cout << "*******" << endl;
     // db.save();
     db.load();
     cout << db;
+    // Username* a = new Username("Baldaz", "password");
+    // User* s = db.find(a);
+    // cout << s->account()->username()->login().toStdString() << endl;
+    Username* user = new Username("Baldaz", "password");
+    LinqClient client(user);
+    // client.displayProfile();
     return 0;
 }

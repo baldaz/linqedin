@@ -14,7 +14,7 @@ private:
 public:
     ~LinqNet();
     void addUser(User*);
-    void delUser(User*);
+    void removeUser(User*);
     int size() const;
     vector<Username*> username() const;
     SPUser operator[](const int&) const;

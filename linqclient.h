@@ -2,18 +2,20 @@
 #define LINQCLIENT_H
 
 #include "user.h"
-#include "linqnet.h"
+#include "linqdb.h"
 
 class LinqClient {
 private:
     User* _usr;
     LinqDB* _db;
 public:
-    LinqClient(Username);
+    LinqClient();
+    LinqClient(Username*);
+    ~LinqClient();
     void displayProfile() const;
     void alterProfile();
-    void addFriend();
-    void removeFriend();
+    void addContact(Username*);
+    void removeContact(Username*);
     void find();
 };
 #endif

@@ -7,6 +7,12 @@ User::User() {}
 User::User(Account* ac, LinqNet* lq) : _acc(ac), _net(lq) {}
 User::User(const User& usr) : _acc(usr._acc), _net(usr._net) {}
 User::~User() { delete _acc; delete _net; }
+void User::addContact(User* usr) {
+    _net->addUser(usr);
+}
+void User::removeContact(User* usr) {
+    _net->removeUser(usr);
+}
 Account* User::account() const {
     return _acc;
 }

@@ -4,6 +4,7 @@ using std::for_each;
 using std::ostream;
 using std::endl;
 
+LinqDB::~LinqDB() {}
 bool LinqDB::fromJsonObject() {
     QFile loadDB(QStringLiteral("database.json"));
     if (!loadDB.open(QIODevice::ReadOnly)) {
@@ -94,26 +95,19 @@ void LinqDB::addUser(User* u) {
     _db.push_back(spu);
 }
 void LinqDB::removeUser(User* usr) {
-    for(int i = 0; i < this->size(); ++i) {
+    for(int i = 0; i < size(); ++i) {
         if(_db[i]->account()->username()->login() == usr->account()->username()->login())
             _db.erase(_db.begin() + i);
     }
 }
-// User* LinqDB::find(Username usr) {
-//     User* ret = NULL;
-//     for(int i = 0; i < this->size(); ++i) {
-//         if(_db[i]->account()->username() == usr) {
-//             switch(_db[i]->account()->prLevel()) {
-//                 case basic:
-//                 break;
-//                 case business:
-//                 break;
-//                 case executive:
-//                 break;
-//             }
-//         }
-//     }
-// }
+User* LinqDB::find(Username* usr) {
+    User* ret;
+    for(int i = 0; i < size(); ++i) {
+        if(*(_db[i]->account()->username()) == *usr)
+            ret = _db[i]->clone();
+    }
+    return ret;
+}
 SPUser LinqDB::operator[](const int& i) const {
     return _db[i];
 }
@@ -127,12 +121,4 @@ ostream& operator<<(ostream& os, const LinqDB& db) {
         os << "DB size: " << db.size() << endl;
     }
     return os;
-    // // if(!db._db.size()) os << "Nessun utente inserito" << endl;
-    // // else {
-    // //     for(db._db::iterator it = db._db.begin(); it != db._db.end(); ++it) {
-    // //         os << *it->username()->login() << " : ";
-    // //         os << *it->username()->password() << endl;
-    // //     }
-    // // }
-    // return os;
 }

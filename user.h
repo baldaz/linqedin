@@ -19,6 +19,8 @@ public:
     virtual User* clone() const =0;
     Account* account() const;
     LinqNet* net() const;
+    void addContact(User*);
+    void removeContact(User*);
     virtual void userSearch(const LinqDB&) const =0;
 };
 

@@ -23,6 +23,7 @@ HEADERS += account.h \
 SOURCES += account.cpp \
            experience.cpp \
            info.cpp \
+           linqclient.cpp \
            linqdb.cpp \
            linqnet.cpp \
            main.cpp \

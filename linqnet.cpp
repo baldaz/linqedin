@@ -11,7 +11,7 @@ void LinqNet::addUser(User* usr) {
     SPUser spu(usr);
     _net.push_back(spu);
 }
-void LinqNet::delUser(User* usr) {
+void LinqNet::removeUser(User* usr) {
     for(int i = 0; i < this->size(); i++) {
         if(_net[i]->account()->username()->login() == usr->account()->username()->login())
             _net.erase(_net.begin() + i);
