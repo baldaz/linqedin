@@ -34,7 +34,7 @@ public:
     vector<QString> skills() const;
     vector<Experience*> experience() const;
     vector<Experience*> formations() const;
-    void setSex(bool) const;
+    void setSex(bool);
     void setName(QString);
     void setSurname(QString);
     void setBirthdate(QString);

@@ -44,8 +44,11 @@ void UserInfo::setTelephon(QString t = "") {
 void UserInfo::setAddress(QString a = "") {
     _address = a;
 }
+void UserInfo::setSex(bool s) {
+    _sex = s;
+}
 QString UserInfo::print() const {
-    QString ret ="";
+    QString ret = "";
     ret += _name + " , " + _surname + " , " + this->sex() + " , " + _address + " , " + _telephon;
     return ret;
 }

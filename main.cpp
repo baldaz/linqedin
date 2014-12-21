@@ -50,7 +50,7 @@ int main() {
     // cout << s->account()->username()->login().toStdString() << endl;
     Username* user = new Username("Baldaz", "password");
     LinqClient* client = new LinqClient(user);
-    Username* contact = new Username("Pablito", "maurisio");
+    Username* contact = new Username("Pablito", "");
     client->addContact(contact);
     client->displayProfile();
     return 0;

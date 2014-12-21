@@ -30,8 +30,18 @@ void LinqDB::read(const QJsonArray& qjs) {
         uif = dynamic_cast<UserInfo*> (uf);
         Account* acc = new Account(uf, usr, basic);
         LinqNet* net = new LinqNet();
-        uif->setName(obj["name"].toString());
-        uif->setSurname(obj["surname"].toString());
+        QJsonArray contacts = obj["info"].toArray();
+        for(int i = 0; i < contacts.size(); ++i)
+            net->addUser(find(new Username(contacts[i].toString(), "")));
+        if(uif) {
+            uif->setName(obj["name"].toString());
+            uif->setSurname(obj["surname"].toString());
+            uif->setBirthdate(obj["birthdate"].toString());
+            uif->setEmail(obj["email"].toString());
+            uif->setAddress(obj["address"].toString());
+            uif->setTelephon(obj["telephon"].toString());
+            uif->setSex(obj["sex"].toBool());
+        }
         User* s = new BasicUser(acc, net);
         addUser(s);
     }
@@ -87,8 +97,8 @@ void LinqDB::save() const {
 }
 void LinqDB::load() {
     bool s = fromJsonObject();
-    if(!s) std::cout<<"Errore";
-    else std::cout<<"OK";
+    if(!s) std::cout << "Errore connessione DB" << std::endl;
+    else std::cout<<"Connessione DB ok" << std::endl;
 }
 int LinqDB::size() const {
     return _db.size();
