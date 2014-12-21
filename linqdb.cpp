@@ -4,6 +4,9 @@ using std::for_each;
 using std::ostream;
 using std::endl;
 
+LinqDB::LinqDB() {
+    load();
+}
 LinqDB::~LinqDB() {}
 bool LinqDB::fromJsonObject() {
     QFile loadDB(QStringLiteral("database.json"));

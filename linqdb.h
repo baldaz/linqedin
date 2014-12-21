@@ -24,6 +24,7 @@ private:
     vector<QJsonObject> toJsonObject() const;
     void write(vector<QJsonObject>) const;
 public:
+    LinqDB();
     ~LinqDB();
     void load();
     void save() const;

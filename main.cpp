@@ -8,7 +8,7 @@ using std::cout;
 using std::endl;
 
 int main() {
-    LinqDB db; /*DB utenti*/
+    // LinqDB* db = new LinqDB(); /*DB utenti*/
     // LinqNet* net = new LinqNet(); /*Rete amicizie*/
     // LinqNet* net2 = new LinqNet();
     // LinqNet* net3 = new LinqNet();
@@ -43,13 +43,15 @@ int main() {
     // cout << s3->account()->username()->login().toStdString() << endl << uf3->print().toStdString() << " >> " << net3 << endl;
     // cout << "*******" << endl;
     // db.save();
-    db.load();
-    cout << db;
+    // db->load();
+    // cout << db;
     // Username* a = new Username("Baldaz", "password");
     // User* s = db.find(a);
     // cout << s->account()->username()->login().toStdString() << endl;
     Username* user = new Username("Baldaz", "password");
-    LinqClient client(user);
-    // client.displayProfile();
+    LinqClient* client = new LinqClient(user);
+    Username* contact = new Username("Pablito", "maurisio");
+    client->addContact(contact);
+    client->displayProfile();
     return 0;
 }

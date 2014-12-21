@@ -13,6 +13,7 @@ private:
     Username* _user;
     privLevel _privilege;
 public:
+    Account();
     Account(Info*, Username*, privLevel);
     ~Account();
     Username* username() const;
