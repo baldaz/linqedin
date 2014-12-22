@@ -10,7 +10,7 @@ using std::vector;
 class Info {
 public:
     virtual ~Info();
-    // virtual Info* clone() const =0;
+    virtual Info* clone() const =0;
     virtual QString print() const =0;
 };
 
@@ -24,8 +24,8 @@ private:
 public:
     UserInfo();
     UserInfo(bool, QString, QString, QString, QString, QString, QString);
-    // UserInfo(const UserInfo&);
-    // Info* clone() const;
+    UserInfo(const UserInfo&);
+    Info* clone() const;
     // virtual ~UserInfo();
     UserInfo& operator=(const UserInfo&);
     QString name() const;

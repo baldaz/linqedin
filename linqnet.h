@@ -13,9 +13,9 @@ private:
     vector<SPUser> _net;
 public:
     ~LinqNet();
-    // LinqNet* clone() const;
+    LinqNet* clone() const;
     void addUser(User*);
-    void removeUser(User*);
+    void removeUser(Username*);
     int size() const;
     vector<Username*> username() const;
     SPUser operator[](const int&) const;

@@ -4,9 +4,9 @@ using std::cout;
 using std::endl;
 
 LinqNet::~LinqNet() {}
-// LinqNet* LinqNet::clone() const {
-//     return new LinqNet(*this);
-// }
+LinqNet* LinqNet::clone() const {
+    return new LinqNet(*this);
+}
 int LinqNet::size() const {
     return _net.size();
 }
@@ -14,11 +14,12 @@ void LinqNet::addUser(User* usr) {
     SPUser spu(usr);
     _net.push_back(spu);
 }
-void LinqNet::removeUser(User* usr) {
-    for(int i = 0; i < this->size(); i++) {
-        if(_net[i]->account()->username()->login() == usr->account()->username()->login())
+void LinqNet::removeUser(Username* usr) {
+    for(int i = 0; i < size(); i++)
+        if((_net[i]->account()->username()->login()) == usr->login())
+        // cout << "ciao " << _net[i]->account()->username()->login().toStdString() << " e " << usr->login().toStdString() << endl;
+            // cout << _net[i]->account()->username()->login().toStdString();
             _net.erase(_net.begin() + i);
-    }
 }
 vector<Username*> LinqNet::username() const {
     vector<Username*> list;

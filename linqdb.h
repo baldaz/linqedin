@@ -21,6 +21,7 @@ private:
     vector<SPUser> _db;
     bool fromJsonObject();
     void read(const QJsonArray&);
+    void readNet(const QJsonArray&);
     vector<QJsonObject> toJsonObject() const;
     void write(vector<QJsonObject>) const;
 public:
@@ -30,7 +31,7 @@ public:
     void save() const;
     int size() const;
     void addUser(User*);
-    void removeUser(User*);
+    void removeUser(Username*);
     User* find(Username*);
     SPUser operator[](const int&) const;
     friend ostream& operator<<(ostream&, const LinqDB&);

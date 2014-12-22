@@ -5,7 +5,7 @@ using std::vector;
 
 User::User() : _acc(new Account()), _net(new LinqNet()) {}
 User::User(Account* ac, LinqNet* lq) : _acc(ac), _net(lq) {}
-User::User(const User& usr) : _acc(usr._acc), _net(usr._net)/* : _acc(usr._acc->clone()), _net(usr._net->clone()) */{}
+User::User(const User& usr) /*: _acc(usr._acc), _net(usr._net)*/ : _acc(usr._acc->clone()), _net(usr._net->clone()) {}
 User::~User() { delete _acc; delete _net; }
 User& User::operator=(const User& usr) {
     if(this != &usr) {
@@ -19,7 +19,7 @@ User& User::operator=(const User& usr) {
 void User::addContact(User* usr) {
     _net->addUser(usr);
 }
-void User::removeContact(User* usr) {
+void User::removeContact(Username* usr) {
     _net->removeUser(usr);
 }
 Account* User::account() const {

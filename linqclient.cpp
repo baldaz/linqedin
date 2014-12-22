@@ -9,10 +9,12 @@ void LinqClient::addContact(Username* usr) {
     _usr->addContact(_db->find(usr));
 }
 void LinqClient::removeContact(Username* usr) {
-    _usr->removeContact(_db->find(usr));
+    _usr->removeContact(usr);
 }
 void LinqClient::displayProfile() const {
     std::cout << _usr->account()->username()->login().toStdString() << " - " << _usr->account()->username()->password().toStdString() << std::endl;
-    // std::cout << _db->size() << " - " << _usr->net()->size() << std::endl;
+    std::cout << "DB size: " << _db->size() << " Friends: " << _usr->net()->size() << std::endl;
     std::cout << _usr->account()->info()->print().toStdString() << std::endl;
+    std::cout << "Friend list:" << std::endl;
+    std::cout << *_usr->net() << std::endl;
 }

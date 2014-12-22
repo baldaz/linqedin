@@ -9,9 +9,9 @@ private:
     QString _password;
 public:
     Username(QString, QString);
-    // Username(const Username&);
+    Username(const Username&);
     ~Username();
-    // Username* clone() const;
+    Username* clone() const;
     QString login() const;
     void setLogin(QString);
     QString password() const;

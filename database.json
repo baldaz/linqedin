@@ -50,5 +50,63 @@
         "password": "piovra",
         "privilege": 0,
         "username": "Atilio"
+    },
+    {
+        "info": {
+            "address": "via 7 dicembre 12",
+            "birthdate": "08-10-1288",
+            "email": "a.g.ba@gmail.com",
+            "name": "Andr",
+            "sex": true,
+            "surname": "jsjs",
+            "telephon": "35015048"
+        },
+        "net": [
+            "Pablito",
+            "Atilio",
+            "Baldaz"
+        ],
+        "password": "rd",
+        "privilege": 0,
+        "username": "aui"
+    },
+    {
+        "info": {
+            "address": "via monghi 12",
+            "birthdate": "08-10-1928",
+            "email": "a.g.ban@gmail.com",
+            "name": "Sara",
+            "sex": false,
+            "surname": "Mira",
+            "telephon": "3250515048"
+        },
+        "net": [
+            "Pablito",
+            "Atilio",
+            "aui"
+        ],
+        "password": "sara",
+        "privilege": 0,
+        "username": "Sara87"
+    },
+    {
+        "info": {
+            "address": "via 4 novembre 12",
+            "birthdate": "08-10-1988",
+            "email": "dan@gmail.com",
+            "name": "Giacomo",
+            "sex": true,
+            "surname": "Ser",
+            "telephon": "345215048"
+        },
+        "net": [
+            "Pablito",
+            "Atilio",
+            "Baldaz",
+            "Sara87"
+        ],
+        "password": "wword",
+        "privilege": 0,
+        "username": "ser"
     }
 ]

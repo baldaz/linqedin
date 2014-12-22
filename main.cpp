@@ -48,12 +48,25 @@ int main() {
     // Username* a = new Username("Baldaz", "password");
     // User* s = db.find(a);
     // cout << s->account()->username()->login().toStdString() << endl;
+    cout << endl << "+++++++++*" << endl;
     Username* user = new Username("Baldaz", "password");
     LinqClient* client = new LinqClient(user);
-    Username* contact = new Username("Pablito", "");
+    Username* contact = new Username("Sara87", "sara");
+    Username* ser = new Username("ser", "wword");
     client->addContact(contact);
-    client->displayProfile();
+    client->addContact(ser);
     client->removeContact(contact);
     client->displayProfile();
+    // Username* rmctc = new Username("Atilio", "");
+    // client->removeContact(contact);
+    // client->displayProfile();
+    // LinqNet* net = new LinqNet();
+    // Username* contact = new Username("Pablito", "maurisio");
+    // User* s = db->find(contact);
+    // net->addUser(s);
+    // db->removeUser(contact);
+    // net->removeUser(contact);
+    // cout << net << endl;
+    cout << "++++++++++" << endl;
     return 0;
 }

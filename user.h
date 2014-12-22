@@ -21,7 +21,7 @@ public:
     Account* account() const;
     LinqNet* net() const;
     void addContact(User*);
-    void removeContact(User*);
+    void removeContact(Username*);
     virtual void userSearch(const LinqDB&) const =0;
 };
 

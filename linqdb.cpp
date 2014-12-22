@@ -19,6 +19,7 @@ bool LinqDB::fromJsonObject() {
 
     QJsonDocument doc(QJsonDocument::fromJson(saveData));
     read(doc.array());
+    readNet(doc.array());
     return true;
 }
 void LinqDB::read(const QJsonArray& qjs) {
@@ -29,10 +30,7 @@ void LinqDB::read(const QJsonArray& qjs) {
         Info* uf = new UserInfo();
         uif = dynamic_cast<UserInfo*> (uf);
         LinqNet* net = new LinqNet();
-        QJsonArray contacts = obj["net"].toArray();
         QJsonObject info = obj["info"].toObject();
-        for(int i = 0; i < contacts.size(); ++i)
-            net->addUser(find(new Username(contacts[i].toString(), "")));
         if(uif) {
             uif->setName(info["name"].toString());
             uif->setSurname(info["surname"].toString());
@@ -45,6 +43,18 @@ void LinqDB::read(const QJsonArray& qjs) {
         Account* acc = new Account(uif, usr, basic);
         User* s = new BasicUser(acc, net);
         addUser(s);
+    }
+}
+void LinqDB::readNet(const QJsonArray& qjs) {
+    for(int j = 0; j < size(); ++j) {
+        for(int i = 0; i < qjs.size(); ++i) {
+            QJsonObject obj = qjs[i].toObject();
+            QJsonArray contacts = obj["net"].toArray();
+            if(_db[j]->account()->username()->login() == obj["username"].toString()) {
+                for(int k = 0; k < contacts.size(); ++k)
+                    _db[j]->addContact(find(new Username(contacts[k].toString(), "")));
+            }
+        }
     }
 }
 vector<QJsonObject> LinqDB::toJsonObject() const {
@@ -100,18 +110,23 @@ void LinqDB::addUser(User* u) {
     SPUser spu(u);
     _db.push_back(spu);
 }
-void LinqDB::removeUser(User* usr) {
+void LinqDB::removeUser(Username* usr) {
     for(int i = 0; i < size(); ++i) {
-        if(_db[i]->account()->username()->login() == usr->account()->username()->login())
+        if((_db[i]->account()->username()->login()) == usr->login()){
             _db.erase(_db.begin() + i);
+            std::cout<<"db ciao"<<i<<size()<<std::endl;
+        }
     }
 }
 User* LinqDB::find(Username* usr) {
     User* ret;
     for(int i = 0; i < size(); ++i) {
-        if(*(_db[i]->account()->username()) == *usr)
+        if((_db[i]->account()->username()->login()) == usr->login()){
+            // std::cout << "trovato" << std::endl;
             ret = _db[i]->clone();
+        }
     }
+    // std::cout << ret->account()->username()->login().toStdString() << std::endl;
     return ret;
 }
 SPUser LinqDB::operator[](const int& i) const {
