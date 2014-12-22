@@ -16,6 +16,6 @@ public:
     void alterProfile();
     void addContact(Username*);
     void removeContact(Username*);
-    void find();
+    void find() const;
 };
 #endif

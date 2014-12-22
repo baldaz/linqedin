@@ -40,8 +40,22 @@ void LinqDB::read(const QJsonArray& qjs) {
             uif->setTelephon(info["telephon"].toString());
             uif->setSex(info["sex"].toBool());
         }
-        Account* acc = new Account(uif, usr, basic);
-        User* s = new BasicUser(acc, net);
+        privLevel priv = static_cast<privLevel> (obj["privilege"].toInt());
+        Account* acc = new Account(uif, usr, priv);
+        User* s;
+        switch(priv) {
+            case 0:
+                s = new BasicUser(acc, net);
+            break;
+            case 1:
+                s = new BusinessUser(acc, net);
+            break;
+            case 2:
+                s = new ExecutiveUser(acc, net);
+            break;
+            case 3:
+            break;
+        }
         addUser(s);
     }
 }
@@ -128,6 +142,12 @@ User* LinqDB::find(Username* usr) {
     }
     // std::cout << ret->account()->username()->login().toStdString() << std::endl;
     return ret;
+}
+vector<SPUser>::const_iterator LinqDB::begin() const{
+    return _db.begin();
+}
+vector<SPUser>::const_iterator LinqDB::end() const{
+    return _db.end();
 }
 SPUser LinqDB::operator[](const int& i) const {
     return _db[i];

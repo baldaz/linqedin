@@ -6,11 +6,20 @@
 
 class LinqNet;
 class LinqDB;
+class SPUser;
 
 class User {
-protected:
+private:
     Account* _acc;
     LinqNet* _net;
+protected:
+    class searchFunctor {
+    private:
+        int _s_type;
+    public:
+        searchFunctor(int);
+        void operator()(const SPUser&) const;
+    };
 public:
     User();
     User(Account*, LinqNet*);

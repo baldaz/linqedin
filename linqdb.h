@@ -33,6 +33,8 @@ public:
     void addUser(User*);
     void removeUser(Username*);
     User* find(Username*);
+    vector<SPUser>::const_iterator begin() const;
+    vector<SPUser>::const_iterator end() const;
     SPUser operator[](const int&) const;
     friend ostream& operator<<(ostream&, const LinqDB&);
 };
