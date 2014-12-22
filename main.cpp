@@ -1,3 +1,7 @@
+// #include <QApplication>
+// #include <QFont>
+// #include <QPushButton>
+// #include <QWidget>
 #include <iostream>
 // #include "account.h"
 // #include "linqnet.h"
@@ -7,7 +11,7 @@
 using std::cout;
 using std::endl;
 
-int main() {
+int main(int argc, char**argv) {
     // LinqDB* db = new LinqDB(); /*DB utenti*/
     // LinqNet* net = new LinqNet(); /*Rete amicizie*/
     // LinqNet* net2 = new LinqNet();
@@ -69,5 +73,16 @@ int main() {
     // net->removeUser(contact);
     // cout << net << endl;
     cout << "+++++++++++++++++++++++++++++++++++++++++++++++++++" << endl;
+
+    // QApplication app(argc, argv);
+    // QWidget window;
+    // // window.setWindowTitle(“Im a QWidget”);
+    // window.resize(300, 220);
+    // QPushButton quit("Quit", &window);
+    // quit.setFont(QFont("Inconsolata", 18, QFont::Bold));
+    // quit.setGeometry(10, 40, 180, 40);
+    // QObject::connect(&quit, SIGNAL(clicked()), &app, SLOT(quit()));
+    // window.show();
+    // return app.exec();
     return 0;
 }

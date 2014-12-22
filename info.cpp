@@ -1,5 +1,16 @@
 #include "info.h"
 
+UserInfo::SmartExp::SmartExp(Experience* exp) : ptr(exp->clone()) {}
+UserInfo::SmartExp::SmartExp(const SmartExp& sm_exp) : ptr((sm_exp.ptr)->clone()) {}
+UserInfo::SmartExp& UserInfo::SmartExp::operator=(const SmartExp& sm_exp) {
+    if(this != &sm_exp) {
+        delete ptr;
+        ptr = (sm_exp.ptr)->clone();
+    }
+    return *this;
+}
+UserInfo::SmartExp::~SmartExp() { delete ptr; }
+
 Info::~Info() {}
 UserInfo::UserInfo() {}
 UserInfo::UserInfo(bool sx, QString n, QString s, QString b, QString e, QString a, QString t) :
@@ -45,6 +56,12 @@ bool UserInfo::sex() const {
 vector<QString> UserInfo::skills() const {
     return _skills;
 }
+vector<UserInfo::SmartExp> UserInfo::experience() const {
+    return _exps;
+}
+vector<UserInfo::SmartExp> UserInfo::formations() const {
+    return _formations;
+}
 void UserInfo::setName(QString n = "") {
     _name = n;
 }
@@ -65,6 +82,13 @@ void UserInfo::setAddress(QString a = "") {
 }
 void UserInfo::setSex(bool s) {
     _sex = s;
+}
+void UserInfo::addSkill(QString newskill) {
+    _skills.push_back(newskill);
+}
+void UserInfo::addExperience(Experience* newxp) {
+    SmartExp s_exp(newxp);
+    _exps.push_back(s_exp);
 }
 QString UserInfo::print() const {
     QString ret = "";

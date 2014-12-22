@@ -6,6 +6,7 @@
 class Experience {
 public:
     virtual ~Experience();
+    virtual Experience* clone() const =0;
     virtual QString print() const =0;
 };
 
@@ -22,6 +23,7 @@ public:
     void setLocation(QString);
     void setFrom(QString);
     void setTo(QString);
+    virtual Experience* clone() const;
     virtual QString print() const;
 };
 
@@ -34,6 +36,7 @@ public:
     // ~Work();
     QString description() const;
     void setDescription(QString);
+    virtual Experience* clone() const;
     virtual QString print() const;
 };
 

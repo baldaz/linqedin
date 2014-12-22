@@ -16,11 +16,21 @@ public:
 
 class UserInfo : public Info {
 private:
+    class SmartExp {
+    private:
+        Experience *ptr;
+    public:
+        SmartExp(Experience*);
+        SmartExp(const SmartExp&);
+        SmartExp& operator=(const SmartExp&);
+        ~SmartExp();
+    };
+
     bool _sex;
     QString _name, _surname, _birthdate, _email, _address, _telephon;
     vector<QString> _skills;
-    vector<Experience*> _formations;
-    vector<Experience*> _exps;
+    vector<SmartExp> _formations;
+    vector<SmartExp> _exps;
 public:
     UserInfo();
     UserInfo(bool, QString, QString, QString, QString, QString, QString);
@@ -36,8 +46,8 @@ public:
     QString telephon() const;
     bool sex() const;
     vector<QString> skills() const;
-    vector<Experience*> experience() const;
-    vector<Experience*> formations() const;
+    vector<SmartExp> experience() const;
+    vector<SmartExp> formations() const;
     void setSex(bool);
     void setName(QString);
     void setSurname(QString);
