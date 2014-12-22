@@ -10,6 +10,7 @@ using std::vector;
 class Info {
 public:
     virtual ~Info();
+    // virtual Info* clone() const =0;
     virtual QString print() const =0;
 };
 
@@ -23,14 +24,17 @@ private:
 public:
     UserInfo();
     UserInfo(bool, QString, QString, QString, QString, QString, QString);
+    // UserInfo(const UserInfo&);
+    // Info* clone() const;
     // virtual ~UserInfo();
+    UserInfo& operator=(const UserInfo&);
     QString name() const;
     QString surname() const;
     QString birthdate() const;
     QString email() const;
     QString address() const;
     QString telephon() const;
-    QString sex() const;
+    bool sex() const;
     vector<QString> skills() const;
     vector<Experience*> experience() const;
     vector<Experience*> formations() const;

@@ -4,6 +4,9 @@ using std::cout;
 using std::endl;
 
 LinqNet::~LinqNet() {}
+// LinqNet* LinqNet::clone() const {
+//     return new LinqNet(*this);
+// }
 int LinqNet::size() const {
     return _net.size();
 }

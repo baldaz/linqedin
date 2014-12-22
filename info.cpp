@@ -4,6 +4,23 @@ Info::~Info() {}
 UserInfo::UserInfo() {}
 UserInfo::UserInfo(bool sx, QString n, QString s, QString b, QString e, QString a, QString t) :
                 _sex(sx), _name(n), _surname(s), _birthdate(b), _email(e), _address(a), _telephon(t){}
+// UserInfo::UserInfo(const UserInfo& uf) :
+//                 _sex(uf._sex), _name(uf._name), _surname(uf._surname), _birthdate(uf._birthdate), _email(uf._email), _address(uf._address), _telephon(uf._telephon) {}
+// UserInfo& UserInfo::operator=(const UserInfo& uif) {
+//     if(this != &uif) {
+//         _name = uif._name;
+//         _surname = uif._surname;
+//         _birthdate = uif._birthdate;
+//         _address = uif._address;
+//         _email = uif._email;
+//         _telephon = uif._telephon;
+//         _sex = uif._sex;
+//     }
+//     return *this;
+// }
+// Info* UserInfo::clone() const {
+//     return new UserInfo(*this);
+// }
 QString UserInfo::name() const {
     return _name;
 }
@@ -22,9 +39,8 @@ QString UserInfo::address() const {
 QString UserInfo::telephon() const {
     return _telephon;
 }
-QString UserInfo::sex() const {
-    if(_sex) return "Maschio";
-    else return "Femmina";
+bool UserInfo::sex() const {
+    return _sex;
 }
 void UserInfo::setName(QString n = "") {
     _name = n;
@@ -49,6 +65,9 @@ void UserInfo::setSex(bool s) {
 }
 QString UserInfo::print() const {
     QString ret = "";
-    ret += _name + " , " + _surname + " , " + this->sex() + " , " + _address + " , " + _telephon;
+    QString sex = "";
+    if(this->sex()) sex = "Maschio";
+    else sex = "Femmina";
+    ret += _name + " , " + _surname + " , " + sex + " , " + _address + " , " + _telephon;
     return ret;
 }

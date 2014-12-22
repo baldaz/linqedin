@@ -28,20 +28,21 @@ void LinqDB::read(const QJsonArray& qjs) {
         Username* usr = new Username(obj["username"].toString(), obj["password"].toString());
         Info* uf = new UserInfo();
         uif = dynamic_cast<UserInfo*> (uf);
-        Account* acc = new Account(uf, usr, basic);
         LinqNet* net = new LinqNet();
-        QJsonArray contacts = obj["info"].toArray();
+        QJsonArray contacts = obj["net"].toArray();
+        QJsonObject info = obj["info"].toObject();
         for(int i = 0; i < contacts.size(); ++i)
             net->addUser(find(new Username(contacts[i].toString(), "")));
         if(uif) {
-            uif->setName(obj["name"].toString());
-            uif->setSurname(obj["surname"].toString());
-            uif->setBirthdate(obj["birthdate"].toString());
-            uif->setEmail(obj["email"].toString());
-            uif->setAddress(obj["address"].toString());
-            uif->setTelephon(obj["telephon"].toString());
-            uif->setSex(obj["sex"].toBool());
+            uif->setName(info["name"].toString());
+            uif->setSurname(info["surname"].toString());
+            uif->setBirthdate(info["birthdate"].toString());
+            uif->setEmail(info["email"].toString());
+            uif->setAddress(info["address"].toString());
+            uif->setTelephon(info["telephon"].toString());
+            uif->setSex(info["sex"].toBool());
         }
+        Account* acc = new Account(uif, usr, basic);
         User* s = new BasicUser(acc, net);
         addUser(s);
     }
@@ -53,13 +54,6 @@ vector<QJsonObject> LinqDB::toJsonObject() const {
         QJsonObject jUser, jInf;
         QJsonArray jArr, jInfo;
         uif = dynamic_cast<UserInfo*> (_db[i]->account()->info()); /*downcast a userinfo*/
-        // jInfo.append(uif->name());
-        // jInfo.append(uif->surname());
-        // jInfo.append(uif->telephon());
-        // jInfo.append(uif->birthdate());
-        // jInfo.append(uif->email());
-        // jInfo.append(uif->sex());
-        // jInfo.append(uif->address());
         jInf["name"] = uif->name();
         jInf["surname"] = uif->surname();
         jInf["telephon"] = uif->telephon();

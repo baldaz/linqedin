@@ -13,6 +13,7 @@ private:
     vector<SPUser> _net;
 public:
     ~LinqNet();
+    // LinqNet* clone() const;
     void addUser(User*);
     void removeUser(User*);
     int size() const;

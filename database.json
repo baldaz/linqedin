@@ -5,7 +5,7 @@
             "birthdate": "08-10-1988",
             "email": "a.g.baldan@gmail.com",
             "name": "Andrea",
-            "sex": "Maschio",
+            "sex": true,
             "surname": "Baldan",
             "telephon": "3450515048"
         },
@@ -23,7 +23,7 @@
             "birthdate": "15-12-1923",
             "email": "escobar@cartello.cb",
             "name": "Pablos",
-            "sex": "Maschio",
+            "sex": true,
             "surname": "Escobar",
             "telephon": "9873478233"
         },
@@ -40,7 +40,7 @@
             "birthdate": "15-10-1973",
             "email": "atos@bierta.es",
             "name": "Atos",
-            "sex": "Maschio",
+            "sex": true,
             "surname": "Bierta",
             "telephon": "4872474213"
         },

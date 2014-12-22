@@ -15,6 +15,7 @@ public:
     User();
     User(Account*, LinqNet*);
     User(const User&);
+    User& operator=(const User&);
     virtual ~User();
     virtual User* clone() const =0;
     Account* account() const;

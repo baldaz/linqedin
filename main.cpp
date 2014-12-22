@@ -51,7 +51,7 @@ int main() {
     Username* user = new Username("Baldaz", "password");
     LinqClient* client = new LinqClient(user);
     Username* contact = new Username("Pablito", "");
-    client->addContact(contact);
+    // client->addContact(contact);
     client->displayProfile();
     return 0;
 }
