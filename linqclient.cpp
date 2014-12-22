@@ -13,6 +13,6 @@ void LinqClient::removeContact(Username* usr) {
 }
 void LinqClient::displayProfile() const {
     std::cout << _usr->account()->username()->login().toStdString() << " - " << _usr->account()->username()->password().toStdString() << std::endl;
-    std::cout << _db->size() << " - " << _usr->net()->size() << std::endl;
+    // std::cout << _db->size() << " - " << _usr->net()->size() << std::endl;
     std::cout << _usr->account()->info()->print().toStdString() << std::endl;
 }
