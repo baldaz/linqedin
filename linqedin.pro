@@ -13,6 +13,7 @@ greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 HEADERS += account.h \
            experience.h \
            info.h \
+           linqadmin.h \
            linqclient.h \
            linqdb.h \
            linqnet.h \
@@ -23,6 +24,7 @@ HEADERS += account.h \
 SOURCES += account.cpp \
            experience.cpp \
            info.cpp \
+           linqadmin.cpp \
            linqclient.cpp \
            linqdb.cpp \
            linqnet.cpp \

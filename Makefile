@@ -18,9 +18,9 @@ CXXFLAGS      = -m64 -pipe -O2 -Wall -W -D_REENTRANT -fPIE $(DEFINES)
 INCPATH       = -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-64 -I. -I. -I/usr/include/qt5 -I/usr/include/qt5/QtWidgets -I/usr/include/qt5/QtGui -I/usr/include/qt5/QtCore -I.
 LINK          = g++
 LFLAGS        = -m64 -Wl,-O1
-LIBS          = $(SUBLIBS) -L/usr/X11R6/lib64 -lQt5Widgets -L/usr/lib/x86_64-linux-gnu -lQt5Gui -lQt5Core -lGL -lpthread
+LIBS          = $(SUBLIBS) -L/usr/X11R6/lib64 -lQt5Widgets -L/usr/lib/x86_64-linux-gnu -lQt5Gui -lQt5Core -lGL -lpthread 
 AR            = ar cqs
-RANLIB        =
+RANLIB        = 
 QMAKE         = /usr/lib/x86_64-linux-gnu/qt5/bin/qmake
 TAR           = tar -cf
 COMPRESS      = gzip -9f
@@ -48,16 +48,18 @@ OBJECTS_DIR   = ./
 SOURCES       = account.cpp \
 		experience.cpp \
 		info.cpp \
+		linqadmin.cpp \
 		linqclient.cpp \
 		linqdb.cpp \
 		linqnet.cpp \
 		main.cpp \
 		spuser.cpp \
 		user.cpp \
-		username.cpp
+		username.cpp 
 OBJECTS       = account.o \
 		experience.o \
 		info.o \
+		linqadmin.o \
 		linqclient.o \
 		linqdb.o \
 		linqnet.o \
@@ -170,7 +172,7 @@ first: all
 
 all: Makefile $(TARGET)
 
-$(TARGET):  $(OBJECTS)
+$(TARGET):  $(OBJECTS)  
 	$(LINK) $(LFLAGS) -o $(TARGET) $(OBJECTS) $(OBJCOMP) $(LIBS)
 
 Makefile: linqedin.pro /usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-64/qmake.conf /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
@@ -335,12 +337,12 @@ qmake: FORCE
 
 qmake_all: FORCE
 
-dist:
+dist: 
 	@test -d .tmp/linqedin1.0.0 || mkdir -p .tmp/linqedin1.0.0
-	$(COPY_FILE) --parents $(SOURCES) $(DIST) .tmp/linqedin1.0.0/ && $(COPY_FILE) --parents account.h experience.h info.h linqclient.h linqdb.h linqnet.h privlevel.h spuser.h user.h username.h .tmp/linqedin1.0.0/ && $(COPY_FILE) --parents account.cpp experience.cpp info.cpp linqclient.cpp linqdb.cpp linqnet.cpp main.cpp spuser.cpp user.cpp username.cpp .tmp/linqedin1.0.0/ && (cd `dirname .tmp/linqedin1.0.0` && $(TAR) linqedin1.0.0.tar linqedin1.0.0 && $(COMPRESS) linqedin1.0.0.tar) && $(MOVE) `dirname .tmp/linqedin1.0.0`/linqedin1.0.0.tar.gz . && $(DEL_FILE) -r .tmp/linqedin1.0.0
+	$(COPY_FILE) --parents $(SOURCES) $(DIST) .tmp/linqedin1.0.0/ && $(COPY_FILE) --parents account.h experience.h info.h linqadmin.h linqclient.h linqdb.h linqnet.h privlevel.h spuser.h user.h username.h .tmp/linqedin1.0.0/ && $(COPY_FILE) --parents account.cpp experience.cpp info.cpp linqadmin.cpp linqclient.cpp linqdb.cpp linqnet.cpp main.cpp spuser.cpp user.cpp username.cpp .tmp/linqedin1.0.0/ && (cd `dirname .tmp/linqedin1.0.0` && $(TAR) linqedin1.0.0.tar linqedin1.0.0 && $(COMPRESS) linqedin1.0.0.tar) && $(MOVE) `dirname .tmp/linqedin1.0.0`/linqedin1.0.0.tar.gz . && $(DEL_FILE) -r .tmp/linqedin1.0.0
 
 
-clean:compiler_clean
+clean:compiler_clean 
 	-$(DEL_FILE) $(OBJECTS)
 	-$(DEL_FILE) *~ core *.core
 
@@ -348,7 +350,7 @@ clean:compiler_clean
 ####### Sub-libraries
 
 distclean: clean
-	-$(DEL_FILE) $(TARGET)
+	-$(DEL_FILE) $(TARGET) 
 	-$(DEL_FILE) Makefile
 
 
@@ -372,7 +374,7 @@ compiler_yacc_impl_make_all:
 compiler_yacc_impl_clean:
 compiler_lex_make_all:
 compiler_lex_clean:
-compiler_clean:
+compiler_clean: 
 
 ####### Compile
 
@@ -521,6 +523,9 @@ info.o: info.cpp info.h \
 		/usr/include/qt5/QtCore/qstringbuilder.h \
 		experience.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o info.o info.cpp
+
+linqadmin.o: linqadmin.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o linqadmin.o linqadmin.cpp
 
 linqclient.o: linqclient.cpp linqclient.h \
 		user.h \
@@ -919,7 +924,32 @@ user.o: user.cpp user.h \
 		experience.h \
 		privlevel.h \
 		linqnet.h \
-		spuser.h
+		spuser.h \
+		linqdb.h \
+		/usr/include/qt5/QtCore/QFile \
+		/usr/include/qt5/QtCore/qfile.h \
+		/usr/include/qt5/QtCore/qfiledevice.h \
+		/usr/include/qt5/QtCore/qiodevice.h \
+		/usr/include/qt5/QtCore/qobject.h \
+		/usr/include/qt5/QtCore/qobjectdefs.h \
+		/usr/include/qt5/QtCore/qobjectdefs_impl.h \
+		/usr/include/qt5/QtCore/qlist.h \
+		/usr/include/qt5/QtCore/qalgorithms.h \
+		/usr/include/qt5/QtCore/qiterator.h \
+		/usr/include/qt5/QtCore/qcoreevent.h \
+		/usr/include/qt5/QtCore/qscopedpointer.h \
+		/usr/include/qt5/QtCore/qmetatype.h \
+		/usr/include/qt5/QtCore/qvarlengtharray.h \
+		/usr/include/qt5/QtCore/qcontainerfwd.h \
+		/usr/include/qt5/QtCore/qisenum.h \
+		/usr/include/qt5/QtCore/qobject_impl.h \
+		/usr/include/qt5/QtCore/QJsonObject \
+		/usr/include/qt5/QtCore/qjsonobject.h \
+		/usr/include/qt5/QtCore/qjsonvalue.h \
+		/usr/include/qt5/QtCore/QJsonArray \
+		/usr/include/qt5/QtCore/qjsonarray.h \
+		/usr/include/qt5/QtCore/QJsonDocument \
+		/usr/include/qt5/QtCore/qjsondocument.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o user.o user.cpp
 
 username.o: username.cpp username.h \
