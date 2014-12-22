@@ -2,3 +2,4 @@ gui
 linqedin
 *.o
 *.out
+Makefile

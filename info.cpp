@@ -42,6 +42,9 @@ QString UserInfo::telephon() const {
 bool UserInfo::sex() const {
     return _sex;
 }
+vector<QString> UserInfo::skills() const {
+    return _skills;
+}
 void UserInfo::setName(QString n = "") {
     _name = n;
 }
