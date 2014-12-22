@@ -63,7 +63,6 @@ vector<QJsonObject> LinqDB::toJsonObject() const {
         jInf["address"] = uif->address();
         jUser["username"] = _db[i]->account()->username()->login();
         jUser["password"] = _db[i]->account()->username()->password();
-        // jUser["info"] = _db[i]->account()->info()->print();
         jUser["privilege"] = _db[i]->account()->prLevel();
         vector<Username*> list = _db[i]->net()->username();
         for(int i = 0; i < list.size(); ++i)
