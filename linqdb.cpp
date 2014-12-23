@@ -146,13 +146,9 @@ void LinqDB::removeUser(Username* usr) {
 }
 User* LinqDB::find(Username* usr) {
     User* ret;
-    for(int i = 0; i < size(); ++i) {
-        if((_db[i]->account()->username()->login()) == usr->login()){
-            // std::cout << "trovato" << std::endl;
+    for(int i = 0; i < size(); ++i)
+        if((_db[i]->account()->username()->login()) == usr->login())
             ret = _db[i]->clone();
-        }
-    }
-    // std::cout << ret->account()->username()->login().toStdString() << std::endl;
     return ret;
 }
 vector<SPUser>::const_iterator LinqDB::begin() const{

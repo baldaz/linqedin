@@ -7,6 +7,9 @@ LinqNet::~LinqNet() {}
 LinqNet* LinqNet::clone() const {
     return new LinqNet(*this);
 }
+bool LinqNet::isPresent(Username* user) const {
+
+}
 int LinqNet::size() const {
     return _net.size();
 }
@@ -18,6 +21,7 @@ void LinqNet::removeUser(Username* usr) {
     for(int i = 0; i < size(); i++)
         if((_net[i]->account()->username()->login()) == usr->login())
             _net.erase(_net.begin() + i);
+            // std::cout << "trovato" << std::endl;
 }
 vector<Username*> LinqNet::username() const {
     vector<Username*> list;

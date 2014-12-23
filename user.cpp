@@ -22,6 +22,7 @@ void User::addContact(User* usr) {
 }
 void User::removeContact(Username* usr) {
     _net->removeUser(usr);
+    // std::cout << "trovato user" << std::endl;
 }
 Account* User::account() const {
     return _acc;

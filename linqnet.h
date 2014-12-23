@@ -16,6 +16,7 @@ public:
     LinqNet* clone() const;
     void addUser(User*);
     void removeUser(Username*);
+    bool isPresent(Username*) const;
     int size() const;
     vector<Username*> username() const;
     SPUser operator[](const int&) const;

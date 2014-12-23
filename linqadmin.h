@@ -6,6 +6,13 @@
 
 class LinqAdmin {
 private:
+    class completeRemove {
+        Username* rmusr;
+    public:
+        completeRemove(Username*);
+        ~completeRemove();
+        void operator()(const SPUser&) const;
+    };
     LinqDB* _db;
 public:
     LinqAdmin();

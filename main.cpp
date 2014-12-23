@@ -20,7 +20,7 @@ int main(int argc, char**argv) {
     Username* user = new Username("Baldaz", "password");
     LinqClient* client = new LinqClient(user);
     Username* contact = new Username("Sara87", "sara");
-    // Username* ser = new Username("ser", "wword");
+    Username* ser = new Username("ser", "wword");
     client->addContact(contact);
     client->addContact(ser);
     client->removeContact(contact);
