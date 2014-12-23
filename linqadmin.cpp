@@ -1,7 +1,7 @@
 #include "linqadmin.h"
 
-LinqAdmin::completeRemove::completeRemove(Username* usr) : rmusr(usr->clone()) {}
-LinqAdmin::completeRemove::~completeRemove() {  }
+LinqAdmin::completeRemove::completeRemove(Username* usr) : rmusr(usr) {}
+LinqAdmin::completeRemove::~completeRemove() { }
 void LinqAdmin::completeRemove::operator()(const SPUser& user) const {
     user->removeContact(rmusr);
 }

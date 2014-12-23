@@ -7,15 +7,21 @@ LinqNet::~LinqNet() {}
 LinqNet* LinqNet::clone() const {
     return new LinqNet(*this);
 }
-bool LinqNet::isPresent(Username* user) const {
-
-}
 int LinqNet::size() const {
     return _net.size();
 }
 void LinqNet::addUser(User* usr) {
-    SPUser spu(usr);
-    _net.push_back(spu);
+    vector<SPUser>::iterator it = _net.begin();
+    bool alreadyIn = false;
+    // User* tmp;
+    for(; it < _net.end() && !alreadyIn; ++it) {
+        // tmp = dynamic_cast<User*> (&(**it));
+        // if(tmp &&  *(tmp->account()->username()) == *(usr->account()->username()))
+        if(*((*it)->account()->username()) == *(usr->account()->username()))
+            alreadyIn = true;
+    }
+    if(!alreadyIn) _net.push_back(SPUser(usr));
+    else std::cout << "già collegato!" << std::endl;
 }
 void LinqNet::removeUser(Username* usr) {
     for(int i = 0; i < size(); i++)

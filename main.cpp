@@ -14,16 +14,22 @@ using std::endl;
 
 int main(int argc, char**argv) {
     // LinqAdmin* admin = new LinqAdmin();
-    // Username* ser = new Username("ser", "wword");
+    // Info* info = new UserInfo();
+    Username* ser = new Username("ser", "wword");
+    // Account* a = new Account(info , ser, basic);
+    // LinqNet* inet = new LinqNet();
+    // User* prova = new BasicUser(a, inet);
     // admin->removeUser(ser);
+    // admin->insertUser(prova);
     cout << endl << "+++++++++++++++++++++++++++++++++++++++++++++++++++" << endl;
     Username* user = new Username("Baldaz", "password");
     LinqClient* client = new LinqClient(user);
-    Username* contact = new Username("Sara87", "sara");
-    Username* ser = new Username("ser", "wword");
-    client->addContact(contact);
-    client->addContact(ser);
-    client->removeContact(contact);
+    Username* sara = new Username("Sara87", "sara");
+    // Username* ser = new Username("ser", "wword");
+    client->addContact(sara);
+    // client->addContact(sara);
+    // client->addContact(ser);
+    client->removeContact(sara);
     client->displayProfile();
     client->find();
     cout << "+++++++++++++++++++++++++++++++++++++++++++++++++++" << endl;

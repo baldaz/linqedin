@@ -8,7 +8,7 @@
             "sex": true,
             "surname": "Baldan",
             "telephon": "3450515048",
-            "website" : "www.baldaz.ba"
+            "website": "www.baldaz.ba"
         },
         "interests": [
             "Coding",
@@ -41,7 +41,7 @@
             "sex": true,
             "surname": "Escobar",
             "telephon": "9873478233",
-            "website" : "www.cartel.cl"
+            "website": "www.cartel.cl"
         },
         "interests": [
             "Web design",
@@ -68,7 +68,7 @@
             "sex": true,
             "surname": "Bierta",
             "telephon": "4872474213",
-            "website" : "www.cartel.mx"
+            "website": "www.cartel.mx"
         },
         "interests": [
             "Gym",
@@ -97,7 +97,7 @@
             "sex": true,
             "surname": "jsjs",
             "telephon": "35015048",
-            "website" : "www.andr.ad"
+            "website": "www.andr.ad"
         },
         "interests": [
             "Web developing",
@@ -126,7 +126,7 @@
             "sex": false,
             "surname": "Mira",
             "telephon": "3250515048",
-            "website" : "www.sara.sr"
+            "website": "www.sara.sr"
         },
         "interests": [
             "Reading",
@@ -156,7 +156,7 @@
             "sex": true,
             "surname": "Ser",
             "telephon": "345215048",
-            "website" : "www.idiota.ser"
+            "website": "www.idiota.ser"
         },
         "interests": [
             "Drums",
@@ -179,4 +179,3 @@
         "username": "ser"
     }
 ]
-

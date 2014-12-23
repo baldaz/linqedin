@@ -13,3 +13,4 @@ P2 Project 2014
         use map / vector
 
     - lib QT 4.8 or 5.3
+    - clone methods probably useless

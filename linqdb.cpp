@@ -136,8 +136,17 @@ int LinqDB::size() const {
     return _db.size();
 }
 void LinqDB::addUser(User* u) {
-    SPUser spu(u);
-    _db.push_back(spu);
+    vector<SPUser>::iterator it = _db.begin();
+    bool alreadyIn = false;
+    // User* tmp;
+    for(; it < _db.end() && !alreadyIn; ++it) {
+        // tmp = dynamic_cast<User*> (&(**it));
+        // if(tmp &&  *(tmp->account()->username()) == *(u->account()->username()))
+        if(*((*it)->account()->username()) == *(u->account()->username()))
+            alreadyIn = true;
+    }
+    if(!alreadyIn) _db.push_back(SPUser(u));
+    else std::cout << "già presente!" << std::endl;
 }
 void LinqDB::removeUser(Username* usr) {
     for(int i = 0; i < size(); ++i)
@@ -148,7 +157,8 @@ User* LinqDB::find(Username* usr) {
     User* ret;
     for(int i = 0; i < size(); ++i)
         if((_db[i]->account()->username()->login()) == usr->login())
-            ret = _db[i]->clone();
+            // ret = _db[i]->clone();
+            ret = &(*_db[i]);
     return ret;
 }
 vector<SPUser>::const_iterator LinqDB::begin() const{

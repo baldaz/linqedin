@@ -95,16 +95,26 @@ void UserInfo::setWebsite(string site) {
     _website = site;
 }
 void UserInfo::addSkill(string newskill) {
-    _skills.push_back(newskill);
+    vector<string>::iterator it = _skills.begin();
+    bool isPresent = false;
+    for(; it < _skills.end() && !isPresent; ++it)
+        if(*it == newskill)
+            isPresent = true;
+    if(!isPresent) _skills.push_back(newskill);
 }
 void UserInfo::addInterest(string newinterest) {
-    _interests.push_back(newinterest);
+    vector<string>::iterator it = _interests.begin();
+    bool isPresent = false;
+    for(; it < _interests.end() && !isPresent; ++it)
+        if(*it == newinterest)
+            isPresent = true;
+    if(!isPresent) _interests.push_back(newinterest);
 }
 void UserInfo::addExperience(Experience* newxp) {
-    SmartExp s_exp(newxp);
-    _exps.push_back(s_exp);
+    _exps.push_back(SmartExp(newxp));
 }
 string UserInfo::print() const {
+    vector<string>::const_iterator it = _interests.begin();
     string ret = "";
     string sex = "";
     if(this->sex()) sex = "Maschio";
@@ -112,10 +122,11 @@ string UserInfo::print() const {
     ret += _name + " , " + _surname + " , " + sex + " , " + _address + " , " + _telephon + ", nato il " + _birthdate + "\n";
     ret += "E-mail >> " + _email + " Sito web >> " + _website + "\n";
     ret += "Personal interests >> ";
-    for(int i = 0; i < _interests.size(); ++i)
-        ret += _interests[i] + ", ";
+    for(; it < _interests.end(); ++it)
+        ret += *it + ", ";
     ret += "\nPersonal skills >> ";
-    for(int i = 0; i < _skills.size(); ++i)
-        ret += _skills[i] + ", ";
+    it = _skills.begin();
+    for(; it < _skills.end(); ++it)
+        ret += *it + ", ";
     return ret;
 }
