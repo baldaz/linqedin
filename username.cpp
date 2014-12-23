@@ -1,22 +1,21 @@
 #include "username.h"
-#include <QString>
 
-Username::Username(QString l = "", QString p = "") : _login(l), _password(p) {}
+Username::Username(string l = "", string p = "") : _login(l), _password(p) {}
 Username::Username(const Username& usr) : _login(usr._login), _password(usr._password) {}
 Username::~Username() {}
 Username* Username::clone() const {
     return new Username(*this);
 }
-QString Username::login() const {
+string Username::login() const {
     return _login;
 }
-QString Username::password() const {
+string Username::password() const {
     return _password;
 }
-void Username::setLogin(QString l) {
+void Username::setLogin(string l) {
     _login = l;
 }
-void Username::setPassword(QString p) {
+void Username::setPassword(string p) {
     _password = p;
 }
 bool Username::operator==(const Username& usr) const {

@@ -9,10 +9,9 @@ class LinqDB;
 class SPUser;
 
 class User {
-private:
+protected:
     Account* _acc;
     LinqNet* _net;
-protected:
     class searchFunctor {
     private:
         int _s_type;

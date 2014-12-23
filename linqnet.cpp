@@ -17,8 +17,6 @@ void LinqNet::addUser(User* usr) {
 void LinqNet::removeUser(Username* usr) {
     for(int i = 0; i < size(); i++)
         if((_net[i]->account()->username()->login()) == usr->login())
-        // cout << "ciao " << _net[i]->account()->username()->login().toStdString() << " e " << usr->login().toStdString() << endl;
-            // cout << _net[i]->account()->username()->login().toStdString();
             _net.erase(_net.begin() + i);
 }
 vector<Username*> LinqNet::username() const {
@@ -34,7 +32,7 @@ ostream& operator<<(ostream& os, const LinqNet& net) {
     if(!net.size()) { os << "Nessun amico per te" << endl; }
     else {
         for(int i = 0; i < net.size(); ++i)
-            os << net[i]->account()->username()->login().toStdString() << " ";
+            os << net[i]->account()->username()->login() << " ";
     }
     return os;
 }

@@ -13,9 +13,9 @@ void LinqClient::removeContact(Username* usr) {
 }
 void LinqClient::displayProfile() const {
     std::cout << "Account type >> " << _usr->account()->prLevel() << std::endl;
-    std::cout << "Credentials >> user: " << _usr->account()->username()->login().toStdString() << "  password: " << _usr->account()->username()->password().toStdString() << std::endl;
+    std::cout << "Credentials >> user: " << _usr->account()->username()->login() << "  password: " << _usr->account()->username()->password() << std::endl;
     std::cout << "DB size >> " << _db->size() << " Friends >> " << _usr->net()->size() << std::endl;
-    std::cout << "Account info >> " << _usr->account()->info()->print().toStdString() << std::endl;
+    std::cout << "Account info >> " << _usr->account()->info()->print() << std::endl;
     std::cout << "Friend list >> ";
     std::cout << *_usr->net() << std::endl;
 }

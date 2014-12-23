@@ -2,19 +2,20 @@
 #define LINQDB_H
 
 #include <iostream>
-#include <algorithm>
 #include <vector>
 #include <QFile>
 #include <QJsonObject>
 #include <QJsonArray>
 #include <QJsonDocument>
 #include <QString>
+#include <string>
 #include "spuser.h"
 #include "linqnet.h"
 #include "privlevel.h"
 
 using std::ostream;
 using std::vector;
+using std::string;
 
 class LinqDB {
 private:
@@ -29,9 +30,9 @@ public:
     ~LinqDB();
     void load();
     void save() const;
-    int size() const;
     void addUser(User*);
     void removeUser(Username*);
+    int size() const;
     User* find(Username*);
     vector<SPUser>::const_iterator begin() const;
     vector<SPUser>::const_iterator end() const;

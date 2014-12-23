@@ -2,39 +2,41 @@
 
 Experience::~Experience() {}
 Instruction::Instruction() {}
-Instruction::Instruction(QString l, QString f, QString t) : _location(l), _from(f), _to(t) {}
+Instruction::Instruction(string l, string f, string t) : _location(l), _from(f), _to(t) {}
+Instruction::Instruction(const Instruction& ins) : _location(ins._location), _from(ins._from), _to(ins._to) {}
 Experience* Instruction::clone() const {
     return new Instruction(*this);
 }
-QString Instruction::location() const {
+string Instruction::location() const {
     return _location;
 }
-QString Instruction::from() const {
+string Instruction::from() const {
     return _from;
 }
-QString Instruction::to() const {
+string Instruction::to() const {
     return _to;
 }
-void Instruction::setLocation(QString l = "") {
+void Instruction::setLocation(string l = "") {
     _location = l;
 }
-void Instruction::setFrom(QString f = "") {
+void Instruction::setFrom(string f = "") {
     _from = f;
 }
-void Instruction::setTo(QString t = "") {
+void Instruction::setTo(string t = "") {
     _to = t;
 }
-QString Instruction::print() const { return 0;}
+string Instruction::print() const { return 0;}
 
 Work::Work() : Instruction() {}
-Work::Work(QString l, QString d, QString f, QString t) : Instruction(l, f, t), _description(d) {}
+Work::Work(string l, string d, string f, string t) : Instruction(l, f, t), _description(d) {}
+Work::Work(const Work& wrk) : Instruction(wrk), _description(wrk._description) {}
 Experience* Work::clone() const {
     return new Work(*this);
 }
-QString Work::description() const {
+string Work::description() const {
     return _description;
 }
-void Work::setDescription(QString d = "") {
+void Work::setDescription(string d = "") {
     _description = d;
 }
-QString Work::print() const { return 0; }
+string Work::print() const { return 0; }

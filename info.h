@@ -1,17 +1,18 @@
 #ifndef USERINFO_H
 #define USERINFO_H
 
-#include <QString>
+#include <string>
 #include <vector>
 #include "experience.h"
 
 using std::vector;
+using std::string;
 
 class Info {
 public:
     virtual ~Info();
     virtual Info* clone() const =0;
-    virtual QString print() const =0;
+    virtual string print() const =0;
 };
 
 class UserInfo : public Info {
@@ -27,38 +28,42 @@ private:
     };
 
     bool _sex;
-    QString _name, _surname, _birthdate, _email, _address, _telephon;
-    vector<QString> _skills;
+    string _name, _surname, _birthdate, _email, _address, _telephon, _website;
+    vector<string> _skills, _interests;
     vector<SmartExp> _formations;
     vector<SmartExp> _exps;
 public:
     UserInfo();
-    UserInfo(bool, QString, QString, QString, QString, QString, QString);
+    UserInfo(bool, string, string, string, string, string, string, string);
     UserInfo(const UserInfo&);
     Info* clone() const;
     // virtual ~UserInfo();
     UserInfo& operator=(const UserInfo&);
-    QString name() const;
-    QString surname() const;
-    QString birthdate() const;
-    QString email() const;
-    QString address() const;
-    QString telephon() const;
+    string name() const;
+    string surname() const;
+    string birthdate() const;
+    string email() const;
+    string address() const;
+    string telephon() const;
+    string website() const;
     bool sex() const;
-    vector<QString> skills() const;
+    vector<string> skills() const;
+    vector<string> interests() const;
     vector<SmartExp> experience() const;
     vector<SmartExp> formations() const;
     void setSex(bool);
-    void setName(QString);
-    void setSurname(QString);
-    void setBirthdate(QString);
-    void setEmail(QString);
-    void setAddress(QString);
-    void setTelephon(QString);
-    void addSkill(QString);
+    void setName(string);
+    void setSurname(string);
+    void setBirthdate(string);
+    void setEmail(string);
+    void setAddress(string);
+    void setTelephon(string);
+    void setWebsite(string);
+    void addSkill(string);
+    void addInterest(string);
     void addExperience(Experience*);
     void addFormation(Experience*);
-    virtual QString print() const;
+    virtual string print() const;
 };
 
 #endif

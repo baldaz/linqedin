@@ -34,13 +34,16 @@ User::searchFunctor::searchFunctor(int s = 0) : _s_type(s) {}
 void User::searchFunctor::operator()(const SPUser& spu) const {
     switch(_s_type) {
         case 1:
-            std::cout << "Basic search" << std::endl;
+            std::cout << spu->account()->username()->login() << std::endl;
         break;
         case 2:
-            std::cout << "Business search" << std::endl;
+            std::cout << spu->account()->username()->login() << std::endl;
+            std::cout << spu->account()->info()->print() << std::endl;
         break;
         case 3:
-            std::cout << "Executive search" << std::endl;
+            std::cout << spu->account()->username()->login() << std::endl;
+            std::cout << spu->account()->info()->print() << std::endl;
+            std::cout << *spu->net() << std::endl;
         break;
         default:
             std::cout << "Schifo search" << std::endl;

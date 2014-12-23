@@ -10,10 +10,10 @@ private:
 public:
     LinqAdmin();
     ~LinqAdmin();
-    void insertUser();
-    void removeUser();
+    void insertUser(User*);
+    void removeUser(Username*);
     void find() const;
-    void alterSubscription(Username*);
+    void alterSubscription(Username*, privLevel);
     void save() const;
 };
 #endif

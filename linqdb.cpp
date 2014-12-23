@@ -1,6 +1,5 @@
 #include "linqdb.h"
 
-using std::for_each;
 using std::ostream;
 using std::endl;
 
@@ -26,22 +25,26 @@ void LinqDB::read(const QJsonArray& qjs) {
     UserInfo* uif;
     for(int i = 0; i < qjs.size(); ++i) {
         QJsonObject obj = qjs[i].toObject();
-        Username* usr = new Username(obj["username"].toString(), obj["password"].toString());
+        Username* usr = new Username(obj["username"].toString().toStdString(), obj["password"].toString().toStdString());
         Info* uf = new UserInfo();
         uif = dynamic_cast<UserInfo*> (uf);
         LinqNet* net = new LinqNet();
         QJsonObject info = obj["info"].toObject();
         if(uif) {
-            uif->setName(info["name"].toString());
-            uif->setSurname(info["surname"].toString());
-            uif->setBirthdate(info["birthdate"].toString());
-            uif->setEmail(info["email"].toString());
-            uif->setAddress(info["address"].toString());
-            uif->setTelephon(info["telephon"].toString());
+            uif->setName(info["name"].toString().toStdString());
+            uif->setSurname(info["surname"].toString().toStdString());
+            uif->setBirthdate(info["birthdate"].toString().toStdString());
+            uif->setEmail(info["email"].toString().toStdString());
+            uif->setAddress(info["address"].toString().toStdString());
+            uif->setTelephon(info["telephon"].toString().toStdString());
             uif->setSex(info["sex"].toBool());
+            uif->setWebsite(info["website"].toString().toStdString());
             QJsonArray skills = obj["skills"].toArray();
             for(int i = 0; i < skills.size(); ++i)
-                uif->addSkill(skills[i].toString());
+                uif->addSkill(skills[i].toString().toStdString());
+            QJsonArray interests = obj["interests"].toArray();
+            for(int i = 0; i < interests.size(); ++i)
+                uif->addInterest(interests[i].toString().toStdString());
         }
         privLevel priv = static_cast<privLevel> (obj["privilege"].toInt());
         Account* acc = new Account(uif, usr, priv);
@@ -67,9 +70,9 @@ void LinqDB::readNet(const QJsonArray& qjs) {
         for(int i = 0; i < qjs.size(); ++i) {
             QJsonObject obj = qjs[i].toObject();
             QJsonArray contacts = obj["net"].toArray();
-            if(_db[j]->account()->username()->login() == obj["username"].toString()) {
+            if(_db[j]->account()->username()->login() == obj["username"].toString().toStdString()) {
                 for(int k = 0; k < contacts.size(); ++k)
-                    _db[j]->addContact(find(new Username(contacts[k].toString(), "")));
+                    _db[j]->addContact(find(new Username(contacts[k].toString().toStdString(), "")));
             }
         }
     }
@@ -79,27 +82,32 @@ vector<QJsonObject> LinqDB::toJsonObject() const {
     UserInfo* uif;
     for(int i = 0; i < size(); ++i) {
         QJsonObject jUser, jInf;
-        QJsonArray jArr, jSkill;
+        QJsonArray jArr, jSkill, jInterest;
         uif = dynamic_cast<UserInfo*> (_db[i]->account()->info()); /*downcast a userinfo*/
-        jInf["name"] = uif->name();
-        jInf["surname"] = uif->surname();
-        jInf["telephon"] = uif->telephon();
-        jInf["birthdate"] = uif->birthdate();
-        jInf["email"] = uif->email();
+        jInf["name"] = QString::fromStdString(uif->name());
+        jInf["surname"] = QString::fromStdString(uif->surname());
+        jInf["telephon"] = QString::fromStdString(uif->telephon());
+        jInf["birthdate"] = QString::fromStdString(uif->birthdate());
+        jInf["email"] = QString::fromStdString(uif->email());
         jInf["sex"] = uif->sex();
-        jInf["address"] = uif->address();
-        vector<QString> skills = uif->skills();
+        jInf["address"] = QString::fromStdString(uif->address());
+        jInf["website"] = QString::fromStdString(uif->website());
+        vector<string> skills = uif->skills();
         for(int i = 0; i < skills.size(); ++i)
-            jSkill.append(skills[i]);
-        jUser["username"] = _db[i]->account()->username()->login();
-        jUser["password"] = _db[i]->account()->username()->password();
+            jSkill.append(QString::fromStdString(skills[i]));
+        vector<string> interests = uif->interests();
+        for(int i = 0; i < interests.size(); ++i)
+            jInterest.append(QString::fromStdString(interests[i]));
+        jUser["username"] = QString::fromStdString(_db[i]->account()->username()->login());
+        jUser["password"] = QString::fromStdString(_db[i]->account()->username()->password());
         jUser["privilege"] = _db[i]->account()->prLevel();
         vector<Username*> list = _db[i]->net()->username();
         for(int i = 0; i < list.size(); ++i)
-            jArr.append(list[i]->login());
+            jArr.append(QString::fromStdString(list[i]->login()));
         jUser["net"] = jArr;
         jUser["info"] = jInf;
         jUser["skills"] = jSkill;
+        jUser["interests"] = jInterest;
         vjs.push_back(jUser);
     }
     return vjs;
@@ -163,8 +171,8 @@ ostream& operator<<(ostream& os, const LinqDB& db) {
     if(!db.size()) os << "Nessun utente inserito" << endl;
     else {
         for(int i = 0; i < db.size(); ++i){
-            os << db[i]->account()->username()->login().toStdString() << " : ";
-            os << db[i]->account()->username()->password().toStdString() << endl;
+            os << db[i]->account()->username()->login() << " : ";
+            os << db[i]->account()->username()->password() << endl;
         }
         os << "DB size: " << db.size() << endl;
     }

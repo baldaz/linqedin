@@ -7,8 +7,14 @@
             "name": "Andrea",
             "sex": true,
             "surname": "Baldan",
-            "telephon": "3450515048"
+            "telephon": "3450515048",
+            "website" : "www.baldaz.ba"
         },
+        "interests": [
+            "Coding",
+            "Snowboard",
+            "Homebrew"
+        ],
         "net": [
             "Pablito",
             "Atilio"
@@ -34,8 +40,14 @@
             "name": "Pablos",
             "sex": true,
             "surname": "Escobar",
-            "telephon": "9873478233"
+            "telephon": "9873478233",
+            "website" : "www.cartel.cl"
         },
+        "interests": [
+            "Web design",
+            "Ski",
+            "Homebrew"
+        ],
         "net": [
             "Atilio"
         ],
@@ -55,8 +67,14 @@
             "name": "Atos",
             "sex": true,
             "surname": "Bierta",
-            "telephon": "4872474213"
+            "telephon": "4872474213",
+            "website" : "www.cartel.mx"
         },
+        "interests": [
+            "Gym",
+            "Boxe",
+            "Blades"
+        ],
         "net": [
             "Pablito"
         ],
@@ -78,8 +96,13 @@
             "name": "Andr",
             "sex": true,
             "surname": "jsjs",
-            "telephon": "35015048"
+            "telephon": "35015048",
+            "website" : "www.andr.ad"
         },
+        "interests": [
+            "Web developing",
+            "Videogames"
+        ],
         "net": [
             "Pablito",
             "Atilio",
@@ -102,8 +125,14 @@
             "name": "Sara",
             "sex": false,
             "surname": "Mira",
-            "telephon": "3250515048"
+            "telephon": "3250515048",
+            "website" : "www.sara.sr"
         },
+        "interests": [
+            "Reading",
+            "Fishing",
+            "Decoupage"
+        ],
         "net": [
             "Pablito",
             "Atilio",
@@ -126,8 +155,14 @@
             "name": "Giacomo",
             "sex": true,
             "surname": "Ser",
-            "telephon": "345215048"
+            "telephon": "345215048",
+            "website" : "www.idiota.ser"
         },
+        "interests": [
+            "Drums",
+            "Keyboard",
+            "Music"
+        ],
         "net": [
             "Pablito",
             "Atilio",
