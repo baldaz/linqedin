@@ -1,7 +1,7 @@
 [
     {
         "info": {
-            "address": "via 4 novembre 12",
+            "address": "via 4 novembre 24",
             "birthdate": "08-10-1988",
             "email": "a.g.baldan@gmail.com",
             "name": "Andrea",
@@ -13,8 +13,17 @@
             "Pablito",
             "Atilio"
         ],
-        "password": "password",
+        "password": "qwerty",
         "privilege": 0,
+        "skills": [
+            "C++",
+            "PHP",
+            "Perl",
+            "Ruby",
+            "Javascript",
+            "HTML",
+            "CSS"
+        ],
         "username": "Baldaz"
     },
     {
@@ -32,6 +41,10 @@
         ],
         "password": "maurisio",
         "privilege": 0,
+        "skills": [
+            "C++",
+            "PHP"
+        ],
         "username": "Pablito"
     },
     {
@@ -49,6 +62,12 @@
         ],
         "password": "piovra",
         "privilege": 0,
+        "skills": [
+            "C++",
+            "PHP",
+            "Perl",
+            "Ruby"
+        ],
         "username": "Atilio"
     },
     {
@@ -68,6 +87,11 @@
         ],
         "password": "rd",
         "privilege": 0,
+        "skills": [
+            "C#",
+            "Visual Basic",
+            "Objective-C"
+        ],
         "username": "aui"
     },
     {
@@ -87,6 +111,11 @@
         ],
         "password": "sara",
         "privilege": 0,
+        "skills": [
+            "Math",
+            "Matlab",
+            "R"
+        ],
         "username": "Sara87"
     },
     {
@@ -107,6 +136,11 @@
         ],
         "password": "wword",
         "privilege": 0,
+        "skills": [
+            "Elettronica",
+            "MosFet",
+            "Bode"
+        ],
         "username": "ser"
     }
 ]

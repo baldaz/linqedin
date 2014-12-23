@@ -39,6 +39,9 @@ void LinqDB::read(const QJsonArray& qjs) {
             uif->setAddress(info["address"].toString());
             uif->setTelephon(info["telephon"].toString());
             uif->setSex(info["sex"].toBool());
+            QJsonArray skills = obj["skills"].toArray();
+            for(int i = 0; i < skills.size(); ++i)
+                uif->addSkill(skills[i].toString());
         }
         privLevel priv = static_cast<privLevel> (obj["privilege"].toInt());
         Account* acc = new Account(uif, usr, priv);
@@ -76,7 +79,7 @@ vector<QJsonObject> LinqDB::toJsonObject() const {
     UserInfo* uif;
     for(int i = 0; i < size(); ++i) {
         QJsonObject jUser, jInf;
-        QJsonArray jArr, jInfo;
+        QJsonArray jArr, jSkill;
         uif = dynamic_cast<UserInfo*> (_db[i]->account()->info()); /*downcast a userinfo*/
         jInf["name"] = uif->name();
         jInf["surname"] = uif->surname();
@@ -85,6 +88,9 @@ vector<QJsonObject> LinqDB::toJsonObject() const {
         jInf["email"] = uif->email();
         jInf["sex"] = uif->sex();
         jInf["address"] = uif->address();
+        vector<QString> skills = uif->skills();
+        for(int i = 0; i < skills.size(); ++i)
+            jSkill.append(skills[i]);
         jUser["username"] = _db[i]->account()->username()->login();
         jUser["password"] = _db[i]->account()->username()->password();
         jUser["privilege"] = _db[i]->account()->prLevel();
@@ -93,6 +99,7 @@ vector<QJsonObject> LinqDB::toJsonObject() const {
             jArr.append(list[i]->login());
         jUser["net"] = jArr;
         jUser["info"] = jInf;
+        jUser["skills"] = jSkill;
         vjs.push_back(jUser);
     }
     return vjs;

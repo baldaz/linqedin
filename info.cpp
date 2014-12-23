@@ -16,7 +16,9 @@ UserInfo::UserInfo() {}
 UserInfo::UserInfo(bool sx, QString n, QString s, QString b, QString e, QString a, QString t) :
                 _sex(sx), _name(n), _surname(s), _birthdate(b), _email(e), _address(a), _telephon(t){}
 UserInfo::UserInfo(const UserInfo& uf) :
-                _sex(uf._sex), _name(uf._name), _surname(uf._surname), _birthdate(uf._birthdate), _email(uf._email), _address(uf._address), _telephon(uf._telephon) {}
+                _sex(uf._sex), _name(uf._name), _surname(uf._surname),
+                _birthdate(uf._birthdate), _email(uf._email), _address(uf._address),
+                _telephon(uf._telephon), _skills(uf._skills), _exps(uf._exps) {}
 UserInfo& UserInfo::operator=(const UserInfo& uif) {
     if(this != &uif) {
         _name = uif._name;
@@ -95,6 +97,10 @@ QString UserInfo::print() const {
     QString sex = "";
     if(this->sex()) sex = "Maschio";
     else sex = "Femmina";
-    ret += _name + " , " + _surname + " , " + sex + " , " + _address + " , " + _telephon;
+    ret += _name + " , " + _surname + " , " + sex + " , " + _address + " , " + _telephon + ", nato il " + _birthdate + "\n";
+    ret += "E-mail >> " + _email + "\n";
+    ret += "Personal skills >> ";
+    for(int i = 0; i < _skills.size(); ++i)
+        ret += _skills[i] + ", ";
     return ret;
 }
