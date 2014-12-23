@@ -18,6 +18,7 @@ HEADERS += account.h \
            linqdb.h \
            linqnet.h \
            privlevel.h \
+           smartptr.h \
            spuser.h \
            user.h \
            username.h
@@ -29,6 +30,7 @@ SOURCES += account.cpp \
            linqdb.cpp \
            linqnet.cpp \
            main.cpp \
+           smartptr.cpp \
            spuser.cpp \
            user.cpp \
            username.cpp
