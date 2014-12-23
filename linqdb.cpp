@@ -140,12 +140,9 @@ void LinqDB::addUser(User* u) {
     _db.push_back(spu);
 }
 void LinqDB::removeUser(Username* usr) {
-    for(int i = 0; i < size(); ++i) {
-        if((_db[i]->account()->username()->login()) == usr->login()){
+    for(int i = 0; i < size(); ++i)
+        if((_db[i]->account()->username()->login()) == usr->login())
             _db.erase(_db.begin() + i);
-            std::cout<<"db ciao"<<i<<size()<<std::endl;
-        }
-    }
 }
 User* LinqDB::find(Username* usr) {
     User* ret;

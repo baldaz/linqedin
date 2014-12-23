@@ -7,16 +7,20 @@
 // #include "linqnet.h"
 // #include "linqdb.h"
 #include "linqclient.h"
+#include "linqadmin.h"
 
 using std::cout;
 using std::endl;
 
 int main(int argc, char**argv) {
+    // LinqAdmin* admin = new LinqAdmin();
+    // Username* ser = new Username("ser", "wword");
+    // admin->removeUser(ser);
     cout << endl << "+++++++++++++++++++++++++++++++++++++++++++++++++++" << endl;
     Username* user = new Username("Baldaz", "password");
     LinqClient* client = new LinqClient(user);
     Username* contact = new Username("Sara87", "sara");
-    Username* ser = new Username("ser", "wword");
+    // Username* ser = new Username("ser", "wword");
     client->addContact(contact);
     client->addContact(ser);
     client->removeContact(contact);
