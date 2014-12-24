@@ -1,53 +1,59 @@
-template <typename T>
+template <class T>
 void SmartPtr<T>::RefCounter::addRef() {
     count++;
 }
-template <typename T>
+template <class T>
 int SmartPtr<T>::RefCounter::release() {
     return --count;
 }
-template <typename T>
+template <class T>
+SmartPtr<T>::SmartPtr() : _ptr(0), ref(0) {
+    ref = new RefCounter();
+    ref->addRef();
+}
+template <class T>
 SmartPtr<T>::SmartPtr(T* usr) : _ptr(usr), ref(0) {
     ref = new RefCounter();
     ref->addRef();
 }
-template <typename T>
-SmartPtr<T>::SmartPtr(const SmartPtr& spusr) : _ptr(spusr._ptr), ref(spusr.ref) {
+template <class T>
+SmartPtr<T>::SmartPtr(const SmartPtr<T>& spusr) : _ptr(spusr._ptr), ref(spusr.ref) {
     ref->addRef();
 }
-template <typename T>
+template <class T>
 SmartPtr<T>::~SmartPtr() {
-    if(!ref->release()) {
+    if(ref->release() == 0) {
         delete _ptr;
         delete ref;
     }
 }
-template <typename T>
-SmartPtr<T>& SmartPtr<T>::operator=(const SmartPtr& spusr) {
+template <class T>
+SmartPtr<T>& SmartPtr<T>::operator=(const SmartPtr<T>& spusr) {
     if (this != &spusr) {
         if(ref->release() == 0) {
             delete _ptr;
             delete ref;
         }
         _ptr = spusr._ptr;
+        // spusr._ptr = NULL;
         ref = spusr.ref;
         ref->addRef();
     }
     return *this;
 }
-template <typename T>
+template <class T>
 T& SmartPtr<T>::operator*() const {
     return *_ptr;
 }
-template <typename T>
+template <class T>
 T* SmartPtr<T>::operator->() const {
     return _ptr;
 }
-template <typename T>
-bool SmartPtr<T>::operator==(const SmartPtr& spu) const{
+template <class T>
+bool SmartPtr<T>::operator==(const SmartPtr<T>& spu) const{
     return(_ptr == spu._ptr);
 }
-template <typename T>
-bool SmartPtr<T>::operator!=(const SmartPtr& spu) const{
+template <class T>
+bool SmartPtr<T>::operator!=(const SmartPtr<T>& spu) const{
     return(_ptr != spu._ptr);
 }

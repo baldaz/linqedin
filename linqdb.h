@@ -9,7 +9,8 @@
 #include <QJsonDocument>
 #include <QString>
 #include <string>
-#include "spuser.h"
+// #include "spuser.h"
+#include "user.h"
 #include "linqnet.h"
 #include "privlevel.h"
 #include "smartptr.h"

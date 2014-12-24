@@ -13,6 +13,7 @@ private:
     T* _ptr;
     RefCounter* ref;
 public:
+    SmartPtr();
     SmartPtr(T*);
     SmartPtr(const SmartPtr&);
     ~SmartPtr();

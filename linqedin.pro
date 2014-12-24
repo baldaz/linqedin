@@ -12,6 +12,7 @@ greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 # Input
 HEADERS += account.h \
            experience.h \
+           gui_widget.h \
            info.h \
            linqadmin.h \
            linqclient.h \
@@ -19,17 +20,16 @@ HEADERS += account.h \
            linqnet.h \
            privlevel.h \
            smartptr.h \
-           spuser.h \
            user.h \
            username.h
 SOURCES += account.cpp \
            experience.cpp \
+           gui_widget.cpp \
            info.cpp \
            linqadmin.cpp \
            linqclient.cpp \
            linqdb.cpp \
            linqnet.cpp \
            main.cpp \
-           spuser.cpp \
            user.cpp \
            username.cpp

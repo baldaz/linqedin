@@ -16,6 +16,9 @@ public:
     void alterProfile();
     void addContact(Username*);
     void removeContact(Username*);
+    void addExperience(Experience*);
+    void addFormation(Experience*);
     void find() const;
+    void save() const;
 };
 #endif

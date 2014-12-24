@@ -45,6 +45,12 @@ void LinqDB::read(const QJsonArray& qjs) {
             QJsonArray interests = obj["interests"].toArray();
             for(int i = 0; i < interests.size(); ++i)
                 uif->addInterest(interests[i].toString().toStdString());
+            QJsonArray formations = obj["formations"].toArray();
+            QJsonObject sub;
+            for(int i = 0; i < formations.size(); ++i){
+                sub = formations[i].toObject();
+                uif->addFormation(new Instruction(sub["location"].toString().toStdString(), sub["from"].toString().toStdString(), sub["to"].toString().toStdString()));
+            }
         }
         privLevel priv = static_cast<privLevel> (obj["privilege"].toInt());
         Account* acc = new Account(uif, usr, priv);
@@ -81,17 +87,31 @@ vector<QJsonObject> LinqDB::toJsonObject() const {
     vector<QJsonObject> vjs;
     UserInfo* uif;
     for(int i = 0; i < size(); ++i) {
-        QJsonObject jUser, jInf;
-        QJsonArray jArr, jSkill, jInterest;
+        QJsonObject jUser, jInf, jFormations;
+        QJsonArray jArr, jSkill, jInterest, jForArr;
+        vector<SmartPtr<Experience> > formations;
         uif = dynamic_cast<UserInfo*> (_db[i]->account()->info()); /*downcast a userinfo*/
-        jInf["name"] = QString::fromStdString(uif->name());
-        jInf["surname"] = QString::fromStdString(uif->surname());
-        jInf["telephon"] = QString::fromStdString(uif->telephon());
-        jInf["birthdate"] = QString::fromStdString(uif->birthdate());
-        jInf["email"] = QString::fromStdString(uif->email());
-        jInf["sex"] = uif->sex();
-        jInf["address"] = QString::fromStdString(uif->address());
-        jInf["website"] = QString::fromStdString(uif->website());
+        if(uif) {
+            jInf["name"] = QString::fromStdString(uif->name());
+            jInf["surname"] = QString::fromStdString(uif->surname());
+            jInf["telephon"] = QString::fromStdString(uif->telephon());
+            jInf["birthdate"] = QString::fromStdString(uif->birthdate());
+            jInf["email"] = QString::fromStdString(uif->email());
+            jInf["sex"] = uif->sex();
+            jInf["address"] = QString::fromStdString(uif->address());
+            jInf["website"] = QString::fromStdString(uif->website());
+            formations = uif->formations();
+        }
+        Instruction* ins;
+        for(int i = 0; i < formations.size(); ++i){
+            ins = dynamic_cast<Instruction*> (&(*formations[i]));
+            if(ins) {
+                jFormations["location"] = QString::fromStdString(ins->location());
+                jFormations["from"] = QString::fromStdString(ins->from());
+                jFormations["to"] = QString::fromStdString(ins->to());
+            }
+            jForArr.append(jFormations);
+        }
         vector<string> skills = uif->skills();
         for(int i = 0; i < skills.size(); ++i)
             jSkill.append(QString::fromStdString(skills[i]));
@@ -108,6 +128,7 @@ vector<QJsonObject> LinqDB::toJsonObject() const {
         jUser["info"] = jInf;
         jUser["skills"] = jSkill;
         jUser["interests"] = jInterest;
+        jUser["formations"] = jForArr;
         vjs.push_back(jUser);
     }
     return vjs;
@@ -157,8 +178,8 @@ User* LinqDB::find(Username* usr) {
     User* ret;
     for(int i = 0; i < size(); ++i)
         if((_db[i]->account()->username()->login()) == usr->login())
-            // ret = _db[i]->clone();
-            ret = &(*_db[i]);
+            ret = _db[i]->clone();
+            // ret = &(*_db[i]);
     return ret;
 }
 vector<SmartPtr<User> >::const_iterator LinqDB::begin() const{

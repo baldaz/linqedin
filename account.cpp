@@ -28,3 +28,6 @@ privLevel Account::prLevel() const {
 void Account::setInfo(Info* uf) {
     _info = uf;
 }
+void Account::setPrLevel(privLevel newlevel) {
+    _privilege = newlevel;
+}

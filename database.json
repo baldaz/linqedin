@@ -1,5 +1,17 @@
 [
     {
+        "formations": [
+            {
+                "from": "2002",
+                "location": "ITIS F.Severi",
+                "to": "2007"
+            },
+            {
+                "from": "2008",
+                "location": "Università Degli Studi di Padova",
+                "to": "2042"
+            }
+        ],
         "info": {
             "address": "via 4 novembre 24",
             "birthdate": "08-10-1988",
@@ -33,6 +45,8 @@
         "username": "Baldaz"
     },
     {
+        "formations": [
+        ],
         "info": {
             "address": "calle de la muerte 1",
             "birthdate": "15-12-1923",
@@ -60,6 +74,8 @@
         "username": "Pablito"
     },
     {
+        "formations": [
+        ],
         "info": {
             "address": "calle de la muerte 2",
             "birthdate": "15-10-1973",
@@ -89,6 +105,8 @@
         "username": "Atilio"
     },
     {
+        "formations": [
+        ],
         "info": {
             "address": "via 7 dicembre 12",
             "birthdate": "08-10-1288",
@@ -118,6 +136,8 @@
         "username": "aui"
     },
     {
+        "formations": [
+        ],
         "info": {
             "address": "via monghi 12",
             "birthdate": "08-10-1928",
@@ -146,5 +166,38 @@
             "R"
         ],
         "username": "Sara87"
+    },
+    {
+        "formations": [
+        ],
+        "info": {
+            "address": "via 4 novembre 12",
+            "birthdate": "08-10-1988",
+            "email": "dan@gmail.com",
+            "name": "Giacomo",
+            "sex": true,
+            "surname": "Ser",
+            "telephon": "345215048",
+            "website": "www.idiota.ser"
+        },
+        "interests": [
+            "Drums",
+            "Keyboard",
+            "Music"
+        ],
+        "net": [
+            "Pablito",
+            "Atilio",
+            "Baldaz",
+            "Sara87"
+        ],
+        "password": "wword",
+        "privilege": 0,
+        "skills": [
+            "Elettronica",
+            "MosFet",
+            "Bode"
+        ],
+        "username": "ser"
     }
 ]

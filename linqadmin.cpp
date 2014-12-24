@@ -16,7 +16,11 @@ void LinqAdmin::removeUser(Username* user) {
     _db->removeUser(user);
     save();
 }
-void alterSubscription(Username* usr, privLevel newlevel) {}
+void LinqAdmin::alterSubscription(Username* usr, privLevel newlevel) {
+    User* current = _db->find(usr);
+    current->account()->setPrLevel(newlevel);
+    save();
+}
 void LinqAdmin::find() const {}
 void LinqAdmin::save() const {
     _db->save();

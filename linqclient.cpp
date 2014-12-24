@@ -22,3 +22,16 @@ void LinqClient::displayProfile() const {
 void LinqClient::find() const {
     _usr->userSearch(*_db);
 }
+void LinqClient::addExperience(Experience* xp) {
+    UserInfo* uf;
+    uf = dynamic_cast<UserInfo*> (_usr->account()->info());
+    if(uf) uf->addExperience(xp);
+}
+void LinqClient::addFormation(Experience* frm) {
+    UserInfo* uf;
+    uf = dynamic_cast<UserInfo*> (_usr->account()->info());
+    if(uf) uf->addFormation(frm);
+}
+void LinqClient::save() const {
+    _db->save();
+}

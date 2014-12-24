@@ -23,5 +23,6 @@ public:
     Info* info() const;
     privLevel prLevel() const;
     void setInfo(Info*);
+    void setPrLevel(privLevel);
 };
 #endif

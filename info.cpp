@@ -1,15 +1,21 @@
 #include "info.h"
 
-// UserInfo::SmartExp::SmartExp(Experience* exp) : ptr(exp->clone()) {}
-// UserInfo::SmartExp::SmartExp(const SmartExp& sm_exp) : ptr((sm_exp.ptr)->clone()) {}
-// UserInfo::SmartExp& UserInfo::SmartExp::operator=(const SmartExp& sm_exp) {
-//     if(this != &sm_exp) {
-//         delete ptr;
-//         ptr = (sm_exp.ptr)->clone();
-//     }
-//     return *this;
-// }
-// UserInfo::SmartExp::~SmartExp() { delete ptr; }
+UserInfo::SmartExp::SmartExp(Experience* exp) : ptr(exp->clone()) {}
+UserInfo::SmartExp::SmartExp(const SmartExp& sm_exp) : ptr((sm_exp.ptr)->clone()) {}
+UserInfo::SmartExp& UserInfo::SmartExp::operator=(const SmartExp& sm_exp) {
+    if(this != &sm_exp) {
+        delete ptr;
+        ptr = (sm_exp.ptr)->clone();
+    }
+    return *this;
+}
+UserInfo::SmartExp::~SmartExp() { delete ptr; }
+Experience& UserInfo::SmartExp::operator*() const {
+    return *ptr;
+}
+Experience* UserInfo::SmartExp::operator->() const {
+    return ptr;
+}
 
 Info::~Info() {}
 UserInfo::UserInfo() {}
@@ -18,7 +24,7 @@ UserInfo::UserInfo(bool sx, string n, string s, string b, string e, string a, st
 UserInfo::UserInfo(const UserInfo& uf) :
                 _sex(uf._sex), _name(uf._name), _surname(uf._surname),_birthdate(uf._birthdate),
                 _email(uf._email), _address(uf._address), _telephon(uf._telephon), _skills(uf._skills),
-                _exps(uf._exps), _interests(uf._interests), _website(uf._website) {}
+                _exps(uf._exps), _formations(uf._formations), _interests(uf._interests), _website(uf._website) {}
 UserInfo& UserInfo::operator=(const UserInfo& uif) {
     if(this != &uif) {
         _name = uif._name;
@@ -88,10 +94,10 @@ void UserInfo::setTelephon(string t = "") {
 void UserInfo::setAddress(string a = "") {
     _address = a;
 }
-void UserInfo::setSex(bool s) {
+void UserInfo::setSex(bool s = true) {
     _sex = s;
 }
-void UserInfo::setWebsite(string site) {
+void UserInfo::setWebsite(string site = "") {
     _website = site;
 }
 void UserInfo::addSkill(string newskill) {
@@ -102,7 +108,7 @@ void UserInfo::addSkill(string newskill) {
             isPresent = true;
     if(!isPresent) _skills.push_back(newskill);
 }
-void UserInfo::addInterest(string newinterest) {
+void UserInfo::addInterest(string newinterest = "") {
     vector<string>::iterator it = _interests.begin();
     bool isPresent = false;
     for(; it < _interests.end() && !isPresent; ++it)
@@ -112,6 +118,9 @@ void UserInfo::addInterest(string newinterest) {
 }
 void UserInfo::addExperience(Experience* newxp) {
     _exps.push_back(SmartPtr<Experience>(newxp));
+}
+void UserInfo::addFormation(Experience* newfrm) {
+    _formations.push_back(SmartPtr<Experience>(newfrm));
 }
 string UserInfo::print() const {
     vector<string>::const_iterator it = _interests.begin();
@@ -128,5 +137,12 @@ string UserInfo::print() const {
     it = _skills.begin();
     for(; it < _skills.end(); ++it)
         ret += *it + ", ";
+    ret += "\nFormation >> ";
+    vector<SmartPtr<Experience> >::const_iterator itr = _formations.begin();
+    Instruction* tmp;
+    for(; itr < _formations.end(); ++itr) {
+        tmp = dynamic_cast<Instruction*> (&(**itr));
+        if(tmp) ret += tmp->location() + ", " + tmp->from() + ", " + tmp->to() + " ";
+    }
     return ret;
 }

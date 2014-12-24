@@ -18,15 +18,17 @@ public:
 
 class UserInfo : public Info {
 private:
-    // class SmartExp {
-    // private:
-    //     Experience *ptr;
-    // public:
-    //     SmartExp(Experience*);
-    //     SmartExp(const SmartExp&);
-    //     SmartExp& operator=(const SmartExp&);
-    //     ~SmartExp();
-    // };
+    class SmartExp {
+    private:
+        Experience *ptr;
+    public:
+        SmartExp(Experience*);
+        SmartExp(const SmartExp&);
+        SmartExp& operator=(const SmartExp&);
+        ~SmartExp();
+        Experience& operator*() const;
+        Experience* operator->() const;
+    };
 
     bool _sex;
     string _name, _surname, _birthdate, _email, _address, _telephon, _website;
