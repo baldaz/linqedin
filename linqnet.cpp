@@ -11,7 +11,7 @@ int LinqNet::size() const {
     return _net.size();
 }
 void LinqNet::addUser(User* usr) {
-    vector<SPUser>::iterator it = _net.begin();
+    vector<SmartPtr<User> >::iterator it = _net.begin();
     bool alreadyIn = false;
     // User* tmp;
     for(; it < _net.end() && !alreadyIn; ++it) {
@@ -20,7 +20,7 @@ void LinqNet::addUser(User* usr) {
         if(*((*it)->account()->username()) == *(usr->account()->username()))
             alreadyIn = true;
     }
-    if(!alreadyIn) _net.push_back(SPUser(usr));
+    if(!alreadyIn) _net.push_back(SmartPtr<User>(usr));
     else std::cout << "già collegato!" << std::endl;
 }
 void LinqNet::removeUser(Username* usr) {
@@ -35,7 +35,7 @@ vector<Username*> LinqNet::username() const {
         list.push_back(_net[i]->account()->username());
     return list;
 }
-SPUser LinqNet::operator[](const int& i) const {
+SmartPtr<User> LinqNet::operator[](const int& i) const {
     return _net[i];
 }
 ostream& operator<<(ostream& os, const LinqNet& net) {

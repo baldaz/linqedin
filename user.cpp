@@ -32,7 +32,7 @@ LinqNet* User::net() const {
 }
 
 User::searchFunctor::searchFunctor(int s = 0) : _s_type(s) {}
-void User::searchFunctor::operator()(const SPUser& spu) const {
+void User::searchFunctor::operator()(const SmartPtr<User>& spu) const {
     switch(_s_type) {
         case 1:
             std::cout << spu->account()->username()->login() << std::endl;

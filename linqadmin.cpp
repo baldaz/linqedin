@@ -2,7 +2,7 @@
 
 LinqAdmin::completeRemove::completeRemove(Username* usr) : rmusr(usr) {}
 LinqAdmin::completeRemove::~completeRemove() { }
-void LinqAdmin::completeRemove::operator()(const SPUser& user) const {
+void LinqAdmin::completeRemove::operator()(const SmartPtr<User>& user) const {
     user->removeContact(rmusr);
 }
 LinqAdmin::LinqAdmin() : _db(new LinqDB()) {}

@@ -11,7 +11,7 @@ using std::ostream;
 
 class LinqNet {
 private:
-    vector<SPUser> _net;
+    vector<SmartPtr<User> > _net;
 public:
     ~LinqNet();
     LinqNet* clone() const;
@@ -19,7 +19,7 @@ public:
     void removeUser(Username*);
     int size() const;
     vector<Username*> username() const;
-    SPUser operator[](const int&) const;
+    SmartPtr<User> operator[](const int&) const;
     friend ostream& operator<<(ostream&, const LinqNet&);
 };
 #endif

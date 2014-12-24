@@ -11,7 +11,7 @@ private:
     public:
         completeRemove(Username*);
         ~completeRemove();
-        void operator()(const SPUser&) const;
+        void operator()(const SmartPtr<User>&) const;
     };
     LinqDB* _db;
 public:

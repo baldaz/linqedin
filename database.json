@@ -146,36 +146,5 @@
             "R"
         ],
         "username": "Sara87"
-    },
-    {
-        "info": {
-            "address": "via 4 novembre 12",
-            "birthdate": "08-10-1988",
-            "email": "dan@gmail.com",
-            "name": "Giacomo",
-            "sex": true,
-            "surname": "Ser",
-            "telephon": "345215048",
-            "website": "www.idiota.ser"
-        },
-        "interests": [
-            "Drums",
-            "Keyboard",
-            "Music"
-        ],
-        "net": [
-            "Pablito",
-            "Atilio",
-            "Baldaz",
-            "Sara87"
-        ],
-        "password": "wword",
-        "privilege": 0,
-        "skills": [
-            "Elettronica",
-            "MosFet",
-            "Bode"
-        ],
-        "username": "ser"
     }
 ]

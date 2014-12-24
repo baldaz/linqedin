@@ -30,7 +30,6 @@ SOURCES += account.cpp \
            linqdb.cpp \
            linqnet.cpp \
            main.cpp \
-           smartptr.cpp \
            spuser.cpp \
            user.cpp \
            username.cpp

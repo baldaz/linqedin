@@ -4,6 +4,7 @@
 #include <string>
 #include <vector>
 #include "experience.h"
+#include "smartptr.h"
 
 using std::vector;
 using std::string;
@@ -17,21 +18,21 @@ public:
 
 class UserInfo : public Info {
 private:
-    class SmartExp {
-    private:
-        Experience *ptr;
-    public:
-        SmartExp(Experience*);
-        SmartExp(const SmartExp&);
-        SmartExp& operator=(const SmartExp&);
-        ~SmartExp();
-    };
+    // class SmartExp {
+    // private:
+    //     Experience *ptr;
+    // public:
+    //     SmartExp(Experience*);
+    //     SmartExp(const SmartExp&);
+    //     SmartExp& operator=(const SmartExp&);
+    //     ~SmartExp();
+    // };
 
     bool _sex;
     string _name, _surname, _birthdate, _email, _address, _telephon, _website;
     vector<string> _skills, _interests;
-    vector<SmartExp> _formations;
-    vector<SmartExp> _exps;
+    vector<SmartPtr<Experience> > _formations;
+    vector<SmartPtr<Experience> > _exps;
 public:
     UserInfo();
     UserInfo(bool, string, string, string, string, string, string, string);
@@ -49,8 +50,8 @@ public:
     bool sex() const;
     vector<string> skills() const;
     vector<string> interests() const;
-    vector<SmartExp> experience() const;
-    vector<SmartExp> formations() const;
+    vector<SmartPtr<Experience> > experience() const;
+    vector<SmartPtr<Experience> > formations() const;
     void setSex(bool);
     void setName(string);
     void setSurname(string);

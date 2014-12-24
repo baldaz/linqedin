@@ -23,4 +23,6 @@ public:
     bool operator!=(const SmartPtr&) const;
 };
 
+#include "smartptr.cpp"
+
 #endif

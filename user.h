@@ -3,10 +3,11 @@
 
 #include "account.h"
 #include <vector>
+#include <smartptr.h>
 
 class LinqNet;
 class LinqDB;
-class SPUser;
+// class SPUser;
 
 class User {
 protected:
@@ -17,7 +18,7 @@ protected:
         int _s_type;
     public:
         searchFunctor(int);
-        void operator()(const SPUser&) const;
+        void operator()(const SmartPtr<User>&) const;
     };
 public:
     User();

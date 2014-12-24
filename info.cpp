@@ -1,15 +1,15 @@
 #include "info.h"
 
-UserInfo::SmartExp::SmartExp(Experience* exp) : ptr(exp->clone()) {}
-UserInfo::SmartExp::SmartExp(const SmartExp& sm_exp) : ptr((sm_exp.ptr)->clone()) {}
-UserInfo::SmartExp& UserInfo::SmartExp::operator=(const SmartExp& sm_exp) {
-    if(this != &sm_exp) {
-        delete ptr;
-        ptr = (sm_exp.ptr)->clone();
-    }
-    return *this;
-}
-UserInfo::SmartExp::~SmartExp() { delete ptr; }
+// UserInfo::SmartExp::SmartExp(Experience* exp) : ptr(exp->clone()) {}
+// UserInfo::SmartExp::SmartExp(const SmartExp& sm_exp) : ptr((sm_exp.ptr)->clone()) {}
+// UserInfo::SmartExp& UserInfo::SmartExp::operator=(const SmartExp& sm_exp) {
+//     if(this != &sm_exp) {
+//         delete ptr;
+//         ptr = (sm_exp.ptr)->clone();
+//     }
+//     return *this;
+// }
+// UserInfo::SmartExp::~SmartExp() { delete ptr; }
 
 Info::~Info() {}
 UserInfo::UserInfo() {}
@@ -64,10 +64,10 @@ vector<string> UserInfo::skills() const {
 vector<string> UserInfo::interests() const {
     return _interests;
 }
-vector<UserInfo::SmartExp> UserInfo::experience() const {
+vector<SmartPtr<Experience> > UserInfo::experience() const {
     return _exps;
 }
-vector<UserInfo::SmartExp> UserInfo::formations() const {
+vector<SmartPtr<Experience> > UserInfo::formations() const {
     return _formations;
 }
 void UserInfo::setName(string n = "") {
@@ -111,7 +111,7 @@ void UserInfo::addInterest(string newinterest) {
     if(!isPresent) _interests.push_back(newinterest);
 }
 void UserInfo::addExperience(Experience* newxp) {
-    _exps.push_back(SmartExp(newxp));
+    _exps.push_back(SmartPtr<Experience>(newxp));
 }
 string UserInfo::print() const {
     vector<string>::const_iterator it = _interests.begin();

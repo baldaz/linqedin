@@ -136,7 +136,7 @@ int LinqDB::size() const {
     return _db.size();
 }
 void LinqDB::addUser(User* u) {
-    vector<SPUser>::iterator it = _db.begin();
+    vector<SmartPtr<User> >::iterator it = _db.begin();
     bool alreadyIn = false;
     // User* tmp;
     for(; it < _db.end() && !alreadyIn; ++it) {
@@ -145,7 +145,7 @@ void LinqDB::addUser(User* u) {
         if(*((*it)->account()->username()) == *(u->account()->username()))
             alreadyIn = true;
     }
-    if(!alreadyIn) _db.push_back(SPUser(u));
+    if(!alreadyIn) _db.push_back(SmartPtr<User>(u));
     else std::cout << "già presente!" << std::endl;
 }
 void LinqDB::removeUser(Username* usr) {
@@ -161,13 +161,13 @@ User* LinqDB::find(Username* usr) {
             ret = &(*_db[i]);
     return ret;
 }
-vector<SPUser>::const_iterator LinqDB::begin() const{
+vector<SmartPtr<User> >::const_iterator LinqDB::begin() const{
     return _db.begin();
 }
-vector<SPUser>::const_iterator LinqDB::end() const{
+vector<SmartPtr<User> >::const_iterator LinqDB::end() const{
     return _db.end();
 }
-SPUser LinqDB::operator[](const int& i) const {
+SmartPtr<User> LinqDB::operator[](const int& i) const {
     return _db[i];
 }
 ostream& operator<<(ostream& os, const LinqDB& db) {
