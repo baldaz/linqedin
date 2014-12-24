@@ -84,8 +84,7 @@ void Gui_Widget::removeContatto() {
 
 // slot
 void Gui_Widget::mostraProfilo() {
-    user->displayProfile();
-    bigEditor->setText(tr("Il mio profilo"));
+    bigEditor->setText(QString::fromStdString(user->displayProfile()));
 }
 
 void Gui_Widget::createHorizontalGroupBox() {

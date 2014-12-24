@@ -3,6 +3,10 @@
 
 #include "user.h"
 #include "linqdb.h"
+#include <string>
+#include <sstream>
+
+using std::string;
 
 class LinqClient {
 private:
@@ -12,7 +16,7 @@ public:
     LinqClient();
     LinqClient(Username*);
     ~LinqClient();
-    void displayProfile() const;
+    string displayProfile() const;
     void alterProfile();
     void addContact(Username*);
     void removeContact(Username*);
