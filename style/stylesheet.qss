@@ -1,0 +1,29 @@
+* {
+    background: #555;
+    color: #d6d6d6;
+}
+/*
+window {
+    border: none;
+    min-width:400px;
+    min-height:200px;
+}*/
+QPushButton {
+    outline: none;
+    border: none;
+    background-color: transparent;
+    color: #888;
+}
+
+QPushButton:pressed {
+    background-color: transparent;
+    border:none;
+}
+
+QPushButton:focus {
+    color: #d6d6d6;
+}
+
+QTextEdit {
+    border: solid 2px white;
+}

@@ -23,6 +23,7 @@ public:
     void insertContatto();
     void removeContatto();
     void mostraProfilo();
+    void viewNet();
 private:
     // campo dati logico
     LinqClient* user;
@@ -34,8 +35,9 @@ private:
     QGroupBox* gridGroupBox;
     QTextEdit* smallEditor;
     QTextEdit* bigEditor;
-    enum { NumGridRows = 2, NumButtons = 3 };
+    enum { NumGridRows = 2, NumButtons = 5 };
     QLabel* labels[NumGridRows];
+    QLabel* portrait;
     QLineEdit* lineEdits[NumGridRows];
     QPushButton* buttons[NumButtons];
 

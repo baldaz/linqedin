@@ -17,6 +17,7 @@ public:
     LinqClient(Username*);
     ~LinqClient();
     string displayProfile() const;
+    string displayHtmlInfo() const;
     void alterProfile();
     void addContact(Username*);
     void removeContact(Username*);

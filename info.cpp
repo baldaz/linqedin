@@ -146,3 +146,27 @@ string UserInfo::print() const {
     }
     return ret;
 }
+string UserInfo::printHtml() const {
+    string html = "";
+    html = "<h3>" + _name + " " + _surname + "</h3>";
+    html += "<p style='font-weight: 400; font-size:12px;'>Studente  &nbsp;" + _email  + "   &nbsp;&nbsp;" + _website + "</p>";
+    html += "<p style='font-weight: 400; font-size:12px;'>" + _address + "&nbsp;&nbsp;" + _telephon + "</p>";
+    html += "<h4>Interests</h2><p style='font-weight: 400; font-size:12px;'>";
+    vector<string>::const_iterator it = _interests.begin();
+    for(; it < _interests.end(); ++it)
+        html += *it + " ";
+    html += "</p>";
+    html += "<h4>Skills</h4><p style='font-weight: 400; font-size:11px;'>";
+    it = _skills.begin();
+    for(; it < _skills.end(); ++it)
+        html += "<span style='background-color: #666; border:none;'>&nbsp;"  + *it + "&nbsp;</span>&nbsp;&nbsp;";
+    html += "</p>";
+    html += "<h4>Formations</h4><p style='font-weight: 400; font-size:11px;'>";
+    vector<SmartPtr<Experience> >::const_iterator itr = _formations.begin();
+    Instruction* tmp;
+    for(; itr < _formations.end(); ++itr) {
+        tmp = dynamic_cast<Instruction*> (&(**itr));
+        if(tmp) html += tmp->location() + " from " + tmp->from() + " to " + tmp->to() + "<br>";
+    }
+    return html;
+}

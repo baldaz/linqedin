@@ -14,6 +14,7 @@ public:
     virtual ~Info();
     virtual Info* clone() const =0;
     virtual string print() const =0;
+    virtual string printHtml() const =0;
 };
 
 class UserInfo : public Info {
@@ -67,6 +68,7 @@ public:
     void addExperience(Experience*);
     void addFormation(Experience*);
     virtual string print() const;
+    virtual string printHtml() const;
 };
 
 #endif

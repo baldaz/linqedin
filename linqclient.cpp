@@ -24,6 +24,9 @@ string LinqClient::displayProfile() const {
     profile += o2.str() + "\n";
     return profile;
 }
+string LinqClient::displayHtmlInfo() const {
+    return _usr->account()->info()->printHtml();
+}
 void LinqClient::find() const {
     _usr->userSearch(*_db);
 }

@@ -42,6 +42,14 @@ int main(int argc, char**argv) {
 
     QApplication app(argc, argv);
     Gui_Widget window;
+    QFile File("style/stylesheet.qss");
+    File.open(QFile::ReadOnly);
+    QString StyleSheet = QLatin1String(File.readAll());
+    app.setStyleSheet(StyleSheet);
+    // window.setStyleSheet("width:400px; height:200px;");
+    // window.setGeometry(250, 100, 800, 600);
+    window.setStyleSheet("border: none");
+    window.setWindowTitle("");
     window.show();
     return app.exec();
     // return 0;
