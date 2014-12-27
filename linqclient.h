@@ -4,7 +4,6 @@
 #include "user.h"
 #include "linqdb.h"
 #include <string>
-#include <sstream>
 
 using std::string;
 
@@ -18,12 +17,13 @@ public:
     ~LinqClient();
     string displayProfile() const;
     string displayHtmlInfo() const;
+    string displayHtmlNet() const;
     void alterProfile();
     void addContact(Username*);
     void removeContact(Username*);
     void addExperience(Experience*);
     void addFormation(Experience*);
-    void find() const;
+    string find() const;
     void save() const;
 };
 #endif

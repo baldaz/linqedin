@@ -5,6 +5,7 @@ Gui_Widget::Gui_Widget() {
     bigEditor = new QTextEdit();
     bigEditor->setReadOnly(true);
     bigEditor->setFontWeight(400);
+    bigEditor->setStyleSheet("background: url('img/background1.png') no-repeat; background-attachment:fixed; border-radius: 10px;");
     createGridGroupBox();
     // Layout principale della dialog
     QVBoxLayout* mainLayout = new QVBoxLayout;
@@ -32,7 +33,8 @@ Gui_Widget::Gui_Widget() {
     mainLayout->addWidget(gridGroupBox);
     // mainLayout->addWidget(bigEditor);
     setLayout(mainLayout);
-    resize(800, 500);
+    move(200, 50);
+    resize(1000, 650);
     logicInitialize();
 }
 
@@ -52,10 +54,11 @@ void Gui_Widget::createGridGroupBox() {
     // layout->addWidget(labels[NumGridRows-1], NumGridRows, 0);
     // layout->addWidget(lineEdits[NumGridRows-1], NumGridRows, 1);
 
-    // smallEditor = new QTextEdit;
-    // QFont font = smallEditor->font();
-    // font.setPointSize(font.pointSize() + 8);
-    // smallEditor->setFont(font);
+    smallEditor = new QTextEdit();
+    smallEditor->setReadOnly(true);
+    smallEditor->setFontWeight(400);
+
+    // smallEditor->setStyleSheet("background:#fff;");
 
     // layout->addWidget(smallEditor, 0, 2, 4, 1);
     // layout->setColumnStretch(1, 10);
@@ -64,17 +67,19 @@ void Gui_Widget::createGridGroupBox() {
     portrait = new QLabel();
     QPixmap pixmap ("img/portrait2.png");
     portrait->setPixmap(pixmap);
+    // portrait->setStyleSheet("background: #fff;");
     layout->addWidget(portrait);
     layout->addWidget(bigEditor, 0, 2, 4, 1);
-    layout->setColumnStretch(0, 0);
-    layout->setColumnStretch(2, 1);
+    layout->addWidget(smallEditor, 1, 0, 1, 1);
+    layout->setColumnStretch(0, 1);
+    layout->setColumnStretch(2, 5);
     layout->setRowStretch(0, 0);
     layout->setRowStretch(1, 1);
     gridGroupBox->setLayout(layout);
 }
 
 void Gui_Widget::logicInitialize() {
-    Username* usr = new Username("Baldaz", "password");
+    Username* usr = new Username("Baldaz", "qwerty");
     user = new LinqClient(usr);
     mostraProfilo();
 }
@@ -94,12 +99,19 @@ void Gui_Widget::removeContatto() {
 // slot
 void Gui_Widget::mostraProfilo() {
     bigEditor->setHtml(QString::fromStdString(user->displayHtmlInfo()));
+    smallEditor->setHtml(QString::fromStdString(user->displayHtmlNet()));
 }
 
 // slot
 void Gui_Widget::viewNet() {
     bigEditor->setText(tr("Lista contatti"));
 }
+
+//slot
+void Gui_Widget::userSearch() {
+    bigEditor->setText(QString::fromStdString(user->find()));
+}
+
 void Gui_Widget::createHorizontalGroupBox() {
     horizontalGroupBox = new QGroupBox();
     QHBoxLayout* layout = new QHBoxLayout;
@@ -113,16 +125,19 @@ void Gui_Widget::createHorizontalGroupBox() {
     layout->addWidget(buttons[1]);
     connect(buttons[1], SIGNAL(clicked()), this, SLOT(removeContatto()));
 
-    buttons[2] = new QPushButton("LINKS");
+    buttons[2] = new QPushButton("PAYMENTS");
     layout->addWidget(buttons[2]);
     connect(buttons[2], SIGNAL(clicked()), this, SLOT(viewNet()));
 
     buttons[3] = new QPushButton("SEARCH");
     layout->addWidget(buttons[3]);
-    connect(buttons[3], SIGNAL(clicked()), this, SLOT(insertContatto()));
+    connect(buttons[3], SIGNAL(clicked()), this, SLOT(userSearch()));
 
-    buttons[4] = new QPushButton("LOGOUT");
+    buttons[4] = new QPushButton("MESSAGES");
     layout->addWidget(buttons[4]);
+
+    buttons[5] = new QPushButton("LOGOUT");
+    layout->addWidget(buttons[5]);
 
     horizontalGroupBox->setLayout(layout);
     // buttons[0]->setGeometry(1, 1, 50, 25);

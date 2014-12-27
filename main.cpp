@@ -49,6 +49,7 @@ int main(int argc, char**argv) {
     // window.setStyleSheet("width:400px; height:200px;");
     // window.setGeometry(250, 100, 800, 600);
     window.setStyleSheet("border: none");
+    // window.setStyleSheet("background: url('img/mbuntu-10.jpg'); border-radius: 10px; border-color: beige; margin:0; padding:0;");
     window.setWindowTitle("");
     window.show();
     return app.exec();

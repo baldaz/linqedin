@@ -24,7 +24,7 @@ UserInfo::UserInfo(bool sx, string n, string s, string b, string e, string a, st
 UserInfo::UserInfo(const UserInfo& uf) :
                 _sex(uf._sex), _name(uf._name), _surname(uf._surname),_birthdate(uf._birthdate),
                 _email(uf._email), _address(uf._address), _telephon(uf._telephon), _skills(uf._skills),
-                _exps(uf._exps), _formations(uf._formations), _interests(uf._interests), _website(uf._website) {}
+                _exps(uf._exps), _formations(uf._formations), _interests(uf._interests), _website(uf._website), _languages(uf._languages) {}
 UserInfo& UserInfo::operator=(const UserInfo& uif) {
     if(this != &uif) {
         _name = uif._name;
@@ -64,6 +64,9 @@ bool UserInfo::sex() const {
 string UserInfo::website() const {
     return _website;
 }
+vector<string> UserInfo::languages() const {
+    return _languages;
+}
 vector<string> UserInfo::skills() const {
     return _skills;
 }
@@ -100,6 +103,14 @@ void UserInfo::setSex(bool s = true) {
 void UserInfo::setWebsite(string site = "") {
     _website = site;
 }
+void UserInfo::addLanguage(string newlang) {
+    vector<string>::iterator it = _languages.begin();
+    bool isPresent = false;
+    for(; it < _languages.end() && !isPresent; ++it)
+        if(*it == newlang)
+            isPresent = true;
+    if(!isPresent) _languages.push_back(newlang);
+}
 void UserInfo::addSkill(string newskill) {
     vector<string>::iterator it = _skills.begin();
     bool isPresent = false;
@@ -121,6 +132,9 @@ void UserInfo::addExperience(Experience* newxp) {
 }
 void UserInfo::addFormation(Experience* newfrm) {
     _formations.push_back(SmartPtr<Experience>(newfrm));
+}
+int UserInfo::age() const {
+    return 26;
 }
 string UserInfo::print() const {
     vector<string>::const_iterator it = _interests.begin();
@@ -149,24 +163,35 @@ string UserInfo::print() const {
 string UserInfo::printHtml() const {
     string html = "";
     html = "<h3>" + _name + " " + _surname + "</h3>";
-    html += "<p style='font-weight: 400; font-size:12px;'>Studente  &nbsp;" + _email  + "   &nbsp;&nbsp;" + _website + "</p>";
-    html += "<p style='font-weight: 400; font-size:12px;'>" + _address + "&nbsp;&nbsp;" + _telephon + "</p>";
-    html += "<h4>Interests</h2><p style='font-weight: 400; font-size:12px;'>";
+    html += "<p style='font-weight: 400; font-size:13px;'>Student  &nbsp;26 years old<br>";
+    html += _address + "&nbsp;&nbsp;" + _telephon + "</p>";
+    html += "<h4>Interests</h4><p style='font-weight: 400; font-size:13px;'>";
     vector<string>::const_iterator it = _interests.begin();
     for(; it < _interests.end(); ++it)
         html += *it + " ";
     html += "</p>";
-    html += "<h4>Skills</h4><p style='font-weight: 400; font-size:11px;'>";
+    html += "<h4>Skills</h4><p style='font-weight: 400; font-size:13px;'>";
     it = _skills.begin();
     for(; it < _skills.end(); ++it)
-        html += "<span style='background-color: #666; border:none;'>&nbsp;"  + *it + "&nbsp;</span>&nbsp;&nbsp;";
+        html += "<span style='background-color: #666;'>&nbsp;"  + *it + "&nbsp;</span>&nbsp;&nbsp;";
     html += "</p>";
-    html += "<h4>Formations</h4><p style='font-weight: 400; font-size:11px;'>";
+    html += "<h4>Languages</h4><p style='font-weight: 400; font-size:13px;'>";
+    it = _languages.begin();
+    for(; it < _languages.end(); ++it)
+        html += *it + " ";
+    html += "</p>";
+    html += "<h4>Educations</h4><p style='font-weight: 400; font-size:13px;'>";
     vector<SmartPtr<Experience> >::const_iterator itr = _formations.begin();
     Instruction* tmp;
     for(; itr < _formations.end(); ++itr) {
         tmp = dynamic_cast<Instruction*> (&(**itr));
-        if(tmp) html += tmp->location() + " from " + tmp->from() + " to " + tmp->to() + "<br>";
+        if(tmp)
+            if(itr == _formations.end() - 1)
+                html += tmp->location() + " from " + tmp->from() + " to " + tmp->to();
+            else
+                html += tmp->location() + " from " + tmp->from() + " to " + tmp->to() + "<br>";
     }
+    html += "<h4>Contacts</h4><p style='font-weight: 400; font-size:13px'>" + _email + " &nbsp;&nbsp;" + _website + "</p>";
+    html += "<h4>Bio</h4>";
     return html;
 }

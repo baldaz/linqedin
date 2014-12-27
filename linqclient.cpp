@@ -27,8 +27,19 @@ string LinqClient::displayProfile() const {
 string LinqClient::displayHtmlInfo() const {
     return _usr->account()->info()->printHtml();
 }
-void LinqClient::find() const {
-    _usr->userSearch(*_db);
+string LinqClient::displayHtmlNet() const {
+    string html = "";
+    html += "<h4>Links</h4>";
+    html += "<p style='font-weight:400;'>";
+    vector<Username*> vec = _usr->net()->username();
+    vector<Username*>::const_iterator it = vec.begin();
+    for(; it < vec.end(); ++it)
+        html += (*it)->login() + "<br>";
+    html += "</p>";
+    return html;
+}
+string LinqClient::find() const {
+    return _usr->userSearch(*_db);
 }
 void LinqClient::addExperience(Experience* xp) {
     UserInfo* uf;

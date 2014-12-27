@@ -16,9 +16,11 @@ protected:
     class searchFunctor {
     private:
         int _s_type;
+        string _result;
     public:
         searchFunctor(int);
-        void operator()(const SmartPtr<User>&) const;
+        void operator()(const SmartPtr<User>&);
+        string result() const;
     };
 public:
     User();
@@ -31,7 +33,7 @@ public:
     LinqNet* net() const;
     void addContact(User*);
     void removeContact(Username*);
-    virtual void userSearch(const LinqDB&) const =0;
+    virtual string userSearch(const LinqDB&) const =0;
 };
 
 class BasicUser : public User {
@@ -40,7 +42,7 @@ public:
     BasicUser(Account*, LinqNet*);
     BasicUser(const BasicUser&);
     virtual User* clone() const;
-    virtual void userSearch(const LinqDB&) const;
+    virtual string userSearch(const LinqDB&) const;
 };
 
 class BusinessUser : public BasicUser {
@@ -49,7 +51,7 @@ public:
     BusinessUser(Account*, LinqNet*);
     BusinessUser(const BusinessUser&);
     virtual User* clone() const;
-    virtual void userSearch(const LinqDB&) const;
+    virtual string userSearch(const LinqDB&) const;
 };
 
 class ExecutiveUser : public BusinessUser {
@@ -58,7 +60,7 @@ public:
     ExecutiveUser(Account*, LinqNet*);
     ExecutiveUser(const ExecutiveUser&);
     virtual User* clone() const;
-    virtual void userSearch(const LinqDB&) const;
+    virtual string userSearch(const LinqDB&) const;
 };
 
 #endif

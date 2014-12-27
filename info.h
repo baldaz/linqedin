@@ -2,6 +2,7 @@
 #define USERINFO_H
 
 #include <string>
+#include <sstream>
 #include <vector>
 #include "experience.h"
 #include "smartptr.h"
@@ -33,7 +34,7 @@ private:
 
     bool _sex;
     string _name, _surname, _birthdate, _email, _address, _telephon, _website;
-    vector<string> _skills, _interests;
+    vector<string> _languages, _skills, _interests;
     vector<SmartPtr<Experience> > _formations;
     vector<SmartPtr<Experience> > _exps;
 public:
@@ -51,6 +52,7 @@ public:
     string telephon() const;
     string website() const;
     bool sex() const;
+    vector<string> languages() const;
     vector<string> skills() const;
     vector<string> interests() const;
     vector<SmartPtr<Experience> > experience() const;
@@ -63,10 +65,12 @@ public:
     void setAddress(string);
     void setTelephon(string);
     void setWebsite(string);
+    void addLanguage(string);
     void addSkill(string);
     void addInterest(string);
     void addExperience(Experience*);
     void addFormation(Experience*);
+    int age() const;
     virtual string print() const;
     virtual string printHtml() const;
 };

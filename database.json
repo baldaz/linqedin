@@ -7,13 +7,13 @@
                 "to": "2007"
             },
             {
-                "from": "2008",
+                "from": "2012",
                 "location": "Università Degli Studi di Padova",
                 "to": "2042"
             }
         ],
         "info": {
-            "address": "via 4 novembre 24",
+            "address": "Stra, via 4 novembre 24 (VE) Italy",
             "birthdate": "08-10-1988",
             "email": "a.g.baldan@gmail.com",
             "name": "Andrea",
@@ -23,21 +23,30 @@
             "website": "www.baldaz.ba"
         },
         "interests": [
+            "Web",
+            "Movies",
             "Coding",
             "Snowboard",
             "Homebrew"
+        ],
+        "languages": [
+            "Italian",
+            "English",
+            "Espagnol"
         ],
         "net": [
             "Pablito",
             "Atilio"
         ],
         "password": "qwerty",
-        "privilege": 0,
+        "privilege": 2,
         "skills": [
+            "Nodejs",
             "C++",
             "PHP",
             "Perl",
             "Ruby",
+            "Ruby-Sinatra",
             "Javascript",
             "HTML",
             "CSS"
@@ -61,6 +70,11 @@
             "Web design",
             "Ski",
             "Homebrew"
+        ],
+        "languages": [
+            "Italian",
+            "English",
+            "Espagnol"
         ],
         "net": [
             "Atilio"
@@ -91,6 +105,11 @@
             "Boxe",
             "Blades"
         ],
+        "languages": [
+            "Italian",
+            "English",
+            "Espagnol"
+        ],
         "net": [
             "Pablito"
         ],
@@ -120,6 +139,11 @@
         "interests": [
             "Web developing",
             "Videogames"
+        ],
+        "languages": [
+            "Italian",
+            "English",
+            "Espagnol"
         ],
         "net": [
             "Pablito",
@@ -153,6 +177,11 @@
             "Fishing",
             "Decoupage"
         ],
+        "languages": [
+            "Italian",
+            "English",
+            "Espagnol"
+        ],
         "net": [
             "Pablito",
             "Atilio",
@@ -184,6 +213,11 @@
             "Drums",
             "Keyboard",
             "Music"
+        ],
+        "languages": [
+            "Italian",
+            "English",
+            "Espagnol"
         ],
         "net": [
             "Pablito",

@@ -35,8 +35,11 @@ void LinqNet::removeUser(Username* usr) {
 }
 vector<Username*> LinqNet::username() const {
     vector<Username*> list;
-    for(int i = 0; i < size(); ++i)
-        list.push_back(_net[i]->account()->username());
+    vector<SmartPtr<User> >::const_iterator it = _net.begin();
+    for(; it < _net.end(); ++it){
+        list.push_back((*it)->account()->username());
+        // std::cout << (*it)->account()->username()->login();
+    }
     return list;
 }
 SmartPtr<User> LinqNet::operator[](const int& i) const {

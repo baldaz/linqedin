@@ -1,6 +1,6 @@
 * {
-    background: #555;
-    color: #d6d6d6;
+    background: #404040; /*#555*/
+    color: #e6e6e6; /*#e6e6e6*/
 }
 /*
 window {
@@ -14,16 +14,13 @@ QPushButton {
     background-color: transparent;
     color: #888;
 }
-
+QPushButton:hover {
+    color: #e6e6e6;
+}
 QPushButton:pressed {
     background-color: transparent;
     border:none;
 }
-
 QPushButton:focus {
-    color: #d6d6d6;
-}
-
-QTextEdit {
-    border: solid 2px white;
+    color: #e6e6e6;
 }

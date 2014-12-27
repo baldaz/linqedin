@@ -39,6 +39,9 @@ void LinqDB::read(const QJsonArray& qjs) {
             uif->setTelephon(info["telephon"].toString().toStdString());
             uif->setSex(info["sex"].toBool());
             uif->setWebsite(info["website"].toString().toStdString());
+            QJsonArray languages = obj["languages"].toArray();
+            for(int i = 0; i < languages.size(); ++i)
+                uif->addLanguage(languages[i].toString().toStdString());
             QJsonArray skills = obj["skills"].toArray();
             for(int i = 0; i < skills.size(); ++i)
                 uif->addSkill(skills[i].toString().toStdString());
@@ -88,7 +91,7 @@ vector<QJsonObject> LinqDB::toJsonObject() const {
     UserInfo* uif;
     for(int i = 0; i < size(); ++i) {
         QJsonObject jUser, jInf, jFormations;
-        QJsonArray jArr, jSkill, jInterest, jForArr;
+        QJsonArray jArr, jLang, jSkill, jInterest, jForArr;
         vector<SmartPtr<Experience> > formations;
         uif = dynamic_cast<UserInfo*> (_db[i]->account()->info()); /*downcast a userinfo*/
         if(uif) {
@@ -112,6 +115,9 @@ vector<QJsonObject> LinqDB::toJsonObject() const {
             }
             jForArr.append(jFormations);
         }
+        vector<string> languages = uif->languages();
+        for(int i = 0; i < languages.size(); ++i)
+            jLang.append(QString::fromStdString(languages[i]));
         vector<string> skills = uif->skills();
         for(int i = 0; i < skills.size(); ++i)
             jSkill.append(QString::fromStdString(skills[i]));
@@ -126,6 +132,7 @@ vector<QJsonObject> LinqDB::toJsonObject() const {
             jArr.append(QString::fromStdString(list[i]->login()));
         jUser["net"] = jArr;
         jUser["info"] = jInf;
+        jUser["languages"] = jLang;
         jUser["skills"] = jSkill;
         jUser["interests"] = jInterest;
         jUser["formations"] = jForArr;
