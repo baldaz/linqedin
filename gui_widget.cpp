@@ -2,8 +2,10 @@
 
 Gui_Widget::Gui_Widget() {
     createHorizontalGroupBox();
-    bigEditor = new QTextEdit();
+    bigEditor = new QTextBrowser();
     bigEditor->setReadOnly(true);
+    bigEditor->setAcceptRichText(true);
+    // bigEditor->setTextInteractionFlags(bigEditor->textInteractionFlags() | Qt::TextSelectableByKeyboard);
     bigEditor->setFontWeight(400);
     bigEditor->setStyleSheet("background: url('img/background1.png') no-repeat; background-attachment:fixed; border-radius: 10px;");
     createGridGroupBox();
@@ -57,6 +59,7 @@ void Gui_Widget::createGridGroupBox() {
     smallEditor = new QTextEdit();
     smallEditor->setReadOnly(true);
     smallEditor->setFontWeight(400);
+    // smallEditor->setStyleSheet("border-style:dotted; border-top-width:1px; border-color: #e6e6e6;");
 
     // smallEditor->setStyleSheet("background:#fff;");
 

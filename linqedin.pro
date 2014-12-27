@@ -18,8 +18,10 @@ HEADERS += account.h \
            linqclient.h \
            linqdb.h \
            linqnet.h \
+           payment.h \
            privlevel.h \
            smartptr.h \
+           subscription.h \
            user.h \
            username.h
 SOURCES += account.cpp \
@@ -31,5 +33,7 @@ SOURCES += account.cpp \
            linqdb.cpp \
            linqnet.cpp \
            main.cpp \
+           payment.cpp \
+           subscription.cpp \
            user.cpp \
            username.cpp

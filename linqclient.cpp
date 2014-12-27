@@ -29,12 +29,22 @@ string LinqClient::displayHtmlInfo() const {
 }
 string LinqClient::displayHtmlNet() const {
     string html = "";
-    html += "<h4>Links</h4>";
+    std::ostringstream o;
+    o << _usr->net()->size();
+    html += "<h4>Links (" + o.str() +")</h4>";
     html += "<p style='font-weight:400;'>";
     vector<Username*> vec = _usr->net()->username();
     vector<Username*>::const_iterator it = vec.begin();
-    for(; it < vec.end(); ++it)
-        html += (*it)->login() + "<br>";
+    for(; it < vec.end(); ++it) {
+        UserInfo* info;
+        string name, surname;
+        info = dynamic_cast<UserInfo*> ((_db->find(*it))->account()->info());
+        if(info) {
+            name = info->name();
+            surname = info->surname();
+        }
+        html += "> " + name + " " + surname + "<br>";
+    }
     html += "</p>";
     return html;
 }

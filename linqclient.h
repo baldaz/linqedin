@@ -4,6 +4,7 @@
 #include "user.h"
 #include "linqdb.h"
 #include <string>
+#include <sstream>
 
 using std::string;
 

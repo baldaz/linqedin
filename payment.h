@@ -2,19 +2,19 @@
 #define PAYMENT_H
 
 #include "username.h"
-#include "privlevel.h"
+#include "subscription.h"
 
 class Payment {
 private:
     Username* _requester;
     bool _approvation;
-    privLevel _level;
+    Subscription* _sub;
 public:
-    Payment(Username*);
+    Payment(Username*, bool);
     ~Payment();
     bool approvation() const;
     void setApprovation(bool);
-    privLevel level() const;
-    void setLevel();
+    Subscription* sub() const;
+    void setSub(Subscription*);
 };
 #endif

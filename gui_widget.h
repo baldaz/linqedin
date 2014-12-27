@@ -7,6 +7,7 @@
 #include <QWidget>
 #include <QGroupBox>
 #include <QTextEdit>
+#include <QTextBrowser>
 #include <QLabel>
 #include <QLineEdit>
 #include <QAction>

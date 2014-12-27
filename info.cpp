@@ -162,7 +162,7 @@ string UserInfo::print() const {
 }
 string UserInfo::printHtml() const {
     string html = "";
-    html = "<h3>" + _name + " " + _surname + "</h3>";
+    html = "<h2>" + _name + " " + _surname + "</h2>";
     html += "<p style='font-weight: 400; font-size:13px;'>Student  &nbsp;26 years old<br>";
     html += _address + "&nbsp;&nbsp;" + _telephon + "</p>";
     html += "<h4>Interests</h4><p style='font-weight: 400; font-size:13px;'>";
@@ -173,7 +173,7 @@ string UserInfo::printHtml() const {
     html += "<h4>Skills</h4><p style='font-weight: 400; font-size:13px;'>";
     it = _skills.begin();
     for(; it < _skills.end(); ++it)
-        html += "<span style='background-color: #666;'>&nbsp;"  + *it + "&nbsp;</span>&nbsp;&nbsp;";
+        html += "<span style='background-color:rgba(102,102,102,.5);'>&nbsp;"  + *it + "&nbsp;</span>&nbsp;&nbsp;";
     html += "</p>";
     html += "<h4>Languages</h4><p style='font-weight: 400; font-size:13px;'>";
     it = _languages.begin();
@@ -191,7 +191,7 @@ string UserInfo::printHtml() const {
             else
                 html += tmp->location() + " from " + tmp->from() + " to " + tmp->to() + "<br>";
     }
-    html += "<h4>Contacts</h4><p style='font-weight: 400; font-size:13px'>" + _email + " &nbsp;&nbsp;" + _website + "</p>";
+    html += "<h4>Contacts</h4><p style='font-weight: 400; font-size:13px'>" + _email + " &nbsp;&nbsp;<a style='color:#4782EC;' href='#'>" + _website + "</a></p>";
     html += "<h4>Bio</h4>";
     return html;
 }
