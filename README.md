@@ -16,3 +16,6 @@ P2 Project 2014
     - clone methods probably useless
     - remove smartptr.cpp from .pro generated file
     - deep find vs deep copy smartptr
+
+####Graphic
+    - Modularize parts (showuser etc..)
