@@ -166,30 +166,39 @@ string UserInfo::printHtml() const {
     html += "<p style='font-weight: 400; font-size:13px;'>Student  &nbsp;26 years old<br>";
     html += _address + "&nbsp;&nbsp;" + _telephon + "</p>";
     html += "<h4>Interests</h4><p style='font-weight: 400; font-size:13px;'>";
-    vector<string>::const_iterator it = _interests.begin();
-    for(; it < _interests.end(); ++it)
-        html += *it + " ";
-    html += "</p>";
-    html += "<h4>Skills</h4><p style='font-weight: 400; font-size:13px;'>";
-    it = _skills.begin();
-    for(; it < _skills.end(); ++it)
-        html += "<span style='background-color:rgba(102,102,102,.5);'>&nbsp;"  + *it + "&nbsp;</span>&nbsp;&nbsp;";
-    html += "</p>";
-    html += "<h4>Languages</h4><p style='font-weight: 400; font-size:13px;'>";
-    it = _languages.begin();
-    for(; it < _languages.end(); ++it)
-        html += *it + " ";
-    html += "</p>";
-    html += "<h4>Educations</h4><p style='font-weight: 400; font-size:13px;'>";
-    vector<SmartPtr<Experience> >::const_iterator itr = _formations.begin();
-    Instruction* tmp;
-    for(; itr < _formations.end(); ++itr) {
-        tmp = dynamic_cast<Instruction*> (&(**itr));
-        if(tmp)
-            if(itr == _formations.end() - 1)
-                html += tmp->location() + " from " + tmp->from() + " to " + tmp->to();
-            else
-                html += tmp->location() + " from " + tmp->from() + " to " + tmp->to() + "<br>";
+    vector<string>::const_iterator it;
+    if(!_interests.empty()) {
+        it = _interests.begin();
+        for(; it < _interests.end(); ++it)
+            html += *it + " ";
+        html += "</p>";
+    }
+    if(!_skills.empty()) {
+        html += "<h4>Skills</h4><p style='font-weight: 400; font-size:13px;'>";
+        it = _skills.begin();
+        for(; it < _skills.end(); ++it)
+            html += "<span style='background-color:rgba(102,102,102,.5);'>&nbsp;"  + *it + "&nbsp;</span>&nbsp;&nbsp;";
+        html += "</p>";
+    }
+    if(!_languages.empty()) {
+        html += "<h4>Languages</h4><p style='font-weight: 400; font-size:13px;'>";
+        it = _languages.begin();
+        for(; it < _languages.end(); ++it)
+            html += *it + " ";
+        html += "</p>";
+    }
+    if(!_formations.empty()) {
+        html += "<h4>Educations</h4><p style='font-weight: 400; font-size:13px;'>";
+        vector<SmartPtr<Experience> >::const_iterator itr = _formations.begin();
+        Instruction* tmp;
+        for(; itr < _formations.end(); ++itr) {
+            tmp = dynamic_cast<Instruction*> (&(**itr));
+            if(tmp)
+                if(itr == _formations.end() - 1)
+                    html += tmp->location() + " from " + tmp->from() + " to " + tmp->to();
+                else
+                    html += tmp->location() + " from " + tmp->from() + " to " + tmp->to() + "<br>";
+        }
     }
     html += "<h4>Contacts</h4><p style='font-weight: 400; font-size:13px'>" + _email + " &nbsp;&nbsp;<a style='color:#4782EC;' href='#'>" + _website + "</a></p>";
     html += "<h4>Bio</h4>";

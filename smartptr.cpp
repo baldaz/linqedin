@@ -35,7 +35,6 @@ SmartPtr<T>& SmartPtr<T>::operator=(const SmartPtr<T>& spusr) {
             delete ref;
         }
         _ptr = spusr._ptr;
-        // spusr._ptr = NULL;
         ref = spusr.ref;
         ref->addRef();
     }

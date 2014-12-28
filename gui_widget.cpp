@@ -59,21 +59,29 @@ void Gui_Widget::createGridGroupBox() {
     smallEditor = new QTextEdit();
     smallEditor->setReadOnly(true);
     smallEditor->setFontWeight(400);
+
+    listview = new QListWidget();
     // smallEditor->setStyleSheet("border-style:dotted; border-top-width:1px; border-color: #e6e6e6;");
 
-    // smallEditor->setStyleSheet("background:#fff;");
+    // listview->setStyleSheet("background:#fff;");
 
     // layout->addWidget(smallEditor, 0, 2, 4, 1);
     // layout->setColumnStretch(1, 10);
     // layout->setColumnStretch(2, 20);
     // gridGroupBox->setLayout(layout);
     portrait = new QLabel();
+    QLabel* links = new QLabel();
+    // links->setStyleSheet("background:#fff;");
+    links->setMaximumSize(40,20);
+    links->setText(tr("Links"));
     QPixmap pixmap ("img/portrait2.png");
     portrait->setPixmap(pixmap);
     // portrait->setStyleSheet("background: #fff;");
-    layout->addWidget(portrait);
-    layout->addWidget(bigEditor, 0, 2, 4, 1);
-    layout->addWidget(smallEditor, 1, 0, 1, 1);
+    layout->addWidget(portrait, 0, 0, 1, 1);
+    layout->addWidget(bigEditor, 0, 2, 4, -1);
+    // layout->addWidget(smallEditor, 1, 0, 1, 1);
+    layout->addWidget(links, 1, 0, 1, 1);
+    layout->addWidget(listview, 2, 0, -1 ,1);
     layout->setColumnStretch(0, 1);
     layout->setColumnStretch(2, 5);
     layout->setRowStretch(0, 0);
@@ -89,20 +97,21 @@ void Gui_Widget::logicInitialize() {
 
 // slot
 void Gui_Widget::insertContatto() {
-    // user->insertRete(Username(""));
+    user->addContact(new Username("ser", ""));
     bigEditor->setText(tr("Inserito nuovo contatto"));
 }
 
 // slot
 void Gui_Widget::removeContatto() {
-    // user->removeRete(Username(""));
+    user->removeContact(new Username("ser", ""));
     bigEditor->setText(QString::fromStdString(user->displayProfile()));
 }
 
 // slot
 void Gui_Widget::mostraProfilo() {
     bigEditor->setHtml(QString::fromStdString(user->displayHtmlInfo()));
-    smallEditor->setHtml(QString::fromStdString(user->displayHtmlNet()));
+    // smallEditor->setHtml(QString::fromStdString(user->displayHtmlNet()));
+    // listview->addItems(tr("Links"));
 }
 
 // slot
@@ -138,6 +147,7 @@ void Gui_Widget::createHorizontalGroupBox() {
 
     buttons[4] = new QPushButton("MESSAGES");
     layout->addWidget(buttons[4]);
+    connect(buttons[4], SIGNAL(clicked()), this, SLOT(insertContatto()));
 
     buttons[5] = new QPushButton("LOGOUT");
     layout->addWidget(buttons[5]);

@@ -12,6 +12,8 @@
 #include <QLineEdit>
 #include <QAction>
 #include <QGridLayout>
+#include <QListWidget>
+#include <QTreeWidget>
 #include <QMenu>
 #include <QMenuBar>
 #include "linqclient.h"
@@ -42,6 +44,7 @@ private:
     QLabel* portrait;
     QLineEdit* lineEdits[NumGridRows];
     QPushButton* buttons[NumButtons];
+    QListWidget* listview;
 
     // metodi privati di set-up di Gui_Widget
     void createHorizontalGroupBox();
