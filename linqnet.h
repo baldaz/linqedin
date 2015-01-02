@@ -19,7 +19,7 @@ public:
     void addUser(User*);
     void removeUser(Username*);
     int size() const;
-    vector<Username*> username() const;
+    vector<SmartPtr<Username> > username() const;
     SmartPtr<User> operator[](const int&) const;
     friend ostream& operator<<(ostream&, const LinqNet&);
 };

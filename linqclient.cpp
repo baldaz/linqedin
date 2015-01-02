@@ -4,7 +4,7 @@ LinqClient::LinqClient() : _db(new LinqDB()){}
 LinqClient::LinqClient(Username* usr) : _db(new LinqDB) {
     _usr = _db->find(usr);
 }
-LinqClient::~LinqClient() { delete _usr; delete _db; }
+LinqClient::~LinqClient() { }
 void LinqClient::addContact(Username* usr) {
     _usr->addContact(_db->find(usr));
 }
@@ -27,26 +27,28 @@ string LinqClient::displayProfile() const {
 string LinqClient::displayHtmlInfo() const {
     return _usr->account()->info()->printHtml();
 }
-string LinqClient::displayHtmlNet() const {
+int LinqClient::netSize() const {
+    return _usr->net()->size();
+}
+vector<string> LinqClient::displayHtmlNet() const {
+    vector<string> ret;
     string html = "";
     std::ostringstream o;
     o << _usr->net()->size();
-    html += "<h4>Links (" + o.str() +")</h4>";
-    html += "<p style='font-weight:400;'>";
-    vector<Username*> vec = _usr->net()->username();
-    vector<Username*>::const_iterator it = vec.begin();
+    vector<SmartPtr<Username> > vec = _usr->net()->username();
+    vector<SmartPtr<Username> >::const_iterator it = vec.begin();
     for(; it < vec.end(); ++it) {
         UserInfo* info;
         string name, surname;
-        info = dynamic_cast<UserInfo*> ((_db->find(*it))->account()->info());
+        info = dynamic_cast<UserInfo*> ((_db->find(&(**it)))->account()->info());
         if(info) {
             name = info->name();
             surname = info->surname();
         }
-        html += "> " + name + " " + surname + "<br>";
+        html = "> " + name + " " + surname;
+        ret.push_back(html);
     }
-    html += "</p>";
-    return html;
+    return ret;
 }
 string LinqClient::find() const {
     return _usr->userSearch(*_db);

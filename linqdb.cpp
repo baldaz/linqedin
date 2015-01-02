@@ -127,9 +127,10 @@ vector<QJsonObject> LinqDB::toJsonObject() const {
         jUser["username"] = QString::fromStdString(_db[i]->account()->username()->login());
         jUser["password"] = QString::fromStdString(_db[i]->account()->username()->password());
         jUser["privilege"] = _db[i]->account()->prLevel();
-        vector<Username*> list = _db[i]->net()->username();
-        for(int i = 0; i < list.size(); ++i)
-            jArr.append(QString::fromStdString(list[i]->login()));
+        vector<SmartPtr<Username> > list = _db[i]->net()->username();
+        vector<SmartPtr<Username> >::const_iterator it = list.begin();
+        for(; it < list.end(); ++it)
+            jArr.append(QString::fromStdString((*it)->login()));
         jUser["net"] = jArr;
         jUser["info"] = jInf;
         jUser["languages"] = jLang;
@@ -168,8 +169,6 @@ void LinqDB::addUser(User* u) {
     bool alreadyIn = false;
     // User* tmp;
     for(; it < _db.end() && !alreadyIn; ++it) {
-        // tmp = dynamic_cast<User*> (&(**it));
-        // if(tmp &&  *(tmp->account()->username()) == *(u->account()->username()))
         if(*((*it)->account()->username()) == *(u->account()->username()))
             alreadyIn = true;
     }
@@ -185,8 +184,8 @@ User* LinqDB::find(Username* usr) {
     User* ret;
     for(int i = 0; i < size(); ++i)
         if((_db[i]->account()->username()->login()) == usr->login())
-            ret = _db[i]->clone();
-            // ret = &(*_db[i]);
+            // ret = _db[i]->clone();
+            ret = &(*_db[i]);
     return ret;
 }
 vector<SmartPtr<User> >::const_iterator LinqDB::begin() const{

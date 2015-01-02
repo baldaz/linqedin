@@ -1,13 +1,14 @@
 #include "gui_widget.h"
 
 Gui_Widget::Gui_Widget() {
+    // logicInitialize();
     createHorizontalGroupBox();
-    bigEditor = new QTextBrowser();
-    bigEditor->setReadOnly(true);
-    bigEditor->setAcceptRichText(true);
+    // bigEditor = new QTextBrowser();
+    // bigEditor->setReadOnly(true);
+    // bigEditor->setAcceptRichText(true);
     // bigEditor->setTextInteractionFlags(bigEditor->textInteractionFlags() | Qt::TextSelectableByKeyboard);
-    bigEditor->setFontWeight(400);
-    bigEditor->setStyleSheet("background: url('img/background1.png') no-repeat; background-attachment:fixed; border-radius: 10px;");
+    // bigEditor->setFontWeight(400);
+    // bigEditor->setStyleSheet("background: url('img/background1.png') no-repeat; background-attachment:fixed; border-radius: 10px;");
     createGridGroupBox();
     // Layout principale della dialog
     QVBoxLayout* mainLayout = new QVBoxLayout;
@@ -37,7 +38,6 @@ Gui_Widget::Gui_Widget() {
     setLayout(mainLayout);
     move(200, 50);
     resize(1000, 650);
-    logicInitialize();
 }
 
 void Gui_Widget::createGridGroupBox() {
@@ -60,7 +60,7 @@ void Gui_Widget::createGridGroupBox() {
     smallEditor->setReadOnly(true);
     smallEditor->setFontWeight(400);
 
-    listview = new QListWidget();
+    // listview = new QListWidget();
     // smallEditor->setStyleSheet("border-style:dotted; border-top-width:1px; border-color: #e6e6e6;");
 
     // listview->setStyleSheet("background:#fff;");
@@ -69,19 +69,22 @@ void Gui_Widget::createGridGroupBox() {
     // layout->setColumnStretch(1, 10);
     // layout->setColumnStretch(2, 20);
     // gridGroupBox->setLayout(layout);
+    logicInitialize();
+    dispInfo = new Gui_DisplayInfo(user);
+    listLinks = new Gui_Links(user);
     portrait = new QLabel();
-    QLabel* links = new QLabel();
-    // links->setStyleSheet("background:#fff;");
-    links->setMaximumSize(40,20);
-    links->setText(tr("Links"));
     QPixmap pixmap ("img/portrait2.png");
     portrait->setPixmap(pixmap);
+
+    QLabel* links = new QLabel(tr("Links (%1)").arg(user->netSize()));
+    // links->setStyleSheet("background:#fff;");
+    links->setMaximumSize(70,20);
     // portrait->setStyleSheet("background: #fff;");
     layout->addWidget(portrait, 0, 0, 1, 1);
-    layout->addWidget(bigEditor, 0, 2, 4, -1);
+    layout->addWidget(dispInfo, 0, 2, 4, -1);
     // layout->addWidget(smallEditor, 1, 0, 1, 1);
     layout->addWidget(links, 1, 0, 1, 1);
-    layout->addWidget(listview, 2, 0, -1 ,1);
+    layout->addWidget(listLinks, 2, 0, -1 ,1);
     layout->setColumnStretch(0, 1);
     layout->setColumnStretch(2, 5);
     layout->setRowStretch(0, 0);
@@ -90,38 +93,42 @@ void Gui_Widget::createGridGroupBox() {
 }
 
 void Gui_Widget::logicInitialize() {
-    Username* usr = new Username("Baldaz", "qwerty");
-    user = new LinqClient(usr);
-    mostraProfilo();
+    user = new LinqClient(new Username("Baldaz", "qwerty"));
+    // mostraProfilo();
 }
 
 // slot
 void Gui_Widget::insertContatto() {
+    dispInfo->setText(tr("inserito"));
     user->addContact(new Username("ser", ""));
-    bigEditor->setText(tr("Inserito nuovo contatto"));
+    user->save();
+    // dispInfo->setText(tr("Inserito nuovo contatto"));
 }
 
 // slot
 void Gui_Widget::removeContatto() {
-    user->removeContact(new Username("ser", ""));
-    bigEditor->setText(QString::fromStdString(user->displayProfile()));
+    user->removeContact(new Username("Sara87", ""));
+    user->save();
+    // dispInfo->setText(QString::fromStdString(user->displayProfile()));
 }
 
 // slot
 void Gui_Widget::mostraProfilo() {
-    bigEditor->setHtml(QString::fromStdString(user->displayHtmlInfo()));
+    // createGridGroupBox();
+    // dispInfo->setHtml(QString::fromStdString(user->displayHtmlInfo()));
+    // listLinks = new Gui_Links(user);
     // smallEditor->setHtml(QString::fromStdString(user->displayHtmlNet()));
     // listview->addItems(tr("Links"));
 }
 
 // slot
 void Gui_Widget::viewNet() {
-    bigEditor->setText(tr("Lista contatti"));
+    // dispInfo->setText(tr("net"));
 }
 
 //slot
 void Gui_Widget::userSearch() {
-    bigEditor->setText(QString::fromStdString(user->find()));
+    // dispInfo->setText(QString::fromStdString(user->find()));
 }
 
 void Gui_Widget::createHorizontalGroupBox() {

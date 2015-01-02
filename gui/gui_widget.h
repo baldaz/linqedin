@@ -16,6 +16,8 @@
 #include <QTreeWidget>
 #include <QMenu>
 #include <QMenuBar>
+#include "gui_displayinfo.h"
+#include "gui_links.h"
 #include "../linqclient.h"
 
 class Gui_Widget : public QWidget {
@@ -38,7 +40,9 @@ private:
     QGroupBox* horizontalGroupBox;
     QGroupBox* gridGroupBox;
     QTextEdit* smallEditor;
-    QTextEdit* bigEditor;
+    // QTextEdit* bigEditor;
+    Gui_DisplayInfo* dispInfo;
+    Gui_Links* listLinks;
     enum { NumGridRows = 2, NumButtons = 6 };
     QLabel* labels[NumGridRows];
     QLabel* portrait;

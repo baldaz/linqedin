@@ -16,9 +16,10 @@ public:
     LinqClient();
     LinqClient(Username*);
     ~LinqClient();
+    int netSize() const;
     string displayProfile() const;
     string displayHtmlInfo() const;
-    string displayHtmlNet() const;
+    vector<string> displayHtmlNet() const;
     void alterProfile();
     void addContact(Username*);
     void removeContact(Username*);

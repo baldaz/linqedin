@@ -11,6 +11,9 @@ private:
     string _password;
 public:
     Username(string, string);
+    Username(const Username&);
+    ~Username();
+    Username* clone() const;
     string login() const;
     void setLogin(string);
     string password() const;
