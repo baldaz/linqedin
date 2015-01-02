@@ -3,7 +3,7 @@
 
 #include <QGroupBox>
 #include <QTextBrowser>
-#include "linqclient.h"
+#include "../linqclient.h"
 
 class Gui_DisplayInfo : public QGroupBox {
     Q_OBJECT

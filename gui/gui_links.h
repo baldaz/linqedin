@@ -2,7 +2,7 @@
 #define GUI_LINKS_H
 
 #include <QStringList>
-#include "username.h"
+#include "../username.h"
 
 class Gui_Links {
 private:

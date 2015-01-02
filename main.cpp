@@ -8,7 +8,7 @@
 // #include "linqdb.h"
 #include "linqclient.h"
 #include "linqadmin.h"
-#include "gui_widget.h"
+#include "gui/gui_widget.h"
 
 using std::cout;
 using std::endl;

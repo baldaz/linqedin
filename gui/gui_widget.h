@@ -16,7 +16,7 @@
 #include <QTreeWidget>
 #include <QMenu>
 #include <QMenuBar>
-#include "linqclient.h"
+#include "../linqclient.h"
 
 class Gui_Widget : public QWidget {
     Q_OBJECT
