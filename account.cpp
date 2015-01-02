@@ -26,6 +26,7 @@ privLevel Account::prLevel() const {
     return _privilege;
 }
 void Account::setInfo(Info* uf) {
+    if(_info) delete _info;
     _info = uf;
 }
 void Account::setPrLevel(privLevel newlevel) {
