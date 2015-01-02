@@ -13,10 +13,7 @@ int LinqNet::size() const {
 void LinqNet::addUser(User* usr) {
     vector<SmartPtr<User> >::iterator it = _net.begin();
     bool alreadyIn = false;
-    // User* tmp;
     for(; it < _net.end() && !alreadyIn; ++it) {
-        // tmp = dynamic_cast<User*> (&(**it));
-        // if(tmp &&  *(tmp->account()->username()) == *(usr->account()->username()))
         if(*((*it)->account()->username()) == *(usr->account()->username()))
             alreadyIn = true;
     }
@@ -27,18 +24,16 @@ void LinqNet::removeUser(Username* usr) {
     vector<SmartPtr<User> >::iterator it = _net.begin();
     bool found = false;
     for(; it < _net.end() && !found; ++it)
-        if(((*it)->account()->username()->login()) == (usr->login()))
+        if(((*it)->account()->username()->login()) == (usr->login())) {
             found = true;
-    if(found) _net.erase(it);
-            // _net.erase(_net.begin() + i);
-            // std::cout << "trovato" << std::endl;
+            if(found) _net.erase(it);
+        }
 }
-vector<Username*> LinqNet::username() const {
-    vector<Username*> list;
+vector<SmartPtr<Username> > LinqNet::username() const {
+    vector<SmartPtr<Username> > list;
     vector<SmartPtr<User> >::const_iterator it = _net.begin();
     for(; it < _net.end(); ++it){
-        list.push_back((*it)->account()->username());
-        // std::cout << (*it)->account()->username()->login();
+        list.push_back(SmartPtr<Username>((*it)->account()->username()));
     }
     return list;
 }
