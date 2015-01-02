@@ -24,3 +24,6 @@ QPushButton:pressed {
 QPushButton:focus {
     color: #e6e6e6;
 }
+QListWidget {
+    font-weight:400;
+}

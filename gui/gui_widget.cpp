@@ -1,7 +1,7 @@
 #include "gui_widget.h"
 
 Gui_Widget::Gui_Widget() {
-    // logicInitialize();
+    logicInitialize();
     createHorizontalGroupBox();
     // bigEditor = new QTextBrowser();
     // bigEditor->setReadOnly(true);
@@ -69,7 +69,6 @@ void Gui_Widget::createGridGroupBox() {
     // layout->setColumnStretch(1, 10);
     // layout->setColumnStretch(2, 20);
     // gridGroupBox->setLayout(layout);
-    logicInitialize();
     dispInfo = new Gui_DisplayInfo(user);
     listLinks = new Gui_Links(user);
     portrait = new QLabel();
@@ -80,6 +79,7 @@ void Gui_Widget::createGridGroupBox() {
     // links->setStyleSheet("background:#fff;");
     links->setMaximumSize(70,20);
     // portrait->setStyleSheet("background: #fff;");
+    dispInfo->setStyleSheet("background: #404040 url('img/background1.png') no-repeat; background-attachment:fixed; border-radius: 10px;");
     layout->addWidget(portrait, 0, 0, 1, 1);
     layout->addWidget(dispInfo, 0, 2, 4, -1);
     // layout->addWidget(smallEditor, 1, 0, 1, 1);

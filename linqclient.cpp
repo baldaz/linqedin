@@ -4,7 +4,7 @@ LinqClient::LinqClient() : _db(new LinqDB()){}
 LinqClient::LinqClient(Username* usr) : _db(new LinqDB) {
     _usr = _db->find(usr);
 }
-LinqClient::~LinqClient() { }
+LinqClient::~LinqClient() {delete _usr; delete _db; }
 void LinqClient::addContact(Username* usr) {
     _usr->addContact(_db->find(usr));
 }

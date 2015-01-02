@@ -24,7 +24,7 @@ class Gui_Widget : public QWidget {
     Q_OBJECT
 public:
     Gui_Widget();
-    public slots:
+public slots:
     void insertContatto();
     void removeContatto();
     void mostraProfilo();
