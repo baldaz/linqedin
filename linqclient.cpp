@@ -35,18 +35,29 @@ vector<string> LinqClient::displayHtmlNet() const {
     string html = "";
     std::ostringstream o;
     o << _usr->net()->size();
+    UserInfo* info;
+    string name, surname;
     vector<SmartPtr<Username> > vec = _usr->net()->username();
     vector<SmartPtr<Username> >::const_iterator it = vec.begin();
     for(; it < vec.end(); ++it) {
-        UserInfo* info;
-        string name, surname;
         info = dynamic_cast<UserInfo*> ((_db->find(&(**it)))->account()->info());
         if(info) {
             name = info->name();
             surname = info->surname();
         }
-        html = "> " + name + " " + surname;
+        html = name + " " + surname;
         ret.push_back(html);
+    }
+    return ret;
+}
+vector<SmartPtr<User> > LinqClient::contactsInfo() const {
+    vector<SmartPtr<User> > ret;
+    vector<SmartPtr<Username> > vec = _usr->net()->username();
+    vector<SmartPtr<Username> >::const_iterator it = vec.begin();
+    User* acc;
+    for(; it < vec.end(); ++it) {
+        acc = _db->find(&(**it));
+        ret.push_back(SmartPtr<User>(acc));
     }
     return ret;
 }

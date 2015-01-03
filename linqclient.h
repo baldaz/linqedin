@@ -20,6 +20,7 @@ public:
     string displayProfile() const;
     string displayHtmlInfo() const;
     vector<string> displayHtmlNet() const;
+    vector<SmartPtr<User> > contactsInfo() const;
     void alterProfile();
     void addContact(Username*);
     void removeContact(Username*);

@@ -13,9 +13,14 @@ class Gui_Links : public QListWidget {
     Q_OBJECT
 public:
     Gui_Links(LinqClient*, QWidget* parent = 0);
+    void refresh();
 signals:
 
 public slots:
-
+    void viewContact();
+private:
+    LinqClient* _client;
+    QString _selected;
+    void createList();
 };
 #endif

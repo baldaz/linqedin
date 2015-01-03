@@ -19,8 +19,8 @@
 
 QT_BEGIN_MOC_NAMESPACE
 struct qt_meta_stringdata_Gui_Widget_t {
-    QByteArrayData data[7];
-    char stringdata[76];
+    QByteArrayData data[8];
+    char stringdata[89];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -30,15 +30,17 @@ struct qt_meta_stringdata_Gui_Widget_t {
 static const qt_meta_stringdata_Gui_Widget_t qt_meta_stringdata_Gui_Widget = {
     {
 QT_MOC_LITERAL(0, 0, 10),
-QT_MOC_LITERAL(1, 11, 14),
-QT_MOC_LITERAL(2, 26, 0),
-QT_MOC_LITERAL(3, 27, 14),
-QT_MOC_LITERAL(4, 42, 13),
-QT_MOC_LITERAL(5, 56, 7),
-QT_MOC_LITERAL(6, 64, 10)
+QT_MOC_LITERAL(1, 11, 12),
+QT_MOC_LITERAL(2, 24, 0),
+QT_MOC_LITERAL(3, 25, 14),
+QT_MOC_LITERAL(4, 40, 14),
+QT_MOC_LITERAL(5, 55, 13),
+QT_MOC_LITERAL(6, 69, 7),
+QT_MOC_LITERAL(7, 77, 10)
     },
-    "Gui_Widget\0insertContatto\0\0removeContatto\0"
-    "mostraProfilo\0viewNet\0userSearch\0"
+    "Gui_Widget\0refreshLinks\0\0insertContatto\0"
+    "removeContatto\0mostraProfilo\0viewNet\0"
+    "userSearch\0"
 };
 #undef QT_MOC_LITERAL
 
@@ -48,7 +50,7 @@ static const uint qt_meta_data_Gui_Widget[] = {
        7,       // revision
        0,       // classname
        0,    0, // classinfo
-       5,   14, // methods
+       6,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -56,13 +58,15 @@ static const uint qt_meta_data_Gui_Widget[] = {
        0,       // signalCount
 
  // slots: name, argc, parameters, tag, flags
-       1,    0,   39,    2, 0x0a,
-       3,    0,   40,    2, 0x0a,
-       4,    0,   41,    2, 0x0a,
-       5,    0,   42,    2, 0x0a,
-       6,    0,   43,    2, 0x0a,
+       1,    0,   44,    2, 0x0a,
+       3,    0,   45,    2, 0x0a,
+       4,    0,   46,    2, 0x0a,
+       5,    0,   47,    2, 0x0a,
+       6,    0,   48,    2, 0x0a,
+       7,    0,   49,    2, 0x0a,
 
  // slots: parameters
+    QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
@@ -77,11 +81,12 @@ void Gui_Widget::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, 
     if (_c == QMetaObject::InvokeMetaMethod) {
         Gui_Widget *_t = static_cast<Gui_Widget *>(_o);
         switch (_id) {
-        case 0: _t->insertContatto(); break;
-        case 1: _t->removeContatto(); break;
-        case 2: _t->mostraProfilo(); break;
-        case 3: _t->viewNet(); break;
-        case 4: _t->userSearch(); break;
+        case 0: _t->refreshLinks(); break;
+        case 1: _t->insertContatto(); break;
+        case 2: _t->removeContatto(); break;
+        case 3: _t->mostraProfilo(); break;
+        case 4: _t->viewNet(); break;
+        case 5: _t->userSearch(); break;
         default: ;
         }
     }
@@ -113,13 +118,13 @@ int Gui_Widget::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 5)
+        if (_id < 6)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 5;
+        _id -= 6;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 5)
+        if (_id < 6)
             *reinterpret_cast<int*>(_a[0]) = -1;
-        _id -= 5;
+        _id -= 6;
     }
     return _id;
 }

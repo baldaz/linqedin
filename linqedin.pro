@@ -14,6 +14,7 @@ HEADERS += account.h \
            experience.h \
            gui/gui_displayinfo.h \
            gui/gui_links.h \
+           gui/gui_viewcontact.h \
            gui/gui_widget.h \
            info.h \
            linqadmin.h \
@@ -30,6 +31,7 @@ SOURCES += account.cpp \
            experience.cpp \
            gui/gui_displayinfo.cpp \
            gui/gui_links.cpp \
+           gui/gui_viewcontact.cpp \
            gui/gui_widget.cpp \
            info.cpp \
            linqadmin.cpp \
