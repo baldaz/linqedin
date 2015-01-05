@@ -4,12 +4,6 @@ double Subscription::_basic = 0;
 double Subscription::_business = 14.90;
 double Subscription::_executive = 29.90;
 
-string Subscription::paypal() const {
-    return _paypal;
-}
-void Subscription::setPaypal(string pp) {
-    _paypal = pp;
-}
 privLevel Subscription::level() const {
     return _level;
 }

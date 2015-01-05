@@ -17,7 +17,9 @@ void Gui_Widget::createGridGroupBox() {
     gridGroupBox = new QGroupBox;
     QGridLayout* layout = new QGridLayout;
     dispInfo = new Gui_DisplayInfo(user);
+    dispInfo->setFocusProxy(*buttons);
     listLinks = new Gui_Links(user, dispInfo);
+    listLinks->setFocusProxy(*buttons);
     portrait = new QLabel();
     QPixmap pixmap ("img/portrait2.png");
     portrait->setPixmap(pixmap);

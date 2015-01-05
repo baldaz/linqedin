@@ -174,7 +174,7 @@ string UserInfo::printHtml() const {
         html += "</p>";
     }
     if(!_skills.empty()) {
-        html += "<h4>Skills</h4><p style='font-weight: 400; font-size:13px;'>";
+        html += "<h4><img src='img/profile11.png'>  Skills</h4><p style='font-weight: 400; font-size:13px;'>";
         it = _skills.begin();
         for(; it < _skills.end(); ++it)
             html += "<span style='background-color:rgba(102,102,102,.5);'>&nbsp;"  + *it + "&nbsp;</span>&nbsp;&nbsp;";
