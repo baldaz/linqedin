@@ -1,15 +1,15 @@
 #include "linqclient.h"
 
 LinqClient::LinqClient() : _db(new LinqDB()){}
-LinqClient::LinqClient(Username* usr) : _db(new LinqDB) {
-    _usr = _db->find(usr);
+LinqClient::LinqClient(const Username& usr) : _db(new LinqDB) {
+    _usr = _db->find(const_cast<Username*> (&usr));
 }
 LinqClient::~LinqClient() {delete _usr; delete _db; }
-void LinqClient::addContact(Username* usr) {
-    _usr->addContact(_db->find(usr));
+void LinqClient::addContact(const Username& usr) {
+    _usr->addContact(_db->find(const_cast<Username*> (&usr)));
 }
-void LinqClient::removeContact(Username* usr) {
-    _usr->removeContact(usr);
+void LinqClient::removeContact(const Username& usr) {
+    _usr->removeContact(const_cast<Username*> (&usr));
 }
 string LinqClient::displayProfile() const {
     std::string profile = "";
@@ -64,15 +64,13 @@ vector<SmartPtr<User> > LinqClient::contactsInfo() const {
 string LinqClient::find() const {
     return _usr->userSearch(*_db);
 }
-void LinqClient::addExperience(Experience* xp) {
-    UserInfo* uf;
-    uf = dynamic_cast<UserInfo*> (_usr->account()->info());
-    if(uf) uf->addExperience(xp);
+void LinqClient::addExperience(const Experience& xp) {
+    UserInfo* uf = dynamic_cast<UserInfo*> (_usr->account()->info());
+    if(uf) uf->addExperience(const_cast<Experience*> (&xp));
 }
-void LinqClient::addFormation(Experience* frm) {
-    UserInfo* uf;
-    uf = dynamic_cast<UserInfo*> (_usr->account()->info());
-    if(uf) uf->addFormation(frm);
+void LinqClient::addFormation(const Experience& frm) {
+    UserInfo* uf = dynamic_cast<UserInfo*> (_usr->account()->info());
+    if(uf) uf->addFormation(const_cast<Experience*> (&frm));
 }
 void LinqClient::save() const {
     _db->save();

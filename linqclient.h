@@ -14,7 +14,7 @@ private:
     LinqDB* _db;
 public:
     LinqClient();
-    LinqClient(Username*);
+    LinqClient(const Username&);
     ~LinqClient();
     int netSize() const;
     string displayProfile() const;
@@ -22,10 +22,10 @@ public:
     vector<string> displayHtmlNet() const;
     vector<SmartPtr<User> > contactsInfo() const;
     void alterProfile();
-    void addContact(Username*);
-    void removeContact(Username*);
-    void addExperience(Experience*);
-    void addFormation(Experience*);
+    void addContact(const Username&);
+    void removeContact(const Username&);
+    void addExperience(const Experience&);
+    void addFormation(const Experience&);
     string find() const;
     void save() const;
 };

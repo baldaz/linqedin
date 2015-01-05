@@ -3,9 +3,7 @@
 
 #include <iostream>
 #include <vector>
-// #include "spuser.h"
 #include "user.h"
-#include "smartptr.h"
 
 using std::vector;
 using std::ostream;

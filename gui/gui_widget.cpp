@@ -17,12 +17,12 @@ void Gui_Widget::createGridGroupBox() {
     gridGroupBox = new QGroupBox;
     QGridLayout* layout = new QGridLayout;
     dispInfo = new Gui_DisplayInfo(user);
-    listLinks = new Gui_Links(user);
+    listLinks = new Gui_Links(user, dispInfo);
     portrait = new QLabel();
     QPixmap pixmap ("img/portrait2.png");
     portrait->setPixmap(pixmap);
-    QLabel* links = new QLabel(tr("Links (%1)").arg(user->netSize()));
-    links->setMaximumSize(70,20);
+    QLabel* links = new QLabel(tr("Connections (%1)").arg(user->netSize()));
+    links->setMaximumSize(120,20);
     // links->setPixmap(QPixmap("img/share12.png"));
     dispInfo->setStyleSheet("background: #404040 url('img/background1.png') no-repeat; background-attachment:fixed; border-radius: 10px;");
     layout->addWidget(portrait, 0, 0, 1, 1);
@@ -37,7 +37,7 @@ void Gui_Widget::createGridGroupBox() {
 }
 
 void Gui_Widget::logicInitialize() {
-    user = new LinqClient(new Username("Baldaz", "qwerty"));
+    user = new LinqClient(Username("Baldaz", "qwerty"));
     // mostraProfilo();
 }
 
@@ -49,14 +49,14 @@ void Gui_Widget::refreshLinks() {
 // slot
 void Gui_Widget::insertContatto() {
     dispInfo->setText(tr("inserito"));
-    user->addContact(new Username("ser", ""));
+    user->addContact(Username("ser", ""));
     user->save();
     // dispInfo->setText(tr("Inserito nuovo contatto"));
 }
 
 // slot
 void Gui_Widget::removeContatto() {
-    user->removeContact(new Username("Sara87", ""));
+    user->removeContact(Username("Sara87", ""));
     user->save();
     // dispInfo->setText(QString::fromStdString(user->displayProfile()));
 }

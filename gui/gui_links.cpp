@@ -1,18 +1,23 @@
 #include "gui_links.h"
 
-Gui_Links::Gui_Links(LinqClient* client, QWidget* parent) : _client(client), QListWidget(parent) {
+Gui_Links::Gui_Links(LinqClient* client, Gui_DisplayInfo* disp, QWidget* parent) : _client(client), _display(disp), QListWidget(parent) {
     refresh();
     connect(this, SIGNAL(clicked(QModelIndex)), this, SLOT(viewContact()));
 }
 void Gui_Links::createList() {
-    vector<string> vec = _client->displayHtmlNet();
-    vector<string>::iterator it = vec.begin();
+    vector<SmartPtr<User> > vec = _client->contactsInfo();
+    vector<SmartPtr<User> >::iterator it = vec.begin();
+    UserInfo* uf;
     for(; it < vec.end(); ++it) {
         QListWidgetItem* item = new QListWidgetItem();
-        item->setData(Qt::DisplayRole, QString::fromStdString(*it));
-        item->setData(Qt::UserRole + 1, "Sara87");
-        item->setData(Qt::DecorationRole, QPixmap("img/profile11.png"));
-        this->addItem(item);
+        uf = dynamic_cast<UserInfo*> ((*it)->account()->info());
+        if(uf) {
+            QString link = QString::fromStdString(uf->name()) + " " + QString::fromStdString(uf->surname());
+            item->setData(Qt::DisplayRole, link);
+            item->setData(Qt::UserRole + 1, QString::fromStdString((*it)->account()->username()->login()));
+            item->setData(Qt::DecorationRole, QPixmap("img/profile11.png"));
+            this->addItem(item);
+        }
     }
 }
 void Gui_Links::refresh() {
@@ -22,4 +27,5 @@ void Gui_Links::refresh() {
 //slot
 void Gui_Links::viewContact() {
     _selected = this->currentItem()->data(Qt::UserRole + 1).toString();
+    Gui_ViewContact* _view = new Gui_ViewContact(_display, _client->contactsInfo(), _selected);
 }
