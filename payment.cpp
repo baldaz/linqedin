@@ -14,3 +14,9 @@ Subscription* Payment::sub() const {
 void Payment::setSub(Subscription* sub) {
     _sub = sub;
 }
+BillMethod* Payment::billMethod() const {
+    return _bmethod;
+}
+void Payment::setBillMethod(BillMethod* bmethod) {
+    _bmethod = bmethod;
+}

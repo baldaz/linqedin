@@ -187,3 +187,21 @@ string UserInfo::printHtml() const {
     html += "<h4>Bio</h4>";
     return html;
 }
+
+Bio::Bio(string bio = "") : _bio(bio) {}
+Bio::Bio(const Bio& bio) : _bio(bio._bio) {}
+Info* Bio::clone() const {
+    return new Bio(*this);
+}
+string Bio::bio() const {
+    return _bio;
+}
+void Bio::setBio(string bio = "") {
+    _bio = bio;
+}
+string Bio::print() const {
+    return "";
+}
+string Bio::printHtml() const {
+    return "";
+}

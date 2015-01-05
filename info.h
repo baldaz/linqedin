@@ -19,7 +19,7 @@ public:
 };
 
 class UserInfo : public Info {
-private:
+protected:
     bool _sex;
     string _name, _surname, _birthdate, _email, _address, _telephon, _website;
     vector<string> _languages, _skills, _interests;
@@ -63,4 +63,16 @@ public:
     virtual string printHtml() const;
 };
 
+class Bio : public UserInfo {
+protected:
+    string _bio;
+public:
+    Bio(string);
+    Bio(const Bio&);
+    Info* clone() const;
+    string bio() const;
+    void setBio(string);
+    virtual string print() const;
+    virtual string printHtml() const;
+};
 #endif

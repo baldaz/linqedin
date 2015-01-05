@@ -5,9 +5,9 @@
 
 class Gui_ViewContact {
 private:
-    QString _toView;
     Gui_DisplayInfo* _display;
     vector<SmartPtr<User> > _contacts;
+    QString _toView;
 public:
     Gui_ViewContact(Gui_DisplayInfo*, vector<SmartPtr<User> >, QString);
 };

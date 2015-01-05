@@ -1,15 +1,18 @@
 #ifndef ACCOUNT_H
 #define ACCOUNT_H
 
+#include <vector>
 #include "username.h"
 #include "info.h"
 #include "privlevel.h"
+#include "payment.h"
 
 class Account {
 private:
     Info* _info;
     Username* _user;
     privLevel _privilege;
+    vector<SmartPtr<Payment> > _history;
 public:
     Account();
     Account(Info*, Username*, privLevel);
