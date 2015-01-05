@@ -22,6 +22,7 @@ HEADERS += account.h \
            linqclient.h \
            linqdb.h \
            linqnet.h \
+           message.h \
            payment.h \
            privlevel.h \
            smartptr.h \
@@ -41,6 +42,7 @@ SOURCES += account.cpp \
            linqdb.cpp \
            linqnet.cpp \
            main.cpp \
+           message.cpp \
            payment.cpp \
            subscription.cpp \
            user.cpp \

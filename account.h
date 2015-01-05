@@ -5,8 +5,6 @@
 #include "info.h"
 #include "privlevel.h"
 
-// class UserInfo;
-
 class Account {
 private:
     Info* _info;

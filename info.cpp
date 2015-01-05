@@ -1,22 +1,5 @@
 #include "info.h"
 
-UserInfo::SmartExp::SmartExp(Experience* exp) : ptr(exp->clone()) {}
-UserInfo::SmartExp::SmartExp(const SmartExp& sm_exp) : ptr((sm_exp.ptr)->clone()) {}
-UserInfo::SmartExp& UserInfo::SmartExp::operator=(const SmartExp& sm_exp) {
-    if(this != &sm_exp) {
-        delete ptr;
-        ptr = (sm_exp.ptr)->clone();
-    }
-    return *this;
-}
-UserInfo::SmartExp::~SmartExp() { delete ptr; }
-Experience& UserInfo::SmartExp::operator*() const {
-    return *ptr;
-}
-Experience* UserInfo::SmartExp::operator->() const {
-    return ptr;
-}
-
 Info::~Info() {}
 UserInfo::UserInfo() {}
 UserInfo::UserInfo(bool sx, string n, string s, string b, string e, string a, string t, string w) :

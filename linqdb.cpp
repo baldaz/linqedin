@@ -115,15 +115,19 @@ vector<QJsonObject> LinqDB::toJsonObject() const {
             }
             jForArr.append(jFormations);
         }
+        vector<string>::const_iterator itr;
         vector<string> languages = uif->languages();
-        for(int i = 0; i < languages.size(); ++i)
-            jLang.append(QString::fromStdString(languages[i]));
+        itr = languages.begin();
+        for(; itr < languages.end(); ++itr)
+            jLang.append(QString::fromStdString(*itr));
         vector<string> skills = uif->skills();
-        for(int i = 0; i < skills.size(); ++i)
-            jSkill.append(QString::fromStdString(skills[i]));
+        itr = skills.begin();
+        for(; itr < skills.end(); ++itr)
+            jSkill.append(QString::fromStdString(*itr));
         vector<string> interests = uif->interests();
-        for(int i = 0; i < interests.size(); ++i)
-            jInterest.append(QString::fromStdString(interests[i]));
+        itr = interests.begin();
+        for(; itr < interests.end(); ++itr)
+            jInterest.append(QString::fromStdString(*itr));
         jUser["username"] = QString::fromStdString(_db[i]->account()->username()->login());
         jUser["password"] = QString::fromStdString(_db[i]->account()->username()->password());
         jUser["privilege"] = _db[i]->account()->prLevel();

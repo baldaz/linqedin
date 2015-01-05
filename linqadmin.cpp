@@ -11,13 +11,13 @@ void LinqAdmin::insertUser(User* newuser) {
     _db->addUser(newuser);
     save();
 }
-void LinqAdmin::removeUser(Username* user) {
-    std::for_each(_db->begin(), _db->end(), completeRemove(user));
-    _db->removeUser(user);
+void LinqAdmin::removeUser(const Username& user) {
+    std::for_each(_db->begin(), _db->end(), completeRemove(const_cast<Username*> (&user)));
+    _db->removeUser(const_cast<Username*> (&user));
     save();
 }
-void LinqAdmin::alterSubscription(Username* usr, privLevel newlevel) {
-    User* current = _db->find(usr);
+void LinqAdmin::alterSubscription(const Username& usr, privLevel newlevel) {
+    User* current = _db->find(const_cast<Username*> (&usr));
     current->account()->setPrLevel(newlevel);
     save();
 }

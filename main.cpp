@@ -26,8 +26,8 @@ int main(int argc, char**argv) {
     // // admin->removeUser(ser);
     // // admin->insertUser(prova);
     // cout << endl << "+++++++++++++++++++++++++++++++++++++++++++++++++++" << endl;
-    // Username* user = new Username("Baldaz", "password");
-    // LinqClient* client = new LinqClient(user);
+    // Username* user = new Username("Baldaz", "qwerty");
+    // LinqClient* client = new LinqClient(Username("Baldaz", "qwerty"));
     // Username* sara = new Username("Sara87", "sara");
     // // Username* ser = new Username("ser", "wword");
     // client->addContact(sara);
@@ -47,32 +47,8 @@ int main(int argc, char**argv) {
     QFile File("style/stylesheet.qss");
     File.open(QFile::ReadOnly);
     QString StyleSheet = QLatin1String(File.readAll());
-    // app.setStyle(QStyleFactory::create("Fusion"));
-
-    // QPalette darkPalette;
-    // darkPalette.setColor(QPalette::Window, QColor(53,53,53));
-    // darkPalette.setColor(QPalette::WindowText, Qt::white);
-    // darkPalette.setColor(QPalette::Base, QColor(25,25,25));
-    // darkPalette.setColor(QPalette::AlternateBase, QColor(53,53,53));
-    // darkPalette.setColor(QPalette::ToolTipBase, Qt::white);
-    // darkPalette.setColor(QPalette::ToolTipText, Qt::white);
-    // darkPalette.setColor(QPalette::Text, Qt::white);
-    // darkPalette.setColor(QPalette::Button, QColor(53,53,53));
-    // darkPalette.setColor(QPalette::ButtonText, Qt::white);
-    // darkPalette.setColor(QPalette::BrightText, Qt::red);
-    // darkPalette.setColor(QPalette::Link, QColor(42, 130, 218));
-
-    // darkPalette.setColor(QPalette::Highlight, QColor(42, 130, 218));
-    // darkPalette.setColor(QPalette::HighlightedText, Qt::black);
-
-    // app.setPalette(darkPalette);
-
-    // app.setStyleSheet("QToolTip { color: #ffffff; background-color: #2a82da; border: 1px solid white; }");
     app.setStyleSheet(StyleSheet);
-    // window.setStyleSheet("width:400px; height:200px;");
-    // window.setGeometry(250, 100, 800, 600);
     window.setStyleSheet("border: none");
-    // window.setStyleSheet("background: url('img/mbuntu-10.jpg'); border-radius: 10px; border-color: beige; margin:0; padding:0;");
     window.setWindowTitle("");
     window.show();
     return app.exec();
