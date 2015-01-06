@@ -37,10 +37,15 @@ public:
 };
 
 class BasicUser : public User {
+protected:
+    int _visitcount;
 public:
     BasicUser();
     BasicUser(Account*, LinqNet*);
     BasicUser(const BasicUser&);
+    int visitCount() const;
+    void setVisitCount(int);
+    void addVisit();
     virtual User* clone() const;
     virtual string userSearch(const LinqDB&, string) const;
 };

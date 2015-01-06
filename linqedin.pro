@@ -29,7 +29,8 @@ HEADERS += account.h \
            smartptr.h \
            subscription.h \
            user.h \
-           username.h
+           username.h \
+           utils.h
 SOURCES += account.cpp \
            billmethod.cpp \
            experience.cpp \
@@ -48,4 +49,5 @@ SOURCES += account.cpp \
            payment.cpp \
            subscription.cpp \
            user.cpp \
-           username.cpp
+           username.cpp \
+           utils.cpp
