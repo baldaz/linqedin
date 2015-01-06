@@ -12,6 +12,7 @@ class User {
 protected:
     Account* _acc;
     LinqNet* _net;
+    int _visitcount;
     class searchFunctor {
     private:
         int _s_type;
@@ -33,29 +34,38 @@ public:
     LinqNet* net() const;
     void addContact(User*);
     void removeContact(Username*);
+    int visitCount() const;
+    void setVisitCount(int);
+    void addVisit();
     virtual string userSearch(const LinqDB&, string) const =0;
 };
 
 class BasicUser : public User {
-protected:
-    int _visitcount;
 public:
     BasicUser();
     BasicUser(Account*, LinqNet*);
     BasicUser(const BasicUser&);
-    int visitCount() const;
-    void setVisitCount(int);
-    void addVisit();
     virtual User* clone() const;
     virtual string userSearch(const LinqDB&, string) const;
 };
 
 class BusinessUser : public BasicUser {
+protected:
+    class linkedWith {
+    private:
+        int _links;
+        vector<SmartPtr<User> > _mates;
+    public:
+        linkedWith(int);
+        void operator()(const SmartPtr<User>&);
+        vector<SmartPtr<User> > result() const;
+    };
 public:
     BusinessUser();
     BusinessUser(Account*, LinqNet*);
     BusinessUser(const BusinessUser&);
     virtual User* clone() const;
+    vector<SmartPtr<User> > listPossibleLinks(const LinqDB&) const;
     virtual string userSearch(const LinqDB&, string) const;
 };
 

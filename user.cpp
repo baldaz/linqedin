@@ -5,9 +5,9 @@
 
 using std::vector;
 
-User::User() : _acc(new Account()), _net(new LinqNet()) {}
-User::User(Account* ac, LinqNet* lq) : _acc(ac), _net(lq) {}
-User::User(const User& usr) : _acc(usr._acc), _net(usr._net) /*: _acc(usr._acc->clone()), _net(usr._net->clone())*/ {}
+User::User() : _acc(new Account()), _net(new LinqNet()), _visitcount(0)  {}
+User::User(Account* ac, LinqNet* lq) : _acc(ac), _net(lq), _visitcount(0)  {}
+User::User(const User& usr) : _acc(usr._acc), _net(usr._net), _visitcount(usr._visitcount) /*: _acc(usr._acc->clone()), _net(usr._net->clone())*/ {}
 User::~User() { }
 User& User::operator=(const User& usr) {
     if(this != &usr) {
@@ -31,6 +31,15 @@ Account* User::account() const {
 LinqNet* User::net() const {
     return _net;
 }
+int User::visitCount() const {
+    return _visitcount;
+}
+void User::setVisitCount(int count) {
+    _visitcount = count;
+}
+void User::addVisit() {
+    _visitcount++;
+}
 
 User::searchFunctor::searchFunctor(int s = 0, string w = "") : _s_type(s), _wanted(w) {}
 void User::searchFunctor::operator()(const SmartPtr<User>& spu) {
@@ -38,33 +47,39 @@ void User::searchFunctor::operator()(const SmartPtr<User>& spu) {
     _wanted = utilities::Utils::toLowerCase(_wanted);
     switch(_s_type) {
         case 1:
-            uf = dynamic_cast<UserInfo*> (dspu->account()->info());
+            uf = dynamic_cast<UserInfo*> (spu->account()->info());
             if(uf) {
                 string fullName = utilities::Utils::toLowerCase(uf->name() + " " + uf->surname());
                 if(utilities::Utils::toLowerCase(uf->name()) == _wanted || utilities::Utils::toLowerCase(uf->surname()) == _wanted || fullName == _wanted) {
                     _result += uf->name() + " " + uf->surname() + "\n";
-                    dspu->addVisit();
+                    spu->addVisit();
                 }
             }
         break;
         case 2:
-            uf = dynamic_cast<UserInfo*> (dspu->account()->info());
+            uf = dynamic_cast<UserInfo*> (spu->account()->info());
             if(uf) {
                 string fullName = utilities::Utils::toLowerCase(uf->name() + " " + uf->surname());
                 if(utilities::Utils::toLowerCase(uf->name()) == _wanted || utilities::Utils::toLowerCase(uf->surname()) == _wanted || fullName == _wanted) {
                     _result += spu->account()->info()->printHtml() + "\n";
-                    dspu->addVisit();
+                    spu->addVisit();
                 }
             }
         break;
         case 3:
-            uf = dynamic_cast<UserInfo*> (dspu->account()->info());
+            uf = dynamic_cast<UserInfo*> (spu->account()->info());
             if(uf) {
+                vector<string> skills = uf->skills();
+                vector<string>::iterator it = skills.begin();
+                for(; it < skills.end(); ++it)
+                    *it = utilities::Utils::toLowerCase(*it);
                 string fullName = utilities::Utils::toLowerCase(uf->name() + " " + uf->surname());
-                if(utilities::Utils::toLowerCase(uf->name()) == _wanted || utilities::Utils::toLowerCase(uf->surname()) == _wanted || fullName == _wanted) {
+                if(utilities::Utils::toLowerCase(uf->name()) == _wanted ||
+                   utilities::Utils::toLowerCase(uf->surname()) == _wanted ||
+                   fullName == _wanted || utilities::Utils::contains(skills, _wanted)) {
                     _result += spu->account()->info()->printHtml() + "\n";
                     _result += spu->net()->printHtml();
-                    dspu->addVisit();
+                    spu->addVisit();
                 }
             }
         break;
@@ -78,22 +93,19 @@ string User::searchFunctor::result() const {
 }
 
 BasicUser::BasicUser() : User() {}
-BasicUser::BasicUser(Account* ac, LinqNet* lq) : User(ac, lq), _visitcount(0) {}
-BasicUser::BasicUser(const BasicUser& usr) : User(usr), _visitcount(0) {}
+BasicUser::BasicUser(Account* ac, LinqNet* lq) : User(ac, lq){}
+BasicUser::BasicUser(const BasicUser& usr) : User(usr){}
 User* BasicUser::clone() const {
     return new BasicUser(*this);
 }
 string BasicUser::userSearch(const LinqDB& db, string wanted) const {
     return std::for_each(db.begin(), db.end(), searchFunctor(1, wanted)).result();
 }
-int BasicUser::visitCount() const {
-    return _visitcount;
-}
-void BasicUser::setVisitCount(int count) {
-    _visitcount = count;
-}
-void BasicUser::addVisit() {
-    _visitcount++;
+
+BusinessUser::linkedWith::linkedWith(int s = 0) : _links(s) {}
+void BusinessUser::linkedWith::operator()(const SmartPtr<User>& spu) {}
+vector<SmartPtr<User> > BusinessUser::linkedWith::result() const {
+    return _mates;
 }
 BusinessUser::BusinessUser() : BasicUser() {}
 BusinessUser::BusinessUser(Account* ac, LinqNet* lq) : BasicUser(ac, lq) {}
@@ -103,6 +115,9 @@ User* BusinessUser::clone() const {
 }
 string BusinessUser::userSearch(const LinqDB& db, string wanted) const {
     return std::for_each(db.begin(), db.end(), searchFunctor(2, wanted)).result();
+}
+vector<SmartPtr<User> > BusinessUser::listPossibleLinks(const LinqDB& db) const {
+    return std::for_each(db.begin(), db.end(), linkedWith(3)).result();
 }
 
 ExecutiveUser::ExecutiveUser() : BusinessUser() {}
