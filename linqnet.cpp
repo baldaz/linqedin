@@ -37,6 +37,20 @@ vector<SmartPtr<Username> > LinqNet::username() const {
     }
     return list;
 }
+string LinqNet::printHtml() const {
+    string html = "";
+    if(!_net.empty()) {
+        UserInfo* uf = NULL;
+        html += "<h4>Connections</h4><p style='font-weight:400'>";
+        vector<SmartPtr<User> >::const_iterator it = _net.begin();
+        for(; it < _net.end(); ++it) {
+            uf = dynamic_cast<UserInfo*> ((*it)->account()->info());
+            html += uf->name() + " " + uf->surname() + " - ";
+        }
+        html += "</p>";
+    }
+    return html;
+}
 SmartPtr<User> LinqNet::operator[](const int& i) const {
     return _net[i];
 }

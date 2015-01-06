@@ -31,24 +31,35 @@ LinqNet* User::net() const {
     return _net;
 }
 
-User::searchFunctor::searchFunctor(int s = 0) : _s_type(s) {}
+User::searchFunctor::searchFunctor(int s = 0, string w = "") : _s_type(s), _wanted(w) {}
 void User::searchFunctor::operator()(const SmartPtr<User>& spu) {
+    UserInfo* uf = NULL;
     switch(_s_type) {
         case 1:
-            // std::cout << spu->account()->username()->login() << std::endl;
-            _result += spu->account()->username()->login() + "\n";
+            uf = dynamic_cast<UserInfo*> (spu->account()->info());
+            if(uf) {
+                string fullName = uf->name() + " " + uf->surname();
+                if(uf->name() == _wanted || uf->surname() == _wanted || fullName == _wanted)
+                    _result += uf->name() + " " + uf->surname() + "\n";
+            }
         break;
         case 2:
-            // std::cout << spu->account()->username()->login() << std::endl;
-            // std::cout << spu->account()->info()->print() << std::endl;
-            _result += spu->account()->info()->printHtml() + "\n";
+            uf = dynamic_cast<UserInfo*> (spu->account()->info());
+            if(uf) {
+                string fullName = uf->name() + " " + uf->surname();
+                if(uf->name() == _wanted || uf->surname() == _wanted || fullName == _wanted)
+                    _result += spu->account()->info()->printHtml() + "\n";
+            }
         break;
         case 3:
-            // std::cout << spu->account()->username()->login() << std::endl;
-            // std::cout << spu->account()->info()->print() << std::endl;
-            // std::cout << *spu->net() << std::endl;
-            _result += spu->account()->info()->printHtml() + "\n";
-            // _result += *spu->net() + "\n";
+            uf = dynamic_cast<UserInfo*> (spu->account()->info());
+            if(uf) {
+                string fullName = uf->name() + " " + uf->surname();
+                if(uf->name() == _wanted || uf->surname() == _wanted || fullName == _wanted) {
+                    _result += spu->account()->info()->printHtml() + "\n";
+                    _result += spu->net()->printHtml();
+                }
+            }
         break;
         default:
             std::cout << "Schifo search" << std::endl;
@@ -65,8 +76,8 @@ BasicUser::BasicUser(const BasicUser& usr) : User(usr) {}
 User* BasicUser::clone() const {
     return new BasicUser(*this);
 }
-string BasicUser::userSearch(const LinqDB& db) const {
-    return std::for_each(db.begin(), db.end(), searchFunctor(1)).result();
+string BasicUser::userSearch(const LinqDB& db, string wanted) const {
+    return std::for_each(db.begin(), db.end(), searchFunctor(1, wanted)).result();
 }
 
 BusinessUser::BusinessUser() : BasicUser() {}
@@ -75,8 +86,8 @@ BusinessUser::BusinessUser(const BusinessUser& usr) : BasicUser(usr) {}
 User* BusinessUser::clone() const {
     return new BusinessUser(*this);
 }
-string BusinessUser::userSearch(const LinqDB& db) const {
-    return std::for_each(db.begin(), db.end(), searchFunctor(2)).result();
+string BusinessUser::userSearch(const LinqDB& db, string wanted) const {
+    return std::for_each(db.begin(), db.end(), searchFunctor(2, wanted)).result();
 }
 
 ExecutiveUser::ExecutiveUser() : BusinessUser() {}
@@ -85,6 +96,6 @@ ExecutiveUser::ExecutiveUser(const ExecutiveUser& usr) : BusinessUser(usr) {}
 User* ExecutiveUser::clone() const {
     return new ExecutiveUser(*this);
 }
-string ExecutiveUser::userSearch(const LinqDB& db) const {
-    return std::for_each(db.begin(), db.end(), searchFunctor(3)).result();
+string ExecutiveUser::userSearch(const LinqDB& db, string wanted) const {
+    return std::for_each(db.begin(), db.end(), searchFunctor(3, wanted)).result();
 }

@@ -61,8 +61,8 @@ vector<SmartPtr<User> > LinqClient::contactsInfo() const {
     }
     return ret;
 }
-string LinqClient::find() const {
-    return _usr->userSearch(*_db);
+string LinqClient::find(string wanted = "") const {
+    return _usr->userSearch(*_db, wanted);
 }
 void LinqClient::addExperience(const Experience& xp) {
     UserInfo* uf = dynamic_cast<UserInfo*> (_usr->account()->info());

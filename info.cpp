@@ -145,9 +145,10 @@ string UserInfo::print() const {
 }
 string UserInfo::printHtml() const {
     string html = "";
-    html = "<h2>" + _name + " " + _surname + "</h2>";
-    html += "<p style='font-weight: 400; font-size:13px;'>Student  &nbsp;26 years old<br>";
-    html += _address + "&nbsp;&nbsp;" + _telephon + "</p>";
+    html += "<h2>" + _name + " " + _surname + "</h2>";
+    html += "<p style='font-weight: 400; font-size:13px;'>Student 26 years old<br>";
+    html += _address + " " + _telephon + "</p>";
+    // html += "<hr>";
     html += "<h4>Interests</h4><p style='font-weight: 400; font-size:13px;'>";
     vector<string>::const_iterator it;
     if(!_interests.empty()) {
@@ -183,13 +184,15 @@ string UserInfo::printHtml() const {
                     html += tmp->location() + " from " + tmp->from() + " to " + tmp->to() + "<br>";
         }
     }
+    html += "</p>";
     html += "<h4>Contacts</h4><p style='font-weight: 400; font-size:13px'>" + _email + " &nbsp;&nbsp;<a style='color:#4782EC;' href='#'>" + _website + "</a></p>";
     html += "<h4>Bio</h4>";
     return html;
 }
 
-Bio::Bio(string bio = "") : _bio(bio) {}
-Bio::Bio(const Bio& bio) : _bio(bio._bio) {}
+Bio::Bio(bool sx, string n, string s, string b, string e, string a, string t, string w, string bio = "") : UserInfo(sx, n, s, b, e, a, t, w), _bio(bio) {}
+Bio::Bio(const Bio& bio) :
+    UserInfo(bio._sex, bio._name, bio._surname, bio._birthdate, bio._email, bio._address, bio._telephon, bio._website), _bio(bio._bio) {}
 Info* Bio::clone() const {
     return new Bio(*this);
 }

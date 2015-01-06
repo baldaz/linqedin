@@ -18,6 +18,7 @@
 #include <QMenuBar>
 #include "gui_displayinfo.h"
 #include "gui_links.h"
+#include "gui_search.h"
 #include "../linqclient.h"
 
 class Gui_Widget : public QWidget {
@@ -40,10 +41,11 @@ private:
     // Componenti grafiche di Gui_Widget
     QGroupBox* horizontalGroupBox;
     QGroupBox* gridGroupBox;
-    QTextEdit* smallEditor;
+    // QTextEdit* smallEditor;
     // QTextEdit* bigEditor;
     Gui_DisplayInfo* dispInfo;
     Gui_Links* listLinks;
+    Gui_Search* searchBar;
     enum { NumGridRows = 2, NumButtons = 6 };
     QLabel* labels[NumGridRows];
     QLabel* portrait;

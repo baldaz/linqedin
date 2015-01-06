@@ -19,6 +19,7 @@ public:
     int size() const;
     vector<SmartPtr<Username> > username() const;
     SmartPtr<User> operator[](const int&) const;
+    string printHtml() const;
     friend ostream& operator<<(ostream&, const LinqNet&);
 };
 #endif

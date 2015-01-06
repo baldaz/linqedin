@@ -16,8 +16,8 @@ public:
     ~Payment();
     bool approvation() const;
     void setApprovation(bool);
-    Subscription* sub() const;
-    void setSub(Subscription*);
+    Subscription* subscription() const;
+    void setSubscription(Subscription*);
     BillMethod* billMethod() const;
     void setBillMethod(BillMethod*);
 };

@@ -67,7 +67,7 @@ class Bio : public UserInfo {
 protected:
     string _bio;
 public:
-    Bio(string);
+    Bio(bool, string, string, string, string, string, string, string, string);
     Bio(const Bio&);
     Info* clone() const;
     string bio() const;

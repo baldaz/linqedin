@@ -27,10 +27,14 @@ void Gui_Widget::createGridGroupBox() {
     links->setMaximumSize(120,20);
     // links->setPixmap(QPixmap("img/share12.png"));
     dispInfo->setStyleSheet("background: #404040 url('img/background1.png') no-repeat; background-attachment:fixed; border-radius: 10px;");
+    searchBar = new Gui_Search(user, dispInfo);
+    // searchBar->setStyleSheet("background: #f0f");
+    // dispInfo->setStyleSheet("background: #fff");
     layout->addWidget(portrait, 0, 0, 1, 1);
     layout->addWidget(dispInfo, 0, 2, 4, -1);
     layout->addWidget(links, 1, 0, 1, 1);
-    layout->addWidget(listLinks, 2, 0, -1 ,1);
+    layout->addWidget(listLinks, 2, 0, 1 ,1);
+    layout->addWidget(searchBar, 3, 0, -1, 1);
     layout->setColumnStretch(0, 1);
     layout->setColumnStretch(2, 5);
     layout->setRowStretch(0, 0);
@@ -73,7 +77,7 @@ void Gui_Widget::viewNet() {
 
 //slot
 void Gui_Widget::userSearch() {
-    dispInfo->setText(QString::fromStdString(user->find()));
+    dispInfo->setText(QString::fromStdString(user->find("Andrea")));
 }
 
 void Gui_Widget::createHorizontalGroupBox() {
@@ -94,16 +98,16 @@ void Gui_Widget::createHorizontalGroupBox() {
     layout->addWidget(buttons[2]);
     connect(buttons[2], SIGNAL(clicked()), this, SLOT(viewNet()));
 
-    buttons[3] = new QPushButton("SEARCH");
+    // buttons[3] = new QPushButton("SEARCH");
+    // layout->addWidget(buttons[3]);
+    // connect(buttons[3], SIGNAL(clicked()), this, SLOT(userSearch()));
+
+    buttons[3] = new QPushButton("MESSAGES");
     layout->addWidget(buttons[3]);
-    connect(buttons[3], SIGNAL(clicked()), this, SLOT(userSearch()));
+    connect(buttons[3], SIGNAL(clicked()), this, SLOT(insertContatto()));
 
-    buttons[4] = new QPushButton("MESSAGES");
+    buttons[4] = new QPushButton("LOGOUT");
     layout->addWidget(buttons[4]);
-    connect(buttons[4], SIGNAL(clicked()), this, SLOT(insertContatto()));
-
-    buttons[5] = new QPushButton("LOGOUT");
-    layout->addWidget(buttons[5]);
 
     horizontalGroupBox->setLayout(layout);
     // buttons[0]->setGeometry(1, 1, 50, 25);
