@@ -52,12 +52,13 @@ void LinqDB::read(const QJsonArray& qjs) {
             QJsonObject sub;
             for(int i = 0; i < formations.size(); ++i){
                 sub = formations[i].toObject();
-                uif->addFormation(new Instruction(sub["location"].toString().toStdString(), sub["from"].toString().toStdString(), sub["to"].toString().toStdString()));
+                Instruction ins(sub["location"].toString().toStdString(), sub["from"].toString().toStdString(), sub["to"].toString().toStdString());
+                uif->addFormation(&ins);
             }
         }
         privLevel priv = static_cast<privLevel> (obj["privilege"].toInt());
         Account* acc = new Account(uif, usr, priv);
-        User* s;
+        User* s = NULL;
         switch(priv) {
             case 0:
                 s = new BasicUser(acc, net);
@@ -72,6 +73,7 @@ void LinqDB::read(const QJsonArray& qjs) {
             break;
         }
         addUser(s);
+        delete s;
     }
 }
 void LinqDB::readNet(const QJsonArray& qjs) {
@@ -80,8 +82,10 @@ void LinqDB::readNet(const QJsonArray& qjs) {
             QJsonObject obj = qjs[i].toObject();
             QJsonArray contacts = obj["net"].toArray();
             if(_db[j]->account()->username()->login() == obj["username"].toString().toStdString()) {
-                for(int k = 0; k < contacts.size(); ++k)
-                    _db[j]->addContact(find(new Username(contacts[k].toString().toStdString(), "")));
+                for(int k = 0; k < contacts.size(); ++k){
+                    Username usr(contacts[k].toString().toStdString(), ""); /* variante find(new username)*/
+                    _db[j]->addContact(find(&usr));
+                }
             }
         }
     }
@@ -106,8 +110,8 @@ vector<QJsonObject> LinqDB::toJsonObject() const {
             formations = uif->formations();
         }
         Instruction* ins;
-        for(int i = 0; i < formations.size(); ++i){
-            ins = dynamic_cast<Instruction*> (&(*formations[i]));
+        for(unsigned j = 0; j < formations.size(); ++j){
+            ins = dynamic_cast<Instruction*> (&(*formations[j]));
             if(ins) {
                 jFormations["location"] = QString::fromStdString(ins->location());
                 jFormations["from"] = QString::fromStdString(ins->from());
@@ -150,7 +154,7 @@ void LinqDB::write(vector<QJsonObject> json) const {
     if (!saveDB.open(QIODevice::WriteOnly))
         qWarning("Couldn't open database.");
     QJsonArray jarr;
-    for(int i = 0; i < json.size(); ++i)
+    for(unsigned int i = 0; i < json.size(); ++i)
         jarr.append(json[i]);
 
     QJsonDocument doc(jarr);
@@ -185,7 +189,7 @@ void LinqDB::removeUser(Username* usr) {
             _db.erase(_db.begin() + i);
 }
 User* LinqDB::find(Username* usr) {
-    User* ret;
+    User* ret = NULL;
     for(int i = 0; i < size(); ++i)
         if((_db[i]->account()->username()->login()) == usr->login())
             // ret = _db[i]->clone();
