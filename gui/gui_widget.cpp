@@ -49,15 +49,19 @@ void Gui_Widget::createGridGroupBox() {
     searchBar = new Gui_Search(user, dispInfo);
     // searchBar->setStyleSheet("background: #f0f");
     // dispInfo->setStyleSheet("background: #fff");
+    createRightSideList(layout);
     layout->addWidget(portrait, 0, 0, 1, 1);
-    layout->addWidget(dispInfo, 0, 2, 4, -1);
+    layout->addWidget(dispInfo, 0, 1, 4, 2);
     layout->addWidget(links, 1, 0, 1, 1);
     layout->addWidget(listLinks, 2, 0, 1 ,1);
-    layout->addWidget(searchBar, 3, 0, -1, 1);
+    layout->addWidget(searchBar, 3, 0, 1, 1);
     layout->setColumnStretch(0, 1);
-    layout->setColumnStretch(2, 5);
+    layout->setColumnStretch(1, 5);
+    layout->setColumnStretch(2, 4);
+    layout->setColumnStretch(3, 1);
     layout->setRowStretch(0, 0);
     layout->setRowStretch(1, 1);
+    layout->setRowStretch(2, 2);
     gridGroupBox->setLayout(layout);
 }
 
@@ -138,4 +142,16 @@ void Gui_Widget::createHorizontalGroupBox() {
     connect(buttons[4], SIGNAL(clicked()), this, SLOT(close()));
 
     horizontalGroupBox->setLayout(layout);
+}
+
+void Gui_Widget::createRightSideList(QGridLayout* lay) {
+    QLabel *rightLabel = new QLabel(tr("You could connect to"));
+    rightLabel->setMaximumSize(160,15);
+    QListWidget* rightSide = new QListWidget();
+    QListWidgetItem* item = new QListWidgetItem();
+    item->setData(Qt::DisplayRole, "Darius");
+    rightSide->addItem(item);
+    lay->addWidget(rightLabel, 0, 3, 1, 1, Qt::AlignTop);
+    rightSide->setStyleSheet("background:#fff");
+    lay->addWidget(rightSide, 1, 3, -1, 1, Qt::AlignTop);
 }

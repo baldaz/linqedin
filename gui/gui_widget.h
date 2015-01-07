@@ -61,6 +61,7 @@ private:
     // metodi privati di set-up di Gui_Widget
     void createHorizontalGroupBox();
     void createGridGroupBox();
+    void createRightSideList(QGridLayout*);
 };
 
 #endif
