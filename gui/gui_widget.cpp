@@ -9,6 +9,14 @@ Gui_Widget::Gui_Widget() {
     // mainLayout->addWidget(new QSizeGrip(this), 0, Qt::AlignBottom | Qt::AlignRight);
     // mainLayout->addWidget(new QPushButton("X"), 0, Qt::AlignBottom | Qt::AlignRight);
     mainLayout->addWidget(horizontalGroupBox);
+    toolbar = new QToolBar(this);
+    toolButtons[0] = new QToolButton();
+    toolButtons[0]->setIcon(QPixmap("img/add70.png"));
+    toolButtons[1] = new QToolButton();
+    toolButtons[1]->setIcon(QPixmap("img/cross108.png"));
+    toolbar->addWidget(toolButtons[0]);
+    toolbar->addWidget(toolButtons[1]);
+    mainLayout->addWidget(toolbar, 0, Qt::AlignTop | Qt::AlignCenter);
     mainLayout->addWidget(gridGroupBox);
     setLayout(mainLayout);
     move(200, 50);
@@ -24,15 +32,14 @@ void Gui_Widget::createGridGroupBox() {
     listLinks->setFocusProxy(*buttons);
 
     portrait = new QLabel();
-    QPixmap avatar ("img/port2.jpg");
-    avatar = avatar.scaled(128, 128);
+    QPixmap avatar ("img/darius.png");
     QPixmap mask(avatar.size());
     QPainter maskPainter(&mask);
     maskPainter.fillRect(mask.rect(), Qt::white);
     maskPainter.setBrush(Qt::black);
     maskPainter.drawRoundedRect(mask.rect(), 65, 65);
     avatar.setMask(mask.createMaskFromColor(Qt::white));
-    avatar = avatar.scaled(128, 128, Qt::KeepAspectRatio, Qt::SmoothTransformation);
+    avatar = avatar.scaled(140, 140, Qt::KeepAspectRatio, Qt::SmoothTransformation);
 
     portrait->setPixmap(avatar);
     QLabel* links = new QLabel(tr("Connections (%1)").arg(user->netSize()));
@@ -61,6 +68,7 @@ void Gui_Widget::logicInitialize() {
 
 // slot
 void Gui_Widget::refreshLinks() {
+    // toolButtons[0]->setEnabled(false);
     listLinks->refresh();
     dispInfo->setHtml(QString::fromStdString(user->displayHtmlInfo()));
 }

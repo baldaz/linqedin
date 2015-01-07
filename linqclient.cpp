@@ -27,6 +27,10 @@ string LinqClient::displayProfile() const {
 string LinqClient::displayHtmlInfo() const {
     return _usr->account()->info()->printHtml();
 }
+string LinqClient::displayHtmlPayments() const {
+    vector<SmartPtr<Payment> > v = _usr->account()->history();
+    return "";
+}
 int LinqClient::netSize() const {
     return _usr->net()->size();
 }

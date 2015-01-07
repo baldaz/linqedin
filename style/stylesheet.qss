@@ -6,7 +6,7 @@ QPushButton {
     outline: none;
     border: none;
     background-color: transparent;
-    color: #888;
+    color: #fff; /*#888*/
 }
 QPushButton:hover {
     color: #e6e6e6;

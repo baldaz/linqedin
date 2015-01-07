@@ -8,6 +8,8 @@
 #include <QGroupBox>
 #include <QTextEdit>
 #include <QTextBrowser>
+#include <QToolBar>
+#include <QToolButton>
 #include <QLabel>
 #include <QLineEdit>
 #include <QAction>
@@ -40,12 +42,14 @@ private:
     // Componenti grafiche di Gui_Widget
     QGroupBox* horizontalGroupBox;
     QGroupBox* gridGroupBox;
+    QToolBar* toolbar;
+    enum { NumGridRows = 2, NumButtons = 6, NumToolButtons = 2 };
+    QToolButton* toolButtons[NumToolButtons];
     // QTextEdit* smallEditor;
     // QTextEdit* bigEditor;
     Gui_DisplayInfo* dispInfo;
     Gui_Links* listLinks;
     Gui_Search* searchBar;
-    enum { NumGridRows = 2, NumButtons = 6 };
     QLabel* labels[NumGridRows];
     QLabel* portrait;
     QLineEdit* lineEdits[NumGridRows];

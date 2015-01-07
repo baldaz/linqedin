@@ -20,6 +20,7 @@ public:
     bool linked(const Username&) const;
     string displayProfile() const;
     string displayHtmlInfo() const;
+    string displayHtmlPayments() const;
     vector<string> displayHtmlNet() const;
     vector<SmartPtr<User> > contactsInfo() const;
     void alterProfile();

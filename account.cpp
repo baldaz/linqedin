@@ -32,3 +32,6 @@ void Account::setInfo(Info* uf) {
 void Account::setPrLevel(privLevel newlevel) {
     _privilege = newlevel;
 }
+vector<SmartPtr<Payment> > Account::history() const {
+    return _history;
+}

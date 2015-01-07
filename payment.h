@@ -13,7 +13,9 @@ private:
     BillMethod* _bmethod;
 public:
     Payment(Username*, bool);
+    Payment(const Payment&);
     ~Payment();
+    Payment* clone() const;
     bool approvation() const;
     void setApprovation(bool);
     Subscription* subscription() const;
