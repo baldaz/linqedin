@@ -23,7 +23,6 @@ void User::addContact(User* usr) {
 }
 void User::removeContact(Username* usr) {
     _net->removeUser(usr);
-    // std::cout << "trovato user" << std::endl;
 }
 Account* User::account() const {
     return _acc;
@@ -62,6 +61,7 @@ void User::searchFunctor::operator()(const SmartPtr<User>& spu) {
                 string fullName = utilities::Utils::toLowerCase(uf->name() + " " + uf->surname());
                 if(utilities::Utils::toLowerCase(uf->name()) == _wanted || utilities::Utils::toLowerCase(uf->surname()) == _wanted || fullName == _wanted) {
                     _result += spu->account()->info()->printHtml() + "\n";
+                    _result += "<hr>";
                     spu->addVisit();
                 }
             }
@@ -79,6 +79,7 @@ void User::searchFunctor::operator()(const SmartPtr<User>& spu) {
                    fullName == _wanted || utilities::Utils::contains(skills, _wanted)) {
                     _result += spu->account()->info()->printHtml() + "\n";
                     _result += spu->net()->printHtml();
+                    _result += "<hr>";
                     spu->addVisit();
                 }
             }
@@ -102,8 +103,10 @@ string BasicUser::userSearch(const LinqDB& db, string wanted) const {
     return std::for_each(db.begin(), db.end(), searchFunctor(1, wanted)).result();
 }
 
-BusinessUser::linkedWith::linkedWith(int s = 0) : _links(s) {}
-void BusinessUser::linkedWith::operator()(const SmartPtr<User>& spu) {}
+BusinessUser::linkedWith::linkedWith(int s = 0, LinqNet* net = 0) : _links(s), _network(net) {}
+void BusinessUser::linkedWith::operator()(const SmartPtr<User>& spu) {
+
+}
 vector<SmartPtr<User> > BusinessUser::linkedWith::result() const {
     return _mates;
 }
@@ -117,7 +120,7 @@ string BusinessUser::userSearch(const LinqDB& db, string wanted) const {
     return std::for_each(db.begin(), db.end(), searchFunctor(2, wanted)).result();
 }
 vector<SmartPtr<User> > BusinessUser::listPossibleLinks(const LinqDB& db) const {
-    return std::for_each(db.begin(), db.end(), linkedWith(3)).result();
+    return std::for_each(db.begin(), db.end(), linkedWith(3, this->net())).result();
 }
 
 ExecutiveUser::ExecutiveUser() : BusinessUser() {}

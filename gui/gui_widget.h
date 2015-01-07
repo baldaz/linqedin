@@ -13,9 +13,8 @@
 #include <QAction>
 #include <QGridLayout>
 #include <QListWidget>
-#include <QTreeWidget>
-#include <QMenu>
-#include <QMenuBar>
+#include <QPainter>
+#include <QBitmap>
 #include "gui_displayinfo.h"
 #include "gui_links.h"
 #include "gui_search.h"

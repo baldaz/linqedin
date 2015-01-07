@@ -54,9 +54,10 @@ protected:
     class linkedWith {
     private:
         int _links;
+        LinqNet* _network;
         vector<SmartPtr<User> > _mates;
     public:
-        linkedWith(int);
+        linkedWith(int, LinqNet*);
         void operator()(const SmartPtr<User>&);
         vector<SmartPtr<User> > result() const;
     };

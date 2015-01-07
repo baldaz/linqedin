@@ -6,6 +6,8 @@ Gui_Widget::Gui_Widget() {
     createGridGroupBox();
     // Layout principale della dialog
     QVBoxLayout* mainLayout = new QVBoxLayout;
+    // mainLayout->addWidget(new QSizeGrip(this), 0, Qt::AlignBottom | Qt::AlignRight);
+    // mainLayout->addWidget(new QPushButton("X"), 0, Qt::AlignBottom | Qt::AlignRight);
     mainLayout->addWidget(horizontalGroupBox);
     mainLayout->addWidget(gridGroupBox);
     setLayout(mainLayout);
@@ -18,15 +20,25 @@ void Gui_Widget::createGridGroupBox() {
     QGridLayout* layout = new QGridLayout;
     dispInfo = new Gui_DisplayInfo(user);
     dispInfo->setFocusProxy(*buttons);
-    listLinks = new Gui_Links(user, dispInfo);
+    listLinks = new Gui_Links(user, dispInfo, layout);
     listLinks->setFocusProxy(*buttons);
+
     portrait = new QLabel();
-    QPixmap pixmap ("img/portrait2.png");
-    portrait->setPixmap(pixmap);
+    QPixmap avatar ("img/port2.jpg");
+    avatar = avatar.scaled(128, 128);
+    QPixmap mask(avatar.size());
+    QPainter maskPainter(&mask);
+    maskPainter.fillRect(mask.rect(), Qt::white);
+    maskPainter.setBrush(Qt::black);
+    maskPainter.drawRoundedRect(mask.rect(), 65, 65);
+    avatar.setMask(mask.createMaskFromColor(Qt::white));
+    avatar = avatar.scaled(128, 128, Qt::KeepAspectRatio, Qt::SmoothTransformation);
+
+    portrait->setPixmap(avatar);
     QLabel* links = new QLabel(tr("Connections (%1)").arg(user->netSize()));
     links->setMaximumSize(120,20);
     // links->setPixmap(QPixmap("img/share12.png"));
-    dispInfo->setStyleSheet("background: #404040 url('img/background1.png') no-repeat; background-attachment:fixed; border-radius: 10px;");
+    dispInfo->setStyleSheet("background: #000 url('img/abstract.png') no-repeat; background-attachment:fixed; border-radius: 10px;");
     searchBar = new Gui_Search(user, dispInfo);
     // searchBar->setStyleSheet("background: #f0f");
     // dispInfo->setStyleSheet("background: #fff");
@@ -86,11 +98,12 @@ void Gui_Widget::createHorizontalGroupBox() {
 
 
     buttons[0] = new QPushButton("OVERVIEW");
-    buttons[0]->setIcon(QPixmap("img/share12.png"));
+    buttons[0]->setIcon(QPixmap("img/user91.png"));
     layout->addWidget(buttons[0]);
     connect(buttons[0], SIGNAL(clicked()), this, SLOT(refreshLinks()));
 
-    buttons[1] = new QPushButton("PROFILE");
+    buttons[1] = new QPushButton("SETTINGS");
+    buttons[1]->setIcon(QPixmap("img/settings48.png"));
     layout->addWidget(buttons[1]);
     connect(buttons[1], SIGNAL(clicked()), this, SLOT(removeContatto()));
 

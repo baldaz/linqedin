@@ -145,10 +145,10 @@ string UserInfo::print() const {
 }
 string UserInfo::printHtml() const {
     string html = "";
+    html = "<html><body>";
     html += "<h2>" + _name + " " + _surname + "</h2>";
     html += "<p style='font-weight: 400; font-size:13px;'>Student 26 years old<br>";
     html += _address + " " + _telephon + "</p>";
-    // html += "<hr>";
     html += "<h4>Interests</h4><p style='font-weight: 400; font-size:13px;'>";
     vector<string>::const_iterator it;
     if(!_interests.empty()) {
@@ -186,7 +186,7 @@ string UserInfo::printHtml() const {
     }
     html += "</p>";
     html += "<h4>Contacts</h4><p style='font-weight: 400; font-size:13px'>" + _email + " &nbsp;&nbsp;<a style='color:#4782EC;' href='#'>" + _website + "</a></p>";
-    html += "<h4>Bio</h4>";
+    html += "<h4>Bio</h4></body></html>";
     return html;
 }
 

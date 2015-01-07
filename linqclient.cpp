@@ -30,6 +30,14 @@ string LinqClient::displayHtmlInfo() const {
 int LinqClient::netSize() const {
     return _usr->net()->size();
 }
+bool LinqClient::linked(const Username& usr) const {
+    bool found = false;
+    vector<SmartPtr<Username> > v = _usr->net()->username();
+    vector<SmartPtr<Username> >::const_iterator it = v.begin();
+    for(; it < v.end() && !found; ++it)
+        if((*it)->login() == usr.login()) found = true;
+    return found;
+}
 vector<string> LinqClient::displayHtmlNet() const {
     vector<string> ret;
     string html = "";

@@ -1,6 +1,6 @@
 * {
-    background: #404040; /*#555*/
-    color: #e6e6e6; /*#e6e6e6*/
+    background: #000; /*#555 o #404040*/
+    color: #fff; /*#e6e6e6*/
 }
 QPushButton {
     outline: none;
@@ -16,14 +16,14 @@ QPushButton:pressed {
     border:none;
 }
 QPushButton:focus {
-    color: #e6e6e6;
+    color: #fff;
 }
 QListWidget {
     font-weight:400;
 }
 QLineEdit {
-    background: #333;
+    background: #1a1a1a;
     border-radius: 5px;
-    color: #bbb;
+    color: #e6e6e6;
     font-weight: 400;
 }

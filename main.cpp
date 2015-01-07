@@ -28,6 +28,7 @@ int main(int argc, char**argv) {
     // cout << endl << "+++++++++++++++++++++++++++++++++++++++++++++++++++" << endl;
     // Username* user = new Username("Baldaz", "qwerty");
     // LinqClient* client = new LinqClient(Username("Baldaz", "qwerty"));
+    // cout << client->find("Atos");
     // Username* sara = new Username("Sara87", "sara");
     // // Username* ser = new Username("ser", "wword");
     // client->addContact(sara);
@@ -48,6 +49,7 @@ int main(int argc, char**argv) {
     File.open(QFile::ReadOnly);
     QString StyleSheet = QLatin1String(File.readAll());
     app.setStyleSheet(StyleSheet);
+    // window.setWindowFlags(Qt::Window | Qt::CustomizeWindowHint | Qt::WindowMaximizeButtonHint);
     window.setStyleSheet("border: none");
     window.setWindowTitle("");
     window.show();
