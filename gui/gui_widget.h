@@ -30,9 +30,11 @@ public slots:
     void refreshLinks();
     void insertContatto();
     void removeContatto();
-    void mostraProfilo();
-    void viewNet();
+    void viewSettings();
+    void viewPayments();
+    void viewMessages();
     void userSearch();
+    void logout();
 private:
     // campo dati logico
     LinqClient* user;

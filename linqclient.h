@@ -3,6 +3,7 @@
 
 #include "user.h"
 #include "linqdb.h"
+#include "utils.h"
 #include <string>
 #include <sstream>
 
@@ -21,6 +22,8 @@ public:
     string displayProfile() const;
     string displayHtmlInfo() const;
     string displayHtmlPayments() const;
+    string displayHtmlSettings() const;
+    string displayHtmlMessages() const;
     vector<string> displayHtmlNet() const;
     vector<SmartPtr<User> > contactsInfo() const;
     void alterProfile();

@@ -32,7 +32,7 @@ void Gui_Widget::createGridGroupBox() {
     listLinks->setFocusProxy(*buttons);
 
     portrait = new QLabel();
-    QPixmap avatar ("img/darius.png");
+    QPixmap avatar ("img/seagal.jpg");
     QPixmap mask(avatar.size());
     QPainter maskPainter(&mask);
     maskPainter.fillRect(mask.rect(), Qt::white);
@@ -45,7 +45,7 @@ void Gui_Widget::createGridGroupBox() {
     QLabel* links = new QLabel(tr("Connections (%1)").arg(user->netSize()));
     links->setMaximumSize(120,20);
     // links->setPixmap(QPixmap("img/share12.png"));
-    dispInfo->setStyleSheet("background: #000 url('img/abstract.png') no-repeat; background-attachment:fixed; border-radius: 10px;");
+    dispInfo->setStyleSheet("background: #000 url('img/abstract.png') no-repeat; background-attachment:fixed; border-radius: 10px; background-position: bottom;");
     searchBar = new Gui_Search(user, dispInfo);
     // searchBar->setStyleSheet("background: #f0f");
     // dispInfo->setStyleSheet("background: #fff");
@@ -74,25 +74,30 @@ void Gui_Widget::refreshLinks() {
 }
 // slot
 void Gui_Widget::insertContatto() {
-    dispInfo->setText(tr("inserito"));
+    dispInfo->setText(tr("Inserito"));
     user->addContact(Username("ser", ""));
     user->save();
-    // dispInfo->setText(tr("Inserito nuovo contatto"));
 }
 
 // slot
 void Gui_Widget::removeContatto() {
     user->removeContact(Username("Sara87", ""));
     user->save();
-    // dispInfo->setText(QString::fromStdString(user->displayProfile()));
 }
 
 // slot
-void Gui_Widget::mostraProfilo() { }
+void Gui_Widget::viewSettings() {
+    dispInfo->setHtml(QString::fromStdString(user->displayHtmlSettings()));
+}
 
 // slot
-void Gui_Widget::viewNet() {
-    // dispInfo->setText(tr("net"));
+void Gui_Widget::viewPayments() {
+    dispInfo->setHtml(QString::fromStdString(user->displayHtmlPayments()));
+}
+
+//slot
+void Gui_Widget::viewMessages() {
+    dispInfo->setHtml(QString::fromStdString(user->displayHtmlMessages()));
 }
 
 //slot
@@ -100,10 +105,12 @@ void Gui_Widget::userSearch() {
     dispInfo->setText(QString::fromStdString(user->find("Andrea")));
 }
 
+//slot
+void Gui_Widget::logout() {}
+
 void Gui_Widget::createHorizontalGroupBox() {
     horizontalGroupBox = new QGroupBox();
     QHBoxLayout* layout = new QHBoxLayout;
-
 
     buttons[0] = new QPushButton("OVERVIEW");
     buttons[0]->setIcon(QPixmap("img/user91.png"));
@@ -113,23 +120,22 @@ void Gui_Widget::createHorizontalGroupBox() {
     buttons[1] = new QPushButton("SETTINGS");
     buttons[1]->setIcon(QPixmap("img/settings48.png"));
     layout->addWidget(buttons[1]);
-    connect(buttons[1], SIGNAL(clicked()), this, SLOT(removeContatto()));
+    connect(buttons[1], SIGNAL(clicked()), this, SLOT(viewSettings()));
 
     buttons[2] = new QPushButton("PAYMENTS");
+    buttons[2]->setIcon(QPixmap("img/banknotes.png"));
     layout->addWidget(buttons[2]);
-    connect(buttons[2], SIGNAL(clicked()), this, SLOT(viewNet()));
-
-    // buttons[3] = new QPushButton("SEARCH");
-    // layout->addWidget(buttons[3]);
-    // connect(buttons[3], SIGNAL(clicked()), this, SLOT(userSearch()));
+    connect(buttons[2], SIGNAL(clicked()), this, SLOT(viewPayments()));
 
     buttons[3] = new QPushButton("MESSAGES");
+    buttons[3]->setIcon(QPixmap("img/send4.png"));
     layout->addWidget(buttons[3]);
-    connect(buttons[3], SIGNAL(clicked()), this, SLOT(insertContatto()));
+    connect(buttons[3], SIGNAL(clicked()), this, SLOT(viewMessages()));
 
     buttons[4] = new QPushButton("LOGOUT");
+    buttons[4]->setIcon(QPixmap("img/logout13.png"));
     layout->addWidget(buttons[4]);
+    connect(buttons[4], SIGNAL(clicked()), this, SLOT(close()));
 
     horizontalGroupBox->setLayout(layout);
-    // buttons[0]->setGeometry(1, 1, 50, 25);
 }

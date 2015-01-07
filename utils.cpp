@@ -6,6 +6,20 @@ std::string utilities::Utils::toLowerCase(std::string s) {
     return s;
 }
 
+std::string utilities::Utils::levelToString(privLevel prl) {
+    std::string ret = "";
+    switch(prl) {
+        case 0: ret = "Basic";
+        break;
+        case 1: ret = "Business";
+        break;
+        case 2: ret = "Executive";
+        break;
+        case 3: ret = "Root";
+        break;
+    }
+    return ret;
+}
 bool utilities::Utils::contains(std::vector<std::string> vec, std::string s) {
     bool found = false;
     if(!vec.empty()) {

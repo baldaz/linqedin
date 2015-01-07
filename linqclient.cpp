@@ -29,7 +29,17 @@ string LinqClient::displayHtmlInfo() const {
 }
 string LinqClient::displayHtmlPayments() const {
     vector<SmartPtr<Payment> > v = _usr->account()->history();
-    return "";
+    return "<html><table><tr><th style='padding:10px;'>Subscription</th><th style='padding:10px;'>Method</th><th style='padding:10px'>Amount</th></tr></table></html>";
+}
+string LinqClient::displayHtmlSettings() const {
+    string html = "";
+    html = "<html>";
+    html += "<h3> Username</h3><p style='font-weight:400;'>" + _usr->account()->username()->login() + "</p>";
+    html += "<h3> Account type</h3><p style='font-weight:400;'>" + utilities::Utils::levelToString(_usr->account()->prLevel()) + "</p></html>";
+    return html;
+}
+string LinqClient::displayHtmlMessages() const {
+    return "<html><table><tr><th style='padding:10px;'>Subject</th><th style='padding:10px;'>Body</th><th style='padding:10px'>From</th></tr></table></html>";
 }
 int LinqClient::netSize() const {
     return _usr->net()->size();
