@@ -147,9 +147,9 @@ string UserInfo::printHtml() const {
     string html = "";
     html = "<html><body>";
     html += "<h2>" + _name + " " + _surname + "</h2>";
-    html += "<p style='font-weight: 400; font-size:13px;'>Student 26 years old<br>";
+    html += "<p style='font-weight: 400; font-size:14px;'>Student 26 years old<br>";
     html += _address + " " + _telephon + "</p>";
-    html += "<h4>Interests</h4><p style='font-weight: 400; font-size:13px;'>";
+    html += "<h4>Interests</h4><p style='font-weight: 400; font-size:14px;'>";
     vector<string>::const_iterator it;
     if(!_interests.empty()) {
         it = _interests.begin();
@@ -158,21 +158,21 @@ string UserInfo::printHtml() const {
         html += "</p>";
     }
     if(!_skills.empty()) {
-        html += "<h4><img src='img/profile11.png'>  Skills</h4><p style='font-weight: 400; font-size:13px;'>";
+        html += "<h4><img src='img/profile11.png'>  Skills</h4><p style='font-weight: 400; font-size:14px; line-height:26px;'>";
         it = _skills.begin();
         for(; it < _skills.end(); ++it)
             html += "<span style='background-color:rgba(102,102,102,.5);'>&nbsp;"  + *it + "&nbsp;</span>&nbsp;&nbsp;";
         html += "</p>";
     }
     if(!_languages.empty()) {
-        html += "<h4>Languages</h4><p style='font-weight: 400; font-size:13px;'>";
+        html += "<h4>Languages</h4><p style='font-weight: 400; font-size:14px;'>";
         it = _languages.begin();
         for(; it < _languages.end(); ++it)
             html += *it + " ";
         html += "</p>";
     }
     if(!_formations.empty()) {
-        html += "<h4>Educations</h4><p style='font-weight: 400; font-size:13px;'>";
+        html += "<h4>Educations</h4><p style='font-weight: 400; font-size:14px;'>";
         vector<SmartPtr<Experience> >::const_iterator itr = _formations.begin();
         Instruction* tmp;
         for(; itr < _formations.end(); ++itr) {
@@ -185,7 +185,7 @@ string UserInfo::printHtml() const {
         }
     }
     html += "</p>";
-    html += "<h4>Contacts</h4><p style='font-weight: 400; font-size:13px'>" + _email + " &nbsp;&nbsp;<a style='color:#4782EC;' href='#'>" + _website + "</a></p>";
+    html += "<h4>Contacts</h4><p style='font-weight: 400; font-size:14px'>" + _email + " &nbsp;&nbsp;<a style='color:#4782EC;' href='#'>" + _website + "</a></p>";
     html += "<h4>Bio</h4></body></html>";
     return html;
 }

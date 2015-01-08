@@ -21,6 +21,12 @@ QPushButton:focus {
 QListWidget {
     font-weight:400;
 }
+QListWidget::item {
+    border-radius: 5px;
+}
+QListWidget::item:selected {
+     background-color: rgba(255,255,255,.3);
+}
 QLineEdit {
     background: #1a1a1a;
     border-radius: 5px;

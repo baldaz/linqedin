@@ -9,6 +9,7 @@ Gui_Widget::Gui_Widget() {
     // mainLayout->addWidget(new QSizeGrip(this), 0, Qt::AlignBottom | Qt::AlignRight);
     // mainLayout->addWidget(new QPushButton("X"), 0, Qt::AlignBottom | Qt::AlignRight);
     mainLayout->addWidget(horizontalGroupBox);
+    mainLayout->setSpacing(0);
     toolbar = new QToolBar(this);
     toolButtons[0] = new QToolButton();
     toolButtons[0]->setIcon(QPixmap("img/add70.png"));
@@ -37,9 +38,9 @@ void Gui_Widget::createGridGroupBox() {
     QPainter maskPainter(&mask);
     maskPainter.fillRect(mask.rect(), Qt::white);
     maskPainter.setBrush(Qt::black);
-    maskPainter.drawRoundedRect(mask.rect(), 65, 65);
+    maskPainter.drawRoundedRect(mask.rect(), 75, 75);
     avatar.setMask(mask.createMaskFromColor(Qt::white));
-    avatar = avatar.scaled(140, 140, Qt::KeepAspectRatio, Qt::SmoothTransformation);
+    avatar = avatar.scaled(150, 150, Qt::KeepAspectRatio, Qt::SmoothTransformation);
 
     portrait->setPixmap(avatar);
     QLabel* links = new QLabel(tr("Connections (%1)").arg(user->netSize()));
@@ -49,19 +50,20 @@ void Gui_Widget::createGridGroupBox() {
     searchBar = new Gui_Search(user, dispInfo);
     // searchBar->setStyleSheet("background: #f0f");
     // dispInfo->setStyleSheet("background: #fff");
-    createRightSideList(layout);
     layout->addWidget(portrait, 0, 0, 1, 1);
-    layout->addWidget(dispInfo, 0, 1, 4, 2);
+    layout->addWidget(dispInfo, 0, 1, 4, 1); /* 0 1 4 2*/
     layout->addWidget(links, 1, 0, 1, 1);
-    layout->addWidget(listLinks, 2, 0, 1 ,1);
+    // listLinks->setStyleSheet("background: #f0f");
+    layout->addWidget(listLinks, 2, 0, 1, 1);
     layout->addWidget(searchBar, 3, 0, 1, 1);
+    createRightSideList(layout);
     layout->setColumnStretch(0, 1);
     layout->setColumnStretch(1, 5);
-    layout->setColumnStretch(2, 4);
-    layout->setColumnStretch(3, 1);
+    layout->setColumnStretch(2, 2);
+    // layout->setColumnStretch(3, 2);
     layout->setRowStretch(0, 0);
-    layout->setRowStretch(1, 1);
-    layout->setRowStretch(2, 2);
+    layout->setRowStretch(1, 10);
+    // layout->setRowStretch(2, 2);
     gridGroupBox->setLayout(layout);
 }
 
@@ -149,9 +151,26 @@ void Gui_Widget::createRightSideList(QGridLayout* lay) {
     rightLabel->setMaximumSize(160,15);
     QListWidget* rightSide = new QListWidget();
     QListWidgetItem* item = new QListWidgetItem();
-    item->setData(Qt::DisplayRole, "Darius");
+    QListWidgetItem* itemD = new QListWidgetItem();
+    QListWidgetItem* itemE = new QListWidgetItem();
+    QFont font;
+    font.setBold(true);
+    item->setData(Qt::DisplayRole, "You could connect to..");
+    item->setFont(font);
+
+    itemD->setData(Qt::DisplayRole, "Darius");
+    itemD->setData(Qt::DecorationRole, QPixmap("img/link19.png"));
+    itemD->setData(Qt::ToolTipRole, "Connected with Pablos, Sara, Atos");
+
+    itemE->setData(Qt::DisplayRole, "John Rambo");
+    itemE->setData(Qt::DecorationRole, QPixmap("img/link19.png"));
+    itemE->setData(Qt::ToolTipRole, "Connected with Andr, Pablos, Sara, Atos");
+
     rightSide->addItem(item);
-    lay->addWidget(rightLabel, 0, 3, 1, 1, Qt::AlignTop);
-    rightSide->setStyleSheet("background:#fff");
-    lay->addWidget(rightSide, 1, 3, -1, 1, Qt::AlignTop);
+    rightSide->addItem(itemD);
+    rightSide->addItem(itemE);
+    // lay->addWidget(rightLabel, 0, 2, 0, 1, Qt::AlignTop | Qt::AlignLeft);
+    // rightSide->setStyleSheet("background:#ff0");
+    // rightSide->setMaximumSize(160, 420);
+    lay->addWidget(rightSide, 0, 2, 2, 1, Qt::AlignTop);
 }
