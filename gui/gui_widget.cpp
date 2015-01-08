@@ -46,7 +46,7 @@ void Gui_Widget::createGridGroupBox() {
     QLabel* links = new QLabel(tr("Connections (%1)").arg(user->netSize()));
     links->setMaximumSize(120,20);
     // links->setPixmap(QPixmap("img/share12.png"));
-    dispInfo->setStyleSheet("background: #000 url('img/abstract.png') no-repeat; background-attachment:fixed; border-radius: 10px; background-position: bottom;");
+    dispInfo->setStyleSheet("background:#000 url('img/abstract.png') no-repeat; background-attachment:fixed; border-radius: 10px; background-position: bottom;");
     searchBar = new Gui_Search(user, dispInfo);
     // searchBar->setStyleSheet("background: #f0f");
     // dispInfo->setStyleSheet("background: #fff");
@@ -155,7 +155,7 @@ void Gui_Widget::createRightSideList(QGridLayout* lay) {
     QListWidgetItem* itemE = new QListWidgetItem();
     QFont font;
     font.setBold(true);
-    item->setData(Qt::DisplayRole, "You could connect to..");
+    item->setData(Qt::DisplayRole, "People you may know");
     item->setFont(font);
 
     itemD->setData(Qt::DisplayRole, "Darius");

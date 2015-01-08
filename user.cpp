@@ -39,6 +39,26 @@ void User::setVisitCount(int count) {
 void User::addVisit() {
     _visitcount++;
 }
+int User::similarity(User* user) const {
+    UserInfo* uf = dynamic_cast<UserInfo*> (this->account()->info());
+    UserInfo* host = dynamic_cast<UserInfo*> (user->account()->info());
+    double counter = 0;
+    vector<string> interests = uf->interests();
+    vector<string> h_interests = host->interests();
+    if(interests.size() <= h_interests.size()) {
+        vector<string>::const_iterator it = interests.begin();
+        for(; it < interests.end(); ++it)
+            if(utilities::Utils::contains(h_interests, (*it))) counter++;
+        counter = (counter / h_interests.size()) * 100;
+    }
+    else {
+        vector<string>::const_iterator ith = h_interests.begin();
+        for(; ith < h_interests.end(); ++ith)
+            if(utilities::Utils::contains(interests, (*ith))) counter++;
+        counter = (counter / interests.size()) * 100;
+    }
+    return static_cast<int> (counter);
+}
 
 User::searchFunctor::searchFunctor(int s = 0, string w = "") : _s_type(s), _wanted(w) {}
 void User::searchFunctor::operator()(const SmartPtr<User>& spu) {
@@ -103,7 +123,7 @@ string BasicUser::userSearch(const LinqDB& db, string wanted) const {
     return std::for_each(db.begin(), db.end(), searchFunctor(1, wanted)).result();
 }
 
-BusinessUser::linkedWith::linkedWith(int s = 0, LinqNet* net = 0) : _links(s), _network(net) {}
+BusinessUser::linkedWith::linkedWith(int s = 0, User* usr = 0) : _links(s), _owner(usr) {}
 void BusinessUser::linkedWith::operator()(const SmartPtr<User>& spu) {
 
 }
@@ -120,7 +140,7 @@ string BusinessUser::userSearch(const LinqDB& db, string wanted) const {
     return std::for_each(db.begin(), db.end(), searchFunctor(2, wanted)).result();
 }
 vector<SmartPtr<User> > BusinessUser::listPossibleLinks(const LinqDB& db) const {
-    return std::for_each(db.begin(), db.end(), linkedWith(3, this->net())).result();
+    return std::for_each(db.begin(), db.end(), linkedWith(45, const_cast<BusinessUser*> (this))).result();
 }
 
 ExecutiveUser::ExecutiveUser() : BusinessUser() {}

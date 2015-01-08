@@ -44,6 +44,9 @@ string LinqClient::displayHtmlMessages() const {
 int LinqClient::netSize() const {
     return _usr->net()->size();
 }
+int LinqClient::similarity(const Username& usr) const {
+    return _usr->similarity(_db->find(const_cast<Username*>(&usr)));
+}
 bool LinqClient::linked(const Username& usr) const {
     bool found = false;
     vector<SmartPtr<Username> > v = _usr->net()->username();

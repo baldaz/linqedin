@@ -28,6 +28,7 @@ int main(int argc, char**argv) {
     // cout << endl << "+++++++++++++++++++++++++++++++++++++++++++++++++++" << endl;
     // Username* user = new Username("Baldaz", "qwerty");
     // LinqClient* client = new LinqClient(Username("Baldaz", "qwerty"));
+    // cout << client->similarity(Username("Sara87", "sara"));
     // cout << client->find("Atos");
     // Username* sara = new Username("Sara87", "sara");
     // // Username* ser = new Username("ser", "wword");
@@ -54,5 +55,5 @@ int main(int argc, char**argv) {
     window.setWindowTitle("");
     window.show();
     return app.exec();
-    // return 0;
+    return 0;
 }

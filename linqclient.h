@@ -18,6 +18,7 @@ public:
     LinqClient(const Username&);
     ~LinqClient();
     int netSize() const;
+    int similarity(const Username&) const;
     bool linked(const Username&) const;
     string displayProfile() const;
     string displayHtmlInfo() const;

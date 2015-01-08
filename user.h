@@ -37,6 +37,7 @@ public:
     int visitCount() const;
     void setVisitCount(int);
     void addVisit();
+    int similarity(User*) const;
     virtual string userSearch(const LinqDB&, string) const =0;
 };
 
@@ -54,10 +55,10 @@ protected:
     class linkedWith {
     private:
         int _links;
-        LinqNet* _network;
+        User* _owner;
         vector<SmartPtr<User> > _mates;
     public:
-        linkedWith(int, LinqNet*);
+        linkedWith(int, User*);
         void operator()(const SmartPtr<User>&);
         vector<SmartPtr<User> > result() const;
     };
