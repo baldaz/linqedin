@@ -44,16 +44,12 @@ string LinqClient::displayHtmlMessages() const {
 int LinqClient::netSize() const {
     return _usr->net()->size();
 }
-int LinqClient::similarity(const Username& usr) const {
-    return _usr->similarity(_db->find(const_cast<Username*>(&usr)));
+vector<SmartPtr<User> > LinqClient::similarity() const {
+    ExecutiveUser* eu = dynamic_cast<ExecutiveUser*> (_usr);
+    return eu->listPossibleLinks(*_db);
 }
 bool LinqClient::linked(const Username& usr) const {
-    bool found = false;
-    vector<SmartPtr<Username> > v = _usr->net()->username();
-    vector<SmartPtr<Username> >::const_iterator it = v.begin();
-    for(; it < v.end() && !found; ++it)
-        if((*it)->login() == usr.login()) found = true;
-    return found;
+   return _usr->linked(usr);
 }
 vector<string> LinqClient::displayHtmlNet() const {
     vector<string> ret;

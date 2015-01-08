@@ -19,5 +19,6 @@ public:
     string password() const;
     void setPassword(string);
     bool operator==(const Username&) const;
+    bool operator!=(const Username&) const;
 };
 #endif

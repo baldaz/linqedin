@@ -68,7 +68,7 @@ void Gui_Widget::createGridGroupBox() {
 }
 
 void Gui_Widget::logicInitialize() {
-    user = new LinqClient(Username("Baldaz", "qwerty"));
+    user = new LinqClient(Username("Casey", "rayback"));
     // mostraProfilo();
 }
 
@@ -147,28 +147,29 @@ void Gui_Widget::createHorizontalGroupBox() {
 }
 
 void Gui_Widget::createRightSideList(QGridLayout* lay) {
+    vector<SmartPtr<User> > users = user->similarity();
     QLabel *rightLabel = new QLabel(tr("You could connect to"));
     rightLabel->setMaximumSize(160,15);
     QListWidget* rightSide = new QListWidget();
-    QListWidgetItem* item = new QListWidgetItem();
-    QListWidgetItem* itemD = new QListWidgetItem();
-    QListWidgetItem* itemE = new QListWidgetItem();
     QFont font;
     font.setBold(true);
+    QListWidgetItem* item = new QListWidgetItem();
     item->setData(Qt::DisplayRole, "People you may know");
     item->setFont(font);
-
-    itemD->setData(Qt::DisplayRole, "Darius");
-    itemD->setData(Qt::DecorationRole, QPixmap("img/link19.png"));
-    itemD->setData(Qt::ToolTipRole, "Connected with Pablos, Sara, Atos");
-
-    itemE->setData(Qt::DisplayRole, "John Rambo");
-    itemE->setData(Qt::DecorationRole, QPixmap("img/link19.png"));
-    itemE->setData(Qt::ToolTipRole, "Connected with Andr, Pablos, Sara, Atos");
-
     rightSide->addItem(item);
-    rightSide->addItem(itemD);
-    rightSide->addItem(itemE);
+
+    vector<SmartPtr<User> >::iterator it = users.begin();
+    QString fullname;
+    UserInfo* uf;
+    for(; it < users.end(); ++it) {
+        QListWidgetItem* itemD = new QListWidgetItem();
+        uf = dynamic_cast<UserInfo*> ((*it)->account()->info());
+        fullname = QString(QString::fromStdString(uf->name()) + " " + QString::fromStdString(uf->surname()));
+        itemD->setData(Qt::DisplayRole, fullname);
+        itemD->setData(Qt::DecorationRole, QPixmap("img/link19.png"));
+        // itemD->setData(Qt::ToolTipRole, "Connected with Pablos, Sara, Atos");
+        rightSide->addItem(itemD);
+    }
     // lay->addWidget(rightLabel, 0, 2, 0, 1, Qt::AlignTop | Qt::AlignLeft);
     // rightSide->setStyleSheet("background:#ff0");
     // rightSide->setMaximumSize(160, 420);

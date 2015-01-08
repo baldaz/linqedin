@@ -59,6 +59,15 @@ int User::similarity(User* user) const {
     }
     return static_cast<int> (counter);
 }
+bool User::linked(const Username& usr) const {
+    bool found = false;
+    vector<SmartPtr<Username> > v = net()->username();
+    vector<SmartPtr<Username> >::const_iterator it = v.begin();
+    for(; it < v.end() && !found; ++it)
+        if((*it)->login() == usr.login()) found = true;
+    return found;
+}
+
 
 User::searchFunctor::searchFunctor(int s = 0, string w = "") : _s_type(s), _wanted(w) {}
 void User::searchFunctor::operator()(const SmartPtr<User>& spu) {
@@ -123,9 +132,11 @@ string BasicUser::userSearch(const LinqDB& db, string wanted) const {
     return std::for_each(db.begin(), db.end(), searchFunctor(1, wanted)).result();
 }
 
-BusinessUser::linkedWith::linkedWith(int s = 0, User* usr = 0) : _links(s), _owner(usr) {}
+BusinessUser::linkedWith::linkedWith(int s = 0, User* usr = 0) : _offset(s), _owner(usr) {}
 void BusinessUser::linkedWith::operator()(const SmartPtr<User>& spu) {
-
+    if(!_owner->linked(*(spu->account()->username())) && *(spu->account()->username()) != *(_owner->account()->username()))
+        if(_owner->similarity(&(*spu)) >= _offset)
+            _mates.push_back(spu);
 }
 vector<SmartPtr<User> > BusinessUser::linkedWith::result() const {
     return _mates;
@@ -140,7 +151,7 @@ string BusinessUser::userSearch(const LinqDB& db, string wanted) const {
     return std::for_each(db.begin(), db.end(), searchFunctor(2, wanted)).result();
 }
 vector<SmartPtr<User> > BusinessUser::listPossibleLinks(const LinqDB& db) const {
-    return std::for_each(db.begin(), db.end(), linkedWith(45, const_cast<BusinessUser*> (this))).result();
+    return std::for_each(db.begin(), db.end(), linkedWith(40, const_cast<BusinessUser*> (this))).result();
 }
 
 ExecutiveUser::ExecutiveUser() : BusinessUser() {}

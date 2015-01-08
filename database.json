@@ -245,5 +245,78 @@
             "Bode"
         ],
         "username": "ser"
+    },
+    {
+        "formations": [
+            {
+                "from": "1962",
+                "location": "ITIS F.Severi",
+                "to": "1967"
+            },
+            {
+                "from": "1970",
+                "location": "Università Degli Studi di Padova facoltà di Scienze MM.FF.NN. Informatica",
+                "to": "1980"
+            }
+        ],
+        "info": {
+            "address": "Stra via 4 novembre 24 (VE) Italy",
+            "birthdate": "08-10-1949",
+            "email": "seagal@steven.ss",
+            "name": "Steven",
+            "sex": true,
+            "surname": "Seagal",
+            "telephon": "3250525147",
+            "website": "www.stevenseagal.ss"
+        },
+        "interests": [
+            "Web",
+            "Movies",
+            "Coding",
+            "Snowboard",
+            "Homebrew",
+            "Haikido",
+            "Hapkido",
+            "Martial arts",
+            "Fighting",
+            "Traps",
+            "Blades",
+            "Knives"
+        ],
+        "languages": [
+            "Italian",
+            "English",
+            "Espagnol",
+            "Esquimese"
+        ],
+        "net": [
+            "Pablito",
+            "Atilio"
+        ],
+        "password": "rayback",
+        "privilege": 2,
+        "skills": [
+            "Nodejs",
+            "C++",
+            "Mojolicious",
+            "PHP",
+            "Perl",
+            "Python",
+            "Ruby",
+            "Ruby-Sinatra",
+            "Ruby on Rails",
+            "Java",
+            "Javascript",
+            "HTML",
+            "CSS",
+            "Bootstrap",
+            "Haikido",
+            "Hapkido",
+            "Ninjitsu",
+            "Ju-Jitsu",
+            "Daibo",
+            "Knives"
+        ],
+        "username": "Casey"
     }
 ]

@@ -38,6 +38,7 @@ public:
     void setVisitCount(int);
     void addVisit();
     int similarity(User*) const;
+    bool linked(const Username&) const;
     virtual string userSearch(const LinqDB&, string) const =0;
 };
 
@@ -54,7 +55,7 @@ class BusinessUser : public BasicUser {
 protected:
     class linkedWith {
     private:
-        int _links;
+        int _offset;
         User* _owner;
         vector<SmartPtr<User> > _mates;
     public:

@@ -18,7 +18,7 @@ public:
     LinqClient(const Username&);
     ~LinqClient();
     int netSize() const;
-    int similarity(const Username&) const;
+    vector<SmartPtr<User> > similarity() const;
     bool linked(const Username&) const;
     string displayProfile() const;
     string displayHtmlInfo() const;
