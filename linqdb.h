@@ -26,16 +26,16 @@ private:
     void read(const QJsonArray&);
     void readNet(const QJsonArray&);
     vector<QJsonObject> toJsonObject() const;
-    void write(vector<QJsonObject>) const;
+    void write(const vector<QJsonObject>&) const;
 public:
     LinqDB();
     ~LinqDB();
     void load();
     void save() const;
     void addUser(User*);
-    void removeUser(Username*);
+    void removeUser(const Username&);
     int size() const;
-    User* find(Username*);
+    User* find(const Username&) const;
     vector<SmartPtr<User> >::const_iterator begin() const;
     vector<SmartPtr<User> >::const_iterator end() const;
     SmartPtr<User> operator[](const int&) const;

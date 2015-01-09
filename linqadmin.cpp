@@ -1,6 +1,6 @@
 #include "linqadmin.h"
 
-LinqAdmin::completeRemove::completeRemove(Username* usr) : rmusr(usr) {}
+LinqAdmin::completeRemove::completeRemove(const Username& usr) : rmusr(usr) {}
 LinqAdmin::completeRemove::~completeRemove() { }
 void LinqAdmin::completeRemove::operator()(const SmartPtr<User>& user) const {
     user->removeContact(rmusr);
@@ -12,12 +12,12 @@ void LinqAdmin::insertUser(User* newuser) {
     save();
 }
 void LinqAdmin::removeUser(const Username& user) {
-    std::for_each(_db->begin(), _db->end(), completeRemove(const_cast<Username*> (&user)));
-    _db->removeUser(const_cast<Username*> (&user));
+    std::for_each(_db->begin(), _db->end(), completeRemove(user));
+    _db->removeUser(user);
     save();
 }
 void LinqAdmin::alterSubscription(const Username& usr, privLevel newlevel) {
-    User* current = _db->find(const_cast<Username*> (&usr));
+    User* current = _db->find(usr);
     current->account()->setPrLevel(newlevel);
     save();
 }

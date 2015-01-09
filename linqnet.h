@@ -15,7 +15,7 @@ public:
     ~LinqNet();
     LinqNet* clone() const;
     void addUser(User*);
-    void removeUser(Username*);
+    void removeUser(const Username&);
     int size() const;
     vector<SmartPtr<Username> > username() const;
     SmartPtr<User> operator[](const int&) const;

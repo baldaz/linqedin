@@ -22,12 +22,12 @@ bool LinqDB::fromJsonObject() {
     return true;
 }
 void LinqDB::read(const QJsonArray& qjs) {
-    UserInfo* uif;
+    // UserInfo* uif;
     for(int i = 0; i < qjs.size(); ++i) {
         QJsonObject obj = qjs[i].toObject();
         Username* usr = new Username(obj["username"].toString().toStdString(), obj["password"].toString().toStdString());
-        Info* uf = new UserInfo();
-        uif = dynamic_cast<UserInfo*> (uf);
+        UserInfo* uif = new UserInfo();
+        // uif = dynamic_cast<UserInfo*> (uf);
         LinqNet* net = new LinqNet();
         QJsonObject info = obj["info"].toObject();
         if(uif) {
@@ -84,7 +84,7 @@ void LinqDB::readNet(const QJsonArray& qjs) {
             if(_db[j]->account()->username()->login() == obj["username"].toString().toStdString()) {
                 for(int k = 0; k < contacts.size(); ++k){
                     Username usr(contacts[k].toString().toStdString(), ""); /* variante find(new username)*/
-                    _db[j]->addContact(find(&usr));
+                    _db[j]->addContact(find(usr));
                 }
             }
         }
@@ -92,13 +92,13 @@ void LinqDB::readNet(const QJsonArray& qjs) {
 }
 vector<QJsonObject> LinqDB::toJsonObject() const {
     vector<QJsonObject> vjs;
-    UserInfo* uif;
+    UserInfo* uif; Bio* bio;
     for(int i = 0; i < size(); ++i) {
         QJsonObject jUser, jInf, jFormations;
         QJsonArray jArr, jLang, jSkill, jInterest, jForArr;
         vector<SmartPtr<Experience> > formations;
-        uif = dynamic_cast<UserInfo*> (_db[i]->account()->info()); /*downcast a userinfo*/
-        if(uif) {
+        Info* info = _db[i]->account()->info();
+        if(uif = dynamic_cast<UserInfo*> (info)) { /*downcast a userinfo*/
             jInf["name"] = QString::fromStdString(uif->name());
             jInf["surname"] = QString::fromStdString(uif->surname());
             jInf["telephon"] = QString::fromStdString(uif->telephon());
@@ -108,6 +108,8 @@ vector<QJsonObject> LinqDB::toJsonObject() const {
             jInf["address"] = QString::fromStdString(uif->address());
             jInf["website"] = QString::fromStdString(uif->website());
             formations = uif->formations();
+            if(bio = dynamic_cast<Bio*> (info))
+                jInf["biography"] = QString::fromStdString(bio->bio());
         }
         Instruction* ins;
         for(unsigned j = 0; j < formations.size(); ++j){
@@ -149,7 +151,7 @@ vector<QJsonObject> LinqDB::toJsonObject() const {
     }
     return vjs;
 }
-void LinqDB::write(vector<QJsonObject> json) const {
+void LinqDB::write(const vector<QJsonObject>& json) const {
     QFile saveDB(QStringLiteral("database.json"));
     if (!saveDB.open(QIODevice::WriteOnly))
         qWarning("Couldn't open database.");
@@ -175,23 +177,21 @@ int LinqDB::size() const {
 void LinqDB::addUser(User* u) {
     vector<SmartPtr<User> >::iterator it = _db.begin();
     bool alreadyIn = false;
-    // User* tmp;
     for(; it < _db.end() && !alreadyIn; ++it) {
         if(*((*it)->account()->username()) == *(u->account()->username()))
             alreadyIn = true;
     }
     if(!alreadyIn) _db.push_back(SmartPtr<User>(u));
-    else std::cout << "già presente!" << std::endl;
 }
-void LinqDB::removeUser(Username* usr) {
+void LinqDB::removeUser(const Username& usr) {
     for(int i = 0; i < size(); ++i)
-        if((_db[i]->account()->username()->login()) == usr->login())
+        if((_db[i]->account()->username()->login()) == usr.login())
             _db.erase(_db.begin() + i);
 }
-User* LinqDB::find(Username* usr) {
+User* LinqDB::find(const Username& usr) const {
     User* ret = NULL;
     for(int i = 0; i < size(); ++i)
-        if((_db[i]->account()->username()->login()) == usr->login())
+        if((_db[i]->account()->username()->login()) == usr.login())
             // ret = _db[i]->clone();
             ret = &(*_db[i]);
     return ret;

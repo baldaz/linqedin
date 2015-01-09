@@ -20,11 +20,11 @@ void LinqNet::addUser(User* usr) {
     if(!alreadyIn) _net.push_back(SmartPtr<User>(usr));
     else std::cout << "già collegato!" << std::endl;
 }
-void LinqNet::removeUser(Username* usr) {
+void LinqNet::removeUser(const Username& usr) {
     vector<SmartPtr<User> >::iterator it = _net.begin();
     bool found = false;
     for(; it < _net.end() && !found; ++it)
-        if(((*it)->account()->username()->login()) == (usr->login())) {
+        if(((*it)->account()->username()->login()) == (usr.login())) {
             found = true;
             if(found) _net.erase(it);
         }

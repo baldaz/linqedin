@@ -1,9 +1,11 @@
 #ifndef USER_H
 #define USER_H
 
-#include "account.h"
+
 #include <vector>
-#include <smartptr.h>
+#include <algorithm>
+#include "account.h"
+#include "smartptr.h"
 
 class LinqNet;
 class LinqDB;
@@ -33,7 +35,7 @@ public:
     virtual Account* account() const =0;
     virtual LinqNet* net() const =0;
     virtual void addContact(User*) =0;
-    virtual void removeContact(Username*) =0;
+    virtual void removeContact(const Username&) =0;
     virtual int visitCount() const =0;
     virtual void setVisitCount(int) =0;
     virtual void addVisit() =0;
@@ -63,7 +65,7 @@ public:
     virtual Account* account() const;
     virtual LinqNet* net() const;
     virtual void addContact(User*);
-    virtual void removeContact(Username*);
+    virtual void removeContact(const Username&);
     virtual int visitCount() const;
     virtual void setVisitCount(int);
     virtual void addVisit();

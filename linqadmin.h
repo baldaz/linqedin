@@ -7,9 +7,9 @@
 class LinqAdmin {
 private:
     class completeRemove {
-        Username* rmusr;
+        Username rmusr;
     public:
-        completeRemove(Username*);
+        completeRemove(const Username&);
         ~completeRemove();
         void operator()(const SmartPtr<User>&) const;
     };

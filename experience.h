@@ -2,6 +2,7 @@
 #define EXPERIENCE_H
 
 #include <string>
+#include <QDate>
 
 using std::string;
 

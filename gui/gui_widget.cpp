@@ -34,6 +34,7 @@ Gui_Widget::Gui_Widget() {
     toolButtons[1] = new QToolButton();
     toolButtons[1]->setIcon(QPixmap("img/cross108.png"));
     toolbar->addWidget(toolButtons[0]);
+    toolbar->hide();
     toolbar->addWidget(toolButtons[1]);
     mainLayout->addWidget(toolbar, 0, Qt::AlignTop | Qt::AlignCenter);
     mainLayout->addWidget(gridGroupBox);
@@ -105,7 +106,7 @@ void Gui_Widget::insertContatto() {
 
 // slot
 void Gui_Widget::removeContatto() {
-    user->removeContact(Username("Sara87", ""));
+    user->removeContact(Username("Pablito", ""));
     user->save();
 }
 
@@ -122,6 +123,7 @@ void Gui_Widget::viewPayments() {
 //slot
 void Gui_Widget::viewMessages() {
     dispInfo->setHtml(QString::fromStdString(user->displayHtmlMessages()));
+    // removeContatto();
 }
 
 //slot

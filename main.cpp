@@ -16,14 +16,14 @@ using std::cout;
 using std::endl;
 
 int main(int argc, char**argv) {
-    // // LinqAdmin* admin = new LinqAdmin();
+    // LinqAdmin* admin = new LinqAdmin();
     // // Info* info = new UserInfo();
     // Username* ser = new Username("ser", "wword");
     // // admin->alterSubscription(ser, business);
     // // Account* a = new Account(info , ser, basic);
     // // LinqNet* inet = new LinqNet();
     // // User* prova = new BasicUser(a, inet);
-    // // admin->removeUser(ser);
+    // admin->removeUser(Username("ser", "wword"));
     // // admin->insertUser(prova);
     // cout << endl << "+++++++++++++++++++++++++++++++++++++++++++++++++++" << endl;
     // Username* user = new Username("Baldaz", "qwerty");
@@ -55,5 +55,5 @@ int main(int argc, char**argv) {
     window.setWindowTitle("");
     window.show();
     return app.exec();
-    return 0;
+    // return 0;
 }

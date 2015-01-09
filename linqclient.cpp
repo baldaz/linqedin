@@ -2,14 +2,14 @@
 
 LinqClient::LinqClient() : _db(new LinqDB()){}
 LinqClient::LinqClient(const Username& usr) : _db(new LinqDB) {
-    _usr = _db->find(const_cast<Username*> (&usr));
+    _usr = _db->find(usr);
 }
 LinqClient::~LinqClient() {delete _usr; delete _db; }
 void LinqClient::addContact(const Username& usr) {
-    _usr->addContact(_db->find(const_cast<Username*> (&usr)));
+    _usr->addContact(_db->find(usr));
 }
 void LinqClient::removeContact(const Username& usr) {
-    _usr->removeContact(const_cast<Username*> (&usr));
+    _usr->removeContact(usr);
 }
 string LinqClient::displayProfile() const {
     std::string profile = "";
@@ -61,7 +61,7 @@ vector<string> LinqClient::displayHtmlNet() const {
     vector<SmartPtr<Username> > vec = _usr->net()->username();
     vector<SmartPtr<Username> >::const_iterator it = vec.begin();
     for(; it < vec.end(); ++it) {
-        info = dynamic_cast<UserInfo*> ((_db->find(&(**it)))->account()->info());
+        info = dynamic_cast<UserInfo*> ((_db->find(**it))->account()->info());
         if(info) {
             name = info->name();
             surname = info->surname();
@@ -77,7 +77,7 @@ vector<SmartPtr<User> > LinqClient::contactsInfo() const {
     vector<SmartPtr<Username> >::const_iterator it = vec.begin();
     User* acc;
     for(; it < vec.end(); ++it) {
-        acc = _db->find(&(**it));
+        acc = _db->find(**it);
         ret.push_back(SmartPtr<User>(acc));
     }
     return ret;

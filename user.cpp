@@ -55,7 +55,7 @@ void User::searchFunctor::operator()(const SmartPtr<User>& spu) {
                 string fullName = utilities::Utils::toLowerCase(uf->name() + " " + uf->surname());
                 if(utilities::Utils::toLowerCase(uf->name()) == _wanted ||
                    utilities::Utils::toLowerCase(uf->surname()) == _wanted ||
-                   fullName == _wanted || utilities::Utils::contains(skills, _wanted)) {
+                   fullName == _wanted || std::find(skills.begin(), skills.end(), _wanted) != skills.end()) {
                     _result += spu->account()->info()->printHtml() + "\n";
                     _result += spu->net()->printHtml();
                     _result += "<hr>";
@@ -75,7 +75,7 @@ string User::searchFunctor::result() const {
 void BasicUser::addContact(User* usr) {
     _net->addUser(usr);
 }
-void BasicUser::removeContact(Username* usr) {
+void BasicUser::removeContact(const Username& usr) {
     _net->removeUser(usr);
 }
 Account* BasicUser::account() const {
@@ -102,13 +102,13 @@ int BasicUser::similarity(User* user) const {
     if(interests.size() <= h_interests.size()) {
         vector<string>::const_iterator it = interests.begin();
         for(; it < interests.end(); ++it)
-            if(utilities::Utils::contains(h_interests, (*it))) counter++;
+            if(std::find(h_interests.begin(), h_interests.end(), (*it)) != h_interests.end()) counter++;
         counter = (counter / h_interests.size()) * 100;
     }
     else {
         vector<string>::const_iterator ith = h_interests.begin();
         for(; ith < h_interests.end(); ++ith)
-            if(utilities::Utils::contains(interests, (*ith))) counter++;
+            if(std::find(interests.begin(), interests.end(), (*ith)) != interests.end()) counter++;
         counter = (counter / interests.size()) * 100;
     }
     return static_cast<int> (counter);
