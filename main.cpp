@@ -50,7 +50,7 @@ int main(int argc, char**argv) {
     File.open(QFile::ReadOnly);
     QString StyleSheet = QLatin1String(File.readAll());
     app.setStyleSheet(StyleSheet);
-    // window.setWindowFlags(Qt::Window | Qt::CustomizeWindowHint | Qt::WindowMaximizeButtonHint);
+    // window.setWindowFlags(Qt::Window | Qt::FramelessWindowHint);
     window.setStyleSheet("border: none");
     window.setWindowTitle("");
     window.show();

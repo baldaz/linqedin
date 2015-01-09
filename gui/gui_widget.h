@@ -2,6 +2,8 @@
 #define GUI_WIDGET_H
 
 #include <QApplication>
+#include <QMenu>
+#include <QMenuBar>
 #include <QFont>
 #include <QPushButton>
 #include <QWidget>

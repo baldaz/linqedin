@@ -30,28 +30,20 @@ public:
     User& operator=(const User&);
     virtual ~User();
     virtual User* clone() const =0;
-    Account* account() const;
-    LinqNet* net() const;
-    void addContact(User*);
-    void removeContact(Username*);
-    int visitCount() const;
-    void setVisitCount(int);
-    void addVisit();
-    int similarity(User*) const;
-    bool linked(const Username&) const;
+    virtual Account* account() const =0;
+    virtual LinqNet* net() const =0;
+    virtual void addContact(User*) =0;
+    virtual void removeContact(Username*) =0;
+    virtual int visitCount() const =0;
+    virtual void setVisitCount(int) =0;
+    virtual void addVisit() =0;
+    virtual int similarity(User*) const =0;
+    virtual bool linked(const Username&) const =0;
+    virtual vector<SmartPtr<User> > listPossibleLinks(const LinqDB&) const =0;
     virtual string userSearch(const LinqDB&, string) const =0;
 };
 
 class BasicUser : public User {
-public:
-    BasicUser();
-    BasicUser(Account*, LinqNet*);
-    BasicUser(const BasicUser&);
-    virtual User* clone() const;
-    virtual string userSearch(const LinqDB&, string) const;
-};
-
-class BusinessUser : public BasicUser {
 protected:
     class linkedWith {
     private:
@@ -64,11 +56,29 @@ protected:
         vector<SmartPtr<User> > result() const;
     };
 public:
+    BasicUser();
+    BasicUser(Account*, LinqNet*);
+    BasicUser(const BasicUser&);
+    virtual User* clone() const;
+    virtual Account* account() const;
+    virtual LinqNet* net() const;
+    virtual void addContact(User*);
+    virtual void removeContact(Username*);
+    virtual int visitCount() const;
+    virtual void setVisitCount(int);
+    virtual void addVisit();
+    virtual int similarity(User*) const;
+    virtual bool linked(const Username&) const;
+    virtual vector<SmartPtr<User> > listPossibleLinks(const LinqDB&) const;
+    virtual string userSearch(const LinqDB&, string) const;
+};
+
+class BusinessUser : public BasicUser {
+public:
     BusinessUser();
     BusinessUser(Account*, LinqNet*);
     BusinessUser(const BusinessUser&);
     virtual User* clone() const;
-    vector<SmartPtr<User> > listPossibleLinks(const LinqDB&) const;
     virtual string userSearch(const LinqDB&, string) const;
 };
 

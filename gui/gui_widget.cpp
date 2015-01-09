@@ -10,6 +10,24 @@ Gui_Widget::Gui_Widget() {
     // mainLayout->addWidget(new QPushButton("X"), 0, Qt::AlignBottom | Qt::AlignRight);
     mainLayout->addWidget(horizontalGroupBox);
     mainLayout->setSpacing(0);
+    // MENU
+    // QMenuBar* menuBar = new QMenuBar(0);
+    // QMenu* fileMenu = menuBar->addMenu(tr("File"));
+    // fileMenu->addAction(tr("Open..."));
+    // fileMenu->addAction(tr("Close..."));
+    // fileMenu->addSeparator();
+    // QAction* exitAction = fileMenu->addAction(tr("Quit"));
+    // QMenu* viewMenu = menuBar->addMenu(tr("&View"));
+    // QAction* fullScreenAction = viewMenu->addAction(tr("Full screen"));
+    // QAction* normalViewAction = viewMenu->addAction(tr("Normal view"));
+    // QMenu* helpMenu = new QMenu(tr("&Help"));
+    // menuBar->addMenu(helpMenu);
+    // // connessione signal-slot
+    // connect(exitAction, SIGNAL(triggered()), this, SLOT(close()));
+    // connect(fullScreenAction, SIGNAL(triggered()), this, SLOT(showFullScreen()));
+    // connect(normalViewAction, SIGNAL(triggered()), this, SLOT(showNormal()));
+    // mainLayout->setMenuBar(menuBar);
+
     toolbar = new QToolBar(this);
     toolButtons[0] = new QToolButton();
     toolButtons[0]->setIcon(QPixmap("img/add70.png"));
@@ -20,8 +38,8 @@ Gui_Widget::Gui_Widget() {
     mainLayout->addWidget(toolbar, 0, Qt::AlignTop | Qt::AlignCenter);
     mainLayout->addWidget(gridGroupBox);
     setLayout(mainLayout);
-    move(200, 50);
-    resize(1000, 650);
+    move(200, 30);
+    resize(1000, 700);
 }
 
 void Gui_Widget::createGridGroupBox() {
@@ -148,8 +166,6 @@ void Gui_Widget::createHorizontalGroupBox() {
 
 void Gui_Widget::createRightSideList(QGridLayout* lay) {
     vector<SmartPtr<User> > users = user->similarity();
-    QLabel *rightLabel = new QLabel(tr("You could connect to"));
-    rightLabel->setMaximumSize(160,15);
     QListWidget* rightSide = new QListWidget();
     QFont font;
     font.setBold(true);
@@ -170,8 +186,6 @@ void Gui_Widget::createRightSideList(QGridLayout* lay) {
         // itemD->setData(Qt::ToolTipRole, "Connected with Pablos, Sara, Atos");
         rightSide->addItem(itemD);
     }
-    // lay->addWidget(rightLabel, 0, 2, 0, 1, Qt::AlignTop | Qt::AlignLeft);
     // rightSide->setStyleSheet("background:#ff0");
-    // rightSide->setMaximumSize(160, 420);
     lay->addWidget(rightSide, 0, 2, 2, 1, Qt::AlignTop);
 }

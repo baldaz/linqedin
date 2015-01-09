@@ -26,6 +26,8 @@
             "Web",
             "Movies",
             "Coding",
+            "Cooking",
+            "BBQ",
             "Snowboard",
             "Homebrew"
         ],
@@ -273,6 +275,7 @@
             "Web",
             "Movies",
             "Coding",
+            "Cooking",
             "Snowboard",
             "Homebrew",
             "Haikido",
@@ -281,7 +284,8 @@
             "Fighting",
             "Traps",
             "Blades",
-            "Knives"
+            "Knives",
+            "BBQ"
         ],
         "languages": [
             "Italian",
@@ -318,5 +322,69 @@
             "Knives"
         ],
         "username": "Casey"
+    },
+    {
+        "formations": [
+            {
+                "from": "1958",
+                "location": "ITIS F.Severi",
+                "to": "1964"
+            },
+            {
+                "from": "1966",
+                "location": "Università Degli Studi di Padova facoltà di Scienze MM.FF.NN. Informatica",
+                "to": "1977"
+            }
+        ],
+        "info": {
+            "address": "El Paso Muerte-Negra lane Texas",
+            "birthdate": "08-07-1943",
+            "email": "danny@trejo.dt",
+            "name": "Danny \"Machete\"",
+            "sex": true,
+            "surname": "Trejo",
+            "telephon": "3150535157",
+            "website": "www.dannytrejo.dt"
+        },
+        "interests": [
+            "Drugdealing",
+            "Kidnapp",
+            "Guerrilla",
+            "Weapons",
+            "Fighting",
+            "Traps",
+            "Blades",
+            "Knives",
+            "Cooking",
+            "Movies",
+            "BBQ"
+        ],
+        "languages": [
+            "Italian",
+            "English",
+            "Espagnol",
+            "Portuguese"
+        ],
+        "net": [
+            "Pablito",
+            "Atilio",
+            "aui"
+        ],
+        "password": "machete",
+        "privilege": 2,
+        "skills": [
+            "Machete",
+            "M-16",
+            "Narcotraffic",
+            "Burritos",
+            "Tortillas",
+            "Smartphones",
+            "Hapkido",
+            "Ninjitsu",
+            "Ju-Jitsu",
+            "Daibo",
+            "Knives"
+        ],
+        "username": "Danny"
     }
 ]

@@ -18,56 +18,6 @@ User& User::operator=(const User& usr) {
     }
     return *this;
 }
-void User::addContact(User* usr) {
-    _net->addUser(usr);
-}
-void User::removeContact(Username* usr) {
-    _net->removeUser(usr);
-}
-Account* User::account() const {
-    return _acc;
-}
-LinqNet* User::net() const {
-    return _net;
-}
-int User::visitCount() const {
-    return _visitcount;
-}
-void User::setVisitCount(int count) {
-    _visitcount = count;
-}
-void User::addVisit() {
-    _visitcount++;
-}
-int User::similarity(User* user) const {
-    UserInfo* uf = dynamic_cast<UserInfo*> (this->account()->info());
-    UserInfo* host = dynamic_cast<UserInfo*> (user->account()->info());
-    double counter = 0;
-    vector<string> interests = uf->interests();
-    vector<string> h_interests = host->interests();
-    if(interests.size() <= h_interests.size()) {
-        vector<string>::const_iterator it = interests.begin();
-        for(; it < interests.end(); ++it)
-            if(utilities::Utils::contains(h_interests, (*it))) counter++;
-        counter = (counter / h_interests.size()) * 100;
-    }
-    else {
-        vector<string>::const_iterator ith = h_interests.begin();
-        for(; ith < h_interests.end(); ++ith)
-            if(utilities::Utils::contains(interests, (*ith))) counter++;
-        counter = (counter / interests.size()) * 100;
-    }
-    return static_cast<int> (counter);
-}
-bool User::linked(const Username& usr) const {
-    bool found = false;
-    vector<SmartPtr<Username> > v = net()->username();
-    vector<SmartPtr<Username> >::const_iterator it = v.begin();
-    for(; it < v.end() && !found; ++it)
-        if((*it)->login() == usr.login()) found = true;
-    return found;
-}
-
 
 User::searchFunctor::searchFunctor(int s = 0, string w = "") : _s_type(s), _wanted(w) {}
 void User::searchFunctor::operator()(const SmartPtr<User>& spu) {
@@ -122,6 +72,56 @@ string User::searchFunctor::result() const {
     return _result;
 }
 
+void BasicUser::addContact(User* usr) {
+    _net->addUser(usr);
+}
+void BasicUser::removeContact(Username* usr) {
+    _net->removeUser(usr);
+}
+Account* BasicUser::account() const {
+    return _acc;
+}
+LinqNet* BasicUser::net() const {
+    return _net;
+}
+int BasicUser::visitCount() const {
+    return _visitcount;
+}
+void BasicUser::setVisitCount(int count) {
+    _visitcount = count;
+}
+void BasicUser::addVisit() {
+    _visitcount++;
+}
+int BasicUser::similarity(User* user) const {
+    UserInfo* uf = dynamic_cast<UserInfo*> (this->account()->info());
+    UserInfo* host = dynamic_cast<UserInfo*> (user->account()->info());
+    double counter = 0;
+    vector<string> interests = uf->interests();
+    vector<string> h_interests = host->interests();
+    if(interests.size() <= h_interests.size()) {
+        vector<string>::const_iterator it = interests.begin();
+        for(; it < interests.end(); ++it)
+            if(utilities::Utils::contains(h_interests, (*it))) counter++;
+        counter = (counter / h_interests.size()) * 100;
+    }
+    else {
+        vector<string>::const_iterator ith = h_interests.begin();
+        for(; ith < h_interests.end(); ++ith)
+            if(utilities::Utils::contains(interests, (*ith))) counter++;
+        counter = (counter / interests.size()) * 100;
+    }
+    return static_cast<int> (counter);
+}
+bool BasicUser::linked(const Username& usr) const {
+    bool found = false;
+    vector<SmartPtr<Username> > v = net()->username();
+    vector<SmartPtr<Username> >::const_iterator it = v.begin();
+    for(; it < v.end() && !found; ++it)
+        if((*it)->login() == usr.login()) found = true;
+    return found;
+}
+
 BasicUser::BasicUser() : User() {}
 BasicUser::BasicUser(Account* ac, LinqNet* lq) : User(ac, lq){}
 BasicUser::BasicUser(const BasicUser& usr) : User(usr){}
@@ -132,15 +132,19 @@ string BasicUser::userSearch(const LinqDB& db, string wanted) const {
     return std::for_each(db.begin(), db.end(), searchFunctor(1, wanted)).result();
 }
 
-BusinessUser::linkedWith::linkedWith(int s = 0, User* usr = 0) : _offset(s), _owner(usr) {}
-void BusinessUser::linkedWith::operator()(const SmartPtr<User>& spu) {
+BasicUser::linkedWith::linkedWith(int s = 0, User* usr = 0) : _offset(s), _owner(usr) {}
+void BasicUser::linkedWith::operator()(const SmartPtr<User>& spu) {
     if(!_owner->linked(*(spu->account()->username())) && *(spu->account()->username()) != *(_owner->account()->username()))
         if(_owner->similarity(&(*spu)) >= _offset)
             _mates.push_back(spu);
 }
-vector<SmartPtr<User> > BusinessUser::linkedWith::result() const {
+vector<SmartPtr<User> > BasicUser::linkedWith::result() const {
     return _mates;
 }
+vector<SmartPtr<User> > BasicUser::listPossibleLinks(const LinqDB& db) const {
+    return std::for_each(db.begin(), db.end(), linkedWith(40, const_cast<BasicUser*> (this))).result();
+}
+
 BusinessUser::BusinessUser() : BasicUser() {}
 BusinessUser::BusinessUser(Account* ac, LinqNet* lq) : BasicUser(ac, lq) {}
 BusinessUser::BusinessUser(const BusinessUser& usr) : BasicUser(usr) {}
@@ -149,9 +153,6 @@ User* BusinessUser::clone() const {
 }
 string BusinessUser::userSearch(const LinqDB& db, string wanted) const {
     return std::for_each(db.begin(), db.end(), searchFunctor(2, wanted)).result();
-}
-vector<SmartPtr<User> > BusinessUser::listPossibleLinks(const LinqDB& db) const {
-    return std::for_each(db.begin(), db.end(), linkedWith(40, const_cast<BusinessUser*> (this))).result();
 }
 
 ExecutiveUser::ExecutiveUser() : BusinessUser() {}

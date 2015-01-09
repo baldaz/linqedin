@@ -45,8 +45,8 @@ int LinqClient::netSize() const {
     return _usr->net()->size();
 }
 vector<SmartPtr<User> > LinqClient::similarity() const {
-    ExecutiveUser* eu = dynamic_cast<ExecutiveUser*> (_usr);
-    return eu->listPossibleLinks(*_db);
+    // ExecutiveUser* eu = dynamic_cast<ExecutiveUser*> (_usr);
+    return _usr->listPossibleLinks(*_db);
 }
 bool LinqClient::linked(const Username& usr) const {
    return _usr->linked(usr);

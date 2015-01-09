@@ -33,3 +33,9 @@ QLineEdit {
     color: #e6e6e6;
     font-weight: 400;
 }
+QMenuBar::item {
+    background: #000;
+}
+QToolBar {
+    spacing: 2px;
+}
