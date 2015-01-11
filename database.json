@@ -61,7 +61,8 @@
             "CSS",
             "Bootstrap"
         ],
-        "username": "Baldaz"
+        "username": "Baldaz",
+        "visitcount": 0
     },
     {
         "formations": [
@@ -95,7 +96,8 @@
             "C++",
             "PHP"
         ],
-        "username": "Pablito"
+        "username": "Pablito",
+        "visitcount": 2
     },
     {
         "formations": [
@@ -113,7 +115,12 @@
         "interests": [
             "Gym",
             "Boxe",
-            "Blades"
+            "Blades",
+            "Knives",
+            "Murder",
+            "Homicide",
+            "Martials arts",
+            "BBQ"
         ],
         "languages": [
             "Italian",
@@ -131,7 +138,8 @@
             "Perl",
             "Ruby"
         ],
-        "username": "Atilio"
+        "username": "Atilio",
+        "visitcount": 1
     },
     {
         "formations": [
@@ -167,7 +175,8 @@
             "Visual Basic",
             "Objective-C"
         ],
-        "username": "aui"
+        "username": "aui",
+        "visitcount": 0
     },
     {
         "formations": [
@@ -208,7 +217,8 @@
             "Matlab",
             "R"
         ],
-        "username": "Sara87"
+        "username": "Sara87",
+        "visitcount": 0
     },
     {
         "formations": [
@@ -246,7 +256,8 @@
             "MosFet",
             "Bode"
         ],
-        "username": "ser"
+        "username": "ser",
+        "visitcount": 0
     },
     {
         "formations": [
@@ -321,7 +332,8 @@
             "Daibo",
             "Knives"
         ],
-        "username": "Casey"
+        "username": "Casey",
+        "visitcount": 0
     },
     {
         "formations": [
@@ -385,6 +397,7 @@
             "Daibo",
             "Knives"
         ],
-        "username": "Danny"
+        "username": "Danny",
+        "visitcount": 0
     }
 ]

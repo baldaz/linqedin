@@ -13,7 +13,7 @@ private:
     string _object, _body;
     bool _read;
 public:
-    Message(const Username&, const Username&, string, string, bool);
+    Message(const Username&, const Username&, const string&, const string&, bool);
     ~Message();
     bool isRead() const;
     void setRead(bool);
@@ -21,9 +21,9 @@ public:
     void setSender(const Username&);
     Username* receiver() const;
     void setReceiver(const Username&);
-    string object() const;
-    void setObject(string);
-    string body() const;
-    void setBody(string);
+    const string& object() const;
+    void setObject(const string&);
+    const string& body() const;
+    void setBody(const string&);
 };
 #endif

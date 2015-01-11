@@ -21,7 +21,7 @@ protected:
         string _wanted;
         string _result;
     public:
-        searchFunctor(int, string);
+        searchFunctor(int, const string&);
         void operator()(const SmartPtr<User>&);
         string result() const;
     };
@@ -42,7 +42,7 @@ public:
     virtual int similarity(User*) const =0;
     virtual bool linked(const Username&) const =0;
     virtual vector<SmartPtr<User> > listPossibleLinks(const LinqDB&) const =0;
-    virtual string userSearch(const LinqDB&, string) const =0;
+    virtual string userSearch(const LinqDB&, const string&) const =0;
 };
 
 class BasicUser : public User {
@@ -72,7 +72,7 @@ public:
     virtual int similarity(User*) const;
     virtual bool linked(const Username&) const;
     virtual vector<SmartPtr<User> > listPossibleLinks(const LinqDB&) const;
-    virtual string userSearch(const LinqDB&, string) const;
+    virtual string userSearch(const LinqDB&, const string&) const;
 };
 
 class BusinessUser : public BasicUser {
@@ -81,7 +81,7 @@ public:
     BusinessUser(Account*, LinqNet*);
     BusinessUser(const BusinessUser&);
     virtual User* clone() const;
-    virtual string userSearch(const LinqDB&, string) const;
+    virtual string userSearch(const LinqDB&, const string&) const;
 };
 
 class ExecutiveUser : public BusinessUser {
@@ -90,7 +90,7 @@ public:
     ExecutiveUser(Account*, LinqNet*);
     ExecutiveUser(const ExecutiveUser&);
     virtual User* clone() const;
-    virtual string userSearch(const LinqDB&, string) const;
+    virtual string userSearch(const LinqDB&, const string&) const;
 };
 
 #endif

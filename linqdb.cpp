@@ -72,6 +72,7 @@ void LinqDB::read(const QJsonArray& qjs) {
             case 3:
             break;
         }
+        s->setVisitCount(obj["visitcount"].toInt());
         addUser(s);
         delete s;
     }
@@ -136,6 +137,7 @@ vector<QJsonObject> LinqDB::toJsonObject() const {
             jInterest.append(QString::fromStdString(*itr));
         jUser["username"] = QString::fromStdString(_db[i]->account()->username()->login());
         jUser["password"] = QString::fromStdString(_db[i]->account()->username()->password());
+        jUser["visitcount"] = _db[i]->visitCount();
         jUser["privilege"] = _db[i]->account()->prLevel();
         vector<SmartPtr<Username> > list = _db[i]->net()->username();
         vector<SmartPtr<Username> >::const_iterator it = list.begin();
@@ -204,15 +206,4 @@ vector<SmartPtr<User> >::const_iterator LinqDB::end() const{
 }
 SmartPtr<User> LinqDB::operator[](const int& i) const {
     return _db[i];
-}
-ostream& operator<<(ostream& os, const LinqDB& db) {
-    if(!db.size()) os << "Nessun utente inserito" << endl;
-    else {
-        for(int i = 0; i < db.size(); ++i){
-            os << db[i]->account()->username()->login() << " : ";
-            os << db[i]->account()->username()->password() << endl;
-        }
-        os << "DB size: " << db.size() << endl;
-    }
-    return os;
 }

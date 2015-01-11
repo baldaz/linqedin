@@ -20,10 +20,10 @@ std::string utilities::Utils::levelToString(privLevel prl) {
     }
     return ret;
 }
-bool utilities::Utils::contains(std::vector<std::string> vec, std::string s) {
+bool utilities::Utils::contains(const std::vector<std::string>& vec, const std::string& s) {
     bool found = false;
     if(!vec.empty()) {
-        std::vector<std::string>::iterator it = vec.begin();
+        std::vector<std::string>::const_iterator it = vec.begin();
         for(; it < vec.end() && !found; ++it)
             if((*it) == s) found = true;
     }

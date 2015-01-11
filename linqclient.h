@@ -32,7 +32,8 @@ public:
     void removeContact(const Username&);
     void addExperience(const Experience&);
     void addFormation(const Experience&);
-    string find(string) const;
+    void addVisitTo(const Username&);
+    string find(const string&) const;
     void save() const;
 };
 #endif

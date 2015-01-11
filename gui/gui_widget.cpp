@@ -132,7 +132,10 @@ void Gui_Widget::userSearch() {
 }
 
 //slot
-void Gui_Widget::logout() {}
+void Gui_Widget::logout() {
+    user->save();
+    close();
+}
 
 void Gui_Widget::createHorizontalGroupBox() {
     horizontalGroupBox = new QGroupBox();
@@ -161,7 +164,7 @@ void Gui_Widget::createHorizontalGroupBox() {
     buttons[4] = new QPushButton("LOGOUT");
     buttons[4]->setIcon(QPixmap("img/logout13.png"));
     layout->addWidget(buttons[4]);
-    connect(buttons[4], SIGNAL(clicked()), this, SLOT(close()));
+    connect(buttons[4], SIGNAL(clicked()), this, SLOT(logout()));
 
     horizontalGroupBox->setLayout(layout);
 }

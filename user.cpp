@@ -19,7 +19,7 @@ User& User::operator=(const User& usr) {
     return *this;
 }
 
-User::searchFunctor::searchFunctor(int s = 0, string w = "") : _s_type(s), _wanted(w) {}
+User::searchFunctor::searchFunctor(int s = 0, const string& w = "") : _s_type(s), _wanted(w) {}
 void User::searchFunctor::operator()(const SmartPtr<User>& spu) {
     UserInfo* uf = NULL;
     _wanted = utilities::Utils::toLowerCase(_wanted);
@@ -128,7 +128,7 @@ BasicUser::BasicUser(const BasicUser& usr) : User(usr){}
 User* BasicUser::clone() const {
     return new BasicUser(*this);
 }
-string BasicUser::userSearch(const LinqDB& db, string wanted) const {
+string BasicUser::userSearch(const LinqDB& db, const string& wanted) const {
     return std::for_each(db.begin(), db.end(), searchFunctor(1, wanted)).result();
 }
 
@@ -151,7 +151,7 @@ BusinessUser::BusinessUser(const BusinessUser& usr) : BasicUser(usr) {}
 User* BusinessUser::clone() const {
     return new BusinessUser(*this);
 }
-string BusinessUser::userSearch(const LinqDB& db, string wanted) const {
+string BusinessUser::userSearch(const LinqDB& db, const string& wanted) const {
     return std::for_each(db.begin(), db.end(), searchFunctor(2, wanted)).result();
 }
 
@@ -161,6 +161,6 @@ ExecutiveUser::ExecutiveUser(const ExecutiveUser& usr) : BusinessUser(usr) {}
 User* ExecutiveUser::clone() const {
     return new ExecutiveUser(*this);
 }
-string ExecutiveUser::userSearch(const LinqDB& db, string wanted) const {
+string ExecutiveUser::userSearch(const LinqDB& db, const string& wanted) const {
     return std::for_each(db.begin(), db.end(), searchFunctor(3, wanted)).result();
 }

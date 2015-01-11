@@ -18,15 +18,15 @@ protected:
     string _location, _from, _to;
 public:
     Instruction();
-    Instruction(string, string, string);
+    Instruction(const string&, const string&, const string&);
     Instruction(const Instruction&);
     // ~Instruction();
-    string location() const;
-    string from() const;
-    string to() const;
-    void setLocation(string);
-    void setFrom(string);
-    void setTo(string);
+    const string& location() const;
+    const string& from() const;
+    const string& to() const;
+    void setLocation(const string&);
+    void setFrom(const string&);
+    void setTo(const string&);
     virtual Experience* clone() const;
     virtual string print() const;
 };
@@ -36,11 +36,11 @@ protected:
     string _description;
 public:
     Work();
-    Work(string, string, string, string);
+    Work(const string&, const string&, const string&, const string&);
     Work(const Work&);
     // ~Work();
-    string description() const;
-    void setDescription(string);
+    const string& description() const;
+    void setDescription(const string&);
     virtual Experience* clone() const;
     virtual string print() const;
 };

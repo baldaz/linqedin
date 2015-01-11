@@ -1,21 +1,21 @@
 #include "username.h"
 
-Username::Username(string l = "", string p = "") : _login(l), _password(p) {}
+Username::Username(const string& l = "", const string& p = "") : _login(l), _password(p) {}
 Username::Username(const Username& usr) : _login(usr._login), _password(usr._password) {}
 Username::~Username() {}
 Username* Username::clone() const {
     return new Username(*this);
 }
-string Username::login() const {
+const string& Username::login() const {
     return _login;
 }
-string Username::password() const {
+const string& Username::password() const {
     return _password;
 }
-void Username::setLogin(string l) {
+void Username::setLogin(const string& l) {
     _login = l;
 }
-void Username::setPassword(string p) {
+void Username::setPassword(const string& p) {
     _password = p;
 }
 bool Username::operator==(const Username& usr) const {

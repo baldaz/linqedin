@@ -1,6 +1,6 @@
 #include "message.h"
 
-Message::Message(const Username& sender, const Username& receiver, string obj, string body, bool read) :
+Message::Message(const Username& sender, const Username& receiver, const string& obj, const string& body, bool read) :
     _sender(const_cast<Username*> (&sender)), _receiver(const_cast<Username*> (&receiver)), _object(obj), _body(body), _read(read) {}
 Message::~Message() { delete _sender; delete _receiver; }
 bool Message::isRead() const {
@@ -21,15 +21,15 @@ Username* Message::receiver() const {
 void Message::setReceiver(const Username& receiver) {
     _receiver = const_cast<Username*> (&receiver);
 }
-string Message::object() const {
+const string& Message::object() const {
     return _object;
 }
-void Message::setObject(string obj) {
+void Message::setObject(const string& obj) {
     _object = obj;
 }
-string Message::body() const {
+const string& Message::body() const {
     return _body;
 }
-void Message::setBody(string body) {
+void Message::setBody(const string& body) {
     _body = body;
 }

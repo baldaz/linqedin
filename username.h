@@ -10,14 +10,14 @@ private:
     string _login;
     string _password;
 public:
-    Username(string, string);
+    Username(const string&, const string&);
     Username(const Username&);
     ~Username();
     Username* clone() const;
-    string login() const;
-    void setLogin(string);
-    string password() const;
-    void setPassword(string);
+    const string& login() const;
+    void setLogin(const string&);
+    const string& password() const;
+    void setPassword(const string&);
     bool operator==(const Username&) const;
     bool operator!=(const Username&) const;
 };

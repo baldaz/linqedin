@@ -31,6 +31,9 @@ void Gui_Links::removeWidget() {
 void Gui_Links::viewContact() {
     _selected = this->currentItem()->data(Qt::UserRole + 1).toString();
     Gui_ViewContact* _view = new Gui_ViewContact(_display, _client->contactsInfo(), _selected);
+    _client->addVisitTo(Username(_selected.toStdString(), ""));
+    // _selected = this->currentItem()->data(Qt::DisplayRole).toString();
+    // Gui_ViewContact* _view = new Gui_ViewContact(_client, _display, _selected);
     // rm = new QPushButton("REMOVE CONNECTION");
     // _layout->removeWidget(rm);
     // _layout->addWidget(rm, 3, 2, 1, -1);

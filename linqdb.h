@@ -9,13 +9,11 @@
 #include <QJsonDocument>
 #include <QString>
 #include <string>
-// #include "spuser.h"
 #include "user.h"
 #include "linqnet.h"
 #include "privlevel.h"
 #include "smartptr.h"
 
-using std::ostream;
 using std::vector;
 using std::string;
 
@@ -39,6 +37,5 @@ public:
     vector<SmartPtr<User> >::const_iterator begin() const;
     vector<SmartPtr<User> >::const_iterator end() const;
     SmartPtr<User> operator[](const int&) const;
-    friend ostream& operator<<(ostream&, const LinqDB&);
 };
 #endif

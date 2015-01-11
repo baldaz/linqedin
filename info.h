@@ -27,18 +27,18 @@ protected:
     vector<SmartPtr<Experience> > _exps;
 public:
     UserInfo();
-    UserInfo(bool, string, string, string, string, string, string, string);
+    UserInfo(bool, const string&, const string&, const string&, const string&, const string&, const string&, const string&);
     UserInfo(const UserInfo&);
     Info* clone() const;
     // virtual ~UserInfo();
     UserInfo& operator=(const UserInfo&);
-    string name() const;
-    string surname() const;
-    string birthdate() const;
-    string email() const;
-    string address() const;
-    string telephon() const;
-    string website() const;
+    const string& name() const;
+    const string& surname() const;
+    const string& birthdate() const;
+    const string& email() const;
+    const string& address() const;
+    const string& telephon() const;
+    const string& website() const;
     bool sex() const;
     vector<string> languages() const;
     vector<string> skills() const;
@@ -46,16 +46,16 @@ public:
     vector<SmartPtr<Experience> > experience() const;
     vector<SmartPtr<Experience> > formations() const;
     void setSex(bool);
-    void setName(string);
-    void setSurname(string);
-    void setBirthdate(string);
-    void setEmail(string);
-    void setAddress(string);
-    void setTelephon(string);
-    void setWebsite(string);
-    void addLanguage(string);
-    void addSkill(string);
-    void addInterest(string);
+    void setName(const string&);
+    void setSurname(const string&);
+    void setBirthdate(const string&);
+    void setEmail(const string&);
+    void setAddress(const string&);
+    void setTelephon(const string&);
+    void setWebsite(const string&);
+    void addLanguage(const string&);
+    void addSkill(const string&);
+    void addInterest(const string&);
     void addExperience(Experience*);
     void addFormation(Experience*);
     int age() const;
@@ -67,11 +67,11 @@ class Bio : public UserInfo {
 protected:
     string _bio;
 public:
-    Bio(bool, string, string, string, string, string, string, string, string);
+    Bio(bool, const string&, const string&, const string&, const string&, const string&, const string&, const string&, const string&);
     Bio(const Bio&);
     Info* clone() const;
-    string bio() const;
-    void setBio(string);
+    const string& bio() const;
+    void setBio(const string&);
     virtual string print() const;
     virtual string printHtml() const;
 };

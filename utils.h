@@ -10,7 +10,7 @@ namespace utilities {
     public:
        static std::string toLowerCase(std::string);
        static std::string levelToString(privLevel);
-       static bool contains(std::vector<std::string>, std::string);
+       static bool contains(const std::vector<std::string>&, const std::string&);
    };
 }
 #endif

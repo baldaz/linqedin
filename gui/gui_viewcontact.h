@@ -11,7 +11,8 @@ private:
     vector<SmartPtr<User> > _contacts;
     QString _toView;
 public:
-    Gui_ViewContact(Gui_DisplayInfo*, vector<SmartPtr<User> >, QString, QWidget* parent = 0);
+    Gui_ViewContact(Gui_DisplayInfo*, const vector<SmartPtr<User> > &, const QString&, QWidget* parent = 0);
+    Gui_ViewContact(LinqClient*, Gui_DisplayInfo*, const QString&, QWidget* parent = 0);
 signals:
 
 public slots:
