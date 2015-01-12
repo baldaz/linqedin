@@ -4,6 +4,7 @@
 #include "utils.h"
 
 using std::vector;
+using std::map;
 
 User::User() : _acc(new Account()), _net(new LinqNet()), _visitcount(0)  {}
 User::User(Account* ac, LinqNet* lq) : _acc(ac), _net(lq), _visitcount(0)  {}
@@ -29,7 +30,8 @@ void User::searchFunctor::operator()(const SmartPtr<User>& spu) {
             if(uf) {
                 string fullName = utilities::Utils::toLowerCase(uf->name() + " " + uf->surname());
                 if(utilities::Utils::toLowerCase(uf->name()) == _wanted || utilities::Utils::toLowerCase(uf->surname()) == _wanted || fullName == _wanted) {
-                    _result.push_back(uf->name() + " " + uf->surname() + "\n");
+                    // _result.push_back(uf->name() + " " + uf->surname() + "\n");
+                    _result.insert(std::pair<string, string>(spu->account()->username()->login(), uf->name() + " " + uf->surname() + "\n"));
                     spu->addVisit();
                 }
             }
@@ -39,7 +41,8 @@ void User::searchFunctor::operator()(const SmartPtr<User>& spu) {
             if(uf) {
                 string fullName = utilities::Utils::toLowerCase(uf->name() + " " + uf->surname());
                 if(utilities::Utils::toLowerCase(uf->name()) == _wanted || utilities::Utils::toLowerCase(uf->surname()) == _wanted || fullName == _wanted) {
-                    _result.push_back(spu->account()->info()->printHtml() + "\n");
+                    // _result.push_back(spu->account()->info()->printHtml() + "\n");
+                    _result.insert(std::pair<string, string>(spu->account()->username()->login(), spu->account()->info()->printHtml() + "\n"));
                     spu->addVisit();
                 }
             }
@@ -55,7 +58,8 @@ void User::searchFunctor::operator()(const SmartPtr<User>& spu) {
                 if((utilities::Utils::toLowerCase(uf->name()) == _wanted ||
                    utilities::Utils::toLowerCase(uf->surname()) == _wanted ||
                    fullName == _wanted || std::find(skills.begin(), skills.end(), _wanted) != skills.end()) && (spu->account()->username()->login() != _caller->account()->username()->login())){
-                    _result.push_back(spu->account()->info()->printHtml() + "\n" + spu->net()->printHtml());
+                    // _result.push_back(spu->account()->info()->printHtml() + "\n" + spu->net()->printHtml());
+                    _result.insert(std::pair<string, string>(spu->account()->username()->login(), spu->account()->info()->printHtml() + "\n" + spu->net()->printHtml()));
                     spu->addVisit();
                 }
             }
@@ -65,7 +69,7 @@ void User::searchFunctor::operator()(const SmartPtr<User>& spu) {
         break;
     }
 }
-vector<string> User::searchFunctor::result() const {
+map<string, string> User::searchFunctor::result() const {
     return _result;
 }
 
@@ -125,7 +129,7 @@ BasicUser::BasicUser(const BasicUser& usr) : User(usr){}
 User* BasicUser::clone() const {
     return new BasicUser(*this);
 }
-vector<string> BasicUser::userSearch(const LinqDB& db, const string& wanted) const {
+map<string, string> BasicUser::userSearch(const LinqDB& db, const string& wanted) const {
     return std::for_each(db.begin(), db.end(), searchFunctor(1, wanted, this)).result();
 }
 
@@ -148,7 +152,7 @@ BusinessUser::BusinessUser(const BusinessUser& usr) : BasicUser(usr) {}
 User* BusinessUser::clone() const {
     return new BusinessUser(*this);
 }
-vector<string> BusinessUser::userSearch(const LinqDB& db, const string& wanted) const {
+map<string, string> BusinessUser::userSearch(const LinqDB& db, const string& wanted) const {
     return std::for_each(db.begin(), db.end(), searchFunctor(2, wanted, this)).result();
 }
 
@@ -158,6 +162,6 @@ ExecutiveUser::ExecutiveUser(const ExecutiveUser& usr) : BusinessUser(usr) {}
 User* ExecutiveUser::clone() const {
     return new ExecutiveUser(*this);
 }
-vector<string> ExecutiveUser::userSearch(const LinqDB& db, const string& wanted) const {
+map<string, string> ExecutiveUser::userSearch(const LinqDB& db, const string& wanted) const {
     return std::for_each(db.begin(), db.end(), searchFunctor(3, wanted, this)).result();
 }

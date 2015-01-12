@@ -56,12 +56,12 @@ static const uint qt_meta_data_Gui_Search[] = {
  // slots: name, argc, parameters, tag, flags
        1,    0,   29,    2, 0x0a,
        3,    0,   30,    2, 0x0a,
-       4,    1,   31,    2, 0x0a,
+       4,    0,   31,    2, 0x0a,
 
  // slots: parameters
     QMetaType::Void,
     QMetaType::Void,
-    QMetaType::Void, QMetaType::QString,    2,
+    QMetaType::Void,
 
        0        // eod
 };
@@ -73,10 +73,11 @@ void Gui_Search::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, 
         switch (_id) {
         case 0: _t->search(); break;
         case 1: _t->incrementIterator(); break;
-        case 2: _t->showResult((*reinterpret_cast< const QString(*)>(_a[1]))); break;
+        case 2: _t->showResult(); break;
         default: ;
         }
     }
+    Q_UNUSED(_a);
 }
 
 const QMetaObject Gui_Search::staticMetaObject = {

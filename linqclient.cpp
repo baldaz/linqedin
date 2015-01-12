@@ -1,5 +1,7 @@
 #include "linqclient.h"
 
+using std::map;
+
 LinqClient::LinqClient() : _db(new LinqDB()){}
 LinqClient::LinqClient(const Username& usr) : _db(new LinqDB) {
     _usr = _db->find(usr);
@@ -82,7 +84,7 @@ vector<SmartPtr<User> > LinqClient::contactsInfo() const {
     }
     return ret;
 }
-vector<string> LinqClient::find(const string& wanted = "") const {
+map<string, string> LinqClient::find(const string& wanted = "") const {
     return _usr->userSearch(*_db, wanted);
 }
 void LinqClient::addExperience(const Experience& xp) {

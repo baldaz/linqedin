@@ -23,11 +23,11 @@ Gui_Overview::Gui_Overview(QWidget* parent) : QGridLayout(parent) {
     // dispInfo->setStyleSheet("background: #fff");
 
     toolbar = new QToolBar;
-    toolButtons[0] = new QToolButton();
+    toolButtons[0] = new QToolButton(toolbar);
     toolButtons[0]->setIcon(QPixmap("img/add70.png"));
-    toolButtons[1] = new QToolButton();
+    toolButtons[1] = new QToolButton(toolbar);
     toolButtons[1]->setIcon(QPixmap("img/cross108.png"));
-    toolButtons[2] = new QToolButton();
+    toolButtons[2] = new QToolButton(toolbar);
     toolButtons[2]->setIcon(QPixmap("img/right244.png"));
     toolbar->addWidget(toolButtons[0]);
     toolbar->addWidget(toolButtons[1]);
@@ -92,4 +92,5 @@ void Gui_Overview::createRightSideList(QGridLayout* lay) {
 void Gui_Overview::refresh() {
     listLinks->refresh();
     dispInfo->setHtml(QString::fromStdString(user->displayHtmlInfo()));
+    toolbar->hide();
 }

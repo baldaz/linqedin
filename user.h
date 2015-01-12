@@ -3,9 +3,12 @@
 
 
 #include <vector>
+#include <map>
 #include <algorithm>
 #include "account.h"
 #include "smartptr.h"
+
+using std::map;
 
 class LinqNet;
 class LinqDB;
@@ -20,11 +23,11 @@ protected:
         int _s_type;
         string _wanted;
         const User* _caller;
-        vector<string> _result;
+        map<string, string> _result;
     public:
         searchFunctor(int, const string&, const User*);
         void operator()(const SmartPtr<User>&);
-        vector<string> result() const;
+        map<string, string> result() const;
     };
 public:
     User();
@@ -43,7 +46,7 @@ public:
     virtual int similarity(User*) const =0;
     virtual bool linked(const Username&) const =0;
     virtual vector<SmartPtr<User> > listPossibleLinks(const LinqDB&) const =0;
-    virtual vector<string> userSearch(const LinqDB&, const string&) const =0;
+    virtual map<string, string> userSearch(const LinqDB&, const string&) const =0;
 };
 
 class BasicUser : public User {
@@ -73,7 +76,7 @@ public:
     virtual int similarity(User*) const;
     virtual bool linked(const Username&) const;
     virtual vector<SmartPtr<User> > listPossibleLinks(const LinqDB&) const;
-    virtual vector<string> userSearch(const LinqDB&, const string&) const;
+    virtual map<string, string> userSearch(const LinqDB&, const string&) const;
 };
 
 class BusinessUser : public BasicUser {
@@ -82,7 +85,7 @@ public:
     BusinessUser(Account*, LinqNet*);
     BusinessUser(const BusinessUser&);
     virtual User* clone() const;
-    virtual vector<string> userSearch(const LinqDB&, const string&) const;
+    virtual map<string, string> userSearch(const LinqDB&, const string&) const;
 };
 
 class ExecutiveUser : public BusinessUser {
@@ -91,7 +94,7 @@ public:
     ExecutiveUser(Account*, LinqNet*);
     ExecutiveUser(const ExecutiveUser&);
     virtual User* clone() const;
-    virtual vector<string> userSearch(const LinqDB&, const string&) const;
+    virtual map<string, string> userSearch(const LinqDB&, const string&) const;
 };
 
 #endif

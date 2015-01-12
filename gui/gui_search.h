@@ -16,7 +16,9 @@ private:
     Gui_DisplayInfo* _display;
     QToolBar* _tbar;
     Gui_Links* _links;
-    static int _i;
+    map<string, string> res;
+    map<string, string>::iterator it;
+
 public:
     Gui_Search(LinqClient*, Gui_DisplayInfo*, QToolBar*, Gui_Links*, QWidget* parent = 0);
 
@@ -25,6 +27,6 @@ signals:
 public slots:
     void search();
     void incrementIterator();
-    void showResult(const QString&);
+    void showResult();
 };
 #endif
