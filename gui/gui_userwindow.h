@@ -2,6 +2,7 @@
 #define GUI_USERWINDOW_H
 
 #include <QWidget>
+#include <QMouseEvent>
 #include <QPushButton>
 #include <QGroupBox>
 #include <QGridLayout>
@@ -12,7 +13,12 @@ class Gui_UserWindow : public QWidget {
 public:
     Gui_UserWindow(QWidget* parent = 0);
 
+protected:
+    void mousePressEvent(QMouseEvent*);
+    void mouseMoveEvent(QMouseEvent*);
+    void mouseDoubleClickEvent(QMouseEvent*);
 private:
+    QPoint mpos;
     QGroupBox* horizontalGroupBox;
     QGroupBox* gridGroupBox;
     enum {NumButtons = 5};

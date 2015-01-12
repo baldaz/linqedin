@@ -4,12 +4,18 @@ Gui_UserWindow::Gui_UserWindow(QWidget* parent) : QWidget(parent) {
     createHorizontalGroupBox();
     createGridGroupBox();
     QVBoxLayout* mainLayout = new QVBoxLayout;
+    QPushButton* quit = new QPushButton;
+    quit->setIcon(QPixmap("img/prohibited1.png"));
+    connect(quit, SIGNAL(clicked()), this, SLOT(close()));
+    mainLayout->addWidget(quit, 0, Qt::AlignBottom | Qt::AlignRight);
     mainLayout->addWidget(horizontalGroupBox);
     mainLayout->setSpacing(0);
     mainLayout->addWidget(gridGroupBox);
+    mainLayout->setSpacing(-1);
+    // mainLayout->setMargin(0);
     setLayout(mainLayout);
     move(200, 30);
-    resize(1000, 700);
+    resize(1000, 720);
 }
 
 void Gui_UserWindow::createHorizontalGroupBox() {
@@ -48,6 +54,24 @@ void Gui_UserWindow::createGridGroupBox() {
     gridGroupBox = new QGroupBox;
     layout = new Gui_Overview;
     gridGroupBox->setLayout(layout);
+}
+
+//overload
+void Gui_UserWindow::mousePressEvent(QMouseEvent* event) {
+    mpos = event->pos();
+}
+
+void Gui_UserWindow::mouseMoveEvent(QMouseEvent* event) {
+    if(event->buttons() && Qt::LeftButton) {
+        QPoint diff = event->pos() - mpos;
+        QPoint newpos = pos() + diff;
+        move(newpos);
+    }
+}
+
+void Gui_UserWindow::mouseDoubleClickEvent(QMouseEvent* event) {
+    if(isMaximized()) showNormal();
+    else showMaximized();
 }
 
 //SLOT

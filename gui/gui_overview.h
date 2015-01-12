@@ -5,6 +5,7 @@
 #include <QListWidget>
 #include <QToolBar>
 #include <QToolButton>
+// #include <QMouseEvent>
 #include <QLabel>
 #include <QPainter>
 #include <QBitmap>
@@ -16,6 +17,7 @@
 class Gui_Overview : public QGridLayout {
     Q_OBJECT
 
+    // QPoint mpos;
     QToolBar* toolbar;
     enum { NumToolButtons = 3 };
     QToolButton* toolButtons[NumToolButtons];
@@ -29,6 +31,9 @@ class Gui_Overview : public QGridLayout {
     void createRightSideList(QGridLayout*);
     void logicInitialize();
 
+// protected:
+    // void mousePressEvent(QMouseEvent*);
+    // void mouseMoveEvent(QMouseEvent*);
 public:
     Gui_Overview(QWidget* parent = 0);
     void refresh();

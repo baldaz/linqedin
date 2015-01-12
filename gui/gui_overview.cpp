@@ -33,6 +33,7 @@ Gui_Overview::Gui_Overview(QWidget* parent) : QGridLayout(parent) {
     toolbar->addWidget(toolButtons[1]);
     toolbar->addWidget(toolButtons[2]);
     toolbar->hide();
+    toolbar->blockSignals(true);
 
     listLinks = new Gui_Links(user, dispInfo, toolbar);
 
@@ -94,3 +95,15 @@ void Gui_Overview::refresh() {
     dispInfo->setHtml(QString::fromStdString(user->displayHtmlInfo()));
     toolbar->hide();
 }
+
+// void Gui_Overview::mousePressEvent(QMouseEvent* event) {
+//     mpos = event->pos();
+// }
+
+// void Gui_Overview::mouseMoveEvent(QMouseEvent* event) {
+//     if(event->buttons() && Qt::LeftButton) {
+//         QPoint diff = event->pos() - mpos;
+//         QPoint newpos = pos() + diff;
+//         move(newpos);
+//     }
+// }

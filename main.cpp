@@ -52,9 +52,12 @@ int main(int argc, char**argv) {
     File.open(QFile::ReadOnly);
     QString StyleSheet = QLatin1String(File.readAll());
     app.setStyleSheet(StyleSheet);
-    // window.setWindowFlags(Qt::Window | Qt::FramelessWindowHint);
+    window.setWindowFlags(Qt::Window | Qt::FramelessWindowHint);
     window.setStyleSheet("border: none");
     window.setWindowTitle("");
+    // window.setAttribute(Qt::WA_TranslucentBackground, true);
+    // window.setAttribute(Qt::WA_NoSystemBackground, true);
+    // window.setWindowOpacity(0.95);
     window.show();
     return app.exec();
     // return 0;
