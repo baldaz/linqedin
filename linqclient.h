@@ -33,7 +33,7 @@ public:
     void addExperience(const Experience&);
     void addFormation(const Experience&);
     void addVisitTo(const Username&);
-    string find(const string&) const;
+    vector<string> find(const string&) const;
     void save() const;
 };
 #endif

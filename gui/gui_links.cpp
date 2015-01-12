@@ -1,6 +1,6 @@
 #include "gui_links.h"
 
-Gui_Links::Gui_Links(LinqClient* client, Gui_DisplayInfo* disp, QGridLayout* layout, QWidget* parent) : _client(client), _display(disp), _layout(layout), QListWidget(parent) {
+Gui_Links::Gui_Links(LinqClient* client, Gui_DisplayInfo* disp, QToolBar* tb, QWidget* parent) : _client(client), _display(disp), _tbar(tb), QListWidget(parent) {
     refresh();
     connect(this, SIGNAL(clicked(QModelIndex)), this, SLOT(viewContact()));
 }
@@ -32,6 +32,10 @@ void Gui_Links::viewContact() {
     _selected = this->currentItem()->data(Qt::UserRole + 1).toString();
     Gui_ViewContact* _view = new Gui_ViewContact(_display, _client->contactsInfo(), _selected);
     _client->addVisitTo(Username(_selected.toStdString(), ""));
+    _tbar->show();
+    _tbar->actions().at(0)->setVisible(false);
+    _tbar->actions().at(1)->setVisible(true);
+    _tbar->actions().at(2)->setVisible(false);
     // _selected = this->currentItem()->data(Qt::DisplayRole).toString();
     // Gui_ViewContact* _view = new Gui_ViewContact(_client, _display, _selected);
     // rm = new QPushButton("REMOVE CONNECTION");

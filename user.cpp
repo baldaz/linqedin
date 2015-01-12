@@ -19,7 +19,7 @@ User& User::operator=(const User& usr) {
     return *this;
 }
 
-User::searchFunctor::searchFunctor(int s = 0, const string& w = "") : _s_type(s), _wanted(w) {}
+User::searchFunctor::searchFunctor(int s = 0, const string& w = "", const User* call = 0) : _s_type(s), _wanted(w), _caller(call) {}
 void User::searchFunctor::operator()(const SmartPtr<User>& spu) {
     UserInfo* uf = NULL;
     _wanted = utilities::Utils::toLowerCase(_wanted);
@@ -29,7 +29,7 @@ void User::searchFunctor::operator()(const SmartPtr<User>& spu) {
             if(uf) {
                 string fullName = utilities::Utils::toLowerCase(uf->name() + " " + uf->surname());
                 if(utilities::Utils::toLowerCase(uf->name()) == _wanted || utilities::Utils::toLowerCase(uf->surname()) == _wanted || fullName == _wanted) {
-                    _result += uf->name() + " " + uf->surname() + "\n";
+                    _result.push_back(uf->name() + " " + uf->surname() + "\n");
                     spu->addVisit();
                 }
             }
@@ -39,8 +39,7 @@ void User::searchFunctor::operator()(const SmartPtr<User>& spu) {
             if(uf) {
                 string fullName = utilities::Utils::toLowerCase(uf->name() + " " + uf->surname());
                 if(utilities::Utils::toLowerCase(uf->name()) == _wanted || utilities::Utils::toLowerCase(uf->surname()) == _wanted || fullName == _wanted) {
-                    _result += spu->account()->info()->printHtml() + "\n";
-                    _result += "<hr>";
+                    _result.push_back(spu->account()->info()->printHtml() + "\n");
                     spu->addVisit();
                 }
             }
@@ -53,12 +52,10 @@ void User::searchFunctor::operator()(const SmartPtr<User>& spu) {
                 for(; it < skills.end(); ++it)
                     *it = utilities::Utils::toLowerCase(*it);
                 string fullName = utilities::Utils::toLowerCase(uf->name() + " " + uf->surname());
-                if(utilities::Utils::toLowerCase(uf->name()) == _wanted ||
+                if((utilities::Utils::toLowerCase(uf->name()) == _wanted ||
                    utilities::Utils::toLowerCase(uf->surname()) == _wanted ||
-                   fullName == _wanted || std::find(skills.begin(), skills.end(), _wanted) != skills.end()) {
-                    _result += spu->account()->info()->printHtml() + "\n";
-                    _result += spu->net()->printHtml();
-                    _result += "<hr>";
+                   fullName == _wanted || std::find(skills.begin(), skills.end(), _wanted) != skills.end()) && (spu->account()->username()->login() != _caller->account()->username()->login())){
+                    _result.push_back(spu->account()->info()->printHtml() + "\n" + spu->net()->printHtml());
                     spu->addVisit();
                 }
             }
@@ -68,7 +65,7 @@ void User::searchFunctor::operator()(const SmartPtr<User>& spu) {
         break;
     }
 }
-string User::searchFunctor::result() const {
+vector<string> User::searchFunctor::result() const {
     return _result;
 }
 
@@ -128,8 +125,8 @@ BasicUser::BasicUser(const BasicUser& usr) : User(usr){}
 User* BasicUser::clone() const {
     return new BasicUser(*this);
 }
-string BasicUser::userSearch(const LinqDB& db, const string& wanted) const {
-    return std::for_each(db.begin(), db.end(), searchFunctor(1, wanted)).result();
+vector<string> BasicUser::userSearch(const LinqDB& db, const string& wanted) const {
+    return std::for_each(db.begin(), db.end(), searchFunctor(1, wanted, this)).result();
 }
 
 BasicUser::linkedWith::linkedWith(int s = 0, User* usr = 0) : _offset(s), _owner(usr) {}
@@ -151,8 +148,8 @@ BusinessUser::BusinessUser(const BusinessUser& usr) : BasicUser(usr) {}
 User* BusinessUser::clone() const {
     return new BusinessUser(*this);
 }
-string BusinessUser::userSearch(const LinqDB& db, const string& wanted) const {
-    return std::for_each(db.begin(), db.end(), searchFunctor(2, wanted)).result();
+vector<string> BusinessUser::userSearch(const LinqDB& db, const string& wanted) const {
+    return std::for_each(db.begin(), db.end(), searchFunctor(2, wanted, this)).result();
 }
 
 ExecutiveUser::ExecutiveUser() : BusinessUser() {}
@@ -161,6 +158,6 @@ ExecutiveUser::ExecutiveUser(const ExecutiveUser& usr) : BusinessUser(usr) {}
 User* ExecutiveUser::clone() const {
     return new ExecutiveUser(*this);
 }
-string ExecutiveUser::userSearch(const LinqDB& db, const string& wanted) const {
-    return std::for_each(db.begin(), db.end(), searchFunctor(3, wanted)).result();
+vector<string> ExecutiveUser::userSearch(const LinqDB& db, const string& wanted) const {
+    return std::for_each(db.begin(), db.end(), searchFunctor(3, wanted, this)).result();
 }

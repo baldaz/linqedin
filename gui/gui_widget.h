@@ -47,7 +47,7 @@ private:
     QGroupBox* horizontalGroupBox;
     QGroupBox* gridGroupBox;
     QToolBar* toolbar;
-    enum { NumGridRows = 2, NumButtons = 6, NumToolButtons = 2 };
+    enum { NumGridRows = 2, NumButtons = 6, NumToolButtons = 3 };
     QToolButton* toolButtons[NumToolButtons];
     // QTextEdit* smallEditor;
     // QTextEdit* bigEditor;

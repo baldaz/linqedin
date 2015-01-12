@@ -82,7 +82,7 @@ vector<SmartPtr<User> > LinqClient::contactsInfo() const {
     }
     return ret;
 }
-string LinqClient::find(const string& wanted = "") const {
+vector<string> LinqClient::find(const string& wanted = "") const {
     return _usr->userSearch(*_db, wanted);
 }
 void LinqClient::addExperience(const Experience& xp) {

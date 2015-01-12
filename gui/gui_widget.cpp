@@ -27,16 +27,7 @@ Gui_Widget::Gui_Widget() {
     // connect(fullScreenAction, SIGNAL(triggered()), this, SLOT(showFullScreen()));
     // connect(normalViewAction, SIGNAL(triggered()), this, SLOT(showNormal()));
     // mainLayout->setMenuBar(menuBar);
-
-    toolbar = new QToolBar(this);
-    toolButtons[0] = new QToolButton();
-    toolButtons[0]->setIcon(QPixmap("img/add70.png"));
-    toolButtons[1] = new QToolButton();
-    toolButtons[1]->setIcon(QPixmap("img/cross108.png"));
-    toolbar->addWidget(toolButtons[0]);
-    toolbar->hide();
-    toolbar->addWidget(toolButtons[1]);
-    mainLayout->addWidget(toolbar, 0, Qt::AlignTop | Qt::AlignCenter);
+    // mainLayout->addWidget(toolbar, 0, Qt::AlignTop | Qt::AlignCenter);
     mainLayout->addWidget(gridGroupBox);
     setLayout(mainLayout);
     move(200, 30);
@@ -48,8 +39,6 @@ void Gui_Widget::createGridGroupBox() {
     QGridLayout* layout = new QGridLayout;
     dispInfo = new Gui_DisplayInfo(user);
     dispInfo->setFocusProxy(*buttons);
-    listLinks = new Gui_Links(user, dispInfo, layout);
-    listLinks->setFocusProxy(*buttons);
 
     portrait = new QLabel();
     QPixmap avatar ("img/seagal.jpg");
@@ -66,15 +55,36 @@ void Gui_Widget::createGridGroupBox() {
     links->setMaximumSize(120,20);
     // links->setPixmap(QPixmap("img/share12.png"));
     dispInfo->setStyleSheet("background:#000 url('img/abstract.png') no-repeat; background-attachment:fixed; border-radius: 10px; background-position: bottom;");
-    searchBar = new Gui_Search(user, dispInfo);
     // searchBar->setStyleSheet("background: #f0f");
     // dispInfo->setStyleSheet("background: #fff");
+
+    toolbar = new QToolBar(this);
+    toolButtons[0] = new QToolButton();
+    toolButtons[0]->setIcon(QPixmap("img/add70.png"));
+    toolButtons[1] = new QToolButton();
+    toolButtons[1]->setIcon(QPixmap("img/cross108.png"));
+    toolButtons[2] = new QToolButton();
+    toolButtons[2]->setIcon(QPixmap("img/right244.png"));
+    toolbar->addWidget(toolButtons[0]);
+    toolbar->addWidget(toolButtons[1]);
+    toolbar->addWidget(toolButtons[2]);
+    toolbar->hide();
+
+    listLinks = new Gui_Links(user, dispInfo, toolbar);
+    listLinks->setFocusProxy(*buttons);
+
+    searchBar = new Gui_Search(user, dispInfo, toolbar, listLinks);
+
     layout->addWidget(portrait, 0, 0, 1, 1);
-    layout->addWidget(dispInfo, 0, 1, 4, 1); /* 0 1 4 2*/
+    layout->addWidget(dispInfo, 0, 1, 3, 1); /* 0 1 4 2*/
     layout->addWidget(links, 1, 0, 1, 1);
     // listLinks->setStyleSheet("background: #f0f");
     layout->addWidget(listLinks, 2, 0, 1, 1);
     layout->addWidget(searchBar, 3, 0, 1, 1);
+    layout->addWidget(toolbar, 3, 1, 1, 1, Qt::AlignCenter);
+    QListWidget* lw = new QListWidget();
+    // layout->addWidget(lw, 4, 0, 1, 1);
+    // lw->hide();
     createRightSideList(layout);
     layout->setColumnStretch(0, 1);
     layout->setColumnStretch(1, 5);
@@ -82,7 +92,8 @@ void Gui_Widget::createGridGroupBox() {
     // layout->setColumnStretch(3, 2);
     layout->setRowStretch(0, 0);
     layout->setRowStretch(1, 10);
-    // layout->setRowStretch(2, 2);
+    // layout->setRowStretch(2, 20);
+    // layout->setRowStretch(3, 1);
     gridGroupBox->setLayout(layout);
 }
 
@@ -128,7 +139,8 @@ void Gui_Widget::viewMessages() {
 
 //slot
 void Gui_Widget::userSearch() {
-    dispInfo->setText(QString::fromStdString(user->find("Andrea")));
+//     vector<string> vec = user->find("Andrea");
+//     dispInfo->setText(QString::fromStdString(vec));
 }
 
 //slot

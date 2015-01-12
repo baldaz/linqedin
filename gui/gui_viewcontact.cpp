@@ -10,6 +10,6 @@ Gui_ViewContact::Gui_ViewContact(Gui_DisplayInfo* disp, const vector<SmartPtr<Us
             _display->setDocumentTitle(title);
         }
 }
-Gui_ViewContact::Gui_ViewContact(LinqClient* client, Gui_DisplayInfo* disp, const QString& view, QWidget* parent) : _display(disp), _toView(view), QVBoxLayout(parent) {
-    disp->setHtml(QString::fromStdString(client->find(view.toStdString())));
-}
+// Gui_ViewContact::Gui_ViewContact(LinqClient* client, Gui_DisplayInfo* disp, const QString& view, QWidget* parent) : _display(disp), _toView(view), QVBoxLayout(parent) {
+//     disp->setHtml(QString::fromStdString(client->find(view.toStdString())));
+// }

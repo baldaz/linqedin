@@ -9,6 +9,7 @@
 #include "linqclient.h"
 #include "linqadmin.h"
 #include "gui/gui_widget.h"
+#include "gui/gui_userwindow.h"
 #include <QPalette>
 #include <QStyleFactory>
 
@@ -45,7 +46,8 @@ int main(int argc, char**argv) {
     // cout << "+++++++++++++++++++++++++++++++++++++++++++++++++++" << endl;
 
     QApplication app(argc, argv);
-    Gui_Widget window;
+    // Gui_Widget window;
+    Gui_UserWindow window;
     QFile File("style/stylesheet.qss");
     File.open(QFile::ReadOnly);
     QString StyleSheet = QLatin1String(File.readAll());
