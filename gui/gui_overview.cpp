@@ -18,27 +18,33 @@ Gui_Overview::Gui_Overview(QWidget* parent) : QGridLayout(parent) {
     QLabel* links = new QLabel(tr("Connections (%1)").arg(user->netSize()));
     links->setMaximumSize(120,20);
     // links->setPixmap(QPixmap("img/share12.png"));
-    dispInfo->setStyleSheet("background:#000 url('img/abstract.png') no-repeat; background-attachment:fixed; border-radius: 10px; background-position: bottom;");
+    // dispInfo->setStyleSheet("background:#000 url('img/abstract.png') no-repeat; background-attachment:fixed; border-radius: 10px; background-position: bottom;");
     // searchBar->setStyleSheet("background: #f0f");
     // dispInfo->setStyleSheet("background: #fff");
 
     toolbar = new QToolBar;
     toolButtons[0] = new QToolButton(toolbar);
     toolButtons[0]->setIcon(QPixmap("img/add70.png"));
+    toolButtons[0]->setToolTip("Add connection");
     toolButtons[1] = new QToolButton(toolbar);
     toolButtons[1]->setIcon(QPixmap("img/cross108.png"));
+    toolButtons[1]->setToolTip("Delete connection");
     toolButtons[2] = new QToolButton(toolbar);
     toolButtons[2]->setIcon(QPixmap("img/right244.png"));
+    toolButtons[2]->setToolTip("Next result");
+
     toolbar->addWidget(toolButtons[0]);
     toolbar->addWidget(toolButtons[1]);
     toolbar->addWidget(toolButtons[2]);
     toolbar->hide();
-    // toolbar->blockSignals(true);
-    toolbar->installEventFilter(this);
+    toolbar->installEventFilter(this); //prevent double click maximizing window
 
     listLinks = new Gui_Links(user, dispInfo, toolbar);
 
     searchBar = new Gui_Search(user, dispInfo, toolbar, listLinks);
+
+    connect(toolButtons[0], SIGNAL(clicked()), this, SLOT(addConnection()));
+    connect(toolButtons[1], SIGNAL(clicked()), this, SLOT(removeConnection()));
 
     this->addWidget(portrait, 0, 0, 1, 1);
     this->addWidget(dispInfo, 0, 1, 3, 1); /* 0 1 4 2*/
@@ -47,9 +53,7 @@ Gui_Overview::Gui_Overview(QWidget* parent) : QGridLayout(parent) {
     this->addWidget(listLinks, 2, 0, 1, 1);
     this->addWidget(searchBar, 3, 0, 1, 1);
     this->addWidget(toolbar, 3, 1, 1, 1, Qt::AlignCenter);
-    QListWidget* lw = new QListWidget();
-    // this->addWidget(lw, 4, 0, 1, 1);
-    // lw->hide();
+
     createRightSideList(this);
     this->setColumnStretch(0, 1);
     this->setColumnStretch(1, 5);
@@ -116,4 +120,14 @@ bool Gui_Overview::eventFilter(QObject* obj, QEvent* event) {
             return true;
     }
     else return false;
+}
+
+void Gui_Overview::addConnection() {
+    if(!dispInfo->documentTitle().isEmpty()) listLinks->addConn();
+    else searchBar->addConn();
+}
+
+void Gui_Overview::removeConnection() {
+    if(!dispInfo->documentTitle().isEmpty()) listLinks->rmConn();
+    else searchBar->rmConn();
 }

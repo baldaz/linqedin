@@ -18,21 +18,26 @@ Gui_Search::Gui_Search(LinqClient* cli, Gui_DisplayInfo* disp, QToolBar* tb, Gui
 void Gui_Search::search() {
     res = _client->find(text().toStdString());
     if(res.empty()) {
-        _tbar->hide();
+        if(!_tbar->isHidden()) _tbar->hide();
         _display->setHtml("<h2> Nessun riscontro</h2>");
     }
     else {
-        _tbar->show();
+        if(_tbar->isHidden()) _tbar->show();
+        // _tbar->actions().at(0)->setEnabled(true);
+        // _tbar->actions().at(2)->setEnabled(true);
         it = res.begin();
-        connect(_tbar->childAt(60,1), SIGNAL(clicked()), this, SLOT(incrementIterator()));
+        if(res.size() > 1)
+            if(!_tbar->actions().at(2)->isVisible()) _tbar->actions().at(2)->setVisible(true);
+        connect(_tbar->childAt(60,0), SIGNAL(clicked()), this, SLOT(incrementIterator()));
         showResult();
     }
 }
 
 void Gui_Search::showResult() {
     if(it != res.end()) {
-        // QList<QListWidgetItem*> list = _links->findItems(text(), Qt::MatchContains);
         bool list = _client->linked(Username(it->first, ""));
+        _display->setDocumentTitle(QString::fromStdString(it->first));
+        _cnt = _display->documentTitle();
         if(!list) {
             _tbar->actions().at(0)->setVisible(true);
             _tbar->actions().at(1)->setVisible(false);
@@ -51,6 +56,7 @@ void Gui_Search::showResult() {
     else {
         _display->setHtml("<h2>Fine</h2>");
         _tbar->actions().at(2)->setVisible(false);
+        // disconnect(_tbar->childAt(60,0), 0, 0, 0);
     }
 }
 
@@ -61,4 +67,17 @@ void Gui_Search::incrementIterator() {
     showResult();
 }
 
+void Gui_Search::addConn() {
+    std::cout << "added" << std::endl;
+    std::cout << _cnt.toStdString() << std::endl;
+    Username us(_cnt.toStdString(), "");
+    _client->addContact(us);
+}
+
+void Gui_Search::rmConn() {
+    std::cout << "removed" << std::endl;
+    std::cout << _cnt.toStdString() << std::endl;
+    Username us(_cnt.toStdString(), "");
+    _client->removeContact(us);
+}
 // int Gui_Search::_i = 0;

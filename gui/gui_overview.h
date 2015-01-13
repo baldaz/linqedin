@@ -41,6 +41,8 @@ public:
     void refresh();
 signals:
 public slots:
+    void addConnection();
+    void removeConnection();
 };
 
 #endif

@@ -18,11 +18,13 @@ class Gui_Links : public QListWidget {
 public:
     Gui_Links(LinqClient*, Gui_DisplayInfo*, QToolBar*, QWidget* parent = 0);
     void refresh();
-    void removeWidget();
+    void addConn();
+    void rmConn();
 signals:
 
 public slots:
     void viewContact();
+    void reload();
 private:
     LinqClient* _client;
     Gui_DisplayInfo* _display;

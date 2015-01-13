@@ -3,6 +3,10 @@
     color: #fff; /*#e6e6e6*/
     border: none;
 }
+QTextEdit {
+    background:#000 url('img/abstract.png') no-repeat; background-attachment:fixed;
+    border-radius: 10px; background-position: bottom;
+}
 QPushButton {
     outline: none;
     border: none;

@@ -3,6 +3,7 @@
 Gui_Links::Gui_Links(LinqClient* client, Gui_DisplayInfo* disp, QToolBar* tb, QWidget* parent) : _client(client), _display(disp), _tbar(tb), QListWidget(parent) {
     refresh();
     connect(this, SIGNAL(clicked(QModelIndex)), this, SLOT(viewContact()));
+    // connect(this->model(), SIGNAL(rowsInserted(QModelIndex, int, int)), this, SLOT(reload()));
 }
 void Gui_Links::createList() {
     vector<SmartPtr<User> > vec = _client->contactsInfo();
@@ -22,23 +23,40 @@ void Gui_Links::createList() {
 }
 void Gui_Links::refresh() {
     this->clear();
-    // _layout->removeWidget(rm);
     createList();
-}
-void Gui_Links::removeWidget() {
 }
 //slot
 void Gui_Links::viewContact() {
     _selected = this->currentItem()->data(Qt::UserRole + 1).toString();
-    Gui_ViewContact* _view = new Gui_ViewContact(_display, _client->contactsInfo(), _selected);
+    // Gui_ViewContact* _view = new Gui_ViewContact(_display, _client->contactsInfo(), _selected);
+
+    vector<SmartPtr<User> > _contacts = _client->contactsInfo();
+    vector<SmartPtr<User> >::iterator it = _contacts.begin();
+    for(; it < _contacts.end(); ++it)
+        if(QString::fromStdString((*it)->account()->username()->login()) == _selected) {
+            QString output = QString(QString::fromStdString((*it)->account()->info()->printHtml()) + "<h5>Visit Count</h5><p> %1").arg((*it)->visitCount());
+            _display->setHtml(output);
+            QString title = QString(QString::fromStdString((*it)->account()->username()->login()));
+            _display->setDocumentTitle(title);
+        }
     _client->addVisitTo(Username(_selected.toStdString(), ""));
-    _tbar->show();
-    _tbar->actions().at(0)->setVisible(false);
-    _tbar->actions().at(1)->setVisible(true);
-    _tbar->actions().at(2)->setVisible(false);
-    // _selected = this->currentItem()->data(Qt::DisplayRole).toString();
-    // Gui_ViewContact* _view = new Gui_ViewContact(_client, _display, _selected);
-    // rm = new QPushButton("REMOVE CONNECTION");
-    // _layout->removeWidget(rm);
-    // _layout->addWidget(rm, 3, 2, 1, -1);
+
+    if(_tbar->isHidden()) _tbar->show();
+    // _tbar->actions().at(0)->setIconVisibleInMenu(false);
+    // if(_tbar->actions().at(0)->isVisible()) _tbar->actions().at(0)->setVisible(false);
+    // if(!_tbar->actions().at(1)->isVisible()) _tbar->actions().at(1)->setVisible(true);
+    // if(_tbar->actions().at(2)->isVisible()) _tbar->actions().at(2)->setVisible(true);
+}
+
+void Gui_Links::reload() {
+    refresh();
+}
+
+void Gui_Links::addConn() {
+    Username us((_display->documentTitle()).toStdString(), "");
+    _client->addContact(us);
+}
+void Gui_Links::rmConn() {
+    Username us((_display->documentTitle()).toStdString(), "");
+    _client->removeContact(us);
 }
