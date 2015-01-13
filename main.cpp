@@ -1,17 +1,10 @@
-// #include <QApplication>
-// #include <QFont>
-// #include <QPushButton>
-// #include <QWidget>
-#include <iostream>
-// #include "account.h"
-// #include "linqnet.h"
-// #include "linqdb.h"
-#include "linqclient.h"
-#include "linqadmin.h"
-#include "gui/gui_widget.h"
+// #include <iostream>
+// #include "linqclient.h"
+// #include "linqadmin.h"
+// #include "gui/gui_widget.h"
 #include "gui/gui_userwindow.h"
-#include <QPalette>
-#include <QStyleFactory>
+// #include <QPalette>
+// #include <QStyleFactory>
 
 using std::cout;
 using std::endl;
@@ -46,19 +39,12 @@ int main(int argc, char**argv) {
     // cout << "+++++++++++++++++++++++++++++++++++++++++++++++++++" << endl;
 
     QApplication app(argc, argv);
-    // Gui_Widget window;
     Gui_UserWindow window;
     QFile File("style/stylesheet.qss");
     File.open(QFile::ReadOnly);
     QString StyleSheet = QLatin1String(File.readAll());
     app.setStyleSheet(StyleSheet);
-    window.setWindowFlags(Qt::Window | Qt::FramelessWindowHint);
-    window.setStyleSheet("border: none");
     window.setWindowTitle("");
-    // window.setAttribute(Qt::WA_TranslucentBackground, true);
-    // window.setAttribute(Qt::WA_NoSystemBackground, true);
-    // window.setWindowOpacity(0.95);
-    window.show();
     return app.exec();
     // return 0;
 }

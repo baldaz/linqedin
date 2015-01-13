@@ -1,6 +1,12 @@
 #include "gui_userwindow.h"
 
 Gui_UserWindow::Gui_UserWindow(QWidget* parent) : QWidget(parent) {
+    setWindowFlags(Qt::FramelessWindowHint);
+    setWindowOpacity(0.95);
+    // this->setStyleSheet("* { background-color: white; }");
+
+    show();
+
     createHorizontalGroupBox();
     createGridGroupBox();
     QVBoxLayout* mainLayout = new QVBoxLayout;
@@ -24,6 +30,7 @@ void Gui_UserWindow::createHorizontalGroupBox() {
 
     buttons[0] = new QPushButton("OVERVIEW");
     buttons[0]->setIcon(QPixmap("img/user91.png"));
+    // buttons[0]->installEventFilter(this);
     layout->addWidget(buttons[0]);
     connect(buttons[0], SIGNAL(clicked()), this, SLOT(overview()));
 
@@ -78,3 +85,13 @@ void Gui_UserWindow::mouseDoubleClickEvent(QMouseEvent* event) {
 void Gui_UserWindow::overview() {
     layout->refresh();
 }
+
+// bool Gui_UserWindow::eventFilter(QObject* obj, QEvent* event) {
+//     if(event->type() == QEvent::MouseButtonDblClick) {
+//         QMouseEvent * mouseEvent = static_cast <QMouseEvent *> (event);
+//         if(mouseEvent->button() == Qt::LeftButton | Qt::RightButton)
+//             return true;
+
+//     }
+//     else return true;
+// }

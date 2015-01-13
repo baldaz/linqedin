@@ -5,7 +5,8 @@
 #include <QListWidget>
 #include <QToolBar>
 #include <QToolButton>
-// #include <QMouseEvent>
+#include <QEvent>
+#include <QMouseEvent>
 #include <QLabel>
 #include <QPainter>
 #include <QBitmap>
@@ -30,6 +31,7 @@ class Gui_Overview : public QGridLayout {
 
     void createRightSideList(QGridLayout*);
     void logicInitialize();
+    bool eventFilter(QObject*, QEvent*);
 
 // protected:
     // void mousePressEvent(QMouseEvent*);

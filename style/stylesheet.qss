@@ -1,6 +1,7 @@
 * {
     background: #000; /*#555 o #404040*/
     color: #fff; /*#e6e6e6*/
+    border: none;
 }
 QPushButton {
     outline: none;

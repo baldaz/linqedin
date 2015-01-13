@@ -33,7 +33,8 @@ Gui_Overview::Gui_Overview(QWidget* parent) : QGridLayout(parent) {
     toolbar->addWidget(toolButtons[1]);
     toolbar->addWidget(toolButtons[2]);
     toolbar->hide();
-    toolbar->blockSignals(true);
+    // toolbar->blockSignals(true);
+    toolbar->installEventFilter(this);
 
     listLinks = new Gui_Links(user, dispInfo, toolbar);
 
@@ -107,3 +108,12 @@ void Gui_Overview::refresh() {
 //         move(newpos);
 //     }
 // }
+
+bool Gui_Overview::eventFilter(QObject* obj, QEvent* event) {
+    if(event->type() == QEvent::MouseButtonDblClick) {
+        QMouseEvent * mouseEvent = static_cast <QMouseEvent *> (event);
+        if(mouseEvent->button() == Qt::LeftButton | Qt::RightButton)
+            return true;
+    }
+    else return false;
+}
