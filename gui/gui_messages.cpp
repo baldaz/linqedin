@@ -19,5 +19,5 @@ Gui_Messages::Gui_Messages(LinqClient* cli, QWidget* parent) : _client(cli), QGr
     QLabel* ne = new QLabel("<h2>New message</h2>");
     this->addWidget(ne, 1, 0, 1, -1, Qt::AlignCenter);
     Gui_NewMessage* newmex = new Gui_NewMessage(parent);
-    this->addWidget(newmex, 2, 0, -1, -1);
+    this->addWidget(newmex, 2, 0, 3, -1);
 }

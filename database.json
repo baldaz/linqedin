@@ -44,6 +44,23 @@
             "Sara87"
         ],
         "password": "qwerty",
+        "payments": [
+            {
+                "approved": false,
+                "code": "0132532",
+                "nominee": "Andrea Baldan"
+            },
+            {
+                "approved": false,
+                "code": "0132532",
+                "nominee": "Andrea Baldan"
+            },
+            {
+                "approved": false,
+                "code": "0132532",
+                "nominee": "Andrea Baldan"
+            }
+        ],
         "privilege": 2,
         "skills": [
             "Nodejs",
@@ -91,6 +108,8 @@
             "Atilio"
         ],
         "password": "maurisio",
+        "payments": [
+        ],
         "privilege": 0,
         "skills": [
             "C++",
@@ -131,6 +150,8 @@
             "Pablito"
         ],
         "password": "piovra",
+        "payments": [
+        ],
         "privilege": 0,
         "skills": [
             "C++",
@@ -169,6 +190,8 @@
             "Baldaz"
         ],
         "password": "rd",
+        "payments": [
+        ],
         "privilege": 0,
         "skills": [
             "C#",
@@ -211,6 +234,8 @@
             "aui"
         ],
         "password": "sara",
+        "payments": [
+        ],
         "privilege": 0,
         "skills": [
             "Math",
@@ -250,6 +275,8 @@
             "Sara87"
         ],
         "password": "wword",
+        "payments": [
+        ],
         "privilege": 0,
         "skills": [
             "Elettronica",
@@ -309,6 +336,8 @@
             "Atilio"
         ],
         "password": "rayback",
+        "payments": [
+        ],
         "privilege": 2,
         "skills": [
             "Nodejs",
@@ -383,6 +412,8 @@
             "aui"
         ],
         "password": "machete",
+        "payments": [
+        ],
         "privilege": 2,
         "skills": [
             "Machete",

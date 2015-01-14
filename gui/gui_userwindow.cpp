@@ -60,7 +60,7 @@ void Gui_UserWindow::createHorizontalGroupBox() {
     buttons[4] = new QPushButton("&LOGOUT");
     buttons[4]->setIcon(QPixmap("img/logout13.png"));
     layout->addWidget(buttons[4], Qt::AlignTop);
-    connect(buttons[4], SIGNAL(clicked()), this, SLOT(close()));
+    connect(buttons[4], SIGNAL(clicked()), this, SLOT(logout()));
     layout->stretch(1);
     horizontalGroupBox->setLayout(layout);
     // horizontalGroupBox->setStyleSheet("background-color:#fff");
@@ -129,6 +129,12 @@ void Gui_UserWindow::payments() {
     // _layoutStack->widget(1)->hide();
     _layoutStack->widget(2)->show();
     _layoutStack->setCurrentWidget(paymentsGroupBox);
+}
+
+//SLOT
+void Gui_UserWindow::logout() {
+    // user->save();
+    close();
 }
 // bool Gui_UserWindow::eventFilter(QObject* obj, QEvent* event) {
 //     if(event->type() == QEvent::MouseButtonDblClick) {

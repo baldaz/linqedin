@@ -12,6 +12,7 @@ Gui_Search::Gui_Search(LinqClient* cli, Gui_DisplayInfo* disp, QToolBar* tb, Gui
     QCompleter* completer = new QCompleter(completions);
     completer->setCaseSensitivity(Qt::CaseInsensitive);
     setCompleter(completer);
+    setClearButtonEnabled(true);
     connect(this, SIGNAL(returnPressed()), this, SLOT(search()));
 }
 

@@ -64,9 +64,9 @@ void LinqDB::read(const QJsonArray& qjs) {
             QJsonObject subP;
             for(int i = 0; i < payments.size(); ++i) {
                 subP = payments[i].toObject();
-                Subscription subscr(priv);
+                Subscription* subscr = new Subscription(priv);
                 BillMethod* bmeth = new CreditCard(subP["code"].toString().toStdString(), subP["nominee"].toString().toStdString());
-                Payment pay(usr, &subscr, bmeth, subP["approved"].toBool());
+                Payment pay(usr, subscr, bmeth, subP["approved"].toBool());
                 acc->addPayment(pay);
             }
         }

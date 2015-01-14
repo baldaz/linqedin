@@ -50,6 +50,7 @@ public slots:
     void overview();
     void messages();
     void payments();
+    void logout();
 };
 
 #endif

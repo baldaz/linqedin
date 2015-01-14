@@ -1,8 +1,8 @@
 #include "payment.h"
 
-Payment::Payment(Username* user, Subscription* sub, BillMethod* bmthd, bool appr = false) : _requester(user), _sub(sub), _bmethod(bmthd), _approvation(appr) {}
+Payment::Payment(Username* user, Subscription* sub, BillMethod* bmthd, bool appr) : _requester(user), _sub(sub), _bmethod(bmthd), _approvation(appr) {}
 Payment::Payment(const Payment& pay) : _requester(pay._requester), _approvation(pay._approvation), _sub(pay._sub), _bmethod(pay._bmethod) {}
-Payment::~Payment() { delete _requester; delete _sub; }
+Payment::~Payment() { /*delete _requester; delete _sub;*/ }
 Payment* Payment::clone() const {
     return new Payment(*this);
 }

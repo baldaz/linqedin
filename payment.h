@@ -12,7 +12,7 @@ private:
     BillMethod* _bmethod;
     bool _approvation;
 public:
-    Payment(Username*, Subscription*, BillMethod*, bool);
+    Payment(Username*, Subscription*, BillMethod*, bool = false);
     Payment(const Payment&);
     ~Payment();
     Payment* clone() const;

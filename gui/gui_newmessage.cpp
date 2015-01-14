@@ -23,5 +23,8 @@ Gui_NewMessage::Gui_NewMessage(QWidget *parent) : QWidget(parent) {
   te->setStyleSheet("background: #1a1a1a; border-radius: 5px; color: #e6e6e6; font-weight: 400;");
   grid->addWidget(te, 2, 1, 3, 1);
 
+  // QPushButton* send = new QPushButton("SEND", this);
+  // grid->addWidget(send, 10, 1, 11, 1, Qt::AlignTop | Qt::AlignRight);
+
   setLayout(grid);
 }
