@@ -17,6 +17,7 @@ HEADERS += account.h \
            gui/gui_links.h \
            gui/gui_listmessages.h \
            gui/gui_messages.h \
+           gui/gui_newmessage.h \
            gui/gui_overview.h \
            gui/gui_search.h \
            gui/gui_userwindow.h \
@@ -43,6 +44,7 @@ SOURCES += account.cpp \
            gui/gui_links.cpp \
            gui/gui_listmessages.cpp \
            gui/gui_messages.cpp \
+           gui/gui_newmessage.cpp \
            gui/gui_overview.cpp \
            gui/gui_search.cpp \
            gui/gui_userwindow.cpp \

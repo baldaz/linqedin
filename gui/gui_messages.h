@@ -2,6 +2,7 @@
 #define GUI_MESSAGES_H
 
 #include "gui_listmessages.h"
+#include "gui_newmessage.h"
 #include <QGridLayout>
 #include <QLabel>
 #include <QBitmap>
