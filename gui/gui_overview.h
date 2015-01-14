@@ -18,7 +18,6 @@
 class Gui_Overview : public QGridLayout {
     Q_OBJECT
 
-    // QPoint mpos;
     QToolBar* toolbar;
     enum { NumToolButtons = 3 };
     QToolButton* toolButtons[NumToolButtons];
@@ -27,20 +26,19 @@ class Gui_Overview : public QGridLayout {
     Gui_Search* searchBar;
     QLabel* portrait;
     QListWidget* listview;
+    QListWidget* rightSide;
     LinqClient* user;
 
     void createRightSideList(QGridLayout*);
     void logicInitialize();
     bool eventFilter(QObject*, QEvent*);
 
-// protected:
-    // void mousePressEvent(QMouseEvent*);
-    // void mouseMoveEvent(QMouseEvent*);
 public:
     Gui_Overview(QWidget* parent = 0);
     void refresh();
 signals:
 public slots:
+    void viewContact();
     void addConnection();
     void removeConnection();
 };

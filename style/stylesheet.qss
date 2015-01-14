@@ -44,3 +44,11 @@ QMenuBar::item {
 QToolBar {
     spacing: 2px;
 }
+QTableView {
+    width:100%;
+}
+QTableView QTableCornerButton::section {
+    border: none;
+    background: transparent;
+}
+QHeaderView::section { background-color:transparent; }

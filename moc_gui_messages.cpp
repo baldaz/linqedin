@@ -1,16 +1,16 @@
 /****************************************************************************
-** Meta object code from reading C++ file 'gui_graphicsview.h'
+** Meta object code from reading C++ file 'gui_messages.h'
 **
 ** Created by: The Qt Meta Object Compiler version 67 (Qt 5.2.1)
 **
 ** WARNING! All changes made in this file will be lost!
 *****************************************************************************/
 
-#include "gui/gui_graphicsview.h"
+#include "gui/gui_messages.h"
 #include <QtCore/qbytearray.h>
 #include <QtCore/qmetatype.h>
 #if !defined(Q_MOC_OUTPUT_REVISION)
-#error "The header file 'gui_graphicsview.h' doesn't include <QObject>."
+#error "The header file 'gui_messages.h' doesn't include <QObject>."
 #elif Q_MOC_OUTPUT_REVISION != 67
 #error "This file was generated using the moc from 5.2.1. It"
 #error "cannot be used with the include files from this version of Qt."
@@ -18,24 +18,24 @@
 #endif
 
 QT_BEGIN_MOC_NAMESPACE
-struct qt_meta_stringdata_Gui_Graphicsview_t {
+struct qt_meta_stringdata_Gui_Messages_t {
     QByteArrayData data[1];
-    char stringdata[18];
+    char stringdata[14];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
-    offsetof(qt_meta_stringdata_Gui_Graphicsview_t, stringdata) + ofs \
+    offsetof(qt_meta_stringdata_Gui_Messages_t, stringdata) + ofs \
         - idx * sizeof(QByteArrayData) \
     )
-static const qt_meta_stringdata_Gui_Graphicsview_t qt_meta_stringdata_Gui_Graphicsview = {
+static const qt_meta_stringdata_Gui_Messages_t qt_meta_stringdata_Gui_Messages = {
     {
-QT_MOC_LITERAL(0, 0, 16)
+QT_MOC_LITERAL(0, 0, 12)
     },
-    "Gui_Graphicsview\0"
+    "Gui_Messages\0"
 };
 #undef QT_MOC_LITERAL
 
-static const uint qt_meta_data_Gui_Graphicsview[] = {
+static const uint qt_meta_data_Gui_Messages[] = {
 
  // content:
        7,       // revision
@@ -51,7 +51,7 @@ static const uint qt_meta_data_Gui_Graphicsview[] = {
        0        // eod
 };
 
-void Gui_Graphicsview::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void **_a)
+void Gui_Messages::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void **_a)
 {
     Q_UNUSED(_o);
     Q_UNUSED(_id);
@@ -59,28 +59,28 @@ void Gui_Graphicsview::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int
     Q_UNUSED(_a);
 }
 
-const QMetaObject Gui_Graphicsview::staticMetaObject = {
-    { &QGraphicsView::staticMetaObject, qt_meta_stringdata_Gui_Graphicsview.data,
-      qt_meta_data_Gui_Graphicsview,  qt_static_metacall, 0, 0}
+const QMetaObject Gui_Messages::staticMetaObject = {
+    { &QGridLayout::staticMetaObject, qt_meta_stringdata_Gui_Messages.data,
+      qt_meta_data_Gui_Messages,  qt_static_metacall, 0, 0}
 };
 
 
-const QMetaObject *Gui_Graphicsview::metaObject() const
+const QMetaObject *Gui_Messages::metaObject() const
 {
     return QObject::d_ptr->metaObject ? QObject::d_ptr->dynamicMetaObject() : &staticMetaObject;
 }
 
-void *Gui_Graphicsview::qt_metacast(const char *_clname)
+void *Gui_Messages::qt_metacast(const char *_clname)
 {
     if (!_clname) return 0;
-    if (!strcmp(_clname, qt_meta_stringdata_Gui_Graphicsview.stringdata))
-        return static_cast<void*>(const_cast< Gui_Graphicsview*>(this));
-    return QGraphicsView::qt_metacast(_clname);
+    if (!strcmp(_clname, qt_meta_stringdata_Gui_Messages.stringdata))
+        return static_cast<void*>(const_cast< Gui_Messages*>(this));
+    return QGridLayout::qt_metacast(_clname);
 }
 
-int Gui_Graphicsview::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
+int Gui_Messages::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
 {
-    _id = QGraphicsView::qt_metacall(_c, _id, _a);
+    _id = QGridLayout::qt_metacall(_c, _id, _a);
     if (_id < 0)
         return _id;
     return _id;

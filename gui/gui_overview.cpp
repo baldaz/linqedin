@@ -46,7 +46,8 @@ Gui_Overview::Gui_Overview(QWidget* parent) : QGridLayout(parent) {
     connect(toolButtons[0], SIGNAL(clicked()), this, SLOT(addConnection()));
     connect(toolButtons[1], SIGNAL(clicked()), this, SLOT(removeConnection()));
 
-    this->addWidget(portrait, 0, 0, 1, 1);
+
+    this->addWidget(portrait, 0, 0, 1, 1, Qt::AlignTop);
     this->addWidget(dispInfo, 0, 1, 3, 1); /* 0 1 4 2*/
     this->addWidget(links, 1, 0, 1, 1);
     // listLinks->setStyleSheet("background: #f0f");
@@ -55,6 +56,7 @@ Gui_Overview::Gui_Overview(QWidget* parent) : QGridLayout(parent) {
     this->addWidget(toolbar, 3, 1, 1, 1, Qt::AlignCenter);
 
     createRightSideList(this);
+    connect(rightSide, SIGNAL(clicked(QModelIndex)), this, SLOT(viewContact()));
     this->setColumnStretch(0, 1);
     this->setColumnStretch(1, 5);
     this->setColumnStretch(2, 2);
@@ -71,7 +73,7 @@ void Gui_Overview::logicInitialize() {
 
 void Gui_Overview::createRightSideList(QGridLayout* lay) {
     vector<SmartPtr<User> > users = user->similarity();
-    QListWidget* rightSide = new QListWidget();
+    rightSide = new QListWidget();
     QFont font;
     font.setBold(true);
     QListWidgetItem* item = new QListWidgetItem();
@@ -88,6 +90,7 @@ void Gui_Overview::createRightSideList(QGridLayout* lay) {
         fullname = QString(QString::fromStdString(uf->name()) + " " + QString::fromStdString(uf->surname()));
         itemD->setData(Qt::DisplayRole, fullname);
         itemD->setData(Qt::DecorationRole, QPixmap("img/link19.png"));
+        itemD->setData(Qt::UserRole + 1, QString::fromStdString((*it)->account()->username()->login()));
         // itemD->setData(Qt::ToolTipRole, "Connected with Pablos, Sara, Atos");
         rightSide->addItem(itemD);
     }
@@ -97,21 +100,10 @@ void Gui_Overview::createRightSideList(QGridLayout* lay) {
 
 void Gui_Overview::refresh() {
     listLinks->refresh();
+    createRightSideList(this);
     dispInfo->setHtml(QString::fromStdString(user->displayHtmlInfo()));
     toolbar->hide();
 }
-
-// void Gui_Overview::mousePressEvent(QMouseEvent* event) {
-//     mpos = event->pos();
-// }
-
-// void Gui_Overview::mouseMoveEvent(QMouseEvent* event) {
-//     if(event->buttons() && Qt::LeftButton) {
-//         QPoint diff = event->pos() - mpos;
-//         QPoint newpos = pos() + diff;
-//         move(newpos);
-//     }
-// }
 
 bool Gui_Overview::eventFilter(QObject* obj, QEvent* event) {
     if(event->type() == QEvent::MouseButtonDblClick) {
@@ -120,6 +112,20 @@ bool Gui_Overview::eventFilter(QObject* obj, QEvent* event) {
             return true;
     }
     else return false;
+}
+
+void Gui_Overview::viewContact() {
+    QString sel = rightSide->currentItem()->data(Qt::DisplayRole).toString();
+    map<string, string> _contacts = user->find(sel.toStdString());
+    map<string, string>::iterator it = _contacts.begin();
+    // for(; it != _contacts.end(); ++it) {
+        QString output = QString(QString::fromStdString(it->second));
+        dispInfo->setHtml(output);
+        QString title = QString(QString::fromStdString(it->first));
+        dispInfo->setDocumentTitle(title);
+        user->addVisitTo(Username(it->first, ""));
+    // }
+    toolbar->show();
 }
 
 void Gui_Overview::addConnection() {
