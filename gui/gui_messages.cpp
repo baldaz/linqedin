@@ -1,18 +1,9 @@
 #include "gui_messages.h"
 
-Gui_Messages::Gui_Messages(QWidget* parent) : QGridLayout(parent) {
+Gui_Messages::Gui_Messages(LinqClient* cli, QWidget* parent) : _client(cli), QGridLayout(parent) {
     _list = new Gui_ListMessages(parent);
-    QLabel* portrait = new QLabel;
-    QPixmap avatar ("img/seagal.jpg");
-    QPixmap mask(avatar.size());
-    QPainter maskPainter(&mask);
-    maskPainter.fillRect(mask.rect(), Qt::white);
-    maskPainter.setBrush(Qt::black);
-    maskPainter.drawRoundedRect(mask.rect(), 75, 75);
-    avatar.setMask(mask.createMaskFromColor(Qt::white));
-    avatar = avatar.scaled(150, 150, Qt::KeepAspectRatio, Qt::SmoothTransformation);
+    Gui_Avatar* portrait = new Gui_Avatar(QString::fromStdString(_client->avatar()));
 
-    portrait->setPixmap(avatar);
     // portrait->setStyleSheet("background:#fff");
     // _list->setStyleSheet("background:#ff0");
     this->addWidget(portrait, 0, 0, 1, 1, Qt::AlignCenter);

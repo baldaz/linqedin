@@ -71,7 +71,10 @@ void User::searchFunctor::operator()(const SmartPtr<User>& spu) {
                         if((std::find(skills.begin(), skills.end(), *it) != skills.end()) && (spu->account()->username()->login() != _caller->account()->username()->login()))
                             found = false;
                         else found = true;
-                    if(!found) _result.insert(std::pair<string, string>(spu->account()->username()->login(), spu->account()->info()->printHtml() + "\n" + spu->net()->printHtml()));
+                    if(!found) {
+                        _result.insert(std::pair<string, string>(spu->account()->username()->login(), spu->account()->info()->printHtml() + "\n" + spu->net()->printHtml()));
+                        spu->addVisit();
+                    }
                 }
             }
             else {

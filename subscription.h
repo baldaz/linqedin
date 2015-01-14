@@ -13,6 +13,7 @@ private:
     static double _business;
     static double _executive;
 public:
+    Subscription(privLevel);
     privLevel level() const;
     void setLevel(privLevel);
     static void setLevelAmount(privLevel, double);

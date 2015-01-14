@@ -7,7 +7,7 @@ LinqDB::LinqDB() {
     load();
 }
 LinqDB::~LinqDB() {}
-bool LinqDB::fromJsonObject() {
+bool LinqDB::readJson() {
     QFile loadDB(QStringLiteral("database.json"));
     if (!loadDB.open(QIODevice::ReadOnly)) {
         qWarning("Couldn't open database.");
@@ -29,6 +29,8 @@ void LinqDB::read(const QJsonArray& qjs) {
         UserInfo* uif = new UserInfo();
         // uif = dynamic_cast<UserInfo*> (uf);
         LinqNet* net = new LinqNet();
+        privLevel priv = static_cast<privLevel> (obj["privilege"].toInt());
+        Account* acc;
         QJsonObject info = obj["info"].toObject();
         if(uif) {
             uif->setName(info["name"].toString().toStdString());
@@ -50,14 +52,24 @@ void LinqDB::read(const QJsonArray& qjs) {
                 uif->addInterest(interests[i].toString().toStdString());
             QJsonArray formations = obj["formations"].toArray();
             QJsonObject sub;
-            for(int i = 0; i < formations.size(); ++i){
+            for(int i = 0; i < formations.size(); ++i) {
                 sub = formations[i].toObject();
                 Instruction ins(sub["location"].toString().toStdString(), sub["from"].toString().toStdString(), sub["to"].toString().toStdString());
                 uif->addFormation(&ins);
             }
+
+            acc = new Account(uif, usr, priv);
+
+            QJsonArray payments = obj["payments"].toArray();
+            QJsonObject subP;
+            for(int i = 0; i < payments.size(); ++i) {
+                subP = payments[i].toObject();
+                Subscription subscr(priv);
+                BillMethod* bmeth = new CreditCard(subP["code"].toString().toStdString(), subP["nominee"].toString().toStdString());
+                Payment pay(usr, &subscr, bmeth, subP["approved"].toBool());
+                acc->addPayment(pay);
+            }
         }
-        privLevel priv = static_cast<privLevel> (obj["privilege"].toInt());
-        Account* acc = new Account(uif, usr, priv);
         User* s = NULL;
         switch(priv) {
             case 0:
@@ -91,13 +103,14 @@ void LinqDB::readNet(const QJsonArray& qjs) {
         }
     }
 }
-vector<QJsonObject> LinqDB::toJsonObject() const {
+vector<QJsonObject> LinqDB::writeJson() const {
     vector<QJsonObject> vjs;
     UserInfo* uif; Bio* bio;
     for(int i = 0; i < size(); ++i) {
-        QJsonObject jUser, jInf, jFormations;
-        QJsonArray jArr, jLang, jSkill, jInterest, jForArr;
+        QJsonObject jUser, jInf, jFormations, jPayment;
+        QJsonArray jArr, jLang, jSkill, jInterest, jForArr, jPay;
         vector<SmartPtr<Experience> > formations;
+        vector<SmartPtr<Payment> > payments;
         Info* info = _db[i]->account()->info();
         if(uif = dynamic_cast<UserInfo*> (info)) { /*downcast a userinfo*/
             jInf["name"] = QString::fromStdString(uif->name());
@@ -143,12 +156,21 @@ vector<QJsonObject> LinqDB::toJsonObject() const {
         vector<SmartPtr<Username> >::const_iterator it = list.begin();
         for(; it < list.end(); ++it)
             jArr.append(QString::fromStdString((*it)->login()));
+        payments = _db[i]->account()->history();
+        vector<SmartPtr<Payment> >::const_iterator iter = payments.begin();
+        for(; iter < payments.end(); ++iter) {
+            jPayment["code"] = QString::fromStdString((*iter)->billMethod()->code());
+            jPayment["nominee"] = QString::fromStdString((*iter)->billMethod()->nominee());
+            jPayment["approved"] = (*iter)->approvation();
+            jPay.append(jPayment);
+        }
         jUser["net"] = jArr;
         jUser["info"] = jInf;
         jUser["languages"] = jLang;
         jUser["skills"] = jSkill;
         jUser["interests"] = jInterest;
         jUser["formations"] = jForArr;
+        jUser["payments"] = jPay;
         vjs.push_back(jUser);
     }
     return vjs;
@@ -165,11 +187,29 @@ void LinqDB::write(const vector<QJsonObject>& json) const {
     saveDB.write(doc.toJson());
     saveDB.close();
 }
+
+vector<Message*> LinqDB::readMessageDb(const string& path) {
+    vector<Message*> v;
+    QFile loadMessageDB(QStringLiteral("messageDB.json"));
+    if (!loadMessageDB.open(QIODevice::ReadOnly))
+        qWarning("Couldn't open database.");
+    QByteArray saveMessages = loadMessageDB.readAll();
+    loadMessageDB.close();
+
+    QJsonDocument doc(QJsonDocument::fromJson(saveMessages));
+    QJsonArray qjs = doc.array();
+
+    return v;
+}
+void LinqDB::writeMessageDb(const string& path) const {
+
+}
+
 void LinqDB::save() const {
-    write(toJsonObject());
+    write(writeJson());
 }
 void LinqDB::load() {
-    bool s = fromJsonObject();
+    bool s = readJson();
     if(!s) std::cout << "Errore connessione DB" << std::endl;
     else std::cout<<"Connessione DB ok" << std::endl;
 }

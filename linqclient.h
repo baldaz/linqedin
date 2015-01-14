@@ -9,10 +9,13 @@
 
 using std::string;
 
+const string STANDARD_AVATAR = "img/port2.jpg";
+
 class LinqClient {
 private:
     User* _usr;
     LinqDB* _db;
+    string _avatar;
 public:
     LinqClient();
     LinqClient(const Username&);
@@ -20,6 +23,8 @@ public:
     int netSize() const;
     vector<SmartPtr<User> > similarity() const;
     bool linked(const Username&) const;
+    void setAvatar(const string& = STANDARD_AVATAR);
+    string avatar() const;
     string displayProfile() const;
     string displayHtmlInfo() const;
     string displayHtmlPayments() const;

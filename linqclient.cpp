@@ -2,8 +2,8 @@
 
 using std::map;
 
-LinqClient::LinqClient() : _db(new LinqDB()){}
-LinqClient::LinqClient(const Username& usr) : _db(new LinqDB) {
+LinqClient::LinqClient() : _db(new LinqDB()), _avatar(STANDARD_AVATAR) {}
+LinqClient::LinqClient(const Username& usr) : _db(new LinqDB), _avatar(STANDARD_AVATAR)  {
     _usr = _db->find(usr);
 }
 LinqClient::~LinqClient() {delete _usr; delete _db; }
@@ -101,4 +101,10 @@ void LinqClient::addVisitTo(const Username& usr) {
 }
 void LinqClient::save() const {
     _db->save();
+}
+string LinqClient::avatar() const {
+    return _avatar;
+}
+void LinqClient::setAvatar(const string& path) {
+    _avatar = path;
 }

@@ -20,11 +20,14 @@ using std::string;
 class LinqDB {
 private:
     vector<SmartPtr<User> > _db;
-    bool fromJsonObject();
+
+    bool readJson();
     void read(const QJsonArray&);
     void readNet(const QJsonArray&);
-    vector<QJsonObject> toJsonObject() const;
+    vector<QJsonObject> writeJson() const;
     void write(const vector<QJsonObject>&) const;
+    vector<Message*> readMessageDb(const string&);
+    void writeMessageDb(const string&) const;
 public:
     LinqDB();
     ~LinqDB();

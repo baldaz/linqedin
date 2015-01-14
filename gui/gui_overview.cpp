@@ -1,21 +1,10 @@
 #include "gui_overview.h"
 
-Gui_Overview::Gui_Overview(QWidget* parent) : QGridLayout(parent) {
-    logicInitialize();
-    dispInfo = new Gui_DisplayInfo(user);
+Gui_Overview::Gui_Overview(LinqClient* cli, QWidget* parent) : _client(cli), QGridLayout(parent) {
+    dispInfo = new Gui_DisplayInfo(_client);
 
-    portrait = new QLabel();
-    QPixmap avatar ("img/seagal.jpg");
-    QPixmap mask(avatar.size());
-    QPainter maskPainter(&mask);
-    maskPainter.fillRect(mask.rect(), Qt::white);
-    maskPainter.setBrush(Qt::black);
-    maskPainter.drawRoundedRect(mask.rect(), 75, 75);
-    avatar.setMask(mask.createMaskFromColor(Qt::white));
-    avatar = avatar.scaled(150, 150, Qt::KeepAspectRatio, Qt::SmoothTransformation);
-
-    portrait->setPixmap(avatar);
-    QLabel* links = new QLabel(tr("Connections (%1)").arg(user->netSize()));
+    portrait = new Gui_Avatar(QString::fromStdString(_client->avatar()));
+    QLabel* links = new QLabel(tr("Connections (%1)").arg(_client->netSize()));
     links->setMaximumSize(120,20);
     // links->setPixmap(QPixmap("img/share12.png"));
     // dispInfo->setStyleSheet("background:#000 url('img/abstract.png') no-repeat; background-attachment:fixed; border-radius: 10px; background-position: bottom;");
@@ -39,9 +28,9 @@ Gui_Overview::Gui_Overview(QWidget* parent) : QGridLayout(parent) {
     toolbar->hide();
     toolbar->installEventFilter(this); //prevent double click maximizing window
 
-    listLinks = new Gui_Links(user, dispInfo, toolbar);
+    listLinks = new Gui_Links(_client, dispInfo, toolbar);
 
-    searchBar = new Gui_Search(user, dispInfo, toolbar, listLinks);
+    searchBar = new Gui_Search(_client, dispInfo, toolbar, listLinks);
 
     connect(toolButtons[0], SIGNAL(clicked()), this, SLOT(addConnection()));
     connect(toolButtons[1], SIGNAL(clicked()), this, SLOT(removeConnection()));
@@ -67,12 +56,8 @@ Gui_Overview::Gui_Overview(QWidget* parent) : QGridLayout(parent) {
     // layout->setRowStretch(3, 1);
 }
 
-void Gui_Overview::logicInitialize() {
-    user = new LinqClient(Username("Casey", "rayback"));
-}
-
 void Gui_Overview::createRightSideList(QGridLayout* lay) {
-    vector<SmartPtr<User> > users = user->similarity();
+    vector<SmartPtr<User> > users = _client->similarity();
     rightSide = new QListWidget();
     QFont font;
     font.setBold(true);
@@ -101,7 +86,7 @@ void Gui_Overview::createRightSideList(QGridLayout* lay) {
 void Gui_Overview::refresh() {
     listLinks->refresh();
     createRightSideList(this);
-    dispInfo->setHtml(QString::fromStdString(user->displayHtmlInfo()));
+    dispInfo->setHtml(QString::fromStdString(_client->displayHtmlInfo()));
     toolbar->hide();
 }
 
@@ -116,14 +101,14 @@ bool Gui_Overview::eventFilter(QObject* obj, QEvent* event) {
 
 void Gui_Overview::viewContact() {
     QString sel = rightSide->currentItem()->data(Qt::DisplayRole).toString();
-    map<string, string> _contacts = user->find(sel.toStdString());
+    map<string, string> _contacts = _client->find(sel.toStdString());
     map<string, string>::iterator it = _contacts.begin();
     // for(; it != _contacts.end(); ++it) {
         QString output = QString(QString::fromStdString(it->second));
         dispInfo->setHtml(output);
         QString title = QString(QString::fromStdString(it->first));
         dispInfo->setDocumentTitle(title);
-        user->addVisitTo(Username(it->first, ""));
+        _client->addVisitTo(Username(it->first, ""));
     // }
     toolbar->show();
 }

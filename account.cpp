@@ -35,3 +35,13 @@ void Account::setPrLevel(privLevel newlevel) {
 vector<SmartPtr<Payment> > Account::history() const {
     return _history;
 }
+SmartPtr<Payment> Account::lastPayment() const {
+    vector<SmartPtr<Payment> >::const_iterator it;
+    if(!_history.empty())
+        it = _history.end();
+    return *it;
+}
+void Account::addPayment(const Payment& pay) {
+    Payment* p = const_cast<Payment*> (&pay);
+    _history.push_back(SmartPtr<Payment>(p));
+}

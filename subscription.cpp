@@ -4,6 +4,8 @@ double Subscription::_basic = 0;
 double Subscription::_business = 14.90;
 double Subscription::_executive = 29.90;
 
+Subscription::Subscription(privLevel lev) : _level(lev) {}
+
 privLevel Subscription::level() const {
     return _level;
 }

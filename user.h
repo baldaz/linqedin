@@ -7,6 +7,7 @@
 #include <algorithm>
 #include "account.h"
 #include "smartptr.h"
+#include "message.h"
 
 using std::map;
 

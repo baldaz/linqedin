@@ -8,11 +8,11 @@
 class Payment {
 private:
     Username* _requester;
-    bool _approvation;
     Subscription* _sub;
     BillMethod* _bmethod;
+    bool _approvation;
 public:
-    Payment(Username*, bool);
+    Payment(Username*, Subscription*, BillMethod*, bool);
     Payment(const Payment&);
     ~Payment();
     Payment* clone() const;

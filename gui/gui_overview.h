@@ -13,6 +13,7 @@
 #include "gui_displayinfo.h"
 #include "gui_links.h"
 #include "gui_search.h"
+#include "gui_avatar.h"
 #include "../linqclient.h"
 
 class Gui_Overview : public QGridLayout {
@@ -24,17 +25,16 @@ class Gui_Overview : public QGridLayout {
     Gui_DisplayInfo* dispInfo;
     Gui_Links* listLinks;
     Gui_Search* searchBar;
-    QLabel* portrait;
+    Gui_Avatar* portrait;
     QListWidget* listview;
     QListWidget* rightSide;
-    LinqClient* user;
+    LinqClient* _client;
 
     void createRightSideList(QGridLayout*);
-    void logicInitialize();
     bool eventFilter(QObject*, QEvent*);
 
 public:
-    Gui_Overview(QWidget* parent = 0);
+    Gui_Overview(LinqClient*, QWidget* parent = 0);
     void refresh();
 signals:
 public slots:

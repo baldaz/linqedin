@@ -10,6 +10,7 @@
 #include <QStackedLayout>
 #include "gui_overview.h"
 #include "gui_messages.h"
+#include "gui_payments.h"
 
 
 class Gui_UserWindow : public QWidget {
@@ -33,10 +34,14 @@ private:
     QPushButton* buttons[NumButtons];
     Gui_Overview* _layout;
     Gui_Messages* _mex;
+    Gui_Payments* _pay;
+    LinqClient* user;
 
+    void logicInitialize();
     void createHorizontalGroupBox();
     void createOverview();
     void createMessages();
+    void createPayments();
     // bool eventFilter(QObject*, QEvent*);
 
 signals:
@@ -44,6 +49,7 @@ signals:
 public slots:
     void overview();
     void messages();
+    void payments();
 };
 
 #endif

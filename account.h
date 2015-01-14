@@ -26,5 +26,7 @@ public:
     void setInfo(Info*);
     void setPrLevel(privLevel);
     vector<SmartPtr<Payment> > history() const;
+    SmartPtr<Payment> lastPayment() const;
+    void addPayment(const Payment&);
 };
 #endif
