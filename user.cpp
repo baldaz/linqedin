@@ -2,6 +2,7 @@
 #include "linqnet.h"
 #include "linqdb.h"
 #include "utils.h"
+#include <sstream>
 
 using std::vector;
 using std::map;
@@ -49,18 +50,44 @@ void User::searchFunctor::operator()(const SmartPtr<User>& spu) {
         break;
         case 3:
             uf = dynamic_cast<UserInfo*> (spu->account()->info());
-            if(uf) {
-                vector<string> skills = uf->skills();
-                vector<string>::iterator it = skills.begin();
-                for(; it < skills.end(); ++it)
-                    *it = utilities::Utils::toLowerCase(*it);
-                string fullName = utilities::Utils::toLowerCase(uf->name() + " " + uf->surname());
-                if((utilities::Utils::toLowerCase(uf->name()) == _wanted ||
-                   utilities::Utils::toLowerCase(uf->surname()) == _wanted ||
-                   fullName == _wanted || std::find(skills.begin(), skills.end(), _wanted) != skills.end()) && (spu->account()->username()->login() != _caller->account()->username()->login())){
-                    // _result.push_back(spu->account()->info()->printHtml() + "\n" + spu->net()->printHtml());
-                    _result.insert(std::pair<string, string>(spu->account()->username()->login(), spu->account()->info()->printHtml() + "\n" + spu->net()->printHtml()));
-                    spu->addVisit();
+            if(!_wanted.empty() && _wanted.at(0) == ':') {
+                if(uf) {
+                    vector<string> skills = uf->skills();
+                    vector<string>::iterator itr = skills.begin();
+                    for(; itr < skills.end(); ++itr)
+                        *itr = utilities::Utils::toLowerCase(*itr);
+                    vector<string> input;
+                    vector<string>::iterator it;
+                    bool found = false;
+                    _wanted.erase(_wanted.begin());
+                    std::string token;
+                    std::istringstream ss(_wanted);
+                    while(std::getline(ss, token, ',')) {
+                        token.erase(remove_if(token.begin(), token.end(), isspace), token.end());
+                        input.push_back(token);
+                    }
+                    it = input.begin();
+                    for(; it < input.end() && !found; ++it)
+                        if((std::find(skills.begin(), skills.end(), *it) != skills.end()) && (spu->account()->username()->login() != _caller->account()->username()->login()))
+                            found = false;
+                        else found = true;
+                    if(!found) _result.insert(std::pair<string, string>(spu->account()->username()->login(), spu->account()->info()->printHtml() + "\n" + spu->net()->printHtml()));
+                }
+            }
+            else {
+                if(uf) {
+                    vector<string> skills = uf->skills();
+                    vector<string>::iterator it = skills.begin();
+                    for(; it < skills.end(); ++it)
+                        *it = utilities::Utils::toLowerCase(*it);
+                    string fullName = utilities::Utils::toLowerCase(uf->name() + " " + uf->surname());
+                    if((utilities::Utils::toLowerCase(uf->name()) == _wanted ||
+                       utilities::Utils::toLowerCase(uf->surname()) == _wanted ||
+                       fullName == _wanted || std::find(skills.begin(), skills.end(), _wanted) != skills.end()) && (spu->account()->username()->login() != _caller->account()->username()->login())){
+                        // _result.push_back(spu->account()->info()->printHtml() + "\n" + spu->net()->printHtml());
+                        _result.insert(std::pair<string, string>(spu->account()->username()->login(), spu->account()->info()->printHtml() + "\n" + spu->net()->printHtml()));
+                        spu->addVisit();
+                    }
                 }
             }
         break;
