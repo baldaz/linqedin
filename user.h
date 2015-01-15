@@ -90,12 +90,16 @@ public:
 };
 
 class ExecutiveUser : public BusinessUser {
+protected:
+    vector<string> _keywords;
 public:
     ExecutiveUser();
     ExecutiveUser(Account*, LinqNet*);
     ExecutiveUser(const ExecutiveUser&);
     virtual User* clone() const;
     virtual map<string, string> userSearch(const LinqDB&, const string&) const;
+    virtual void addKeyword(const string&);
+    virtual map<string, int> keywordPercent() const;
 };
 
 #endif

@@ -87,6 +87,11 @@ vector<SmartPtr<User> > LinqClient::contactsInfo() const {
 map<string, string> LinqClient::find(const string& wanted = "") const {
     return _usr->userSearch(*_db, wanted);
 }
+map<string, int> LinqClient::keywordFrequency() const {
+    ExecutiveUser* tmp = dynamic_cast<ExecutiveUser*> (_usr);
+    if(tmp) return tmp->keywordPercent();
+    else std::cout << "eh";
+}
 void LinqClient::addExperience(const Experience& xp) {
     UserInfo* uf = dynamic_cast<UserInfo*> (_usr->account()->info());
     if(uf) uf->addExperience(const_cast<Experience*> (&xp));

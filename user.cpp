@@ -90,6 +90,10 @@ void User::searchFunctor::operator()(const SmartPtr<User>& spu) {
                         // _result.push_back(spu->account()->info()->printHtml() + "\n" + spu->net()->printHtml());
                         _result.insert(std::pair<string, string>(spu->account()->username()->login(), spu->account()->info()->printHtml() + "\n" + spu->net()->printHtml()));
                         spu->addVisit();
+                        if(spu->account()->prLevel() == executive) {
+                            ExecutiveUser* eu = dynamic_cast<ExecutiveUser*> (&(*spu));
+                            eu->addKeyword(_wanted);
+                        }
                     }
                 }
             }
@@ -194,4 +198,27 @@ User* ExecutiveUser::clone() const {
 }
 map<string, string> ExecutiveUser::userSearch(const LinqDB& db, const string& wanted) const {
     return std::for_each(db.begin(), db.end(), searchFunctor(3, wanted, this)).result();
+}
+void ExecutiveUser::addKeyword(const string& key) {
+    // string k = utilities::Utils::toLowerCase(key);
+    _keywords.push_back(key);
+}
+map<string, int> ExecutiveUser::keywordPercent() const {
+    map<string, int> ret;
+    vector<string>::const_iterator it = _keywords.begin();
+    int counter = 0;
+    for(; it < _keywords.end(); ++it) {
+        counter = count(_keywords.begin(), _keywords.end(), *it);
+        ret.insert(std::pair<string, int>(*it, counter));
+        counter = 0;
+    }
+    int sum = 0;
+    map<string, int>::const_iterator itr = ret.begin();
+    for(; itr != ret.end(); ++itr)
+        sum += itr->second;
+    itr = ret.begin();
+    map<string, int> tmp;
+    for(; itr != ret.end(); ++itr)
+        tmp.insert(std::pair<string, int>(itr->first, ((itr->second / sum)) * 100));
+    return tmp;
 }

@@ -39,6 +39,7 @@ public:
     void addFormation(const Experience&);
     void addVisitTo(const Username&);
     map<string, string> find(const string&) const;
+    map<string, int> keywordFrequency() const;
     void save() const;
 };
 #endif

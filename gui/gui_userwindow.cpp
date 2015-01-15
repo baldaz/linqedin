@@ -139,4 +139,9 @@ void Gui_UserWindow::payments() {
 void Gui_UserWindow::logout() {
     // user->save();
     close();
+    // map<string, int> keys = user->keywordFrequency();
+    // map<string, int>::iterator it = keys.begin();
+    // if(!keys.empty())
+    //     for(; it != keys.end(); ++it)
+    //         std::cout << it->first << " >> " << it->second << std::endl;
 }
