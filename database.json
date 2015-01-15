@@ -46,17 +46,17 @@
         "password": "qwerty",
         "payments": [
             {
-                "approved": false,
+                "approved": true,
                 "code": "0132532",
                 "nominee": "Andrea Baldan"
             },
             {
-                "approved": false,
+                "approved": true,
                 "code": "0132532",
                 "nominee": "Andrea Baldan"
             },
             {
-                "approved": false,
+                "approved": true,
                 "code": "0132532",
                 "nominee": "Andrea Baldan"
             }

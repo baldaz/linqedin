@@ -8,21 +8,19 @@ Gui_UserWindow::Gui_UserWindow(QWidget* parent) : QWidget(parent) {
 
     createHorizontalGroupBox();
     createOverview();
+    createSettings();
     createMessages();
     createPayments();
     _layoutStack = new QStackedLayout;
-
-    // overviewLayout = new QVBoxLayout(this);
-    // messagesLayout = new QVBoxLayout(this);
-
-    QPushButton* quit = new QPushButton;
-    quit->setIcon(QPixmap("img/prohibited1.png"));
-    connect(quit, SIGNAL(clicked()), this, SLOT(close()));
     _layoutStack->addWidget(overviewGroupBox);
     _layoutStack->addWidget(messagesGroupBox);
+    _layoutStack->addWidget(settingsGroupBox);
     _layoutStack->addWidget(paymentsGroupBox);
 
     _mainLayout = new QVBoxLayout;
+    QPushButton* quit = new QPushButton;
+    quit->setIcon(QPixmap("img/prohibited1.png"));
+    connect(quit, SIGNAL(clicked()), this, SLOT(close()));
     _mainLayout->addWidget(quit, 0, Qt::AlignTop | Qt::AlignRight);
     _mainLayout->addWidget(horizontalGroupBox);
     _mainLayout->addLayout(_layoutStack);
@@ -45,7 +43,7 @@ void Gui_UserWindow::createHorizontalGroupBox() {
     buttons[1] = new QPushButton("&SETTINGS");
     buttons[1]->setIcon(QPixmap("img/settings48.png"));
     layout->addWidget(buttons[1], Qt::AlignTop);
-    connect(buttons[1], SIGNAL(clicked()), this, SLOT(close()));
+    connect(buttons[1], SIGNAL(clicked()), this, SLOT(settings()));
 
     buttons[2] = new QPushButton("&PAYMENTS");
     buttons[2]->setIcon(QPixmap("img/banknotes.png"));
@@ -78,6 +76,12 @@ void Gui_UserWindow::createMessages() {
     messagesGroupBox->setLayout(_mex);
 }
 
+void Gui_UserWindow::createSettings() {
+    settingsGroupBox = new QGroupBox;
+    _set = new Gui_Settings(user, this);
+    settingsGroupBox->setLayout(_set);
+}
+
 void Gui_UserWindow::createPayments() {
     paymentsGroupBox = new QGroupBox;
     _pay = new Gui_Payments(user, this);
@@ -108,8 +112,6 @@ void Gui_UserWindow::mouseDoubleClickEvent(QMouseEvent* event) {
 
 //SLOT
 void Gui_UserWindow::overview() {
-    // _layoutStack->widget(2)->hide();
-    // _layoutStack->widget(1)->hide();
     _layoutStack->widget(0)->show();
     _layoutStack->setCurrentWidget(overviewGroupBox);
     _layout->refresh();
@@ -117,17 +119,19 @@ void Gui_UserWindow::overview() {
 
 //SLOT
 void Gui_UserWindow::messages() {
-    // _layoutStack->widget(2)->hide();
-    // _layoutStack->widget(0)->hide();
     _layoutStack->widget(1)->show();
     _layoutStack->setCurrentWidget(messagesGroupBox);
 }
 
 //SLOT
-void Gui_UserWindow::payments() {
-    // _layoutStack->widget(0)->hide();
-    // _layoutStack->widget(1)->hide();
+void Gui_UserWindow::settings() {
     _layoutStack->widget(2)->show();
+    _layoutStack->setCurrentWidget(settingsGroupBox);
+}
+
+//SLOT
+void Gui_UserWindow::payments() {
+    _layoutStack->widget(3)->show();
     _layoutStack->setCurrentWidget(paymentsGroupBox);
 }
 
@@ -136,12 +140,3 @@ void Gui_UserWindow::logout() {
     // user->save();
     close();
 }
-// bool Gui_UserWindow::eventFilter(QObject* obj, QEvent* event) {
-//     if(event->type() == QEvent::MouseButtonDblClick) {
-//         QMouseEvent * mouseEvent = static_cast <QMouseEvent *> (event);
-//         if(mouseEvent->button() == Qt::LeftButton | Qt::RightButton)
-//             return true;
-
-//     }
-//     else return true;
-// }

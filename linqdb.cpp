@@ -26,11 +26,10 @@ void LinqDB::read(const QJsonArray& qjs) {
     for(int i = 0; i < qjs.size(); ++i) {
         QJsonObject obj = qjs[i].toObject();
         Username* usr = new Username(obj["username"].toString().toStdString(), obj["password"].toString().toStdString());
-        UserInfo* uif = new UserInfo();
+        UserInfo* uif = new UserInfo;
         // uif = dynamic_cast<UserInfo*> (uf);
-        LinqNet* net = new LinqNet();
+        LinqNet* net = new LinqNet;
         privLevel priv = static_cast<privLevel> (obj["privilege"].toInt());
-        Account* acc;
         QJsonObject info = obj["info"].toObject();
         if(uif) {
             uif->setName(info["name"].toString().toStdString());
@@ -57,18 +56,17 @@ void LinqDB::read(const QJsonArray& qjs) {
                 Instruction ins(sub["location"].toString().toStdString(), sub["from"].toString().toStdString(), sub["to"].toString().toStdString());
                 uif->addFormation(&ins);
             }
+        }
+        Account* acc = new Account(uif, usr, priv);
 
-            acc = new Account(uif, usr, priv);
-
-            QJsonArray payments = obj["payments"].toArray();
-            QJsonObject subP;
-            for(int i = 0; i < payments.size(); ++i) {
-                subP = payments[i].toObject();
-                Subscription* subscr = new Subscription(priv);
-                BillMethod* bmeth = new CreditCard(subP["code"].toString().toStdString(), subP["nominee"].toString().toStdString());
-                Payment pay(usr, subscr, bmeth, subP["approved"].toBool());
-                acc->addPayment(pay);
-            }
+        QJsonArray payments = obj["payments"].toArray();
+        QJsonObject subP;
+        for(int i = 0; i < payments.size(); ++i) {
+            subP = payments[i].toObject();
+            Subscription subscr(priv);
+            CreditCard bmeth(subP["code"].toString().toStdString(), subP["nominee"].toString().toStdString());
+            Payment pay(usr, &subscr, &bmeth, subP["approved"].toBool());
+            acc->addPayment(pay);
         }
         User* s = NULL;
         switch(priv) {

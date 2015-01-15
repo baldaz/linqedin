@@ -64,11 +64,14 @@ void Gui_Overview::createRightSideList(QGridLayout* lay) {
     QListWidgetItem* item = new QListWidgetItem();
     item->setData(Qt::DisplayRole, "People you may know");
     item->setFont(font);
+    item->setFlags(Qt::ItemIsEnabled);
+    item->setWhatsThis("header");
     rightSide->addItem(item);
 
     vector<SmartPtr<User> >::iterator it = users.begin();
     QString fullname;
     UserInfo* uf;
+    // rightSide->setItemDelegate(new ListDelegate(rightSide));
     for(; it < users.end(); ++it) {
         QListWidgetItem* itemD = new QListWidgetItem();
         uf = dynamic_cast<UserInfo*> ((*it)->account()->info());
@@ -76,7 +79,8 @@ void Gui_Overview::createRightSideList(QGridLayout* lay) {
         itemD->setData(Qt::DisplayRole, fullname);
         itemD->setData(Qt::DecorationRole, QPixmap("img/link19.png"));
         itemD->setData(Qt::UserRole + 1, QString::fromStdString((*it)->account()->username()->login()));
-        // itemD->setData(Qt::ToolTipRole, "Connected with Pablos, Sara, Atos");
+        QString desc = QString(QString::fromStdString((*it)->net()->printHtml()));
+        itemD->setData(Qt::ToolTipRole, desc);
         rightSide->addItem(itemD);
     }
     // rightSide->setStyleSheet("background:#ff0");
@@ -100,17 +104,19 @@ bool Gui_Overview::eventFilter(QObject* obj, QEvent* event) {
 }
 
 void Gui_Overview::viewContact() {
-    QString sel = rightSide->currentItem()->data(Qt::DisplayRole).toString();
-    map<string, string> _contacts = _client->find(sel.toStdString());
-    map<string, string>::iterator it = _contacts.begin();
-    // for(; it != _contacts.end(); ++it) {
-        QString output = QString(QString::fromStdString(it->second));
-        dispInfo->setHtml(output);
-        QString title = QString(QString::fromStdString(it->first));
-        dispInfo->setDocumentTitle(title);
-        _client->addVisitTo(Username(it->first, ""));
-    // }
-    toolbar->show();
+    if(rightSide->currentItem()->whatsThis() != "header") {
+        QString sel = rightSide->currentItem()->data(Qt::DisplayRole).toString();
+        map<string, string> _contacts = _client->find(sel.toStdString());
+        map<string, string>::iterator it = _contacts.begin();
+        // for(; it != _contacts.end(); ++it) {
+            QString output = QString(QString::fromStdString(it->second));
+            dispInfo->setHtml(output);
+            QString title = QString(QString::fromStdString(it->first));
+            dispInfo->setDocumentTitle(title);
+            _client->addVisitTo(Username(it->first, ""));
+        // }
+        toolbar->show();
+    }
 }
 
 void Gui_Overview::addConnection() {

@@ -52,3 +52,21 @@ QTableView QTableCornerButton::section {
     background: transparent;
 }
 QHeaderView::section { background-color:transparent; }
+
+QScrollBar:vertical {
+    border: none;
+    background: rgba(0,0,0,0);
+    width: 8px;
+}
+QScrollBar::handle:vertical {
+    background: rgba(70, 70, 70, 0.6);
+    border-radius:4px;
+}
+QScrollBar::add-line:vertical {
+    border: none;
+    background: none;
+}
+QScrollBar::sub-line:vertical {
+    border: none;
+    background: none;
+}

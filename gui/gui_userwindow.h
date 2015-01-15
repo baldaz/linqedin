@@ -10,6 +10,7 @@
 #include <QStackedLayout>
 #include "gui_overview.h"
 #include "gui_messages.h"
+#include "gui_settings.h"
 #include "gui_payments.h"
 
 
@@ -30,9 +31,11 @@ private:
     QGroupBox* overviewGroupBox;
     QGroupBox* messagesGroupBox;
     QGroupBox* paymentsGroupBox;
+    QGroupBox* settingsGroupBox;
     enum {NumButtons = 5};
     QPushButton* buttons[NumButtons];
     Gui_Overview* _layout;
+    Gui_Settings* _set;
     Gui_Messages* _mex;
     Gui_Payments* _pay;
     LinqClient* user;
@@ -42,13 +45,14 @@ private:
     void createOverview();
     void createMessages();
     void createPayments();
-    // bool eventFilter(QObject*, QEvent*);
+    void createSettings();
 
 signals:
 
 public slots:
     void overview();
     void messages();
+    void settings();
     void payments();
     void logout();
 };

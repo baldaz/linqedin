@@ -1,4 +1,5 @@
 #include "linqnet.h"
+#include <sstream>
 
 using std::cout;
 using std::endl;
@@ -39,9 +40,11 @@ vector<SmartPtr<Username> > LinqNet::username() const {
 }
 string LinqNet::printHtml() const {
     string html = "";
+    std::ostringstream o;
+    o << size();
     if(!_net.empty()) {
         UserInfo* uf = NULL;
-        html += "<h4>Connections</h4><p style='font-weight:400'>";
+        html += "<h4>Connections (" + o.str() + ")</h4><p style='font-weight:400'>";
         vector<SmartPtr<User> >::const_iterator it = _net.begin();
         for(; it < _net.end(); ++it) {
             uf = dynamic_cast<UserInfo*> ((*it)->account()->info());

@@ -3,18 +3,23 @@
 
 #include "linqclient.h"
 #include "gui_listmessages.h"
+#include "gui_listdelegate.h"
 #include "gui_newmessage.h"
 #include "gui_avatar.h"
 #include <QGridLayout>
+#include <QListWidget>
+#include <QTextBrowser>
 
 class Gui_Messages : public QGridLayout {
     Q_OBJECT
 private:
     LinqClient* _client;
-    Gui_ListMessages* _list;
+    QListWidget* _list;
+    QTextBrowser* _output;
 public:
     Gui_Messages(LinqClient*, QWidget* parent = 0);
 signals:
 public slots:
+    void viewMessageBody();
 };
 #endif
