@@ -12,19 +12,22 @@ Gui_Messages::Gui_Messages(LinqClient* cli, QWidget* parent) : _client(cli), QGr
     QListWidgetItem* item4 = new QListWidgetItem;
 
     item->setData(Qt::DisplayRole, "A new dawn");
-    // item->setData(Qt::DecorationRole, QPixmap("img/link19.png"));
+    item->setData(Qt::DecorationRole, QPixmap("img/envelope12.png"));
     item->setData(Qt::UserRole + 1, "From: Pablito 12-12-2014");
     item->setData(Qt::UserRole + 2, "Lorem ipsum dolorem sit amet");
     item->setData(Qt::UserRole + 3, 1);
     item2->setData(Qt::DisplayRole, "2nd try!");
+    item2->setData(Qt::DecorationRole, QPixmap("img/envelope12.png"));
     item2->setData(Qt::UserRole + 1, "From: Atilio 12-09-2014");
     item2->setData(Qt::UserRole + 2, "Lorem ipsum dolorem sit amet");
     item2->setData(Qt::UserRole + 3, 1);
     item3->setData(Qt::DisplayRole, "Connection request");
+    item3->setData(Qt::DecorationRole, QPixmap("img/envelope12.png"));
     item3->setData(Qt::UserRole + 1, "From: Andrea 02-08-2014");
     item3->setData(Qt::UserRole + 2, "Lorem ipsum dolorem sit amet");
     item3->setData(Qt::UserRole + 3, 0);
     item4->setData(Qt::DisplayRole, "Ok! fine!");
+    item4->setData(Qt::DecorationRole, QPixmap("img/envelope12.png"));
     item4->setData(Qt::UserRole + 1, "From: ser 12-11-2014");
     item4->setData(Qt::UserRole + 2, "Lorem ipsum dolorem sit amet");
     item4->setData(Qt::UserRole + 3, 1);
@@ -54,6 +57,7 @@ Gui_Messages::Gui_Messages(LinqClient* cli, QWidget* parent) : _client(cli), QGr
 }
 
 void Gui_Messages::viewMessageBody() {
+    QString title = _list->currentItem()->data(Qt::DisplayRole).toString();
     QString sel = _list->currentItem()->data(Qt::UserRole + 2).toString();
-    _output->setHtml(sel);
+    _output->setHtml("</h2>" +title + "</h2><p style='font-weight:400'>" + sel + "</p>");
 }
