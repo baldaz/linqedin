@@ -71,7 +71,6 @@ void Gui_Overview::createRightSideList(QGridLayout* lay) {
     vector<SmartPtr<User> >::iterator it = users.begin();
     QString fullname;
     UserInfo* uf;
-    // rightSide->setItemDelegate(new ListDelegate(rightSide));
     for(; it < users.end(); ++it) {
         QListWidgetItem* itemD = new QListWidgetItem();
         uf = dynamic_cast<UserInfo*> ((*it)->account()->info());

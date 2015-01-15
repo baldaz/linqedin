@@ -11,7 +11,6 @@
 #include <QPainter>
 #include <QBitmap>
 #include "gui_displayinfo.h"
-// #include "gui_listdelegate.h"
 #include "gui_links.h"
 #include "gui_search.h"
 #include "gui_avatar.h"
