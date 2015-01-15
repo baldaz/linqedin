@@ -2,6 +2,9 @@
 #define GUI_SETTINGS_H
 
 #include <QGridLayout>
+#include <QLabel>
+#include <QLineEdit>
+#include <QGroupBox>
 #include "gui_avatar.h"
 #include "linqclient.h"
 
