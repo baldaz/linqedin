@@ -4,6 +4,7 @@ Gui_Payments::Gui_Payments(LinqClient* cli, QWidget* parent) : _client(cli), QGr
     Gui_Avatar* avatar = new Gui_Avatar(QString::fromStdString(_client->avatar()));
 
     _list = new QListWidget;
+    _list->setSizePolicy(QSizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum));
     _list->setItemDelegate(new PaymentsDelegate(_list));
     QListWidgetItem* item = new QListWidgetItem;
     QListWidgetItem* item2 = new QListWidgetItem;
@@ -47,17 +48,17 @@ Gui_Payments::Gui_Payments(LinqClient* cli, QWidget* parent) : _client(cli), QGr
 
     map<string, int> keys = _client->keywordFrequency();
     map<string, int>::iterator it = keys.begin();
-    QString html = QString("<br><h3>Keywords frequency</h3>");
+    QString html = QString("<h3>Keywords frequency</h3>");
     if(!keys.empty())
         for(; it != keys.end(); ++it)
             html.append(QString("<span style='font-weight:700'>" + QString::fromStdString(it->first) + ":</span>&nbsp;<span style='font-weight:400'>%1 \%</span>&nbsp;&nbsp;&nbsp;").arg(it->second));
-
+    html.append(QString("<h3>Visit received</h3> <span style='font-weight:700'> Total:</span>&nbsp;<span style='font-weight:400'> %1</span>").arg(_client->visitCount()));
     keywords->setHtml(html);
 
     addWidget(avatar, 0, 0, 1, 1, Qt::AlignBottom);
     // addWidget(new QLabel("parent"), 0, 1, 1, 1, Qt::AlignTop);
     addWidget(_list, 0, 1, -1, -1);
-    addWidget(keywords, 1, 1, 1, -1);
+    addWidget(keywords, 1, 1, 1, -1, Qt::AlignTop);
     setColumnStretch(0, 1);
     setColumnStretch(1, 5);
     setColumnStretch(2, 2);

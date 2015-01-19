@@ -117,3 +117,6 @@ string LinqClient::avatar() const {
 void LinqClient::setAvatar(const string& path) {
     _avatar = path;
 }
+int LinqClient::visitCount() const {
+    return _usr->visitCount();
+}

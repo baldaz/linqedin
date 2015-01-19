@@ -40,6 +40,7 @@ public:
     void addVisitTo(const Username&);
     map<string, string> find(const string&) const;
     map<string, int> keywordFrequency() const;
+    int visitCount() const;
     void save() const;
 };
 #endif
