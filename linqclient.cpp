@@ -89,8 +89,12 @@ map<string, string> LinqClient::find(const string& wanted = "") const {
 }
 map<string, int> LinqClient::keywordFrequency() const {
     ExecutiveUser* tmp = dynamic_cast<ExecutiveUser*> (_usr);
-    if(tmp) return tmp->keywordPercent();
-    else std::cout << "eh";
+    map<string, int> ret;
+    if(tmp) {
+        ret = tmp->keywordPercent();
+        // std::sort(ret.begin(), ret.end(), value_compare);
+        return ret;
+    }
 }
 void LinqClient::addExperience(const Experience& xp) {
     UserInfo* uf = dynamic_cast<UserInfo*> (_usr->account()->info());

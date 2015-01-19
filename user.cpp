@@ -202,30 +202,22 @@ map<string, string> ExecutiveUser::userSearch(const LinqDB& db, const string& wa
     return std::for_each(db.begin(), db.end(), searchFunctor(3, wanted, this)).result();
 }
 void ExecutiveUser::addKeyword(const string& key) {
-    _keywords.push_back(key);
+    ++_keywords[key];
 }
 map<string, int> ExecutiveUser::keywordPercent() const {
     map<string, int> ret;
-    vector<string>::const_iterator it = _keywords.begin();
-    int counter = 0;
-    for(; it < _keywords.end(); ++it) {
-        counter = count(_keywords.begin(), _keywords.end(), *it);
-        ret.insert(std::pair<string, int>(*it, counter));
-        counter = 0;
-    }
     int sum = 0;
-    map<string, int>::const_iterator itr = ret.begin();
-    for(; itr != ret.end(); ++itr)
+    map<string, int>::const_iterator itr = _keywords.begin();
+    for(; itr != _keywords.end(); ++itr)
         sum += itr->second;
-    itr = ret.begin();
-    map<string, int> tmp;
+    map<string, int>::const_iterator it = _keywords.begin();
     double res;
-    for(; itr != ret.end(); ++itr) {
-        res = (static_cast<double> (itr->second) / sum) * 100;
-        tmp.insert(std::pair<string, int>(itr->first, static_cast<int>(res)));
+    for(; it != _keywords.end(); ++it) {
+        res = (static_cast<double> (it->second) / sum) * 100;
+        ret.insert(std::pair<string, int>(it->first, static_cast<int>(res)));
     }
-    return tmp;
+    return ret;
 }
-vector<string> ExecutiveUser::keywords() const {
+map<string, int> ExecutiveUser::keywords() const {
     return _keywords;
 }

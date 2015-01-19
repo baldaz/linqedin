@@ -93,7 +93,7 @@ public:
 
 class ExecutiveUser : public BusinessUser {
 protected:
-    vector<string> _keywords;
+    map<string, int> _keywords;
 public:
     // ExecutiveUser();
     ExecutiveUser(Account*);
@@ -103,7 +103,7 @@ public:
     virtual map<string, string> userSearch(const LinqDB&, const string&) const;
     virtual void addKeyword(const string&);
     virtual map<string, int> keywordPercent() const;
-    virtual vector<string> keywords() const;
+    virtual map<string, int> keywords() const;
 };
 
 #endif

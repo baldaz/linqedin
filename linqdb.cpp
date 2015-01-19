@@ -168,9 +168,11 @@ vector<QJsonObject> LinqDB::writeJson() const {
             jPay.append(jPayment);
         }
         if(const ExecutiveUser* ex = dynamic_cast<const ExecutiveUser*> (&(*_db[i]))) {
-            vector<string> kw = ex->keywords();
-            for(vector<string>::iterator it = kw.begin(); it < kw.end(); ++it)
-                jKWords.append(QString::fromStdString(*it));
+            map<string, int> kw = ex->keywords();
+            for(map<string, int>::iterator it = kw.begin(); it != kw.end(); ++it) {
+                for(int i = 0; i < it->second; ++i)
+                    jKWords.append(QString::fromStdString(it->first));
+            }
             jUser["keywords"] = jKWords;
         }
         jUser["net"] = jArr;

@@ -2,6 +2,7 @@
 #define GUI_PAYMENTS_H
 
 #include <QGridLayout>
+#include <QTextBrowser>
 #include <QListWidget>
 #include "gui_avatar.h"
 #include "linqclient.h"
