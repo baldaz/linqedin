@@ -31,8 +31,8 @@ protected:
         map<string, string> result() const;
     };
 public:
-    User();
-    User(Account*, LinqNet*);
+    // User();
+    User(Account*);
     User(const User&);
     User& operator=(const User&);
     virtual ~User();
@@ -63,9 +63,10 @@ protected:
         vector<SmartPtr<User> > result() const;
     };
 public:
-    BasicUser();
-    BasicUser(Account*, LinqNet*);
+    // BasicUser();
+    BasicUser(Account*);
     BasicUser(const BasicUser&);
+    virtual ~BasicUser();
     virtual User* clone() const;
     virtual Account* account() const;
     virtual LinqNet* net() const;
@@ -82,9 +83,10 @@ public:
 
 class BusinessUser : public BasicUser {
 public:
-    BusinessUser();
-    BusinessUser(Account*, LinqNet*);
+    // BusinessUser();
+    BusinessUser(Account*);
     BusinessUser(const BusinessUser&);
+    virtual ~BusinessUser();
     virtual User* clone() const;
     virtual map<string, string> userSearch(const LinqDB&, const string&) const;
 };
@@ -93,13 +95,15 @@ class ExecutiveUser : public BusinessUser {
 protected:
     vector<string> _keywords;
 public:
-    ExecutiveUser();
-    ExecutiveUser(Account*, LinqNet*);
+    // ExecutiveUser();
+    ExecutiveUser(Account*);
     ExecutiveUser(const ExecutiveUser&);
+    virtual ~ExecutiveUser();
     virtual User* clone() const;
     virtual map<string, string> userSearch(const LinqDB&, const string&) const;
     virtual void addKeyword(const string&);
     virtual map<string, int> keywordPercent() const;
+    virtual vector<string> keywords() const;
 };
 
 #endif

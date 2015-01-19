@@ -6,7 +6,7 @@ LinqClient::LinqClient() : _db(new LinqDB()), _avatar(STANDARD_AVATAR) {}
 LinqClient::LinqClient(const Username& usr) : _db(new LinqDB), _avatar(STANDARD_AVATAR)  {
     _usr = _db->find(usr);
 }
-LinqClient::~LinqClient() {delete _usr; delete _db; }
+LinqClient::~LinqClient() {delete _db;}
 void LinqClient::addContact(const Username& usr) {
     _usr->addContact(_db->find(usr));
 }

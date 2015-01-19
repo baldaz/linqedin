@@ -14,6 +14,8 @@ private:
     static double _executive;
 public:
     Subscription(privLevel);
+    Subscription(const Subscription&);
+    Subscription* clone() const;
     privLevel level() const;
     void setLevel(privLevel);
     static void setLevelAmount(privLevel, double);

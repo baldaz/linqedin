@@ -45,7 +45,7 @@ Gui_Overview::Gui_Overview(LinqClient* cli, QWidget* parent) : _client(cli), QGr
     this->addWidget(toolbar, 3, 1, 1, 1, Qt::AlignCenter);
 
     createRightSideList(this);
-    connect(rightSide, SIGNAL(clicked(QModelIndex)), this, SLOT(viewContact()));
+
     this->setColumnStretch(0, 1);
     this->setColumnStretch(1, 5);
     this->setColumnStretch(2, 2);
@@ -84,6 +84,7 @@ void Gui_Overview::createRightSideList(QGridLayout* lay) {
     }
     // rightSide->setStyleSheet("background:#ff0");
     lay->addWidget(rightSide, 0, 2, 2, 1, Qt::AlignTop);
+    connect(rightSide, SIGNAL(clicked(QModelIndex)), this, SLOT(viewContact()));
 }
 
 void Gui_Overview::refresh() {

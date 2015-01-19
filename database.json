@@ -31,6 +31,19 @@
             "Snowboard",
             "Homebrew"
         ],
+        "keywords": [
+            "c++",
+            "c++",
+            "c++",
+            "c++",
+            "c++",
+            "c++",
+            "c++",
+            "perl",
+            "php",
+            "c++",
+            "php"
+        ],
         "languages": [
             "Italian",
             "English",
@@ -41,7 +54,8 @@
             "Atilio",
             "aui",
             "ser",
-            "Sara87"
+            "Sara87",
+            "Casey"
         ],
         "password": "qwerty",
         "payments": [
@@ -79,7 +93,7 @@
             "Bootstrap"
         ],
         "username": "Baldaz",
-        "visitcount": 0
+        "visitcount": 15
     },
     {
         "formations": [
@@ -116,7 +130,7 @@
             "PHP"
         ],
         "username": "Pablito",
-        "visitcount": 2
+        "visitcount": 11
     },
     {
         "formations": [
@@ -160,7 +174,7 @@
             "Ruby"
         ],
         "username": "Atilio",
-        "visitcount": 1
+        "visitcount": 13
     },
     {
         "formations": [
@@ -325,6 +339,8 @@
             "Knives",
             "BBQ"
         ],
+        "keywords": [
+        ],
         "languages": [
             "Italian",
             "English",
@@ -400,6 +416,8 @@
             "Movies",
             "BBQ"
         ],
+        "keywords": [
+        ],
         "languages": [
             "Italian",
             "English",
@@ -429,6 +447,126 @@
             "Knives"
         ],
         "username": "Danny",
+        "visitcount": 0
+    },
+    {
+        "formations": [
+            {
+                "from": "1967",
+                "location": "ITIS F.Severi",
+                "to": "1972"
+            },
+            {
+                "from": "1973",
+                "location": "Università Degli Studi di Padova facoltà di Scienze MM.FF.NN. Informatica",
+                "to": "1977"
+            }
+        ],
+        "info": {
+            "address": "Washington lane Philadelphia",
+            "birthdate": "08-07-1943",
+            "email": "hannibal@lecter.hl",
+            "name": "Hannibal",
+            "sex": true,
+            "surname": "Lecter",
+            "telephon": "3150335121",
+            "website": "www.hanniballecter.hl"
+        },
+        "interests": [
+            "Meat",
+            "Cooking",
+            "Anatomy",
+            "Wines",
+            "Psichology",
+            "Psichiatry",
+            "Murder",
+            "Mind-illness",
+            "Cannibalism",
+            "Movies",
+            "BBQ"
+        ],
+        "keywords": [
+        ],
+        "languages": [
+            "Italian",
+            "English",
+            "Espagnol",
+            "Portuguese",
+            "Deutch",
+            "Francais"
+        ],
+        "net": [
+            "Pablito",
+            "Atilio",
+            "aui",
+            "Sara87"
+        ],
+        "password": "lecter",
+        "payments": [
+        ],
+        "privilege": 2,
+        "skills": [
+            "Knives",
+            "Meatplates",
+            "Psichiatry",
+            "Literature",
+            "Surgery"
+        ],
+        "username": "Hannibal",
+        "visitcount": 0
+    },
+    {
+        "formations": [
+            {
+                "from": "1977",
+                "location": "ITIS F.Severi",
+                "to": "1983"
+            },
+            {
+                "from": "1985",
+                "location": "Università Degli Studi di Padova facoltà di Scienze MM.FF.NN. Informatica",
+                "to": "1991"
+            }
+        ],
+        "info": {
+            "address": "Washington lane Philadelphia",
+            "birthdate": "08-07-1943",
+            "email": "hannibal@lecter.hl",
+            "name": "Will",
+            "sex": true,
+            "surname": "Graham",
+            "telephon": "3150335121",
+            "website": "www.grahamwill.gw"
+        },
+        "interests": [
+            "Meat",
+            "Cooking",
+            "Anatomy",
+            "Wines",
+            "Psichology",
+            "Psichiatry",
+            "Murder"
+        ],
+        "keywords": [
+        ],
+        "languages": [
+            "Italian"
+        ],
+        "net": [
+            "Pablito",
+            "Atilio",
+            "Hannibal"
+        ],
+        "password": "graham",
+        "payments": [
+        ],
+        "privilege": 2,
+        "skills": [
+            "Knives",
+            "Literature",
+            "Surgery"
+        ],
+        "username": "Willg",
         "visitcount": 0
     }
 ]

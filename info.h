@@ -29,6 +29,7 @@ public:
     UserInfo();
     UserInfo(bool, const string&, const string&, const string&, const string&, const string&, const string&, const string&);
     UserInfo(const UserInfo&);
+    virtual ~UserInfo();
     Info* clone() const;
     // virtual ~UserInfo();
     UserInfo& operator=(const UserInfo&);
@@ -69,6 +70,7 @@ protected:
 public:
     Bio(bool, const string&, const string&, const string&, const string&, const string&, const string&, const string&, const string&);
     Bio(const Bio&);
+    virtual ~Bio();
     Info* clone() const;
     const string& bio() const;
     void setBio(const string&);

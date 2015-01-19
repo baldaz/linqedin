@@ -7,16 +7,16 @@
 using std::vector;
 using std::map;
 
-User::User() : _acc(new Account()), _net(new LinqNet()), _visitcount(0)  {}
-User::User(Account* ac, LinqNet* lq) : _acc(ac), _net(lq), _visitcount(0)  {}
-User::User(const User& usr) : _acc(usr._acc), _net(usr._net), _visitcount(usr._visitcount) /*: _acc(usr._acc->clone()), _net(usr._net->clone())*/ {}
-User::~User() { }
+// User::User() : _acc(new Account()), _net(new LinqNet()), _visitcount(0)  {}
+User::User(Account* ac) : _acc(ac->clone()), _net(new LinqNet()), _visitcount(0)  {}
+User::User(const User& usr) /*: _acc(usr._acc), _net(usr._net), _visitcount(usr._visitcount)*/ : _acc(usr._acc->clone()), _net(usr._net->clone()), _visitcount(usr._visitcount) {}
+User::~User() { delete _acc; delete _net;}
 User& User::operator=(const User& usr) {
     if(this != &usr) {
         delete _acc;
         delete _net;
-        _acc = usr._acc;
-        _net = usr._net;
+        _acc = usr._acc->clone();
+        _net = usr._net->clone();
     }
     return *this;
 }
@@ -107,6 +107,29 @@ map<string, string> User::searchFunctor::result() const {
     return _result;
 }
 
+// BasicUser::BasicUser() : User() {}
+BasicUser::BasicUser(Account* ac) : User(ac){}
+BasicUser::BasicUser(const BasicUser& usr) : User(usr){}
+BasicUser::~BasicUser() {}
+User* BasicUser::clone() const {
+    return new BasicUser(*this);
+}
+map<string, string> BasicUser::userSearch(const LinqDB& db, const string& wanted) const {
+    return std::for_each(db.begin(), db.end(), searchFunctor(1, wanted, this)).result();
+}
+
+BasicUser::linkedWith::linkedWith(int s = 0, User* usr = 0) : _offset(s), _owner(usr) {}
+void BasicUser::linkedWith::operator()(const SmartPtr<User>& spu) {
+    if(!_owner->linked(*(spu->account()->username())) && *(spu->account()->username()) != *(_owner->account()->username()))
+        if(_owner->similarity(&(*spu)) >= _offset)
+            _mates.push_back(spu);
+}
+vector<SmartPtr<User> > BasicUser::linkedWith::result() const {
+    return _mates;
+}
+vector<SmartPtr<User> > BasicUser::listPossibleLinks(const LinqDB& db) const {
+    return std::for_each(db.begin(), db.end(), linkedWith(40, const_cast<BasicUser*> (this))).result();
+}
 void BasicUser::addContact(User* usr) {
     _net->addUser(usr);
 }
@@ -157,32 +180,10 @@ bool BasicUser::linked(const Username& usr) const {
     return found;
 }
 
-BasicUser::BasicUser() : User() {}
-BasicUser::BasicUser(Account* ac, LinqNet* lq) : User(ac, lq){}
-BasicUser::BasicUser(const BasicUser& usr) : User(usr){}
-User* BasicUser::clone() const {
-    return new BasicUser(*this);
-}
-map<string, string> BasicUser::userSearch(const LinqDB& db, const string& wanted) const {
-    return std::for_each(db.begin(), db.end(), searchFunctor(1, wanted, this)).result();
-}
-
-BasicUser::linkedWith::linkedWith(int s = 0, User* usr = 0) : _offset(s), _owner(usr) {}
-void BasicUser::linkedWith::operator()(const SmartPtr<User>& spu) {
-    if(!_owner->linked(*(spu->account()->username())) && *(spu->account()->username()) != *(_owner->account()->username()))
-        if(_owner->similarity(&(*spu)) >= _offset)
-            _mates.push_back(spu);
-}
-vector<SmartPtr<User> > BasicUser::linkedWith::result() const {
-    return _mates;
-}
-vector<SmartPtr<User> > BasicUser::listPossibleLinks(const LinqDB& db) const {
-    return std::for_each(db.begin(), db.end(), linkedWith(40, const_cast<BasicUser*> (this))).result();
-}
-
-BusinessUser::BusinessUser() : BasicUser() {}
-BusinessUser::BusinessUser(Account* ac, LinqNet* lq) : BasicUser(ac, lq) {}
+// BusinessUser::BusinessUser() : BasicUser() {}
+BusinessUser::BusinessUser(Account* ac) : BasicUser(ac) {}
 BusinessUser::BusinessUser(const BusinessUser& usr) : BasicUser(usr) {}
+BusinessUser::~BusinessUser() {}
 User* BusinessUser::clone() const {
     return new BusinessUser(*this);
 }
@@ -190,9 +191,10 @@ map<string, string> BusinessUser::userSearch(const LinqDB& db, const string& wan
     return std::for_each(db.begin(), db.end(), searchFunctor(2, wanted, this)).result();
 }
 
-ExecutiveUser::ExecutiveUser() : BusinessUser() {}
-ExecutiveUser::ExecutiveUser(Account* ac, LinqNet* lq) : BusinessUser(ac, lq) {}
-ExecutiveUser::ExecutiveUser(const ExecutiveUser& usr) : BusinessUser(usr) {}
+// ExecutiveUser::ExecutiveUser() : BusinessUser() {}
+ExecutiveUser::ExecutiveUser(Account* ac) : BusinessUser(ac) {}
+ExecutiveUser::ExecutiveUser(const ExecutiveUser& usr) : BusinessUser(usr), _keywords(usr._keywords) {}
+ExecutiveUser::~ExecutiveUser() {_keywords.clear();}
 User* ExecutiveUser::clone() const {
     return new ExecutiveUser(*this);
 }
@@ -200,7 +202,6 @@ map<string, string> ExecutiveUser::userSearch(const LinqDB& db, const string& wa
     return std::for_each(db.begin(), db.end(), searchFunctor(3, wanted, this)).result();
 }
 void ExecutiveUser::addKeyword(const string& key) {
-    // string k = utilities::Utils::toLowerCase(key);
     _keywords.push_back(key);
 }
 map<string, int> ExecutiveUser::keywordPercent() const {
@@ -218,7 +219,13 @@ map<string, int> ExecutiveUser::keywordPercent() const {
         sum += itr->second;
     itr = ret.begin();
     map<string, int> tmp;
-    for(; itr != ret.end(); ++itr)
-        tmp.insert(std::pair<string, int>(itr->first, ((itr->second / sum)) * 100));
+    double res;
+    for(; itr != ret.end(); ++itr) {
+        res = (static_cast<double> (itr->second) / sum) * 100;
+        tmp.insert(std::pair<string, int>(itr->first, static_cast<int>(res)));
+    }
     return tmp;
+}
+vector<string> ExecutiveUser::keywords() const {
+    return _keywords;
 }

@@ -5,7 +5,10 @@ double Subscription::_business = 14.90;
 double Subscription::_executive = 29.90;
 
 Subscription::Subscription(privLevel lev) : _level(lev) {}
-
+Subscription::Subscription(const Subscription& sub) : _level(sub._level) {}
+Subscription* Subscription::clone() const {
+    return new Subscription(*this);
+}
 privLevel Subscription::level() const {
     return _level;
 }

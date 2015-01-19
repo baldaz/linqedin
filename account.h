@@ -14,7 +14,7 @@ private:
     privLevel _privilege;
     vector<SmartPtr<Payment> > _history;
 public:
-    Account();
+    // Account();
     Account(Info*, Username*, privLevel);
     Account(const Account&);
     ~Account();

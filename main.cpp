@@ -11,6 +11,11 @@ using std::endl;
 
 int main(int argc, char**argv) {
     // LinqClient* client = new LinqClient(Username("Baldaz", "qwerty"));
+    // client->addContact(Username("Casey", "rayback"));
+    // client->removeContact(Username("Atilio", ""));
+    // cout << client->displayProfile() << endl;
+    // // client->save();
+    // delete client;
     QApplication app(argc, argv);
     Gui_UserWindow window;
     QFile File("style/stylesheet.qss");

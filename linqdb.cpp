@@ -6,11 +6,11 @@ using std::endl;
 LinqDB::LinqDB() {
     load();
 }
-LinqDB::~LinqDB() {}
+LinqDB::~LinqDB() { _db.clear(); }
 bool LinqDB::readJson() {
-    QFile loadDB(QStringLiteral("database.json"));
+    QFile loadDB("database.json");
     if (!loadDB.open(QIODevice::ReadOnly)) {
-        qWarning("Couldn't open database.");
+        std::cout << "Couldn't open database." << std::endl;
         return false;
     }
     QByteArray saveData = loadDB.readAll();
@@ -22,13 +22,10 @@ bool LinqDB::readJson() {
     return true;
 }
 void LinqDB::read(const QJsonArray& qjs) {
-    // UserInfo* uif;
     for(int i = 0; i < qjs.size(); ++i) {
         QJsonObject obj = qjs[i].toObject();
-        Username* usr = new Username(obj["username"].toString().toStdString(), obj["password"].toString().toStdString());
+        Username usr(obj["username"].toString().toStdString(), obj["password"].toString().toStdString());
         UserInfo* uif = new UserInfo;
-        // uif = dynamic_cast<UserInfo*> (uf);
-        LinqNet* net = new LinqNet;
         privLevel priv = static_cast<privLevel> (obj["privilege"].toInt());
         QJsonObject info = obj["info"].toObject();
         if(uif) {
@@ -57,7 +54,7 @@ void LinqDB::read(const QJsonArray& qjs) {
                 uif->addFormation(&ins);
             }
         }
-        Account* acc = new Account(uif, usr, priv);
+        Account* acc = new Account(uif, &usr, priv);
 
         QJsonArray payments = obj["payments"].toArray();
         QJsonObject subP;
@@ -65,25 +62,33 @@ void LinqDB::read(const QJsonArray& qjs) {
             subP = payments[i].toObject();
             Subscription subscr(priv);
             CreditCard bmeth(subP["code"].toString().toStdString(), subP["nominee"].toString().toStdString());
-            Payment pay(usr, &subscr, &bmeth, subP["approved"].toBool());
+            Payment pay(&usr, &subscr, &bmeth, subP["approved"].toBool());
             acc->addPayment(pay);
         }
         User* s = NULL;
+        ExecutiveUser* us;
+        QJsonArray keys;
         switch(priv) {
             case 0:
-                s = new BasicUser(acc, net);
+                s = new BasicUser(acc);
             break;
             case 1:
-                s = new BusinessUser(acc, net);
+                s = new BusinessUser(acc);
             break;
             case 2:
-                s = new ExecutiveUser(acc, net);
+                s = new ExecutiveUser(acc);
+                keys = obj["keywords"].toArray();
+                us = dynamic_cast<ExecutiveUser*> (s);
+                for(int i = 0; i < keys.size(); ++i)
+                    us->addKeyword(keys[i].toString().toStdString());
             break;
             case 3:
             break;
         }
         s->setVisitCount(obj["visitcount"].toInt());
         addUser(s);
+        delete uif;
+        delete acc;
         delete s;
     }
 }
@@ -106,7 +111,7 @@ vector<QJsonObject> LinqDB::writeJson() const {
     UserInfo* uif; Bio* bio;
     for(int i = 0; i < size(); ++i) {
         QJsonObject jUser, jInf, jFormations, jPayment;
-        QJsonArray jArr, jLang, jSkill, jInterest, jForArr, jPay;
+        QJsonArray jArr, jLang, jSkill, jInterest, jForArr, jPay, jKWords;
         vector<SmartPtr<Experience> > formations;
         vector<SmartPtr<Payment> > payments;
         Info* info = _db[i]->account()->info();
@@ -161,6 +166,12 @@ vector<QJsonObject> LinqDB::writeJson() const {
             jPayment["nominee"] = QString::fromStdString((*iter)->billMethod()->nominee());
             jPayment["approved"] = (*iter)->approvation();
             jPay.append(jPayment);
+        }
+        if(const ExecutiveUser* ex = dynamic_cast<const ExecutiveUser*> (&(*_db[i]))) {
+            vector<string> kw = ex->keywords();
+            for(vector<string>::iterator it = kw.begin(); it < kw.end(); ++it)
+                jKWords.append(QString::fromStdString(*it));
+            jUser["keywords"] = jKWords;
         }
         jUser["net"] = jArr;
         jUser["info"] = jInf;

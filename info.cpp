@@ -20,6 +20,13 @@ UserInfo& UserInfo::operator=(const UserInfo& uif) {
     }
     return *this;
 }
+UserInfo::~UserInfo() {
+    _skills.clear();
+    _interests.clear();
+    _languages.clear();
+    _formations.clear();
+    _exps.clear();
+}
 Info* UserInfo::clone() const {
     return new UserInfo(*this);
 }
@@ -193,6 +200,7 @@ string UserInfo::printHtml() const {
 Bio::Bio(bool sx, const string& n, const string& s, const string& b, const string& e, const string& a, const string& t, const string& w, const string& bio = "") : UserInfo(sx, n, s, b, e, a, t, w), _bio(bio) {}
 Bio::Bio(const Bio& bio) :
     UserInfo(bio._sex, bio._name, bio._surname, bio._birthdate, bio._email, bio._address, bio._telephon, bio._website), _bio(bio._bio) {}
+Bio::~Bio() {}
 Info* Bio::clone() const {
     return new Bio(*this);
 }

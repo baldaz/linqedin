@@ -12,6 +12,8 @@ class LinqNet {
 private:
     vector<SmartPtr<User> > _net;
 public:
+    LinqNet();
+    LinqNet(const LinqNet&);
     ~LinqNet();
     LinqNet* clone() const;
     void addUser(User*);

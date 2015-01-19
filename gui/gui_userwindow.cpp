@@ -89,7 +89,7 @@ void Gui_UserWindow::createPayments() {
 }
 
 void Gui_UserWindow::logicInitialize() {
-    user = new LinqClient(Username("Casey", "rayback"));
+    user = new LinqClient(Username("Baldaz", "qwerty"));
     user->setAvatar("img/seagal.jpg");
 }
 //overload
@@ -138,10 +138,10 @@ void Gui_UserWindow::payments() {
 //SLOT
 void Gui_UserWindow::logout() {
     // user->save();
-    close();
-    // map<string, int> keys = user->keywordFrequency();
-    // map<string, int>::iterator it = keys.begin();
-    // if(!keys.empty())
-    //     for(; it != keys.end(); ++it)
-    //         std::cout << it->first << " >> " << it->second << std::endl;
+    // close();
+    map<string, int> keys = user->keywordFrequency();
+    map<string, int>::iterator it = keys.begin();
+    if(!keys.empty())
+        for(; it != keys.end(); ++it)
+            std::cout << it->first << " >> " << it->second << std::endl;
 }

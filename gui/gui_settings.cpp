@@ -37,7 +37,9 @@ Gui_Settings::Gui_Settings(LinqClient* cli, QWidget* parent) : _client(cli), QGr
 
     QVBoxLayout* vbl = new QVBoxLayout;
 
-    hbl->setSpacing(5);
+    hbl->setSpacing(0);
+    hbl->setMargin(0);
+    hbl->setContentsMargins(0,0,0,0);
     hbl->addWidget(name);
     hbl->addWidget(edtName);
     hbl->addWidget(birth);
@@ -63,5 +65,7 @@ Gui_Settings::Gui_Settings(LinqClient* cli, QWidget* parent) : _client(cli), QGr
     vbl->addLayout(hbl);
     vbl->addLayout(hbl2);
     vbl->setSpacing(0);
+    vbl->setMargin(0);
+    vbl->setContentsMargins(0,0,0,0);
     addLayout(vbl, 0, 1, 1, 1);
 }
