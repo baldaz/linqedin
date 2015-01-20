@@ -17,6 +17,7 @@ HEADERS += account.h \
            gui/gui_displayinfo.h \
            gui/gui_links.h \
            gui/gui_listdelegate.h \
+           gui/gui_login.h \
            gui/gui_messages.h \
            gui/gui_newmessage.h \
            gui/gui_overview.h \
@@ -44,6 +45,7 @@ SOURCES += account.cpp \
            gui/gui_displayinfo.cpp \
            gui/gui_links.cpp \
            gui/gui_listdelegate.cpp \
+           gui/gui_login.cpp \
            gui/gui_messages.cpp \
            gui/gui_newmessage.cpp \
            gui/gui_overview.cpp \

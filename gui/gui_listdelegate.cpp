@@ -51,13 +51,18 @@ void ListDelegate::paint(QPainter* painter, const QStyleOptionViewItem& option, 
     QString title = index.data(Qt::DisplayRole).toString();
     QString description = index.data(Qt::UserRole + 1).toString();
     bool read = index.data(Qt::UserRole + 3).toBool();
+    QIcon done = QIcon(qvariant_cast<QPixmap>(index.data(Qt::UserRole + 4)));
 
     int imageSpace = 10;
     if (!ic.isNull()) {
         //ICON
         r = option.rect.adjusted(5, 10, -10, -10);
         ic.paint(painter, r, Qt::AlignVCenter|Qt::AlignLeft);
-        imageSpace = 55;
+        imageSpace = 35;
+    }
+    if(!done.isNull()) {
+        r = option.rect.adjusted(5, 25, -5, -10);
+        done.paint(painter, r, Qt::AlignVCenter|Qt::AlignRight);
     }
 
     QFont font;
@@ -66,6 +71,7 @@ void ListDelegate::paint(QPainter* painter, const QStyleOptionViewItem& option, 
     //TITLE
     r = option.rect.adjusted(imageSpace, 0, -10, -30);
     if(!read) painter->setFont(font);
+
     // painter->setFont(QFont("Lucida Grande", 12, QFont::Bold));
     painter->drawText(r.left(), r.top(), r.width(), r.height(), Qt::AlignBottom|Qt::AlignLeft, title, &r);
 

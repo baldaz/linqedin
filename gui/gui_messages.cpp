@@ -17,11 +17,13 @@ Gui_Messages::Gui_Messages(LinqClient* cli, QWidget* parent) : _client(cli), QGr
     item->setData(Qt::UserRole + 1, "From: Pablito 12-12-2014");
     item->setData(Qt::UserRole + 2, "Lorem ipsum dolorem sit amet");
     item->setData(Qt::UserRole + 3, 1);
+    item->setData(Qt::UserRole + 4, QPixmap("img/verification24.png"));
     item2->setData(Qt::DisplayRole, "2nd try!");
     item2->setData(Qt::DecorationRole, QPixmap("img/envelope12.png"));
     item2->setData(Qt::UserRole + 1, "From: Atilio 12-09-2014");
     item2->setData(Qt::UserRole + 2, "Lorem ipsum dolorem sit amet");
     item2->setData(Qt::UserRole + 3, 1);
+    item2->setData(Qt::UserRole + 4, QPixmap("img/verification24.png"));
     item3->setData(Qt::DisplayRole, "Connection request");
     item3->setData(Qt::DecorationRole, QPixmap("img/envelope12.png"));
     item3->setData(Qt::UserRole + 1, "From: Andrea 02-08-2014");
@@ -32,6 +34,7 @@ Gui_Messages::Gui_Messages(LinqClient* cli, QWidget* parent) : _client(cli), QGr
     item4->setData(Qt::UserRole + 1, "From: ser 12-11-2014");
     item4->setData(Qt::UserRole + 2, "Lorem ipsum dolorem sit amet");
     item4->setData(Qt::UserRole + 3, 1);
+    item4->setData(Qt::UserRole + 4, QPixmap("img/verification24.png"));
     _list->addItem(item);
     _list->addItem(item2);
     _list->addItem(item3);

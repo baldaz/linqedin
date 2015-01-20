@@ -25,7 +25,7 @@ Gui_UserWindow::Gui_UserWindow(QWidget* parent) : QWidget(parent) {
     _mainLayout->addWidget(horizontalGroupBox);
     _mainLayout->addLayout(_layoutStack);
     setLayout(_mainLayout);
-    show();
+    // show();
     move(200, 30);
     resize(1000, 720);
 }
