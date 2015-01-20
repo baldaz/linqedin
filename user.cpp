@@ -179,6 +179,18 @@ bool BasicUser::linked(const Username& usr) const {
         if((*it)->login() == usr.login()) found = true;
     return found;
 }
+void BasicUser::sendMessage(const Username& dest, const string& obj, const string& body, bool read) {
+    if(_outMail.size() < 10) {
+        Message* mex = new Message(const_cast<const Username&> (*(this->account()->username())), dest, obj, body, read);
+        _outMail.push_back(mex);
+    }
+}
+list<Message*> BasicUser::inMail() const {
+    return _inMail;
+}
+list<Message*> BasicUser::outMail() const {
+    return _outMail;
+}
 
 // BusinessUser::BusinessUser() : BasicUser() {}
 BusinessUser::BusinessUser(Account* ac) : BasicUser(ac) {}

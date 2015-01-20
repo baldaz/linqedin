@@ -2,6 +2,7 @@
 
 Gui_Messages::Gui_Messages(LinqClient* cli, QWidget* parent) : _client(cli), QGridLayout(parent) {
     // _list = new Gui_ListMessages(parent);
+    QTabWidget* tab = new QTabWidget(parent);
     Gui_Avatar* portrait = new Gui_Avatar(QString::fromStdString(_client->avatar()));
     _list = new QListWidget;
     _list->setItemDelegate(new ListDelegate(_list));
@@ -36,10 +37,14 @@ Gui_Messages::Gui_Messages(LinqClient* cli, QWidget* parent) : _client(cli), QGr
     _list->addItem(item3);
     _list->addItem(item4);
 
+    tab->addTab(_list, "Received");
+    tab->addTab(new QListWidget, "Sent");
+
     // portrait->setStyleSheet("background:#fff");
     // _list->setStyleSheet("background:#ff0");
     this->addWidget(portrait, 0, 0, 1, 1, Qt::AlignTop);
-    this->addWidget(_list, 0, 1, 1, 1);
+    addWidget(tab, 0, 1, 1, 1);
+    // this->addWidget(_list, 0, 1, 1, 1);
     addWidget(_output, 0, 2, 1, -1);
     this->setColumnStretch(0, 1);
     this->setColumnStretch(1, 2);

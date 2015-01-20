@@ -49,9 +49,12 @@ Gui_Payments::Gui_Payments(LinqClient* cli, QWidget* parent) : _client(cli), QGr
 
     _list = new QTextBrowser(parent);
     _list->setEnabled(false);
-    // _list->setStyleSheet("background:#0ff");
-    QString content = QString("<h2>Payments History</h2><table border=0 cellspacing='15'><tr><th>Date</th><th>Expiration</th></tr>");
-    content.append("<tr><td style='font-weight:400'>colonna 1</td><td style='font-weight:400'>colonna 2</td></tr>");
+    _list->setStyleSheet("background:#000");
+    QString content = QString("<h2>Payments History</h2>");
+    content.append("<table border=0 cellspacing='15' width='80\%'><tr><th align=center>Date</th><th align=center>Expiration</th><th align=center>Level</th><th align=center>Status</th></tr>");
+    content.append("<tr><td style='font-weight:400' align=center>12-11-2014</td><td style='font-weight:400' align=center>12-01-2015</td><td style='font-weight:400' align=center>Executive</td><td style='font-weight:400' align=center>Expired</td></tr>");
+    content.append("<tr><td style='font-weight:400' align=center>12-01-2015</td><td style='font-weight:400' align=center>12-03-2015</td><td style='font-weight:400' align=center>Executive</td><td style='font-weight:400' align=center>Pending</td></tr>");
+    content.append("</table>");
     _list->setHtml(content);
 
     map<string, int> keys = _client->keywordFrequency();

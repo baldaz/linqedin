@@ -73,3 +73,9 @@ QScrollBar::sub-line:vertical {
     border: none;
     background: none;
 }
+QTabBar::tab {
+    background-color: #000;
+}
+QTabBar::tab:selected {
+    background-color: #171717;
+}
