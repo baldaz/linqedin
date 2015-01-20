@@ -11,8 +11,9 @@
 
 class Gui_Login : public QDialog {
     Q_OBJECT
+private:
+    void resizeEvent(QResizeEvent*);
 public:
     Gui_Login(QWidget* = 0);
-    void resizeEvent(QResizeEvent*);
 };
 #endif
