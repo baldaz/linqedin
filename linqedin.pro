@@ -17,17 +17,13 @@ HEADERS += account.h \
            gui/gui_displayinfo.h \
            gui/gui_links.h \
            gui/gui_listdelegate.h \
-           gui/gui_listmessages.h \
            gui/gui_messages.h \
            gui/gui_newmessage.h \
            gui/gui_overview.h \
            gui/gui_payments.h \
-           gui/gui_paymentsdelegate.h \
            gui/gui_search.h \
            gui/gui_settings.h \
            gui/gui_userwindow.h \
-           gui/gui_viewcontact.h \
-           gui/messagemodel.h \
            info.h \
            linqadmin.h \
            linqclient.h \
@@ -48,17 +44,13 @@ SOURCES += account.cpp \
            gui/gui_displayinfo.cpp \
            gui/gui_links.cpp \
            gui/gui_listdelegate.cpp \
-           gui/gui_listmessages.cpp \
            gui/gui_messages.cpp \
            gui/gui_newmessage.cpp \
            gui/gui_overview.cpp \
            gui/gui_payments.cpp \
-           gui/gui_paymentsdelegate.cpp \
            gui/gui_search.cpp \
            gui/gui_settings.cpp \
            gui/gui_userwindow.cpp \
-           gui/gui_viewcontact.cpp \
-           gui/messagemodel.cpp \
            info.cpp \
            linqadmin.cpp \
            linqclient.cpp \

@@ -7,11 +7,12 @@
 #include <QToolBar>
 #include <QAction>
 #include <QGridLayout>
-#include "gui_viewcontact.h"
-#include "../username.h"
-#include "../user.h"
-#include "../linqnet.h"
-#include "../linqclient.h"
+// #include "gui_viewcontact.h"
+#include "gui_displayinfo.h"
+#include "username.h"
+#include "user.h"
+#include "linqnet.h"
+#include "linqclient.h"
 
 class Gui_Links : public QListWidget {
     Q_OBJECT

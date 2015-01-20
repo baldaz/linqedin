@@ -6,7 +6,7 @@
 #include <QListWidget>
 #include "gui_avatar.h"
 #include "linqclient.h"
-#include "gui_paymentsdelegate.h"
+// #include "gui_paymentsdelegate.h"
 
 class Gui_Payments : public QGridLayout {
     Q_OBJECT

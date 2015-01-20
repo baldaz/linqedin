@@ -2,7 +2,7 @@
 #define GUI_MESSAGES_H
 
 #include "linqclient.h"
-#include "gui_listmessages.h"
+// #include "gui_listmessages.h"
 #include "gui_listdelegate.h"
 #include "gui_newmessage.h"
 #include "gui_avatar.h"
