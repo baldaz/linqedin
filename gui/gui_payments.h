@@ -12,7 +12,7 @@ class Gui_Payments : public QGridLayout {
     Q_OBJECT
 private:
     LinqClient* _client;
-    QListWidget* _list;
+    QTextBrowser* _list;
 public:
     Gui_Payments(LinqClient*, QWidget* parent = 0);
 };
