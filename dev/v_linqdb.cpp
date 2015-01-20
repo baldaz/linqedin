@@ -93,15 +93,14 @@ void LinqDB::read(const QJsonArray& qjs) {
     }
 }
 void LinqDB::readNet(const QJsonArray& qjs) {
-    list<SmartPtr<User> >::iterator it = _db.begin();
-    for(; it != _db.end(); ++it) {
+    for(int j = 0; j < size(); ++j) {
         for(int i = 0; i < qjs.size(); ++i) {
             QJsonObject obj = qjs[i].toObject();
             QJsonArray contacts = obj["net"].toArray();
-            if((*it)->account()->username()->login() == obj["username"].toString().toStdString()) {
+            if(_db[j]->account()->username()->login() == obj["username"].toString().toStdString()) {
                 for(int k = 0; k < contacts.size(); ++k){
                     Username usr(contacts[k].toString().toStdString(), ""); /* variante find(new username)*/
-                    (*it)->addContact(find(usr));
+                    _db[j]->addContact(find(usr));
                 }
             }
         }
@@ -110,13 +109,12 @@ void LinqDB::readNet(const QJsonArray& qjs) {
 vector<QJsonObject> LinqDB::writeJson() const {
     vector<QJsonObject> vjs;
     UserInfo* uif; Bio* bio;
-    list<SmartPtr<User> >::const_iterator it = _db.begin();
-    for(; it != _db.end(); ++it) {
+    for(int i = 0; i < size(); ++i) {
         QJsonObject jUser, jInf, jFormations, jPayment;
         QJsonArray jArr, jLang, jSkill, jInterest, jForArr, jPay, jKWords;
         vector<SmartPtr<Experience> > formations;
         vector<SmartPtr<Payment> > payments;
-        Info* info = (*it)->account()->info();
+        Info* info = _db[i]->account()->info();
         if(uif = dynamic_cast<UserInfo*> (info)) { /*downcast a userinfo*/
             jInf["name"] = QString::fromStdString(uif->name());
             jInf["surname"] = QString::fromStdString(uif->surname());
@@ -153,15 +151,15 @@ vector<QJsonObject> LinqDB::writeJson() const {
         itr = interests.begin();
         for(; itr < interests.end(); ++itr)
             jInterest.append(QString::fromStdString(*itr));
-        jUser["username"] = QString::fromStdString((*it)->account()->username()->login());
-        jUser["password"] = QString::fromStdString((*it)->account()->username()->password());
-        jUser["visitcount"] = (*it)->visitCount();
-        jUser["privilege"] = (*it)->account()->prLevel();
-        vector<SmartPtr<Username> > list = (*it)->net()->username();
-        vector<SmartPtr<Username> >::const_iterator itu = list.begin();
-        for(; itu < list.end(); ++itu)
-            jArr.append(QString::fromStdString((*itu)->login()));
-        payments = (*it)->account()->history();
+        jUser["username"] = QString::fromStdString(_db[i]->account()->username()->login());
+        jUser["password"] = QString::fromStdString(_db[i]->account()->username()->password());
+        jUser["visitcount"] = _db[i]->visitCount();
+        jUser["privilege"] = _db[i]->account()->prLevel();
+        vector<SmartPtr<Username> > list = _db[i]->net()->username();
+        vector<SmartPtr<Username> >::const_iterator it = list.begin();
+        for(; it < list.end(); ++it)
+            jArr.append(QString::fromStdString((*it)->login()));
+        payments = _db[i]->account()->history();
         vector<SmartPtr<Payment> >::const_iterator iter = payments.begin();
         for(; iter < payments.end(); ++iter) {
             jPayment["code"] = QString::fromStdString((*iter)->billMethod()->code());
@@ -169,11 +167,11 @@ vector<QJsonObject> LinqDB::writeJson() const {
             jPayment["approved"] = (*iter)->approvation();
             jPay.append(jPayment);
         }
-        if(const ExecutiveUser* ex = dynamic_cast<const ExecutiveUser*> (&(*(*it)))) {
+        if(const ExecutiveUser* ex = dynamic_cast<const ExecutiveUser*> (&(*_db[i]))) {
             map<string, int> kw = ex->keywords();
-            for(map<string, int>::iterator itm = kw.begin(); itm != kw.end(); ++itm) {
-                for(int i = 0; i < itm->second; ++i)
-                    jKWords.append(QString::fromStdString(itm->first));
+            for(map<string, int>::iterator it = kw.begin(); it != kw.end(); ++it) {
+                for(int i = 0; i < it->second; ++i)
+                    jKWords.append(QString::fromStdString(it->first));
             }
             jUser["keywords"] = jKWords;
         }
@@ -230,35 +228,33 @@ int LinqDB::size() const {
     return _db.size();
 }
 void LinqDB::addUser(User* u) {
-    list<SmartPtr<User> >::iterator it = _db.begin();
+    vector<SmartPtr<User> >::iterator it = _db.begin();
     bool alreadyIn = false;
-    for(; it != _db.end() && !alreadyIn; ++it) {
+    for(; it < _db.end() && !alreadyIn; ++it) {
         if(*((*it)->account()->username()) == *(u->account()->username()))
             alreadyIn = true;
     }
     if(!alreadyIn) _db.push_back(SmartPtr<User>(u));
 }
 void LinqDB::removeUser(const Username& usr) {
-    list<SmartPtr<User> >::iterator it = _db.begin();
-    for(; it != _db.end(); ++it)
-        if(((*it)->account()->username()->login()) == usr.login())
-            _db.erase(it);
+    for(int i = 0; i < size(); ++i)
+        if((_db[i]->account()->username()->login()) == usr.login())
+            _db.erase(_db.begin() + i);
 }
 User* LinqDB::find(const Username& usr) const {
     User* ret = NULL;
-    list<SmartPtr<User> >::const_iterator it = _db.begin();
-    for(; it != _db.end(); ++it)
-        if(((*it)->account()->username()->login()) == usr.login())
+    for(int i = 0; i < size(); ++i)
+        if((_db[i]->account()->username()->login()) == usr.login())
             // ret = _db[i]->clone();
-            ret = &(*(*it));
+            ret = &(*_db[i]);
     return ret;
 }
-list<SmartPtr<User> >::const_iterator LinqDB::begin() const{
+vector<SmartPtr<User> >::const_iterator LinqDB::begin() const{
     return _db.begin();
 }
-list<SmartPtr<User> >::const_iterator LinqDB::end() const{
+vector<SmartPtr<User> >::const_iterator LinqDB::end() const{
     return _db.end();
 }
-// SmartPtr<User> LinqDB::operator[](const int& i) const {
-//     return _db[i];
-// }
+SmartPtr<User> LinqDB::operator[](const int& i) const {
+    return _db[i];
+}

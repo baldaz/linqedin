@@ -3,7 +3,6 @@
 
 #include <iostream>
 #include <vector>
-#include <list>
 #include <QFile>
 #include <QJsonObject>
 #include <QJsonArray>
@@ -15,13 +14,12 @@
 #include "privlevel.h"
 #include "smartptr.h"
 
-using std::list;
 using std::vector;
 using std::string;
 
 class LinqDB {
 private:
-    list<SmartPtr<User> > _db;
+    vector<SmartPtr<User> > _db;
 
     bool readJson();
     void read(const QJsonArray&);
@@ -39,8 +37,8 @@ public:
     void removeUser(const Username&);
     int size() const;
     User* find(const Username&) const;
-    list<SmartPtr<User> >::const_iterator begin() const;
-    list<SmartPtr<User> >::const_iterator end() const;
-    // SmartPtr<User> operator[](const int&) const;
+    vector<SmartPtr<User> >::const_iterator begin() const;
+    vector<SmartPtr<User> >::const_iterator end() const;
+    SmartPtr<User> operator[](const int&) const;
 };
 #endif
