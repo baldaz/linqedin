@@ -4,14 +4,7 @@
 template <class T>
 class SmartPtr {
 private:
-    class RefCounter {
-        int count;
-    public:
-        void addRef();
-        int release();
-    };
     T* _ptr;
-    RefCounter* ref;
 public:
     SmartPtr();
     SmartPtr(T*);

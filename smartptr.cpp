@@ -1,42 +1,16 @@
 template <class T>
-void SmartPtr<T>::RefCounter::addRef() {
-    count++;
-}
+SmartPtr<T>::SmartPtr() : _ptr(0) {}
 template <class T>
-int SmartPtr<T>::RefCounter::release() {
-    return --count;
-}
+SmartPtr<T>::SmartPtr(T* pointer) : _ptr(pointer->clone()) {}
 template <class T>
-SmartPtr<T>::SmartPtr() : _ptr(0)/*, ref(0)*/ {
-    // ref = new RefCounter();
-    // ref->addRef();
-}
+SmartPtr<T>::SmartPtr(const SmartPtr<T>& smartptr) : _ptr((smartptr._ptr)->clone()) {}
 template <class T>
-SmartPtr<T>::SmartPtr(T* usr) : _ptr(usr->clone())/*, ref(0)*/ {
-    // ref = new RefCounter();
-    // ref->addRef();
-}
+SmartPtr<T>::~SmartPtr() { delete _ptr;}
 template <class T>
-SmartPtr<T>::SmartPtr(const SmartPtr<T>& spusr) : _ptr((spusr._ptr)->clone())/*, ref(spusr.ref)*/ {
-    // ref->addRef();
-}
-template <class T>
-SmartPtr<T>::~SmartPtr() {
-    // if(ref->release() == 0) {
+SmartPtr<T>& SmartPtr<T>::operator=(const SmartPtr<T>& smartptr) {
+    if (this != &smartptr) {
         delete _ptr;
-        // delete ref;
-    // }
-}
-template <class T>
-SmartPtr<T>& SmartPtr<T>::operator=(const SmartPtr<T>& spusr) {
-    if (this != &spusr) {
-        // if(ref->release() == 0) {
-            delete _ptr;
-            // delete ref;
-        // }
-        _ptr = (spusr._ptr)->clone();
-        // ref = spusr.ref;
-        // ref->addRef();
+        _ptr = (smartptr._ptr)->clone();
     }
     return *this;
 }
@@ -49,10 +23,10 @@ T* SmartPtr<T>::operator->() const {
     return _ptr;
 }
 template <class T>
-bool SmartPtr<T>::operator==(const SmartPtr<T>& spu) const{
-    return(_ptr == spu._ptr);
+bool SmartPtr<T>::operator==(const SmartPtr<T>& smartptr) const{
+    return(_ptr == smartptr._ptr);
 }
 template <class T>
-bool SmartPtr<T>::operator!=(const SmartPtr<T>& spu) const{
-    return(_ptr != spu._ptr);
+bool SmartPtr<T>::operator!=(const SmartPtr<T>& smartptr) const{
+    return(_ptr != smartptr._ptr);
 }

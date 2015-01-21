@@ -2,28 +2,28 @@
 #define MESSAGE_H
 
 #include <string>
+#include <QDate>
 #include "username.h"
 
 using std::string;
 
 class Message {
 private:
-    Username* _sender;
-    Username* _receiver;
+    Username _sender;
+    Username _receiver;
     string _object, _body;
     bool _read;
+    QDate _sent, _recv;
 public:
-    Message(const Username&, const Username&, const string&, const string&, bool);
+    Message(const Username&, const Username&, const string&, const string&, bool, const QDate& = QDate::currentDate(), const QDate& = QDate::currentDate());
     ~Message();
     bool isRead() const;
     void setRead(bool);
-    Username* sender() const;
-    void setSender(const Username&);
-    Username* receiver() const;
-    void setReceiver(const Username&);
-    const string& object() const;
-    void setObject(const string&);
-    const string& body() const;
-    void setBody(const string&);
+    Username sender() const;
+    Username receiver() const;
+    string object() const;
+    string body() const;
+    QDate sent() const;
+    QDate recv() const;
 };
 #endif

@@ -184,14 +184,21 @@ bool BasicUser::linked(const Username& usr) const {
 }
 void BasicUser::sendMessage(const Username& dest, const string& obj, const string& body, bool read) {
     if(_outMail.size() < 10) {
-        Message* mex = new Message((this->account()->username()), dest, obj, body, read);
+        Message mex((this->account()->username()), dest, obj, body, read);
         _outMail.push_back(mex);
     }
 }
-list<Message*> BasicUser::inMail() const {
+void BasicUser::loadInMail(const Message& mex) {
+    _inMail.push_back(mex);
+}
+void BasicUser::loadOutMail(const Message& mex) {
+    if(_outMail.size() < 10)
+        _outMail.push_back(mex);
+}
+list<Message> BasicUser::inMail() const {
     return _inMail;
 }
-list<Message*> BasicUser::outMail() const {
+list<Message> BasicUser::outMail() const {
     return _outMail;
 }
 

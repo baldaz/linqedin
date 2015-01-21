@@ -8,6 +8,9 @@ using std::cout;
 using std::endl;
 
 int main(int argc, char**argv) {
+    // LinqAdmin* admin = new LinqAdmin;
+    // admin->removeUser(Username("Baldaz",""));
+    // delete admin;
     // LinqClient* client = new LinqClient(Username("Baldaz", "qwerty"));
     // client->addContact(Username("Casey", "rayback"));
     // client->removeContact(Username("Atilio", ""));

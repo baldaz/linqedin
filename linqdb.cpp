@@ -61,19 +61,7 @@ void LinqDB::read(const QJsonArray& qjs) {
                 uif->addExperience(exp);
             }
         }
-        // QJsonArray outmail = obj["outmail"].toArray();
-        // QJsonArray inmain = obj["inmail"].toArray();
-        // QJsonObject in, out;
-        // for(int i = 0; i < outmail.size(); ++i) {
-        //     out = outmail[i].toObject();
-        //     Message* mex = new Message(usr, Username(out["receiver"].toString().toStdString(), ""), out["object"].toString().toStdString(), out["body"].toString().toStdString(), true);
-        //     // add to outmail
-        // }
-        // for(int i = 0; i < inmail.size(); ++i) {
-        //     in = inmail[i].toObject();
-        //     Message* mex = new Message(Username(in["sender"].toString().toStdString(), ""), usr, in["object"].toString().toStdString(), in["body"].toString().toStdString(), in["read"].toBool());
-        //     // add to inmail
-        // }
+
         Account* acc = new Account(uif, usr, priv);
 
         QJsonArray payments = obj["payments"].toArray();
@@ -106,6 +94,19 @@ void LinqDB::read(const QJsonArray& qjs) {
             break;
         }
         s->setVisitCount(obj["visitcount"].toInt());
+        QJsonArray outmail = obj["outmail"].toArray();
+        QJsonArray inmail = obj["inmail"].toArray();
+        QJsonObject in, out;
+        for(int i = 0; i < outmail.size(); ++i) {
+            out = outmail[i].toObject();
+            Message mex(usr, Username(out["receiver"].toString().toStdString(), ""), out["object"].toString().toStdString(), out["body"].toString().toStdString(), true, QDate::fromString(out["sent"].toString(), "dd.MM.yyyy"), QDate::fromString(out["recv"].toString(), "dd.MM.yyyy"));
+            s->loadOutMail(mex);    // add to outmail
+        }
+        for(int i = 0; i < inmail.size(); ++i) {
+            in = inmail[i].toObject();
+            Message mex(Username(in["sender"].toString().toStdString(), ""), usr, in["object"].toString().toStdString(), in["body"].toString().toStdString(), in["read"].toBool(), QDate::fromString(in["sent"].toString(), "dd.MM.yyyy"), QDate::fromString(in["recv"].toString(), "dd.MM.yyyy"));
+            s->loadInMail(mex);// add to inmail
+        }
         addUser(s);
         delete uif;
         delete acc;
@@ -132,9 +133,11 @@ vector<QJsonObject> LinqDB::writeJson() const {
     UserInfo* uif; Bio* bio;
     list<SmartPtr<User> >::const_iterator it = _db.begin();
     for(; it != _db.end(); ++it) {
-        QJsonObject jUser, jInf, jFormations, jWork, jPayment;
+        QJsonObject jUser, jInf, jFormations, jWork, jPayment, jMail;
         QJsonArray jArr, jLang, jSkill, jInterest, jForArr, jForWrk, jPay, jKWords;
         list<Experience> experience;
+        list<Message> inMail;
+        list<Message> outMail;
         vector<SmartPtr<Payment> > payments;
         Info* info = (*it)->account()->info();
         if(uif = dynamic_cast<UserInfo*> (info)) { /*downcast a userinfo*/
@@ -183,9 +186,9 @@ vector<QJsonObject> LinqDB::writeJson() const {
         jUser["password"] = QString::fromStdString((*it)->account()->username().password());
         jUser["visitcount"] = (*it)->visitCount();
         jUser["privilege"] = (*it)->account()->prLevel();
-        vector<Username> list = (*it)->net()->username();
-        vector<Username>::const_iterator itu = list.begin();
-        for(; itu < list.end(); ++itu)
+        vector<Username> ulist = (*it)->net()->username();
+        vector<Username>::const_iterator itu = ulist.begin();
+        for(; itu < ulist.end(); ++itu)
             jArr.append(QString::fromStdString((*itu).login()));
         payments = (*it)->account()->history();
         vector<SmartPtr<Payment> >::const_iterator iter = payments.begin();
@@ -203,6 +206,28 @@ vector<QJsonObject> LinqDB::writeJson() const {
             }
             jUser["keywords"] = jKWords;
         }
+        inMail = (*it)->inMail();
+        outMail = (*it)->outMail();
+        list<Message>::const_iterator m_it = inMail.begin();
+        for(; m_it != inMail.end(); ++m_it) {
+            jMail["receiver"] = QString::fromStdString((*it)->account()->username().login());
+            jMail["sender"] = QString::fromStdString((*m_it).sender().login());
+            jMail["object"] = QString::fromStdString((*m_it).object());
+            jMail["body"] = QString::fromStdString((*m_it).body());
+            jMail["read"] = (*m_it).isRead();
+            jMail["sent"] = (*m_it).sent().toString("dd.MM.yyyy");
+            jMail["recv"] = (*m_it).recv().toString("dd.MM.yyyy");
+        }
+        m_it = outMail.begin();
+        for(; m_it != outMail.end(); ++m_it) {
+            jMail["receiver"] = QString::fromStdString((*m_it).receiver().login());
+            jMail["sender"] = QString::fromStdString((*it)->account()->username().login());
+            jMail["object"] = QString::fromStdString((*m_it).object());
+            jMail["body"] = QString::fromStdString((*m_it).body());
+            jMail["read"] = (*m_it).isRead();
+            jMail["sent"] = (*m_it).sent().toString("dd.MM.yyyy");
+            jMail["recv"] = (*m_it).recv().toString("dd.MM.yyyy");
+        }
         jUser["net"] = jArr;
         jUser["info"] = jInf;
         jUser["languages"] = jLang;
@@ -211,6 +236,7 @@ vector<QJsonObject> LinqDB::writeJson() const {
         jUser["formations"] = jForArr;
         jUser["jobs"] = jForWrk;
         jUser["payments"] = jPay;
+        jUser["mailbox"] = jMail;
         vjs.push_back(jUser);
     }
     return vjs;

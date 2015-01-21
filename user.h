@@ -20,8 +20,8 @@ class User {
 protected:
     Account* _acc;
     LinqNet* _net;
-    list<Message*> _outMail;
-    list<Message*> _inMail;
+    list<Message> _outMail;
+    list<Message> _inMail;
     int _visitcount;
     class searchFunctor {
     private:
@@ -53,8 +53,10 @@ public:
     virtual vector<SmartPtr<User> > listPossibleLinks(const LinqDB&) const =0;
     virtual map<string, string> userSearch(const LinqDB&, const string&) const =0;
     virtual void sendMessage(const Username&, const string& = "", const string& = "", bool = false) =0;
-    virtual list<Message*> inMail() const =0;
-    virtual list<Message*> outMail() const =0;
+    virtual void loadInMail(const Message&) =0;
+    virtual void loadOutMail(const Message&) =0;
+    virtual list<Message> inMail() const =0;
+    virtual list<Message> outMail() const =0;
 };
 
 class BasicUser : public User {
@@ -87,8 +89,10 @@ public:
     virtual vector<SmartPtr<User> > listPossibleLinks(const LinqDB&) const;
     virtual map<string, string> userSearch(const LinqDB&, const string&) const;
     virtual void sendMessage(const Username&, const string& = "", const string& = "", bool = false);
-    virtual list<Message*> inMail() const;
-    virtual list<Message*> outMail() const;
+    virtual void loadInMail(const Message&);
+    virtual void loadOutMail(const Message&);
+    virtual list<Message> inMail() const;
+    virtual list<Message> outMail() const;
 };
 
 class BusinessUser : public BasicUser {
