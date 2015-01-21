@@ -17,7 +17,7 @@ void LinqNet::addUser(User* usr) {
     list<SmartPtr<User> >::iterator it = _net.begin();
     bool alreadyIn = false;
     for(; it != _net.end() && !alreadyIn; ++it) {
-        if(*((*it)->account()->username()) == *(usr->account()->username()))
+        if(((*it)->account()->username()) == (usr->account()->username()))
             alreadyIn = true;
     }
     if(!alreadyIn) _net.push_back(SmartPtr<User>(usr));
@@ -27,16 +27,16 @@ void LinqNet::removeUser(const Username& usr) {
     list<SmartPtr<User> >::iterator it = _net.begin();
     bool found = false;
     for(; it != _net.end() && !found; ++it)
-        if(((*it)->account()->username()->login()) == (usr.login())) {
+        if(((*it)->account()->username().login()) == (usr.login())) {
             found = true;
             if(found) _net.erase(it);
         }
 }
-vector<SmartPtr<Username> > LinqNet::username() const {
-    vector<SmartPtr<Username> > us_list;
+vector<Username> LinqNet::username() const {
+    vector<Username> us_list;
     list<SmartPtr<User> >::const_iterator it = _net.begin();
     for(; it != _net.end(); ++it){
-        us_list.push_back(SmartPtr<Username>((*it)->account()->username()));
+        us_list.push_back((*it)->account()->username());
     }
     return us_list;
 }
@@ -70,7 +70,7 @@ ostream& operator<<(ostream& os, const LinqNet& net) {
     else {
         list<SmartPtr<User> >::const_iterator it = net.begin();
         for(; it != net.end(); ++it)
-            os << (*it)->account()->username()->login() << " ";
+            os << (*it)->account()->username().login() << " ";
     }
     return os;
 }

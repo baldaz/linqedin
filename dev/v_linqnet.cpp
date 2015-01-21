@@ -27,7 +27,7 @@ void LinqNet::removeUser(const Username& usr) {
     vector<SmartPtr<User> >::iterator it = _net.begin();
     bool found = false;
     for(; it < _net.end() && !found; ++it)
-        if(((*it)->account()->username()->login()) == (usr.login())) {
+        if(((*it)->account()->username().login()) == (usr.login())) {
             found = true;
             if(found) _net.erase(it);
         }
@@ -63,7 +63,7 @@ ostream& operator<<(ostream& os, const LinqNet& net) {
     if(!net.size()) { os << "Nessun amico per te" << endl; }
     else {
         for(int i = 0; i < net.size(); ++i)
-            os << net[i]->account()->username()->login() << " ";
+            os << net[i]->account()->username().login() << " ";
     }
     return os;
 }

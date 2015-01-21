@@ -1,13 +1,13 @@
 #include "info.h"
 
 Info::~Info() {}
-UserInfo::UserInfo() {}
+// UserInfo::UserInfo() {}
 UserInfo::UserInfo(bool sx, const string& n, const string& s, const string& b, const string& e, const string& a, const string& t, const string& w) :
                 _sex(sx), _name(n), _surname(s), _birthdate(b), _email(e), _address(a), _telephon(t), _website(w){}
 UserInfo::UserInfo(const UserInfo& uf) :
                 _sex(uf._sex), _name(uf._name), _surname(uf._surname),_birthdate(uf._birthdate),
                 _email(uf._email), _address(uf._address), _telephon(uf._telephon), _skills(uf._skills),
-                _exps(uf._exps), _formations(uf._formations), _interests(uf._interests), _website(uf._website), _languages(uf._languages) {}
+                _exp(uf._exp), _interests(uf._interests), _website(uf._website), _languages(uf._languages) {}
 UserInfo& UserInfo::operator=(const UserInfo& uif) {
     if(this != &uif) {
         _name = uif._name;
@@ -17,6 +17,11 @@ UserInfo& UserInfo::operator=(const UserInfo& uif) {
         _email = uif._email;
         _telephon = uif._telephon;
         _sex = uif._sex;
+        _website = uif._website;
+        _skills = uif._skills;
+        _exp = uif._exp;
+        _interests = uif._interests;
+        _languages = uif._languages;
     }
     return *this;
 }
@@ -24,34 +29,33 @@ UserInfo::~UserInfo() {
     _skills.clear();
     _interests.clear();
     _languages.clear();
-    _formations.clear();
-    _exps.clear();
+    _exp.clear();
 }
 Info* UserInfo::clone() const {
     return new UserInfo(*this);
 }
-const string& UserInfo::name() const {
+string UserInfo::name() const {
     return _name;
 }
-const string& UserInfo::surname() const {
+string UserInfo::surname() const {
     return _surname;
 }
-const string& UserInfo::birthdate() const {
+string UserInfo::birthdate() const {
     return _birthdate;
 }
-const string& UserInfo::email() const {
+string UserInfo::email() const {
     return _email;
 }
-const string& UserInfo::address() const {
+string UserInfo::address() const {
     return _address;
 }
-const string& UserInfo::telephon() const {
+string UserInfo::telephon() const {
     return _telephon;
 }
 bool UserInfo::sex() const {
     return _sex;
 }
-const string& UserInfo::website() const {
+string UserInfo::website() const {
     return _website;
 }
 vector<string> UserInfo::languages() const {
@@ -63,11 +67,8 @@ vector<string> UserInfo::skills() const {
 vector<string> UserInfo::interests() const {
     return _interests;
 }
-vector<SmartPtr<Experience> > UserInfo::experience() const {
-    return _exps;
-}
-vector<SmartPtr<Experience> > UserInfo::formations() const {
-    return _formations;
+list<Experience> UserInfo::experiences() const {
+    return _exp;
 }
 void UserInfo::setName(const string& n = "") {
     _name = n;
@@ -117,11 +118,8 @@ void UserInfo::addInterest(const string& newinterest = "") {
             isPresent = true;
     if(!isPresent) _interests.push_back(newinterest);
 }
-void UserInfo::addExperience(Experience* newxp) {
-    _exps.push_back(SmartPtr<Experience>(newxp));
-}
-void UserInfo::addFormation(Experience* newfrm) {
-    _formations.push_back(SmartPtr<Experience>(newfrm));
+void UserInfo::addExperience(const Experience& newxp) {
+    _exp.push_back(newxp);
 }
 int UserInfo::age() const {
     return 26;
@@ -142,12 +140,9 @@ string UserInfo::print() const {
     for(; it < _skills.end(); ++it)
         ret += *it + ", ";
     ret += "\nFormation >> ";
-    vector<SmartPtr<Experience> >::const_iterator itr = _formations.begin();
-    Instruction* tmp;
-    for(; itr < _formations.end(); ++itr) {
-        tmp = dynamic_cast<Instruction*> (&(**itr));
-        if(tmp) ret += tmp->location() + ", " + tmp->from() + ", " + tmp->to() + " ";
-    }
+    list<Experience>::const_iterator itr = _exp.begin();
+    for(; itr != _exp.end(); ++itr)
+        ret += itr->location() + ", " + itr->from().toString().toStdString() + ", " + itr->to().toString().toStdString() + " ";
     return ret;
 }
 string UserInfo::printHtml() const {
@@ -156,12 +151,12 @@ string UserInfo::printHtml() const {
     html += "<h2>" + _name + " " + _surname + "</h2>";
     html += "<p style='font-weight: 400; font-size:14px;'>Student 26 years old<br>";
     html += _address + "</p>";
-    html += "<h4><img src='img/rugby100.png'>  Interests</h4><p style='font-weight: 400; font-size:14px;'>";
+    html += "<h4><img src='img/rugby100.png'>  Interests</h4><p style='font-weight: 400; font-size:14px;line-height:26px'>";
     vector<string>::const_iterator it;
     if(!_interests.empty()) {
         it = _interests.begin();
         for(; it < _interests.end(); ++it)
-            html += *it + " ";
+            html += "<span style='background-color:rgba(102,102,156,.5);'>&nbsp;" + *it + "&nbsp;</span>&nbsp;&nbsp;";
         html += "</p>";
     }
     if(!_skills.empty()) {
@@ -178,17 +173,28 @@ string UserInfo::printHtml() const {
             html += *it + " ";
         html += "</p>";
     }
-    if(!_formations.empty()) {
+    if(!_exp.empty()) {
         html += "<h4><img src='img/graduate34.png'>  Educations</h4><p style='font-weight: 400; font-size:14px;'>";
-        vector<SmartPtr<Experience> >::const_iterator itr = _formations.begin();
-        Instruction* tmp;
-        for(; itr < _formations.end(); ++itr) {
-            tmp = dynamic_cast<Instruction*> (&(**itr));
-            if(tmp)
-                if(itr == _formations.end() - 1)
-                    html += tmp->location() + " from " + tmp->from() + " to " + tmp->to();
+        list<Experience>::const_iterator itr = _exp.begin();
+        string jobs = "";
+        bool job = false;
+        for(; itr != _exp.end(); ++itr) {
+            if((itr->type()) == 0)
+                if(itr == _exp.end())
+                    html += (itr)->role() + " at " + (itr)->location() + " from " + (itr)->from().toString("dd.MM.yyyy").toStdString() + " to " + (itr)->to().toString("dd.MM.yyyy").toStdString();
                 else
-                    html += tmp->location() + " from " + tmp->from() + " to " + tmp->to() + "<br>";
+                    html += (itr)->role() + " at " + (itr)->location() + " from " + (itr)->from().toString("dd.MM.yyyy").toStdString() + " to " + (itr)->to().toString("dd.MM.yyyy").toStdString() + "<br>";
+            else if((itr->type()) == 1) {
+                job = true;
+                if(itr == _exp.end())
+                    jobs += (itr)->role() + " at " + (itr)->location() + " from " + (itr)->from().toString("dd.MM.yyyy").toStdString() + " to " + (itr)->to().toString("dd.MM.yyyy").toStdString();
+                else
+                    jobs += (itr)->role() + " at " + (itr)->location() + " from " + (itr)->from().toString("dd.MM.yyyy").toStdString() + " to " + (itr)->to().toString("dd.MM.yyyy").toStdString() + "<br>";
+            }
+        }
+        if(job) {
+            html += "<h4><img src='img/work3.png'>  Job Experiences</h4><p style='font-weight: 400; font-size:14px;'>";
+            html += jobs;
         }
     }
     html += "</p>";

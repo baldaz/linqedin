@@ -17,39 +17,41 @@ User& User::operator=(const User& usr) {
         delete _net;
         _acc = usr._acc->clone();
         _net = usr._net->clone();
+        _visitcount = usr._visitcount;
     }
     return *this;
 }
 
 User::searchFunctor::searchFunctor(int s = 0, const string& w = "", const User* call = 0) : _s_type(s), _wanted(w), _caller(call) {}
 void User::searchFunctor::operator()(const SmartPtr<User>& spu) {
-    UserInfo* uf = NULL;
+    // Account acc = spu->account();
+    UserInfo* uf = dynamic_cast<UserInfo*> (spu->account()->info());
     _wanted = utilities::Utils::toLowerCase(_wanted);
     switch(_s_type) {
         case 1:
-            uf = dynamic_cast<UserInfo*> (spu->account()->info());
+            // uf = dynamic_cast<UserInfo*> (spu->account()->info());
             if(uf) {
                 string fullName = utilities::Utils::toLowerCase(uf->name() + " " + uf->surname());
                 if(utilities::Utils::toLowerCase(uf->name()) == _wanted || utilities::Utils::toLowerCase(uf->surname()) == _wanted || fullName == _wanted) {
                     // _result.push_back(uf->name() + " " + uf->surname() + "\n");
-                    _result.insert(std::pair<string, string>(spu->account()->username()->login(), uf->name() + " " + uf->surname() + "\n"));
+                    _result.insert(std::pair<string, string>(spu->account()->username().login(), uf->name() + " " + uf->surname() + "\n"));
                     spu->addVisit();
                 }
             }
         break;
         case 2:
-            uf = dynamic_cast<UserInfo*> (spu->account()->info());
+            // uf = dynamic_cast<UserInfo*> (spu->account()->info());
             if(uf) {
                 string fullName = utilities::Utils::toLowerCase(uf->name() + " " + uf->surname());
                 if(utilities::Utils::toLowerCase(uf->name()) == _wanted || utilities::Utils::toLowerCase(uf->surname()) == _wanted || fullName == _wanted) {
                     // _result.push_back(spu->account()->info()->printHtml() + "\n");
-                    _result.insert(std::pair<string, string>(spu->account()->username()->login(), spu->account()->info()->printHtml() + "\n"));
+                    _result.insert(std::pair<string, string>(spu->account()->username().login(), spu->account()->info()->printHtml() + "\n"));
                     spu->addVisit();
                 }
             }
         break;
         case 3:
-            uf = dynamic_cast<UserInfo*> (spu->account()->info());
+            // uf = dynamic_cast<UserInfo*> (spu->account()->info());
             if(!_wanted.empty() && _wanted.at(0) == ':') {
                 if(uf) {
                     vector<string> skills = uf->skills();
@@ -68,11 +70,11 @@ void User::searchFunctor::operator()(const SmartPtr<User>& spu) {
                     }
                     it = input.begin();
                     for(; it < input.end() && !found; ++it)
-                        if((std::find(skills.begin(), skills.end(), *it) != skills.end()) && (spu->account()->username()->login() != _caller->account()->username()->login()))
+                        if((std::find(skills.begin(), skills.end(), *it) != skills.end()) && (spu->account()->username().login() != _caller->account()->username().login()))
                             found = false;
                         else found = true;
                     if(!found) {
-                        _result.insert(std::pair<string, string>(spu->account()->username()->login(), spu->account()->info()->printHtml() + "\n" + spu->net()->printHtml()));
+                        _result.insert(std::pair<string, string>(spu->account()->username().login(), spu->account()->info()->printHtml() + "\n" + spu->net()->printHtml()));
                         spu->addVisit();
                     }
                 }
@@ -86,9 +88,9 @@ void User::searchFunctor::operator()(const SmartPtr<User>& spu) {
                     string fullName = utilities::Utils::toLowerCase(uf->name() + " " + uf->surname());
                     if((utilities::Utils::toLowerCase(uf->name()) == _wanted ||
                        utilities::Utils::toLowerCase(uf->surname()) == _wanted ||
-                       fullName == _wanted || std::find(skills.begin(), skills.end(), _wanted) != skills.end()) && (spu->account()->username()->login() != _caller->account()->username()->login())){
+                       fullName == _wanted || std::find(skills.begin(), skills.end(), _wanted) != skills.end()) && (spu->account()->username().login() != _caller->account()->username().login())){
                         // _result.push_back(spu->account()->info()->printHtml() + "\n" + spu->net()->printHtml());
-                        _result.insert(std::pair<string, string>(spu->account()->username()->login(), spu->account()->info()->printHtml() + "\n" + spu->net()->printHtml()));
+                        _result.insert(std::pair<string, string>(spu->account()->username().login(), spu->account()->info()->printHtml() + "\n" + spu->net()->printHtml()));
                         spu->addVisit();
                         if(spu->account()->prLevel() == executive) {
                             ExecutiveUser* eu = dynamic_cast<ExecutiveUser*> (&(*spu));
@@ -120,8 +122,8 @@ map<string, string> BasicUser::userSearch(const LinqDB& db, const string& wanted
 
 BasicUser::linkedWith::linkedWith(int s = 0, User* usr = 0) : _offset(s), _owner(usr) {}
 void BasicUser::linkedWith::operator()(const SmartPtr<User>& spu) {
-    if(!_owner->linked(*(spu->account()->username())) && *(spu->account()->username()) != *(_owner->account()->username()))
-        if(_owner->similarity(&(*spu)) >= _offset)
+    if(!_owner->linked((spu->account()->username())) && (spu->account()->username()) != (_owner->account()->username()))
+        if(_owner->similarity(spu) >= _offset)
             _mates.push_back(spu);
 }
 vector<SmartPtr<User> > BasicUser::linkedWith::result() const {
@@ -151,8 +153,9 @@ void BasicUser::setVisitCount(int count) {
 void BasicUser::addVisit() {
     _visitcount++;
 }
-int BasicUser::similarity(User* user) const {
-    UserInfo* uf = dynamic_cast<UserInfo*> (this->account()->info());
+int BasicUser::similarity(const SmartPtr<User>& user) const {
+    UserInfo* uf = dynamic_cast<UserInfo*> (_acc->info());
+    // Account useracc = user->account();
     UserInfo* host = dynamic_cast<UserInfo*> (user->account()->info());
     double counter = 0;
     vector<string> interests = uf->interests();
@@ -173,15 +176,15 @@ int BasicUser::similarity(User* user) const {
 }
 bool BasicUser::linked(const Username& usr) const {
     bool found = false;
-    vector<SmartPtr<Username> > v = net()->username();
-    vector<SmartPtr<Username> >::const_iterator it = v.begin();
+    vector<Username> v = net()->username();
+    vector<Username>::const_iterator it = v.begin();
     for(; it < v.end() && !found; ++it)
-        if((*it)->login() == usr.login()) found = true;
+        if((*it).login() == usr.login()) found = true;
     return found;
 }
 void BasicUser::sendMessage(const Username& dest, const string& obj, const string& body, bool read) {
     if(_outMail.size() < 10) {
-        Message* mex = new Message(const_cast<const Username&> (*(this->account()->username())), dest, obj, body, read);
+        Message* mex = new Message((this->account()->username()), dest, obj, body, read);
         _outMail.push_back(mex);
     }
 }

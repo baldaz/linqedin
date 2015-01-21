@@ -2,14 +2,16 @@
     {
         "formations": [
             {
-                "from": "2002",
+                "from": "15.09.2002",
                 "location": "ITIS F.Severi",
-                "to": "2007"
+                "role": "Student",
+                "to": "15.09.2007"
             },
             {
-                "from": "2012",
+                "from": "15.09.2012",
                 "location": "Università Degli Studi di Padova facoltà di Scienze MM.FF.NN. Informatica",
-                "to": "2042"
+                "role": "Student",
+                "to": "15.09.2042"
             }
         ],
         "info": {
@@ -305,14 +307,16 @@
     {
         "formations": [
             {
-                "from": "1962",
+                "from": "15.09.1962",
                 "location": "ITIS F.Severi",
-                "to": "1967"
+                "role": "Student",
+                "to": "15.09.1967"
             },
             {
-                "from": "1970",
+                "from": "15.09.1970",
                 "location": "Università Degli Studi di Padova facoltà di Scienze MM.FF.NN. Informatica",
-                "to": "1980"
+                "role": "Student",
+                "to": "15.09.1980"
             }
         ],
         "info": {
@@ -360,7 +364,9 @@
         ],
         "net": [
             "Pablito",
-            "Atilio"
+            "Atilio",
+            "Hannibal",
+            "Willg"
         ],
         "password": "rayback",
         "payments": [
@@ -389,19 +395,35 @@
             "Knives"
         ],
         "username": "Casey",
-        "visitcount": 9
+        "visitcount": 9,
+        "jobs": [
+            {
+                "from": "15.09.1968",
+                "location": "Hollywood Studios, California",
+                "role": "Stuntman",
+                "to": "15.09.1975"
+            },
+            {
+                "from": "15.09.1978",
+                "location": "Hollywood Studios, California",
+                "role": "Actor",
+                "to": "15.09.2015"
+            }
+        ]
     },
     {
         "formations": [
             {
-                "from": "1958",
+                "from": "15.09.1958",
                 "location": "ITIS F.Severi",
-                "to": "1964"
+                "role": "Student",
+                "to": "15.09.1964"
             },
             {
-                "from": "1966",
+                "from": "15.09.1966",
                 "location": "Università Degli Studi di Padova facoltà di Scienze MM.FF.NN. Informatica",
-                "to": "1977"
+                "role": "Student",
+                "to": "15.09.1977"
             }
         ],
         "info": {
@@ -471,14 +493,16 @@
     {
         "formations": [
             {
-                "from": "1967",
+                "from": "15.09.1967",
                 "location": "ITIS F.Severi",
-                "to": "1972"
+                "role": "Student",
+                "to": "15.09.1972"
             },
             {
-                "from": "1973",
+                "from": "15.09.1973",
                 "location": "Università Degli Studi di Padova facoltà di Scienze MM.FF.NN. Informatica",
-                "to": "1977"
+                "role": "Student",
+                "to": "15.09.1977"
             }
         ],
         "info": {
@@ -523,7 +547,8 @@
             "Pablito",
             "Atilio",
             "aui",
-            "Sara87"
+            "Sara87",
+            "Willg"
         ],
         "password": "lecter",
         "payments": [
@@ -542,14 +567,16 @@
     {
         "formations": [
             {
-                "from": "1977",
+                "from": "15.09.1977",
                 "location": "ITIS F.Severi",
-                "to": "1983"
+                "role": "Student",
+                "to": "15.09.1983"
             },
             {
-                "from": "1985",
+                "from": "15.09.1985",
                 "location": "Università Degli Studi di Padova facoltà di Scienze MM.FF.NN. Informatica",
-                "to": "1991"
+                "role": "Student",
+                "to": "15.09.1991"
             }
         ],
         "info": {

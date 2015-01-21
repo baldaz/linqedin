@@ -1,11 +1,8 @@
 // #include <iostream>
 // #include "linqclient.h"
 // #include "linqadmin.h"
-// #include "gui/gui_widget.h"
 #include "gui/gui_login.h"
 #include "gui/gui_userwindow.h"
-// #include <QPalette>
-// #include <QStyleFactory>
 
 using std::cout;
 using std::endl;

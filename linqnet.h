@@ -21,7 +21,7 @@ public:
     void addUser(User*);
     void removeUser(const Username&);
     int size() const;
-    vector<SmartPtr<Username> > username() const;
+    vector<Username> username() const;
     // SmartPtr<User> operator[](const int&) const;
     string printHtml() const;
     list<SmartPtr<User> >::const_iterator begin() const;

@@ -48,7 +48,7 @@ public:
     virtual int visitCount() const =0;
     virtual void setVisitCount(int) =0;
     virtual void addVisit() =0;
-    virtual int similarity(User*) const =0;
+    virtual int similarity(const SmartPtr<User>&) const =0;
     virtual bool linked(const Username&) const =0;
     virtual vector<SmartPtr<User> > listPossibleLinks(const LinqDB&) const =0;
     virtual map<string, string> userSearch(const LinqDB&, const string&) const =0;
@@ -82,7 +82,7 @@ public:
     virtual int visitCount() const;
     virtual void setVisitCount(int);
     virtual void addVisit();
-    virtual int similarity(User*) const;
+    virtual int similarity(const SmartPtr<User>&) const;
     virtual bool linked(const Username&) const;
     virtual vector<SmartPtr<User> > listPossibleLinks(const LinqDB&) const;
     virtual map<string, string> userSearch(const LinqDB&, const string&) const;

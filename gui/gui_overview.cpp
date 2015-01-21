@@ -47,7 +47,7 @@ Gui_Overview::Gui_Overview(LinqClient* cli, QWidget* parent) : _client(cli), QGr
     createRightSideList(this);
 
     this->setColumnStretch(0, 1);
-    this->setColumnStretch(1, 5);
+    this->setColumnStretch(1, 6);
     this->setColumnStretch(2, 2);
     // this->setColumnStretch(3, 2);
     this->setRowStretch(0, 0);
@@ -77,7 +77,7 @@ void Gui_Overview::createRightSideList(QGridLayout* lay) {
         fullname = QString(QString::fromStdString(uf->name()) + " " + QString::fromStdString(uf->surname()));
         itemD->setData(Qt::DisplayRole, fullname);
         itemD->setData(Qt::DecorationRole, QPixmap("img/link19.png"));
-        itemD->setData(Qt::UserRole + 1, QString::fromStdString((*it)->account()->username()->login()));
+        itemD->setData(Qt::UserRole + 1, QString::fromStdString((*it)->account()->username().login()));
         QString desc = QString(QString::fromStdString((*it)->net()->printHtml()));
         itemD->setData(Qt::ToolTipRole, desc);
         rightSide->addItem(itemD);

@@ -97,7 +97,7 @@ void LinqDB::readNet(const QJsonArray& qjs) {
         for(int i = 0; i < qjs.size(); ++i) {
             QJsonObject obj = qjs[i].toObject();
             QJsonArray contacts = obj["net"].toArray();
-            if(_db[j]->account()->username()->login() == obj["username"].toString().toStdString()) {
+            if(_db[j]->account()->username().login() == obj["username"].toString().toStdString()) {
                 for(int k = 0; k < contacts.size(); ++k){
                     Username usr(contacts[k].toString().toStdString(), ""); /* variante find(new username)*/
                     _db[j]->addContact(find(usr));
@@ -151,8 +151,8 @@ vector<QJsonObject> LinqDB::writeJson() const {
         itr = interests.begin();
         for(; itr < interests.end(); ++itr)
             jInterest.append(QString::fromStdString(*itr));
-        jUser["username"] = QString::fromStdString(_db[i]->account()->username()->login());
-        jUser["password"] = QString::fromStdString(_db[i]->account()->username()->password());
+        jUser["username"] = QString::fromStdString(_db[i]->account()->username().login());
+        jUser["password"] = QString::fromStdString(_db[i]->account()->username().password());
         jUser["visitcount"] = _db[i]->visitCount();
         jUser["privilege"] = _db[i]->account()->prLevel();
         vector<SmartPtr<Username> > list = _db[i]->net()->username();
@@ -238,13 +238,13 @@ void LinqDB::addUser(User* u) {
 }
 void LinqDB::removeUser(const Username& usr) {
     for(int i = 0; i < size(); ++i)
-        if((_db[i]->account()->username()->login()) == usr.login())
+        if((_db[i]->account()->username().login()) == usr.login())
             _db.erase(_db.begin() + i);
 }
 User* LinqDB::find(const Username& usr) const {
     User* ret = NULL;
     for(int i = 0; i < size(); ++i)
-        if((_db[i]->account()->username()->login()) == usr.login())
+        if((_db[i]->account()->username().login()) == usr.login())
             // ret = _db[i]->clone();
             ret = &(*_db[i]);
     return ret;

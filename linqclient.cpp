@@ -19,7 +19,7 @@ string LinqClient::displayProfile() const {
     o << _usr->account()->prLevel();
     o2 << *_usr->net();
     profile += "Account type >> " + o.str() + "\n";
-    profile += "Credentials >> user: " + _usr->account()->username()->login() + "  password: " + _usr->account()->username()->password() + "\n";
+    profile += "Credentials >> user: " + _usr->account()->username().login() + "  password: " + _usr->account()->username().password() + "\n";
     // profile += "DB size >> " + _db->size() + " Friends >> " + _usr->net()->size() + "\n";
     profile += "Account info >> " + _usr->account()->info()->print() + "\n";
     profile += "Friend list >> ";
@@ -36,7 +36,7 @@ string LinqClient::displayHtmlPayments() const {
 string LinqClient::displayHtmlSettings() const {
     string html = "";
     html = "<html>";
-    html += "<h3> Username</h3><p style='font-weight:400;'>" + _usr->account()->username()->login() + "</p>";
+    html += "<h3> Username</h3><p style='font-weight:400;'>" + _usr->account()->username().login() + "</p>";
     html += "<h3> Account type</h3><p style='font-weight:400;'>" + utilities::Utils::levelToString(_usr->account()->prLevel()) + "</p></html>";
     return html;
 }
@@ -60,10 +60,10 @@ vector<string> LinqClient::displayHtmlNet() const {
     o << _usr->net()->size();
     UserInfo* info;
     string name, surname;
-    vector<SmartPtr<Username> > vec = _usr->net()->username();
-    vector<SmartPtr<Username> >::const_iterator it = vec.begin();
+    vector<Username> vec = _usr->net()->username();
+    vector<Username>::const_iterator it = vec.begin();
     for(; it < vec.end(); ++it) {
-        info = dynamic_cast<UserInfo*> ((_db->find(**it))->account()->info());
+        info = dynamic_cast<UserInfo*> ((_db->find(*it))->account()->info());
         if(info) {
             name = info->name();
             surname = info->surname();
@@ -75,11 +75,11 @@ vector<string> LinqClient::displayHtmlNet() const {
 }
 vector<SmartPtr<User> > LinqClient::contactsInfo() const {
     vector<SmartPtr<User> > ret;
-    vector<SmartPtr<Username> > vec = _usr->net()->username();
-    vector<SmartPtr<Username> >::const_iterator it = vec.begin();
+    vector<Username> vec = _usr->net()->username();
+    vector<Username>::const_iterator it = vec.begin();
     User* acc;
     for(; it < vec.end(); ++it) {
-        acc = _db->find(**it);
+        acc = _db->find(*it);
         ret.push_back(SmartPtr<User>(acc));
     }
     return ret;
@@ -98,11 +98,7 @@ map<string, int> LinqClient::keywordFrequency() const {
 }
 void LinqClient::addExperience(const Experience& xp) {
     UserInfo* uf = dynamic_cast<UserInfo*> (_usr->account()->info());
-    if(uf) uf->addExperience(const_cast<Experience*> (&xp));
-}
-void LinqClient::addFormation(const Experience& frm) {
-    UserInfo* uf = dynamic_cast<UserInfo*> (_usr->account()->info());
-    if(uf) uf->addFormation(const_cast<Experience*> (&frm));
+    if(uf) uf->addExperience(xp);
 }
 void LinqClient::addVisitTo(const Username& usr) {
     User* u = _db->find(usr);

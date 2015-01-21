@@ -50,8 +50,15 @@ void LinqDB::read(const QJsonArray& qjs) {
             QJsonObject sub;
             for(int i = 0; i < formations.size(); ++i) {
                 sub = formations[i].toObject();
-                Instruction ins(sub["location"].toString().toStdString(), sub["from"].toString().toStdString(), sub["to"].toString().toStdString());
-                uif->addFormation(&ins);
+                Experience exp(0, sub["location"].toString().toStdString(), sub["role"].toString().toStdString(), QDate::fromString(sub["from"].toString(), "dd.MM.yyyy"), QDate::fromString(sub["to"].toString(), "dd.MM.yyyy"));
+                uif->addExperience(exp);
+            }
+            QJsonArray works = obj["jobs"].toArray();
+            QJsonObject wrk;
+            for(int i = 0; i < works.size(); ++i) {
+                wrk = works[i].toObject();
+                Experience exp(1, wrk["location"].toString().toStdString(), wrk["role"].toString().toStdString(), QDate::fromString(wrk["from"].toString(), "dd.MM.yyyy"), QDate::fromString(wrk["to"].toString(), "dd.MM.yyyy"));
+                uif->addExperience(exp);
             }
         }
         // QJsonArray outmail = obj["outmail"].toArray();
@@ -67,7 +74,7 @@ void LinqDB::read(const QJsonArray& qjs) {
         //     Message* mex = new Message(Username(in["sender"].toString().toStdString(), ""), usr, in["object"].toString().toStdString(), in["body"].toString().toStdString(), in["read"].toBool());
         //     // add to inmail
         // }
-        Account* acc = new Account(uif, &usr, priv);
+        Account* acc = new Account(uif, usr, priv);
 
         QJsonArray payments = obj["payments"].toArray();
         QJsonObject subP;
@@ -111,7 +118,7 @@ void LinqDB::readNet(const QJsonArray& qjs) {
         for(int i = 0; i < qjs.size(); ++i) {
             QJsonObject obj = qjs[i].toObject();
             QJsonArray contacts = obj["net"].toArray();
-            if((*it)->account()->username()->login() == obj["username"].toString().toStdString()) {
+            if((*it)->account()->username().login() == obj["username"].toString().toStdString()) {
                 for(int k = 0; k < contacts.size(); ++k){
                     Username usr(contacts[k].toString().toStdString(), ""); /* variante find(new username)*/
                     (*it)->addContact(find(usr));
@@ -125,9 +132,9 @@ vector<QJsonObject> LinqDB::writeJson() const {
     UserInfo* uif; Bio* bio;
     list<SmartPtr<User> >::const_iterator it = _db.begin();
     for(; it != _db.end(); ++it) {
-        QJsonObject jUser, jInf, jFormations, jPayment;
-        QJsonArray jArr, jLang, jSkill, jInterest, jForArr, jPay, jKWords;
-        vector<SmartPtr<Experience> > formations;
+        QJsonObject jUser, jInf, jFormations, jWork, jPayment;
+        QJsonArray jArr, jLang, jSkill, jInterest, jForArr, jForWrk, jPay, jKWords;
+        list<Experience> experience;
         vector<SmartPtr<Payment> > payments;
         Info* info = (*it)->account()->info();
         if(uif = dynamic_cast<UserInfo*> (info)) { /*downcast a userinfo*/
@@ -139,19 +146,25 @@ vector<QJsonObject> LinqDB::writeJson() const {
             jInf["sex"] = uif->sex();
             jInf["address"] = QString::fromStdString(uif->address());
             jInf["website"] = QString::fromStdString(uif->website());
-            formations = uif->formations();
+            experience = uif->experiences();
             if(bio = dynamic_cast<Bio*> (info))
                 jInf["biography"] = QString::fromStdString(bio->bio());
         }
-        Instruction* ins;
-        for(unsigned j = 0; j < formations.size(); ++j){
-            ins = dynamic_cast<Instruction*> (&(*formations[j]));
-            if(ins) {
-                jFormations["location"] = QString::fromStdString(ins->location());
-                jFormations["from"] = QString::fromStdString(ins->from());
-                jFormations["to"] = QString::fromStdString(ins->to());
+        for(list<Experience>::const_iterator j = experience.begin(); j != experience.end(); ++j) {
+            if(j->type() == 0) {
+                jFormations["location"] = QString::fromStdString(j->location());
+                jFormations["from"] = (j->from().toString("dd.MM.yyyy"));
+                jFormations["to"] = (j->to().toString("dd.MM.yyyy"));
+                jFormations["role"] = QString::fromStdString(j->role());
+                jForArr.append(jFormations);
             }
-            jForArr.append(jFormations);
+            else if(j->type() == 1) {
+                jWork["location"] = QString::fromStdString(j->location());
+                jWork["from"] = (j->from().toString("dd.MM.yyyy"));
+                jWork["to"] = (j->to().toString("dd.MM.yyyy"));
+                jWork["role"] = QString::fromStdString(j->role());
+                jForWrk.append(jWork);
+            }
         }
         vector<string>::const_iterator itr;
         vector<string> languages = uif->languages();
@@ -166,14 +179,14 @@ vector<QJsonObject> LinqDB::writeJson() const {
         itr = interests.begin();
         for(; itr < interests.end(); ++itr)
             jInterest.append(QString::fromStdString(*itr));
-        jUser["username"] = QString::fromStdString((*it)->account()->username()->login());
-        jUser["password"] = QString::fromStdString((*it)->account()->username()->password());
+        jUser["username"] = QString::fromStdString((*it)->account()->username().login());
+        jUser["password"] = QString::fromStdString((*it)->account()->username().password());
         jUser["visitcount"] = (*it)->visitCount();
         jUser["privilege"] = (*it)->account()->prLevel();
-        vector<SmartPtr<Username> > list = (*it)->net()->username();
-        vector<SmartPtr<Username> >::const_iterator itu = list.begin();
+        vector<Username> list = (*it)->net()->username();
+        vector<Username>::const_iterator itu = list.begin();
         for(; itu < list.end(); ++itu)
-            jArr.append(QString::fromStdString((*itu)->login()));
+            jArr.append(QString::fromStdString((*itu).login()));
         payments = (*it)->account()->history();
         vector<SmartPtr<Payment> >::const_iterator iter = payments.begin();
         for(; iter < payments.end(); ++iter) {
@@ -196,6 +209,7 @@ vector<QJsonObject> LinqDB::writeJson() const {
         jUser["skills"] = jSkill;
         jUser["interests"] = jInterest;
         jUser["formations"] = jForArr;
+        jUser["jobs"] = jForWrk;
         jUser["payments"] = jPay;
         vjs.push_back(jUser);
     }
@@ -246,22 +260,25 @@ void LinqDB::addUser(User* u) {
     list<SmartPtr<User> >::iterator it = _db.begin();
     bool alreadyIn = false;
     for(; it != _db.end() && !alreadyIn; ++it) {
-        if(*((*it)->account()->username()) == *(u->account()->username()))
+        if(((*it)->account()->username()) == (u->account()->username()))
             alreadyIn = true;
     }
     if(!alreadyIn) _db.push_back(SmartPtr<User>(u));
 }
 void LinqDB::removeUser(const Username& usr) {
     list<SmartPtr<User> >::iterator it = _db.begin();
-    for(; it != _db.end(); ++it)
-        if(((*it)->account()->username()->login()) == usr.login())
+    bool found = false;
+    for(; it != _db.end() && !found; ++it)
+        if(((*it)->account()->username().login()) == usr.login()) {
+            found = true;
             _db.erase(it);
+        }
 }
 User* LinqDB::find(const Username& usr) const {
     User* ret = NULL;
     list<SmartPtr<User> >::const_iterator it = _db.begin();
     for(; it != _db.end(); ++it)
-        if(((*it)->account()->username()->login()) == usr.login())
+        if(((*it)->account()->username().login()) == usr.login())
             // ret = _db[i]->clone();
             ret = &(*(*it));
     return ret;

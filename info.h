@@ -4,10 +4,12 @@
 #include <string>
 #include <sstream>
 #include <vector>
+#include <list>
 #include "experience.h"
 #include "smartptr.h"
 
 using std::vector;
+using std::list;
 using std::string;
 
 class Info {
@@ -23,29 +25,26 @@ protected:
     bool _sex;
     string _name, _surname, _birthdate, _email, _address, _telephon, _website;
     vector<string> _languages, _skills, _interests;
-    vector<SmartPtr<Experience> > _formations;
-    vector<SmartPtr<Experience> > _exps;
+    list<Experience> _exp;
 public:
-    UserInfo();
-    UserInfo(bool, const string&, const string&, const string&, const string&, const string&, const string&, const string&);
+    // UserInfo();
+    UserInfo(bool = false, const string& ="", const string& ="", const string& ="", const string& ="", const string& ="", const string& ="", const string& ="");
     UserInfo(const UserInfo&);
     virtual ~UserInfo();
     Info* clone() const;
-    // virtual ~UserInfo();
     UserInfo& operator=(const UserInfo&);
-    const string& name() const;
-    const string& surname() const;
-    const string& birthdate() const;
-    const string& email() const;
-    const string& address() const;
-    const string& telephon() const;
-    const string& website() const;
+    string name() const;
+    string surname() const;
+    string birthdate() const;
+    string email() const;
+    string address() const;
+    string telephon() const;
+    string website() const;
     bool sex() const;
     vector<string> languages() const;
     vector<string> skills() const;
     vector<string> interests() const;
-    vector<SmartPtr<Experience> > experience() const;
-    vector<SmartPtr<Experience> > formations() const;
+    list<Experience> experiences() const;
     void setSex(bool);
     void setName(const string&);
     void setSurname(const string&);
@@ -57,8 +56,7 @@ public:
     void addLanguage(const string&);
     void addSkill(const string&);
     void addInterest(const string&);
-    void addExperience(Experience*);
-    void addFormation(Experience*);
+    void addExperience(const Experience&);
     int age() const;
     virtual string print() const;
     virtual string printHtml() const;

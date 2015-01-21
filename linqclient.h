@@ -36,7 +36,6 @@ public:
     void addContact(const Username&);
     void removeContact(const Username&);
     void addExperience(const Experience&);
-    void addFormation(const Experience&);
     void addVisitTo(const Username&);
     map<string, string> find(const string&) const;
     map<string, int> keywordFrequency() const;

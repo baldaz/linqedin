@@ -10,17 +10,17 @@
 class Account {
 private:
     Info* _info;
-    Username* _user;
+    Username _user;
     privLevel _privilege;
     vector<SmartPtr<Payment> > _history;
 public:
     // Account();
-    Account(Info*, Username*, privLevel);
+    Account(Info*, const Username&, privLevel);
     Account(const Account&);
     ~Account();
     Account* clone() const;
     Account& operator=(const Account&);
-    Username* username() const;
+    Username username() const;
     Info* info() const;
     privLevel prLevel() const;
     void setInfo(Info*);

@@ -15,7 +15,7 @@ void Gui_Links::createList() {
         if(uf) {
             QString link = QString::fromStdString(uf->name()) + " " + QString::fromStdString(uf->surname());
             item->setData(Qt::DisplayRole, link);
-            item->setData(Qt::UserRole + 1, QString::fromStdString((*it)->account()->username()->login()));
+            item->setData(Qt::UserRole + 1, QString::fromStdString((*it)->account()->username().login()));
             item->setData(Qt::DecorationRole, QPixmap("img/link63.png"));
             this->addItem(item);
         }
@@ -33,10 +33,10 @@ void Gui_Links::viewContact() {
     vector<SmartPtr<User> > _contacts = _client->contactsInfo();
     vector<SmartPtr<User> >::iterator it = _contacts.begin();
     for(; it < _contacts.end(); ++it)
-        if(QString::fromStdString((*it)->account()->username()->login()) == _selected) {
+        if(QString::fromStdString((*it)->account()->username().login()) == _selected) {
             QString output = QString(QString::fromStdString((*it)->account()->info()->printHtml()) + "<h5>Visit Count</h5><p> %1").arg((*it)->visitCount());
             _display->setHtml(output);
-            QString title = QString(QString::fromStdString((*it)->account()->username()->login()));
+            QString title = QString(QString::fromStdString((*it)->account()->username().login()));
             _display->setDocumentTitle(title);
         }
     _client->addVisitTo(Username(_selected.toStdString(), ""));
