@@ -31,7 +31,7 @@ void LinqDB::read(const QJsonArray& qjs) {
         if(uif) {
             uif->setName(info["name"].toString().toStdString());
             uif->setSurname(info["surname"].toString().toStdString());
-            uif->setBirthdate(info["birthdate"].toString().toStdString());
+            uif->setBirthdate(QDate::fromString(info["birthdate"].toString(), "dd.MM.yyyy"));
             uif->setEmail(info["email"].toString().toStdString());
             uif->setAddress(info["address"].toString().toStdString());
             uif->setTelephon(info["telephon"].toString().toStdString());
@@ -141,7 +141,7 @@ vector<QJsonObject> LinqDB::writeJson() const {
             jInf["name"] = QString::fromStdString(uif->name());
             jInf["surname"] = QString::fromStdString(uif->surname());
             jInf["telephon"] = QString::fromStdString(uif->telephon());
-            jInf["birthdate"] = QString::fromStdString(uif->birthdate());
+            jInf["birthdate"] = (uif->birthdate().toString("dd.MM.yyyy"));
             jInf["email"] = QString::fromStdString(uif->email());
             jInf["sex"] = uif->sex();
             jInf["address"] = QString::fromStdString(uif->address());

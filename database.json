@@ -16,7 +16,7 @@
         ],
         "info": {
             "address": "Stra via 4 novembre 24 (VE) Italy",
-            "birthdate": "08-10-1988",
+            "birthdate": "08.10.1988",
             "email": "a.g.baldan@gmail.com",
             "name": "Andrea",
             "sex": true,
@@ -32,6 +32,26 @@
             "BBQ",
             "Snowboard",
             "Homebrew"
+        ],
+        "jobs": [
+            {
+                "from": "09.06.2005",
+                "location": "Barbato SRL, Fiesso d'artico (VE)",
+                "role": "Worker",
+                "to": "10.09.2005"
+            },
+            {
+                "from": "15.09.2010",
+                "location": "RGIS Padova",
+                "role": "Auditor",
+                "to": "10.05.2012"
+            },
+            {
+                "from": "09.06.2007",
+                "location": "Me",
+                "role": "Freelance Web Developer",
+                "to": "10.09.2015"
+            }
         ],
         "keywords": [
             "c++",
@@ -104,7 +124,7 @@
         ],
         "info": {
             "address": "calle de la muerte 1",
-            "birthdate": "15-12-1923",
+            "birthdate": "15.12.1923",
             "email": "escobar@cartello.cb",
             "name": "Pablos",
             "sex": true,
@@ -141,7 +161,7 @@
         ],
         "info": {
             "address": "calle de la muerte 2",
-            "birthdate": "15-10-1973",
+            "birthdate": "15.10.1973",
             "email": "atos@bierta.es",
             "name": "Atos",
             "sex": true,
@@ -185,7 +205,7 @@
         ],
         "info": {
             "address": "via 7 dicembre 12",
-            "birthdate": "08-10-1288",
+            "birthdate": "08.10.1288",
             "email": "a.g.ba@gmail.com",
             "name": "Andr",
             "sex": true,
@@ -224,7 +244,7 @@
         ],
         "info": {
             "address": "via monghi 12",
-            "birthdate": "08-10-1928",
+            "birthdate": "08.10.1928",
             "email": "a.g.ban@gmail.com",
             "name": "Sara",
             "sex": false,
@@ -268,7 +288,7 @@
         ],
         "info": {
             "address": "via 4 novembre 12",
-            "birthdate": "08-10-1988",
+            "birthdate": "08.10.1988",
             "email": "dan@gmail.com",
             "name": "Giacomo",
             "sex": true,
@@ -321,7 +341,7 @@
         ],
         "info": {
             "address": "Stra via 4 novembre 24 (VE) Italy",
-            "birthdate": "08-10-1949",
+            "birthdate": "08.10.1949",
             "email": "seagal@steven.ss",
             "name": "Steven",
             "sex": true,
@@ -428,7 +448,7 @@
         ],
         "info": {
             "address": "El Paso Muerte-Negra lane Texas",
-            "birthdate": "08-07-1943",
+            "birthdate": "08.07.1943",
             "email": "danny@trejo.dt",
             "name": "Danny \"Machete\"",
             "sex": true,
@@ -507,7 +527,7 @@
         ],
         "info": {
             "address": "Washington lane Philadelphia",
-            "birthdate": "08-07-1943",
+            "birthdate": "08.07.1943",
             "email": "hannibal@lecter.hl",
             "name": "Hannibal",
             "sex": true,
@@ -581,7 +601,7 @@
         ],
         "info": {
             "address": "Washington lane Philadelphia",
-            "birthdate": "08-07-1943",
+            "birthdate": "08.07.1943",
             "email": "hannibal@lecter.hl",
             "name": "Will",
             "sex": true,

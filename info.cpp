@@ -2,8 +2,8 @@
 
 Info::~Info() {}
 // UserInfo::UserInfo() {}
-UserInfo::UserInfo(bool sx, const string& n, const string& s, const string& b, const string& e, const string& a, const string& t, const string& w) :
-                _sex(sx), _name(n), _surname(s), _birthdate(b), _email(e), _address(a), _telephon(t), _website(w){}
+UserInfo::UserInfo(bool sx, const string& n, const string& s, const string& e, const string& a, const string& t, const string& w, const QDate& b) :
+                _sex(sx), _name(n), _surname(s), _email(e), _address(a), _telephon(t), _website(w), _birthdate(b){}
 UserInfo::UserInfo(const UserInfo& uf) :
                 _sex(uf._sex), _name(uf._name), _surname(uf._surname),_birthdate(uf._birthdate),
                 _email(uf._email), _address(uf._address), _telephon(uf._telephon), _skills(uf._skills),
@@ -40,7 +40,7 @@ string UserInfo::name() const {
 string UserInfo::surname() const {
     return _surname;
 }
-string UserInfo::birthdate() const {
+QDate UserInfo::birthdate() const {
     return _birthdate;
 }
 string UserInfo::email() const {
@@ -76,7 +76,7 @@ void UserInfo::setName(const string& n = "") {
 void UserInfo::setSurname(const string& s = "") {
     _surname = s;
 }
-void UserInfo::setBirthdate(const string& b = "") {
+void UserInfo::setBirthdate(const QDate& b ) {
     _birthdate = b;
 }
 void UserInfo::setEmail(const string& e = "") {
@@ -122,7 +122,9 @@ void UserInfo::addExperience(const Experience& newxp) {
     _exp.push_back(newxp);
 }
 int UserInfo::age() const {
-    return 26;
+    QDate today = QDate::currentDate();
+    int age = today.toJulianDay() - _birthdate.toJulianDay();
+    return age / 365;
 }
 string UserInfo::print() const {
     vector<string>::const_iterator it = _interests.begin();
@@ -130,7 +132,7 @@ string UserInfo::print() const {
     string sex = "";
     if(this->sex()) sex = "Maschio";
     else sex = "Femmina";
-    ret += _name + " , " + _surname + " , " + sex + " , " + _address + " , " + _telephon + ", nato il " + _birthdate + "\n";
+    ret += _name + " , " + _surname + " , " + sex + " , " + _address + " , " + _telephon + ", nato il " + _birthdate.toString().toStdString() + "\n";
     ret += "E-mail >> " + _email + " Sito web >> " + _website + "\n";
     ret += "Personal interests >> ";
     for(; it < _interests.end(); ++it)
@@ -146,10 +148,12 @@ string UserInfo::print() const {
     return ret;
 }
 string UserInfo::printHtml() const {
+    std::ostringstream o;
+    o << age();
     string html = "";
     html = "<html><body>";
     html += "<h2>" + _name + " " + _surname + "</h2>";
-    html += "<p style='font-weight: 400; font-size:14px;'>Student 26 years old<br>";
+    html += "<p style='font-weight: 400; font-size:14px;'> " + o.str() + " years old<br>";
     html += _address + "</p>";
     html += "<h4><img src='img/rugby100.png'>  Interests</h4><p style='font-weight: 400; font-size:14px;line-height:26px'>";
     vector<string>::const_iterator it;
@@ -203,9 +207,9 @@ string UserInfo::printHtml() const {
     return html;
 }
 
-Bio::Bio(bool sx, const string& n, const string& s, const string& b, const string& e, const string& a, const string& t, const string& w, const string& bio = "") : UserInfo(sx, n, s, b, e, a, t, w), _bio(bio) {}
+Bio::Bio(bool sx, const string& n, const string& s, const string& e, const string& a, const string& t, const string& w, const QDate& b, const string& bio) : UserInfo(sx, n, s, e, a, t, w, b), _bio(bio) {}
 Bio::Bio(const Bio& bio) :
-    UserInfo(bio._sex, bio._name, bio._surname, bio._birthdate, bio._email, bio._address, bio._telephon, bio._website), _bio(bio._bio) {}
+    UserInfo(bio._sex, bio._name, bio._surname, bio._email, bio._address, bio._telephon, bio._website, bio._birthdate), _bio(bio._bio) {}
 Bio::~Bio() {}
 Info* Bio::clone() const {
     return new Bio(*this);

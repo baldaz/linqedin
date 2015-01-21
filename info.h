@@ -5,6 +5,7 @@
 #include <sstream>
 #include <vector>
 #include <list>
+#include <QDate>
 #include "experience.h"
 #include "smartptr.h"
 
@@ -23,19 +24,20 @@ public:
 class UserInfo : public Info {
 protected:
     bool _sex;
-    string _name, _surname, _birthdate, _email, _address, _telephon, _website;
+    QDate _birthdate;
+    string _name, _surname, _email, _address, _telephon, _website;
     vector<string> _languages, _skills, _interests;
     list<Experience> _exp;
 public:
     // UserInfo();
-    UserInfo(bool = false, const string& ="", const string& ="", const string& ="", const string& ="", const string& ="", const string& ="", const string& ="");
+    UserInfo(bool = false, const string& ="", const string& ="", const string& ="", const string& ="", const string& ="", const string& ="", const QDate& = QDate::currentDate());
     UserInfo(const UserInfo&);
     virtual ~UserInfo();
     Info* clone() const;
     UserInfo& operator=(const UserInfo&);
+    QDate birthdate() const;
     string name() const;
     string surname() const;
-    string birthdate() const;
     string email() const;
     string address() const;
     string telephon() const;
@@ -48,7 +50,7 @@ public:
     void setSex(bool);
     void setName(const string&);
     void setSurname(const string&);
-    void setBirthdate(const string&);
+    void setBirthdate(const QDate& = QDate::currentDate());
     void setEmail(const string&);
     void setAddress(const string&);
     void setTelephon(const string&);
@@ -66,7 +68,7 @@ class Bio : public UserInfo {
 protected:
     string _bio;
 public:
-    Bio(bool, const string&, const string&, const string&, const string&, const string&, const string&, const string&, const string&);
+    Bio(bool = true, const string& = "", const string& = "", const string& = "", const string& = "", const string& = "", const string& = "",  const QDate& = QDate::currentDate(), const string& = "");
     Bio(const Bio&);
     virtual ~Bio();
     Info* clone() const;
