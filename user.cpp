@@ -9,7 +9,7 @@ using std::map;
 
 // User::User() : _acc(new Account()), _net(new LinqNet()), _visitcount(0)  {}
 User::User(Account* ac) : _acc(ac->clone()), _net(new LinqNet()), _visitcount(0)  {}
-User::User(const User& usr) /*: _acc(usr._acc), _net(usr._net), _visitcount(usr._visitcount)*/ : _acc(usr._acc->clone()), _net(usr._net->clone()), _visitcount(usr._visitcount) {}
+User::User(const User& usr) : _acc(usr._acc->clone()), _net(usr._net->clone()), _visitcount(usr._visitcount) {}
 User::~User() { delete _acc; delete _net;}
 User& User::operator=(const User& usr) {
     if(this != &usr) {
@@ -18,6 +18,8 @@ User& User::operator=(const User& usr) {
         _acc = usr._acc->clone();
         _net = usr._net->clone();
         _visitcount = usr._visitcount;
+        _inMail = usr._inMail;
+        _outMail = usr._outMail;
     }
     return *this;
 }
@@ -29,29 +31,24 @@ void User::searchFunctor::operator()(const SmartPtr<User>& spu) {
     _wanted = utilities::Utils::toLowerCase(_wanted);
     switch(_s_type) {
         case 1:
-            // uf = dynamic_cast<UserInfo*> (spu->account()->info());
             if(uf) {
                 string fullName = utilities::Utils::toLowerCase(uf->name() + " " + uf->surname());
                 if(utilities::Utils::toLowerCase(uf->name()) == _wanted || utilities::Utils::toLowerCase(uf->surname()) == _wanted || fullName == _wanted) {
-                    // _result.push_back(uf->name() + " " + uf->surname() + "\n");
                     _result.insert(std::pair<string, string>(spu->account()->username().login(), uf->name() + " " + uf->surname() + "\n"));
                     spu->addVisit();
                 }
             }
         break;
         case 2:
-            // uf = dynamic_cast<UserInfo*> (spu->account()->info());
             if(uf) {
                 string fullName = utilities::Utils::toLowerCase(uf->name() + " " + uf->surname());
                 if(utilities::Utils::toLowerCase(uf->name()) == _wanted || utilities::Utils::toLowerCase(uf->surname()) == _wanted || fullName == _wanted) {
-                    // _result.push_back(spu->account()->info()->printHtml() + "\n");
                     _result.insert(std::pair<string, string>(spu->account()->username().login(), spu->account()->info()->printHtml() + "\n"));
                     spu->addVisit();
                 }
             }
         break;
         case 3:
-            // uf = dynamic_cast<UserInfo*> (spu->account()->info());
             if(!_wanted.empty() && _wanted.at(0) == ':') {
                 if(uf) {
                     vector<string> skills = uf->skills();
@@ -89,7 +86,6 @@ void User::searchFunctor::operator()(const SmartPtr<User>& spu) {
                     if((utilities::Utils::toLowerCase(uf->name()) == _wanted ||
                        utilities::Utils::toLowerCase(uf->surname()) == _wanted ||
                        fullName == _wanted || std::find(skills.begin(), skills.end(), _wanted) != skills.end()) && (spu->account()->username().login() != _caller->account()->username().login())){
-                        // _result.push_back(spu->account()->info()->printHtml() + "\n" + spu->net()->printHtml());
                         _result.insert(std::pair<string, string>(spu->account()->username().login(), spu->account()->info()->printHtml() + "\n" + spu->net()->printHtml()));
                         spu->addVisit();
                         if(spu->account()->prLevel() == executive) {
@@ -108,52 +104,40 @@ void User::searchFunctor::operator()(const SmartPtr<User>& spu) {
 map<string, string> User::searchFunctor::result() const {
     return _result;
 }
-
-// BasicUser::BasicUser() : User() {}
-BasicUser::BasicUser(Account* ac) : User(ac){}
-BasicUser::BasicUser(const BasicUser& usr) : User(usr){}
-BasicUser::~BasicUser() {}
-User* BasicUser::clone() const {
-    return new BasicUser(*this);
-}
-map<string, string> BasicUser::userSearch(const LinqDB& db, const string& wanted) const {
-    return std::for_each(db.begin(), db.end(), searchFunctor(1, wanted, this)).result();
-}
-
-BasicUser::linkedWith::linkedWith(int s = 0, User* usr = 0) : _offset(s), _owner(usr) {}
-void BasicUser::linkedWith::operator()(const SmartPtr<User>& spu) {
+User::linkedWith::linkedWith(int s = 0, User* usr = 0) : _offset(s), _owner(usr) {}
+void User::linkedWith::operator()(const SmartPtr<User>& spu) {
     if(!_owner->linked((spu->account()->username())) && (spu->account()->username()) != (_owner->account()->username()))
         if(_owner->similarity(spu) >= _offset)
             _mates.push_back(spu);
 }
-vector<SmartPtr<User> > BasicUser::linkedWith::result() const {
+vector<SmartPtr<User> > User::linkedWith::result() const {
     return _mates;
 }
-vector<SmartPtr<User> > BasicUser::listPossibleLinks(const LinqDB& db) const {
-    return std::for_each(db.begin(), db.end(), linkedWith(40, const_cast<BasicUser*> (this))).result();
+vector<SmartPtr<User> > User::listPossibleLinks(const LinqDB& db) const {
+    return std::for_each(db.begin(), db.end(), linkedWith(40, const_cast<User*> (this))).result();
 }
-void BasicUser::addContact(User* usr) {
+void User::addContact(User* usr) {
     _net->addUser(usr);
 }
-void BasicUser::removeContact(const Username& usr) {
+void User::removeContact(const Username& usr) {
     _net->removeUser(usr);
 }
-Account* BasicUser::account() const {
+Account* User::account() const {
     return _acc;
 }
-LinqNet* BasicUser::net() const {
+LinqNet* User::net() const {
     return _net;
 }
-int BasicUser::visitCount() const {
+int User::visitCount() const {
     return _visitcount;
 }
-void BasicUser::setVisitCount(int count) {
+void User::setVisitCount(int count) {
     _visitcount = count;
 }
-void BasicUser::addVisit() {
+void User::addVisit() {
     _visitcount++;
 }
-int BasicUser::similarity(const SmartPtr<User>& user) const {
+int User::similarity(const SmartPtr<User>& user) const {
     UserInfo* uf = dynamic_cast<UserInfo*> (_acc->info());
     // Account useracc = user->account();
     UserInfo* host = dynamic_cast<UserInfo*> (user->account()->info());
@@ -174,7 +158,7 @@ int BasicUser::similarity(const SmartPtr<User>& user) const {
     }
     return static_cast<int> (counter);
 }
-bool BasicUser::linked(const Username& usr) const {
+bool User::linked(const Username& usr) const {
     bool found = false;
     vector<Username> v = net()->username();
     vector<Username>::const_iterator it = v.begin();
@@ -182,25 +166,37 @@ bool BasicUser::linked(const Username& usr) const {
         if((*it).login() == usr.login()) found = true;
     return found;
 }
+list<Message*> User::inMail() const {
+    return _inMail;
+}
+list<Message*> User::outMail() const {
+    return _outMail;
+}
+
+// BasicUser::BasicUser() : User() {}
+BasicUser::BasicUser(Account* ac) : User(ac){}
+BasicUser::BasicUser(const BasicUser& usr) : User(usr){}
+BasicUser::~BasicUser() {}
+User* BasicUser::clone() const {
+    return new BasicUser(*this);
+}
+map<string, string> BasicUser::userSearch(const LinqDB& db, const string& wanted) const {
+    return std::for_each(db.begin(), db.end(), searchFunctor(1, wanted, this)).result();
+}
 void BasicUser::sendMessage(const Username& dest, const string& obj, const string& body, bool read) {
-    if(_outMail.size() < 10) {
+    if(_outMail.size() < basicMailLimit) {
         Message mex((this->account()->username()), dest, obj, body, read);
-        _outMail.push_back(mex);
+        _outMail.push_back(&mex);
     }
 }
 void BasicUser::loadInMail(const Message& mex) {
-    _inMail.push_back(mex);
+    _inMail.push_back(const_cast<Message*> (&mex));
 }
 void BasicUser::loadOutMail(const Message& mex) {
-    if(_outMail.size() < 10)
-        _outMail.push_back(mex);
+    if(_outMail.size() < basicMailLimit)
+        _outMail.push_back(const_cast<Message*> (&mex));
 }
-list<Message> BasicUser::inMail() const {
-    return _inMail;
-}
-list<Message> BasicUser::outMail() const {
-    return _outMail;
-}
+unsigned int BasicUser::basicMailLimit = 10;
 
 // BusinessUser::BusinessUser() : BasicUser() {}
 BusinessUser::BusinessUser(Account* ac) : BasicUser(ac) {}
@@ -212,6 +208,17 @@ User* BusinessUser::clone() const {
 map<string, string> BusinessUser::userSearch(const LinqDB& db, const string& wanted) const {
     return std::for_each(db.begin(), db.end(), searchFunctor(2, wanted, this)).result();
 }
+void BusinessUser::sendMessage(const Username& dest, const string& obj, const string& body, bool read) {
+    if(_outMail.size() < businessMailLimit) {
+        Message mex((this->account()->username()), dest, obj, body, read);
+        _outMail.push_back(&mex);
+    }
+}
+void BusinessUser::loadOutMail(const Message& mex) {
+    if(_outMail.size() < businessMailLimit)
+        _outMail.push_back(const_cast<Message*> (&mex));
+}
+unsigned int BusinessUser::businessMailLimit = 25;
 
 // ExecutiveUser::ExecutiveUser() : BusinessUser() {}
 ExecutiveUser::ExecutiveUser(Account* ac) : BusinessUser(ac) {}
@@ -222,6 +229,13 @@ User* ExecutiveUser::clone() const {
 }
 map<string, string> ExecutiveUser::userSearch(const LinqDB& db, const string& wanted) const {
     return std::for_each(db.begin(), db.end(), searchFunctor(3, wanted, this)).result();
+}
+void ExecutiveUser::sendMessage(const Username& dest, const string& obj, const string& body, bool read) {
+    Message mex((this->account()->username()), dest, obj, body, read);
+    _outMail.push_back(&mex);
+}
+void ExecutiveUser::loadOutMail(const Message& mex) {
+    _outMail.push_back(const_cast<Message*> (&mex));
 }
 void ExecutiveUser::addKeyword(const string& key) {
     ++_keywords[key];

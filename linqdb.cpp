@@ -136,8 +136,8 @@ vector<QJsonObject> LinqDB::writeJson() const {
         QJsonObject jUser, jInf, jFormations, jWork, jPayment, jMail;
         QJsonArray jArr, jLang, jSkill, jInterest, jForArr, jForWrk, jPay, jKWords;
         list<Experience> experience;
-        list<Message> inMail;
-        list<Message> outMail;
+        list<Message*> inMail;
+        list<Message*> outMail;
         vector<SmartPtr<Payment> > payments;
         Info* info = (*it)->account()->info();
         if(uif = dynamic_cast<UserInfo*> (info)) { /*downcast a userinfo*/
@@ -208,25 +208,25 @@ vector<QJsonObject> LinqDB::writeJson() const {
         }
         inMail = (*it)->inMail();
         outMail = (*it)->outMail();
-        list<Message>::const_iterator m_it = inMail.begin();
+        list<Message*>::const_iterator m_it = inMail.begin();
         for(; m_it != inMail.end(); ++m_it) {
             jMail["receiver"] = QString::fromStdString((*it)->account()->username().login());
-            jMail["sender"] = QString::fromStdString((*m_it).sender().login());
-            jMail["object"] = QString::fromStdString((*m_it).object());
-            jMail["body"] = QString::fromStdString((*m_it).body());
-            jMail["read"] = (*m_it).isRead();
-            jMail["sent"] = (*m_it).sent().toString("dd.MM.yyyy");
-            jMail["recv"] = (*m_it).recv().toString("dd.MM.yyyy");
+            jMail["sender"] = QString::fromStdString((*m_it)->sender().login());
+            jMail["object"] = QString::fromStdString((*m_it)->object());
+            jMail["body"] = QString::fromStdString((*m_it)->body());
+            jMail["read"] = (*m_it)->isRead();
+            jMail["sent"] = (*m_it)->sent().toString("dd.MM.yyyy");
+            jMail["recv"] = (*m_it)->recv().toString("dd.MM.yyyy");
         }
         m_it = outMail.begin();
         for(; m_it != outMail.end(); ++m_it) {
-            jMail["receiver"] = QString::fromStdString((*m_it).receiver().login());
+            jMail["receiver"] = QString::fromStdString((*m_it)->receiver().login());
             jMail["sender"] = QString::fromStdString((*it)->account()->username().login());
-            jMail["object"] = QString::fromStdString((*m_it).object());
-            jMail["body"] = QString::fromStdString((*m_it).body());
-            jMail["read"] = (*m_it).isRead();
-            jMail["sent"] = (*m_it).sent().toString("dd.MM.yyyy");
-            jMail["recv"] = (*m_it).recv().toString("dd.MM.yyyy");
+            jMail["object"] = QString::fromStdString((*m_it)->object());
+            jMail["body"] = QString::fromStdString((*m_it)->body());
+            jMail["read"] = (*m_it)->isRead();
+            jMail["sent"] = (*m_it)->sent().toString("dd.MM.yyyy");
+            jMail["recv"] = (*m_it)->recv().toString("dd.MM.yyyy");
         }
         jUser["net"] = jArr;
         jUser["info"] = jInf;
@@ -315,6 +315,3 @@ list<SmartPtr<User> >::const_iterator LinqDB::begin() const{
 list<SmartPtr<User> >::const_iterator LinqDB::end() const{
     return _db.end();
 }
-// SmartPtr<User> LinqDB::operator[](const int& i) const {
-//     return _db[i];
-// }

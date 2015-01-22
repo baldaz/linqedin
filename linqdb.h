@@ -41,6 +41,5 @@ public:
     User* find(const Username&) const;
     list<SmartPtr<User> >::const_iterator begin() const;
     list<SmartPtr<User> >::const_iterator end() const;
-    // SmartPtr<User> operator[](const int&) const;
 };
 #endif
