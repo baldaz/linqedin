@@ -57,10 +57,14 @@ Gui_Messages::Gui_Messages(LinqClient* cli, QWidget* parent) : _client(cli), QGr
     this->setRowStretch(1, 0);
     this->setRowStretch(2, 10);
 
+    // QDialogButtonBox* box = new QDialogButtonBox(QDialogButtonBox::Ok);
+    QPushButton* box = new QPushButton("SEND");
+
     QLabel* ne = new QLabel("<h2>New message</h2>");
     this->addWidget(ne, 1, 0, 1, -1, Qt::AlignCenter);
     Gui_NewMessage* newmex = new Gui_NewMessage(parent);
     this->addWidget(newmex, 2, 0, 3, -1);
+    this->addWidget(box, 5, 2, 1, 1, Qt::AlignRight);
     connect(_list, SIGNAL(clicked(QModelIndex)), this, SLOT(viewMessageBody()));
 }
 

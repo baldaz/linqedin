@@ -2,6 +2,9 @@
 #define GUI_SETTINGS_H
 
 #include <QGridLayout>
+#include <QFormLayout>
+// #include <QDialogButtonBox>
+#include <QPushButton>
 #include <QLabel>
 #include <QLineEdit>
 #include <QGroupBox>

@@ -9,6 +9,7 @@
 #include <QGridLayout>
 #include <QListWidget>
 #include <QTextBrowser>
+// #include <QDialogButtonBox>
 #include <QTabWidget>
 
 class Gui_Messages : public QGridLayout {

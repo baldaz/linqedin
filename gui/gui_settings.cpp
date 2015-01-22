@@ -44,6 +44,21 @@ Gui_Settings::Gui_Settings(LinqClient* cli, QWidget* parent) : _client(cli), QGr
     QHBoxLayout* hbl2 = new QHBoxLayout;
 
     QVBoxLayout* vbl = new QVBoxLayout;
+    QFormLayout* frm = new QFormLayout;
+    QFormLayout* frm2 = new QFormLayout;
+    QPushButton* box = new QPushButton("Alter");
+
+    frm->addRow(name, edtName);
+    frm->addRow(surname, edtSurname);
+    frm->addRow(birth, edtBirth);
+    frm->addRow(address, edtAddr);
+    frm2->addRow(phone, edtPhone);
+    frm2->addRow(email, edtMail);
+    frm2->addRow(website, edtWebsite);
+    frm2->addRow(uname, edtUname);
+    addLayout(frm, 0, 1, 1, 1);
+    addLayout(frm2, 0, 2, 1, 1);
+    addWidget(box, 2, 1, 1, 1);
 
     // hbl->setSpacing(0);
     // hbl->setMargin(0);
@@ -78,21 +93,4 @@ Gui_Settings::Gui_Settings(LinqClient* cli, QWidget* parent) : _client(cli), QGr
     // vbl->setMargin(0);
     // vbl->setContentsMargins(0,0,0,0);
     // addLayout(vbl, 0, 1, 1, 1);
-
-    addWidget(name, 1, 0);
-    addWidget(edtName, 1, 1);
-    addWidget(birth, 2, 0);
-    addWidget(edtBirth, 2, 1);
-    addWidget(surname, 3, 0);
-    addWidget(edtSurname, 3, 1);
-    addWidget(address, 4, 0);
-    addWidget(edtAddr, 4, 1);
-    addWidget(phone, 4, 2);
-    addWidget(edtPhone, 4, 3);
-    addWidget(website, 3, 2);
-    addWidget(edtWebsite, 3, 3);
-    addWidget(email, 2, 2);
-    addWidget(edtMail, 2, 3);
-    addWidget(uname, 1, 2);
-    addWidget(edtUname, 1, 3);
 }
