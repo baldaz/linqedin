@@ -53,6 +53,18 @@ vector<SmartPtr<User> > LinqClient::similarity() const {
 bool LinqClient::linked(const Username& usr) const {
    return _usr->linked(usr);
 }
+vector<string> LinqClient::skills() const {
+    vector<string> ret;
+    if(UserInfo* p = dynamic_cast<UserInfo*> (_usr->account()->info()))
+        ret = p->skills();
+    return ret;
+}
+vector<string> LinqClient::interests() const {
+    vector<string> ret;
+    if(UserInfo* p = dynamic_cast<UserInfo*> (_usr->account()->info()))
+        ret = p->interests();
+    return ret;
+}
 vector<string> LinqClient::displayHtmlNet() const {
     vector<string> ret;
     string html = "";

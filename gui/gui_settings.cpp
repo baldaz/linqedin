@@ -20,6 +20,27 @@ Gui_Settings::Gui_Settings(LinqClient* cli, QWidget* parent) : _client(cli), QGr
     QLabel* uname = new QLabel("Username:", parent);
     QLineEdit* edtUname = new QLineEdit(parent);
 
+    skills = new QListWidget;
+    inters = new QListWidget;
+    vector<string> v = _client->skills();
+    vector<string> i = _client->interests();
+    for(vector<string>::iterator it = v.begin(); it != v.end(); ++it) {
+        QListWidgetItem* item = new QListWidgetItem;
+        item->setData(Qt::DisplayRole, QString::fromStdString(*it));
+        item->setData(Qt::DecorationRole, QPixmap("img/rugby100.png"));
+        skills->addItem(item);
+    }
+    for(vector<string>::iterator it = i.begin(); it != i.end(); ++it) {
+        QListWidgetItem* item = new QListWidgetItem;
+        item->setData(Qt::DisplayRole, QString::fromStdString(*it));
+        item->setData(Qt::DecorationRole, QPixmap("img/atom2.png"));
+        inters->addItem(item);
+    }
+    connect(skills, SIGNAL(customContextMenuRequested(const QPoint &)), this, SLOT(skillsMenu(const QPoint &)));
+    connect(inters, SIGNAL(customContextMenuRequested(const QPoint &)), this, SLOT(interestsMenu(const QPoint &)));
+
+    QLineEdit* newskill = new QLineEdit(parent);
+
     edtName->setEnabled(false);
     edtAddr->setEnabled(false);
     edtMail->setEnabled(false);
@@ -28,6 +49,8 @@ Gui_Settings::Gui_Settings(LinqClient* cli, QWidget* parent) : _client(cli), QGr
     edtPhone->setEnabled(false);
     edtWebsite->setEnabled(false);
     edtUname->setEnabled(false);
+    newskill->setPlaceholderText("Add new experience");
+    newskill->setEnabled(false);
 
     edtName->setText("Steven");
     edtAddr->setText("Via IV Novembre 24 Stra (VE)");
@@ -48,14 +71,21 @@ Gui_Settings::Gui_Settings(LinqClient* cli, QWidget* parent) : _client(cli), QGr
     QFormLayout* frm2 = new QFormLayout;
     QPushButton* box = new QPushButton("Alter");
 
+    frm->setVerticalSpacing(10);
+    frm2->setVerticalSpacing(10);
+
     frm->addRow(name, edtName);
     frm->addRow(surname, edtSurname);
     frm->addRow(birth, edtBirth);
     frm->addRow(address, edtAddr);
+    frm->addRow("Skills:", skills);
     frm2->addRow(phone, edtPhone);
     frm2->addRow(email, edtMail);
     frm2->addRow(website, edtWebsite);
     frm2->addRow(uname, edtUname);
+    frm2->addRow("Interests:", inters);
+    frm->addRow(newskill);
+    newskill->hide();
     addLayout(frm, 0, 1, 1, 1);
     addLayout(frm2, 0, 2, 1, 1);
     addWidget(box, 2, 1, 1, 1);
@@ -93,4 +123,18 @@ Gui_Settings::Gui_Settings(LinqClient* cli, QWidget* parent) : _client(cli), QGr
     // vbl->setMargin(0);
     // vbl->setContentsMargins(0,0,0,0);
     // addLayout(vbl, 0, 1, 1, 1);
+}
+
+void Gui_Settings::skillsMenu(const QPoint& pos) {
+    QPoint globalPos = skills->mapToGlobal(pos);    // Map the global position to the userlist
+    QModelIndex t = skills->indexAt(pos);
+    skills->item(t.row())->setSelected(true);           // even a right click will select the item
+    // userListMenu->exec(globalPos);
+}
+
+void Gui_Settings::interestsMenu(const QPoint& pos) {
+    QPoint globalPos = inters->mapToGlobal(pos);    // Map the global position to the userlist
+    QModelIndex t = inters->indexAt(pos);
+    inters->item(t.row())->setSelected(true);           // even a right click will select the item
+    // userListMenu->exec(globalPos);
 }

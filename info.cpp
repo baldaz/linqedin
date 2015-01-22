@@ -1,7 +1,6 @@
 #include "info.h"
 
 Info::~Info() {}
-// UserInfo::UserInfo() {}
 UserInfo::UserInfo(bool sx, const string& n, const string& s, const string& e, const string& a, const string& t, const string& w, const QDate& b) :
                 _sex(sx), _name(n), _surname(s), _email(e), _address(a), _telephon(t), _website(w), _birthdate(b){}
 UserInfo::UserInfo(const UserInfo& uf) :

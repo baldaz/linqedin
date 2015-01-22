@@ -3,7 +3,7 @@
 
 #include <QGridLayout>
 #include <QFormLayout>
-// #include <QDialogButtonBox>
+#include <QListWidget>
 #include <QPushButton>
 #include <QLabel>
 #include <QLineEdit>
@@ -15,7 +15,12 @@ class Gui_Settings : public QGridLayout {
     Q_OBJECT
 private:
     LinqClient* _client;
+    QListWidget* skills;
+    QListWidget* inters;
 public:
     Gui_Settings(LinqClient*, QWidget* = 0);
+public slots:
+    void skillsMenu(const QPoint&);
+    void interestsMenu(const QPoint&);
 };
 #endif

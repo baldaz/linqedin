@@ -7,10 +7,9 @@
 using std::vector;
 using std::map;
 
-// User::User() : _acc(new Account()), _net(new LinqNet()), _visitcount(0)  {}
 User::User(Account* ac) : _acc(ac->clone()), _net(new LinqNet()), _visitcount(0)  {}
 User::User(const User& usr) : _acc(usr._acc->clone()), _net(usr._net->clone()), _visitcount(usr._visitcount) {}
-User::~User() { delete _acc; delete _net;}
+User::~User() { delete _acc; delete _net; _inMail.clear(); _outMail.clear();}
 User& User::operator=(const User& usr) {
     if(this != &usr) {
         delete _acc;
@@ -166,6 +165,9 @@ bool User::linked(const Username& usr) const {
         if((*it).login() == usr.login()) found = true;
     return found;
 }
+void User::loadInMail(const Message& mex) {
+    _inMail.push_back(const_cast<Message*> (&mex));
+}
 list<Message*> User::inMail() const {
     return _inMail;
 }
@@ -173,10 +175,8 @@ list<Message*> User::outMail() const {
     return _outMail;
 }
 
-// BasicUser::BasicUser() : User() {}
 BasicUser::BasicUser(Account* ac) : User(ac){}
 BasicUser::BasicUser(const BasicUser& usr) : User(usr){}
-BasicUser::~BasicUser() {}
 User* BasicUser::clone() const {
     return new BasicUser(*this);
 }
@@ -189,19 +189,14 @@ void BasicUser::sendMessage(const Username& dest, const string& obj, const strin
         _outMail.push_back(&mex);
     }
 }
-void BasicUser::loadInMail(const Message& mex) {
-    _inMail.push_back(const_cast<Message*> (&mex));
-}
 void BasicUser::loadOutMail(const Message& mex) {
     if(_outMail.size() < basicMailLimit)
         _outMail.push_back(const_cast<Message*> (&mex));
 }
 unsigned int BasicUser::basicMailLimit = 10;
 
-// BusinessUser::BusinessUser() : BasicUser() {}
 BusinessUser::BusinessUser(Account* ac) : BasicUser(ac) {}
 BusinessUser::BusinessUser(const BusinessUser& usr) : BasicUser(usr) {}
-BusinessUser::~BusinessUser() {}
 User* BusinessUser::clone() const {
     return new BusinessUser(*this);
 }
@@ -220,7 +215,6 @@ void BusinessUser::loadOutMail(const Message& mex) {
 }
 unsigned int BusinessUser::businessMailLimit = 25;
 
-// ExecutiveUser::ExecutiveUser() : BusinessUser() {}
 ExecutiveUser::ExecutiveUser(Account* ac) : BusinessUser(ac) {}
 ExecutiveUser::ExecutiveUser(const ExecutiveUser& usr) : BusinessUser(usr), _keywords(usr._keywords) {}
 ExecutiveUser::~ExecutiveUser() {_keywords.clear();}

@@ -97,6 +97,7 @@ void LinqDB::read(const QJsonArray& qjs) {
         QJsonArray outmail = obj["outmail"].toArray();
         QJsonArray inmail = obj["inmail"].toArray();
         QJsonObject in, out;
+        // spostare messaggi su heap
         for(int i = 0; i < outmail.size(); ++i) {
             out = outmail[i].toObject();
             Message mex(usr, Username(out["receiver"].toString().toStdString(), ""), out["object"].toString().toStdString(), out["body"].toString().toStdString(), true, QDate::fromString(out["sent"].toString(), "dd.MM.yyyy"), QDate::fromString(out["recv"].toString(), "dd.MM.yyyy"));

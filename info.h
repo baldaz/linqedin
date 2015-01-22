@@ -29,7 +29,6 @@ protected:
     vector<string> _languages, _skills, _interests;
     list<Experience> _exp;
 public:
-    // UserInfo();
     UserInfo(bool = false, const string& ="", const string& ="", const string& ="", const string& ="", const string& ="", const string& ="", const QDate& = QDate::currentDate());
     UserInfo(const UserInfo&);
     virtual ~UserInfo();

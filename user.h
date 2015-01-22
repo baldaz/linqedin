@@ -45,7 +45,6 @@ protected:
         vector<SmartPtr<User> > result() const;
     };
 public:
-    // User();
     User(Account*);
     User(const User&);
     User& operator=(const User&);
@@ -63,7 +62,7 @@ public:
     vector<SmartPtr<User> > listPossibleLinks(const LinqDB&) const;
     virtual map<string, string> userSearch(const LinqDB&, const string&) const =0;
     virtual void sendMessage(const Username&, const string& = "", const string& = "", bool = false) =0;
-    virtual void loadInMail(const Message&) =0;
+    void loadInMail(const Message&);
     virtual void loadOutMail(const Message&) =0;
     list<Message*> inMail() const;
     list<Message*> outMail() const;
@@ -73,14 +72,11 @@ class BasicUser : public User {
 private:
     static unsigned int basicMailLimit;
 public:
-    // BasicUser();
     BasicUser(Account*);
     BasicUser(const BasicUser&);
-    virtual ~BasicUser();
     virtual User* clone() const;
     virtual map<string, string> userSearch(const LinqDB&, const string&) const;
     virtual void sendMessage(const Username&, const string& = "", const string& = "", bool = false);
-    virtual void loadInMail(const Message&);
     virtual void loadOutMail(const Message&);
 };
 
@@ -88,10 +84,8 @@ class BusinessUser : public BasicUser {
 private:
     static unsigned int businessMailLimit;
 public:
-    // BusinessUser();
     BusinessUser(Account*);
     BusinessUser(const BusinessUser&);
-    virtual ~BusinessUser();
     virtual User* clone() const;
     virtual map<string, string> userSearch(const LinqDB&, const string&) const;
     virtual void sendMessage(const Username&, const string& = "", const string& = "", bool = false);
@@ -102,7 +96,6 @@ class ExecutiveUser : public BusinessUser {
 protected:
     map<string, int> _keywords;
 public:
-    // ExecutiveUser();
     ExecutiveUser(Account*);
     ExecutiveUser(const ExecutiveUser&);
     virtual ~ExecutiveUser();

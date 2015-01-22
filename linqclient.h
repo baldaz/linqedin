@@ -30,6 +30,8 @@ public:
     string displayHtmlPayments() const;
     string displayHtmlSettings() const;
     string displayHtmlMessages() const;
+    vector<string> skills() const;
+    vector<string> interests() const;
     vector<string> displayHtmlNet() const;
     vector<SmartPtr<User> > contactsInfo() const;
     void alterProfile();
