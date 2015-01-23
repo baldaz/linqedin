@@ -24,6 +24,28 @@
             "telephon": "3450515048",
             "website": "www.baldaz.ba"
         },
+        "inmail": [
+            {
+                "sender": "Pablito",
+                "receiver": "Baldaz",
+                "object": "Test",
+                "body": "Test mail from Pablito.",
+                "sent": "23.01.2015",
+                "recv": "23.01.2015",
+                "read": true
+            }
+        ],
+        "outmail": [
+            {
+                "sender": "Baldaz",
+                "receiver": "Pablito",
+                "object": "Test",
+                "body": "Test mail from Baldaz.",
+                "sent": "23.01.2015",
+                "recv": "23.01.2015",
+                "read": true
+            }
+        ],
         "interests": [
             "Web",
             "Movies",
@@ -132,6 +154,28 @@
             "telephon": "9873478233",
             "website": "www.cartel.cl"
         },
+        "inmail": [
+            {
+                "sender": "Baldaz",
+                "receiver": "Pablito",
+                "object": "Test",
+                "body": "Test mail from Baldaz.",
+                "sent": "23.01.2015",
+                "recv": "23.01.2015",
+                "read": true
+            }
+        ],
+        "outmail": [
+            {
+                "sender": "Pablito",
+                "receiver": "Baldaz",
+                "object": "Test",
+                "body": "Test mail from Pablito.",
+                "sent": "23.01.2015",
+                "recv": "23.01.2015",
+                "read": true
+            }
+        ],
         "interests": [
             "Web design",
             "Ski",
@@ -349,6 +393,28 @@
             "telephon": "3250525147",
             "website": "www.stevenseagal.ss"
         },
+        "inmail": [
+            {
+                "sender": "Danny",
+                "receiver": "Casey",
+                "object": "Test",
+                "body": "Test mail from Danny.",
+                "sent": "21.01.2015",
+                "recv": "21.01.2015",
+                "read": true
+            }
+        ],
+        "outmail": [
+            {
+                "sender": "Casey",
+                "receiver": "Danny",
+                "object": "Test",
+                "body": "Test mail from Casey.",
+                "sent": "22.01.2015",
+                "recv": "22.01.2015",
+                "read": true
+            }
+        ],
         "interests": [
             "Web",
             "Movies",

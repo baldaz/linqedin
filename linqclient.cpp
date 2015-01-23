@@ -20,10 +20,15 @@ string LinqClient::displayProfile() const {
     o2 << *_usr->net();
     profile += "Account type >> " + o.str() + "\n";
     profile += "Credentials >> user: " + _usr->account()->username().login() + "  password: " + _usr->account()->username().password() + "\n";
-    // profile += "DB size >> " + _db->size() + " Friends >> " + _usr->net()->size() + "\n";
     profile += "Account info >> " + _usr->account()->info()->print() + "\n";
     profile += "Friend list >> ";
     profile += o2.str() + "\n";
+    profile += "inMail >> ";
+    list<Message*> inm = _usr->inMail();
+    list<Message*> outm = _usr->outMail();
+    list<Message*>::const_iterator it = inm.begin();
+    for(; it != inm.end(); ++it)
+        profile += "Sender: " + (*it)->sender().login() + " Receiver: " + (*it)->receiver().login() + "\n";
     return profile;
 }
 string LinqClient::displayHtmlInfo() const {

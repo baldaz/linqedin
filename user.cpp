@@ -8,8 +8,22 @@ using std::vector;
 using std::map;
 
 User::User(Account* ac) : _acc(ac->clone()), _net(new LinqNet()), _visitcount(0)  {}
-User::User(const User& usr) : _acc(usr._acc->clone()), _net(usr._net->clone()), _visitcount(usr._visitcount) {}
-User::~User() { delete _acc; delete _net; _inMail.clear(); _outMail.clear();}
+User::User(const User& usr) : _acc(usr._acc->clone()), _net(usr._net->clone()), _visitcount(usr._visitcount) {
+    for(list<Message*>::const_iterator it = usr._inMail.begin(); it != usr._inMail.end(); ++it)
+        _inMail.push_back(new Message(**it));
+    for(list<Message*>::const_iterator it = usr._outMail.begin(); it != usr._outMail.end(); ++it)
+        _outMail.push_back(new Message(**it));
+}
+User::~User() {
+    delete _acc;
+    delete _net;
+    for(list<Message*>::iterator it = _inMail.begin(); it != _inMail.end(); ++it)
+        delete *it;
+    _inMail.clear();
+    for(list<Message*>::iterator it = _outMail.begin(); it != _outMail.end(); ++it)
+        delete *it;
+    _outMail.clear();
+}
 User& User::operator=(const User& usr) {
     if(this != &usr) {
         delete _acc;

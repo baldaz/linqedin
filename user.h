@@ -23,6 +23,7 @@ protected:
     list<Message*> _outMail;
     list<Message*> _inMail;
     int _visitcount;
+protected:
     class searchFunctor {
     private:
         int _s_type;
