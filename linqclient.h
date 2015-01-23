@@ -34,6 +34,8 @@ public:
     vector<string> interests() const;
     vector<string> displayHtmlNet() const;
     vector<SmartPtr<User> > contactsInfo() const;
+    list<Message*> inMail() const;
+    list<Message*> outMail() const;
     void alterProfile();
     void addContact(const Username&);
     void removeContact(const Username&);

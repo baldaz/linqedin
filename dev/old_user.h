@@ -17,13 +17,12 @@ class LinqNet;
 class LinqDB;
 
 class User {
-private:
+protected:
     Account* _acc;
     LinqNet* _net;
+    list<Message> _outMail;
+    list<Message> _inMail;
     int _visitcount;
-protected:
-    list<Message*> _outMail;
-    list<Message*> _inMail;
     class searchFunctor {
     private:
         int _s_type;
@@ -35,6 +34,33 @@ protected:
         void operator()(const SmartPtr<User>&);
         map<string, string> result() const;
     };
+public:
+    // User();
+    User(Account*);
+    User(const User&);
+    User& operator=(const User&);
+    virtual ~User();
+    virtual User* clone() const =0;
+    virtual Account* account() const =0;
+    virtual LinqNet* net() const =0;
+    virtual void addContact(User*) =0;
+    virtual void removeContact(const Username&) =0;
+    virtual int visitCount() const =0;
+    virtual void setVisitCount(int) =0;
+    virtual void addVisit() =0;
+    virtual int similarity(const SmartPtr<User>&) const =0;
+    virtual bool linked(const Username&) const =0;
+    virtual vector<SmartPtr<User> > listPossibleLinks(const LinqDB&) const =0;
+    virtual map<string, string> userSearch(const LinqDB&, const string&) const =0;
+    virtual void sendMessage(const Username&, const string& = "", const string& = "", bool = false) =0;
+    virtual void loadInMail(const Message&) =0;
+    virtual void loadOutMail(const Message&) =0;
+    virtual list<Message> inMail() const =0;
+    virtual list<Message> outMail() const =0;
+};
+
+class BasicUser : public User {
+protected:
     class linkedWith {
     private:
         int _offset;
@@ -46,64 +72,49 @@ protected:
         vector<SmartPtr<User> > result() const;
     };
 public:
-    User(Account*);
-    User(const User&);
-    User& operator=(const User&);
-    virtual ~User();
-    virtual User* clone() const =0;
-    Account* account() const;
-    LinqNet* net() const;
-    void addContact(User*);
-    void removeContact(const Username&);
-    int visitCount() const;
-    void setVisitCount(int);
-    void addVisit();
-    int similarity(const SmartPtr<User>&) const;
-    bool linked(const Username&) const;
-    vector<SmartPtr<User> > listPossibleLinks(const LinqDB&) const;
-    virtual map<string, string> userSearch(const LinqDB&, const string&) const =0;
-    virtual void sendMessage(const Username&, const string& = "", const string& = "", bool = false) =0;
-    void loadInMail(const Message&);
-    virtual void loadOutMail(const Message&) =0;
-    list<Message*> inMail() const;
-    list<Message*> outMail() const;
-};
-
-class BasicUser : public User {
-private:
-    static unsigned int basicMailLimit;
-public:
+    // BasicUser();
     BasicUser(Account*);
     BasicUser(const BasicUser&);
+    virtual ~BasicUser();
     virtual User* clone() const;
+    virtual Account* account() const;
+    virtual LinqNet* net() const;
+    virtual void addContact(User*);
+    virtual void removeContact(const Username&);
+    virtual int visitCount() const;
+    virtual void setVisitCount(int);
+    virtual void addVisit();
+    virtual int similarity(const SmartPtr<User>&) const;
+    virtual bool linked(const Username&) const;
+    virtual vector<SmartPtr<User> > listPossibleLinks(const LinqDB&) const;
     virtual map<string, string> userSearch(const LinqDB&, const string&) const;
     virtual void sendMessage(const Username&, const string& = "", const string& = "", bool = false);
+    virtual void loadInMail(const Message&);
     virtual void loadOutMail(const Message&);
+    virtual list<Message> inMail() const;
+    virtual list<Message> outMail() const;
 };
 
 class BusinessUser : public BasicUser {
-private:
-    static unsigned int businessMailLimit;
 public:
+    // BusinessUser();
     BusinessUser(Account*);
     BusinessUser(const BusinessUser&);
+    virtual ~BusinessUser();
     virtual User* clone() const;
     virtual map<string, string> userSearch(const LinqDB&, const string&) const;
-    virtual void sendMessage(const Username&, const string& = "", const string& = "", bool = false);
-    virtual void loadOutMail(const Message&);
 };
 
 class ExecutiveUser : public BusinessUser {
 protected:
     map<string, int> _keywords;
 public:
+    // ExecutiveUser();
     ExecutiveUser(Account*);
     ExecutiveUser(const ExecutiveUser&);
     virtual ~ExecutiveUser();
     virtual User* clone() const;
     virtual map<string, string> userSearch(const LinqDB&, const string&) const;
-    virtual void sendMessage(const Username&, const string& = "", const string& = "", bool = false);
-    virtual void loadOutMail(const Message&);
     virtual void addKeyword(const string&);
     virtual map<string, int> keywordPercent() const;
     virtual map<string, int> keywords() const;

@@ -19,7 +19,6 @@ HEADERS += account.h \
            gui/gui_listdelegate.h \
            gui/gui_login.h \
            gui/gui_messages.h \
-           gui/gui_newmessage.h \
            gui/gui_overview.h \
            gui/gui_payments.h \
            gui/gui_search.h \
@@ -47,7 +46,6 @@ SOURCES += account.cpp \
            gui/gui_listdelegate.cpp \
            gui/gui_login.cpp \
            gui/gui_messages.cpp \
-           gui/gui_newmessage.cpp \
            gui/gui_overview.cpp \
            gui/gui_payments.cpp \
            gui/gui_search.cpp \

@@ -101,6 +101,12 @@ vector<SmartPtr<User> > LinqClient::contactsInfo() const {
     }
     return ret;
 }
+list<Message*> LinqClient::inMail() const {
+    return _usr->inMail();
+}
+list<Message*> LinqClient::outMail() const {
+    return _usr->outMail();
+}
 map<string, string> LinqClient::find(const string& wanted = "") const {
     return _usr->userSearch(*_db, wanted);
 }
