@@ -45,8 +45,8 @@ void Gui_UserWindow::createHorizontalGroupBox() {
     layout->addWidget(buttons[1], Qt::AlignTop);
     connect(buttons[1], SIGNAL(clicked()), this, SLOT(settings()));
 
-    buttons[2] = new QPushButton("&PAYMENTS");
-    buttons[2]->setIcon(QPixmap("img/banknotes.png"));
+    buttons[2] = new QPushButton("S&TATISTICS");
+    buttons[2]->setIcon(QPixmap("img/business155.png"));
     layout->addWidget(buttons[2], Qt::AlignTop);
     connect(buttons[2], SIGNAL(clicked()), this, SLOT(payments()));
 
