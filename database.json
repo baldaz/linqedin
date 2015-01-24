@@ -26,24 +26,22 @@
         },
         "inmail": [
             {
-                "sender": "Pablito",
-                "receiver": "Baldaz",
-                "object": "Test",
                 "body": "Test mail from Pablito.",
-                "sent": "23.01.2015",
-                "recv": "23.01.2015",
-                "read": true
-            }
-        ],
-        "outmail": [
-            {
-                "sender": "Baldaz",
-                "receiver": "Pablito",
                 "object": "Test",
-                "body": "Test mail from Baldaz.",
-                "sent": "23.01.2015",
+                "read": true,
+                "receiver": "Baldaz",
                 "recv": "23.01.2015",
-                "read": true
+                "sender": "Pablito",
+                "sent": "23.01.2015"
+            },
+            {
+                "body": "Finally smart pointer solves our probems!",
+                "object": "1000th try!",
+                "read": false,
+                "receiver": "Baldaz",
+                "recv": "24.01.2015",
+                "sender": "Casey",
+                "sent": "24.01.2015"
             }
         ],
         "interests": [
@@ -97,11 +95,21 @@
         ],
         "net": [
             "Pablito",
-            "Atilio",
             "aui",
             "ser",
             "Sara87",
             "Casey"
+        ],
+        "outmail": [
+            {
+                "body": "God bless smart pointer!",
+                "object": "Yeah! it works now!",
+                "read": true,
+                "receiver": "Casey",
+                "recv": "24.01.2015",
+                "sender": "Baldaz",
+                "sent": "24.01.2015"
+            }
         ],
         "password": "qwerty",
         "payments": [
@@ -139,7 +147,7 @@
             "Bootstrap"
         ],
         "username": "Baldaz",
-        "visitcount": 18
+        "visitcount": 19
     },
     {
         "formations": [
@@ -156,30 +164,21 @@
         },
         "inmail": [
             {
-                "sender": "Baldaz",
-                "receiver": "Pablito",
-                "object": "Test",
                 "body": "Test mail from Baldaz.",
-                "sent": "23.01.2015",
-                "recv": "23.01.2015",
-                "read": true
-            }
-        ],
-        "outmail": [
-            {
-                "sender": "Pablito",
-                "receiver": "Baldaz",
                 "object": "Test",
-                "body": "Test mail from Pablito.",
-                "sent": "23.01.2015",
+                "read": true,
+                "receiver": "Pablito",
                 "recv": "23.01.2015",
-                "read": true
+                "sender": "Baldaz",
+                "sent": "23.01.2015"
             }
         ],
         "interests": [
             "Web design",
             "Ski",
             "Homebrew"
+        ],
+        "jobs": [
         ],
         "languages": [
             "Italian",
@@ -188,6 +187,8 @@
         ],
         "net": [
             "Atilio"
+        ],
+        "outmail": [
         ],
         "password": "maurisio",
         "payments": [
@@ -198,7 +199,7 @@
             "PHP"
         ],
         "username": "Pablito",
-        "visitcount": 11
+        "visitcount": 12
     },
     {
         "formations": [
@@ -213,6 +214,8 @@
             "telephon": "4872474213",
             "website": "www.cartel.mx"
         },
+        "inmail": [
+        ],
         "interests": [
             "Gym",
             "Boxe",
@@ -223,6 +226,8 @@
             "Martials arts",
             "BBQ"
         ],
+        "jobs": [
+        ],
         "languages": [
             "Italian",
             "English",
@@ -230,6 +235,8 @@
         ],
         "net": [
             "Pablito"
+        ],
+        "outmail": [
         ],
         "password": "piovra",
         "payments": [
@@ -257,9 +264,13 @@
             "telephon": "35015048",
             "website": "www.andr.ad"
         },
+        "inmail": [
+        ],
         "interests": [
             "Web developing",
             "Videogames"
+        ],
+        "jobs": [
         ],
         "languages": [
             "Italian",
@@ -270,6 +281,8 @@
             "Pablito",
             "Atilio",
             "Baldaz"
+        ],
+        "outmail": [
         ],
         "password": "rd",
         "payments": [
@@ -296,6 +309,8 @@
             "telephon": "3250515048",
             "website": "www.sara.sr"
         },
+        "inmail": [
+        ],
         "interests": [
             "Reading",
             "Fishing",
@@ -304,6 +319,8 @@
             "Movies",
             "Coding",
             "Snowboard"
+        ],
+        "jobs": [
         ],
         "languages": [
             "Italian",
@@ -314,6 +331,8 @@
             "Pablito",
             "Atilio",
             "aui"
+        ],
+        "outmail": [
         ],
         "password": "sara",
         "payments": [
@@ -340,10 +359,14 @@
             "telephon": "345215048",
             "website": "www.idiota.ser"
         },
+        "inmail": [
+        ],
         "interests": [
             "Drums",
             "Keyboard",
             "Music"
+        ],
+        "jobs": [
         ],
         "languages": [
             "Italian",
@@ -355,6 +378,8 @@
             "Atilio",
             "Baldaz",
             "Sara87"
+        ],
+        "outmail": [
         ],
         "password": "wword",
         "payments": [
@@ -395,24 +420,22 @@
         },
         "inmail": [
             {
-                "sender": "Danny",
-                "receiver": "Casey",
-                "object": "Test",
                 "body": "Test mail from Danny.",
-                "sent": "21.01.2015",
-                "recv": "21.01.2015",
-                "read": true
-            }
-        ],
-        "outmail": [
-            {
-                "sender": "Casey",
-                "receiver": "Danny",
                 "object": "Test",
-                "body": "Test mail from Casey.",
-                "sent": "22.01.2015",
-                "recv": "22.01.2015",
-                "read": true
+                "read": true,
+                "receiver": "Casey",
+                "recv": "21.01.2015",
+                "sender": "Danny",
+                "sent": "21.01.2015"
+            },
+            {
+                "body": "God bless smart pointer!",
+                "object": "Yeah! it works now!",
+                "read": false,
+                "receiver": "Casey",
+                "recv": "24.01.2015",
+                "sender": "Baldaz",
+                "sent": "24.01.2015"
             }
         ],
         "interests": [
@@ -430,6 +453,20 @@
             "Blades",
             "Knives",
             "BBQ"
+        ],
+        "jobs": [
+            {
+                "from": "15.09.1968",
+                "location": "Hollywood Studios, California",
+                "role": "Stuntman",
+                "to": "15.09.1975"
+            },
+            {
+                "from": "15.09.1978",
+                "location": "Hollywood Studios, California",
+                "role": "Actor",
+                "to": "15.09.2015"
+            }
         ],
         "keywords": [
             "css",
@@ -453,6 +490,17 @@
             "Atilio",
             "Hannibal",
             "Willg"
+        ],
+        "outmail": [
+            {
+                "body": "Finally smart pointer solves our probems!",
+                "object": "1000th try!",
+                "read": true,
+                "receiver": "Baldaz",
+                "recv": "24.01.2015",
+                "sender": "Casey",
+                "sent": "24.01.2015"
+            }
         ],
         "password": "rayback",
         "payments": [
@@ -481,21 +529,7 @@
             "Knives"
         ],
         "username": "Casey",
-        "visitcount": 9,
-        "jobs": [
-            {
-                "from": "15.09.1968",
-                "location": "Hollywood Studios, California",
-                "role": "Stuntman",
-                "to": "15.09.1975"
-            },
-            {
-                "from": "15.09.1978",
-                "location": "Hollywood Studios, California",
-                "role": "Actor",
-                "to": "15.09.2015"
-            }
-        ]
+        "visitcount": 9
     },
     {
         "formations": [
@@ -522,6 +556,8 @@
             "telephon": "3150535157",
             "website": "www.dannytrejo.dt"
         },
+        "inmail": [
+        ],
         "interests": [
             "Drugdealing",
             "Kidnapp",
@@ -534,6 +570,8 @@
             "Cooking",
             "Movies",
             "BBQ"
+        ],
+        "jobs": [
         ],
         "keywords": [
             "daibo",
@@ -555,6 +593,8 @@
             "Pablito",
             "Atilio",
             "aui"
+        ],
+        "outmail": [
         ],
         "password": "machete",
         "payments": [
@@ -601,6 +641,8 @@
             "telephon": "3150335121",
             "website": "www.hanniballecter.hl"
         },
+        "inmail": [
+        ],
         "interests": [
             "Meat",
             "Cooking",
@@ -613,6 +655,8 @@
             "Cannibalism",
             "Movies",
             "BBQ"
+        ],
+        "jobs": [
         ],
         "keywords": [
             "knives",
@@ -635,6 +679,8 @@
             "aui",
             "Sara87",
             "Willg"
+        ],
+        "outmail": [
         ],
         "password": "lecter",
         "payments": [
@@ -675,6 +721,8 @@
             "telephon": "3150335121",
             "website": "www.grahamwill.gw"
         },
+        "inmail": [
+        ],
         "interests": [
             "Meat",
             "Cooking",
@@ -683,6 +731,8 @@
             "Psichology",
             "Psichiatry",
             "Murder"
+        ],
+        "jobs": [
         ],
         "keywords": [
             "knives",
@@ -698,6 +748,8 @@
             "Pablito",
             "Atilio",
             "Hannibal"
+        ],
+        "outmail": [
         ],
         "password": "graham",
         "payments": [

@@ -34,7 +34,7 @@ void Gui_Links::viewContact() {
     vector<SmartPtr<User> >::iterator it = _contacts.begin();
     for(; it < _contacts.end(); ++it)
         if(QString::fromStdString((*it)->account()->username().login()) == _selected) {
-            QString output = QString(QString::fromStdString((*it)->account()->info()->printHtml()) + "<h5>Visit Count</h5><p> %1").arg((*it)->visitCount());
+            QString output = QString("<span style='color: #666'>( " + QString::fromStdString((*it)->account()->username().login()) + " )</span>" + QString::fromStdString((*it)->account()->info()->printHtml()) + "<h5>Visit Count</h5><p> %1").arg((*it)->visitCount());
             _display->setHtml(output);
             QString title = QString(QString::fromStdString((*it)->account()->username().login()));
             _display->setDocumentTitle(title);

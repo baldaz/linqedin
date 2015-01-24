@@ -9,9 +9,9 @@ Gui_Messages::Gui_Messages(LinqClient* cli, QWidget* parent) : _client(cli), QGr
     _listOut->setItemDelegate(new ListDelegate(_listOut));
     _output = new QTextBrowser;
 
-    list<Message*> inm = _client->inMail();
-    list<Message*> out = _client->outMail();
-    list<Message*>::iterator it = inm.begin();
+    list<SmartPtr<Message> > inm = _client->inMail();
+    list<SmartPtr<Message> > out = _client->outMail();
+    list<SmartPtr<Message> >::iterator it = inm.begin();
     for( ; it != inm.end(); ++it) {
         QListWidgetItem* item = new QListWidgetItem;
         QString from = QString("From: ").append(QString::fromStdString((*it)->sender().login())).append(" ").append((*it)->sent().toString("dd.MM.yyyy"));
@@ -71,19 +71,22 @@ Gui_Messages::Gui_Messages(LinqClient* cli, QWidget* parent) : _client(cli), QGr
     QLabel *title = new QLabel("To:");
     frm->addWidget(title, 0, 0, 1, 1);
 
-    QLineEdit *edt1 = new QLineEdit();
+    edt1 = new QLineEdit();
+    edt1->setPlaceholderText("Insert username");
     frm->addWidget(edt1, 0, 1, 1, 1);
 
     QLabel *author = new QLabel("Subject:");
     frm->addWidget(author, 1, 0, 1, 1);
 
-    QLineEdit *edt2 = new QLineEdit();
+    edt2 = new QLineEdit();
+    edt2->setPlaceholderText("Subject");
     frm->addWidget(edt2, 1, 1, 1, 1);
 
     QLabel *review = new QLabel("Body:");
     frm->addWidget(review, 2, 0, 1, 1);
 
-    QTextEdit *te = new QTextEdit();
+    te = new QTextEdit();
+    te->setPlaceholderText("Body of mail");
     te->setStyleSheet("background: #1a1a1a; border-radius: 5px; color: #e6e6e6; font-weight: 400;");
     frm->addWidget(te, 2, 1, 3, 1);
     addLayout(frm, 2, 0, 3, -1);
@@ -92,6 +95,7 @@ Gui_Messages::Gui_Messages(LinqClient* cli, QWidget* parent) : _client(cli), QGr
     connect(_listIn, SIGNAL(clicked(QModelIndex)), this, SLOT(viewInMailBody()));
     connect(_listOut, SIGNAL(clicked(QModelIndex)), this, SLOT(viewOutMailBody()));
     connect(box, SIGNAL(clicked()), this, SLOT(sendMail()));
+    connect(box, SIGNAL(clicked()), this, SLOT(refreshMessages()));
 }
 
 void Gui_Messages::viewInMailBody() {
@@ -107,5 +111,13 @@ void Gui_Messages::viewOutMailBody() {
 }
 
 void Gui_Messages::sendMail() {
+    QString dest = edt1->text();
+    QString obj = edt2->text();
+    QString body = te->toPlainText();
+    _client->sendMail(dest.toStdString(), obj.toStdString(), body.toStdString(), false);
+    emit messageSent();
+}
 
+void Gui_Messages::refreshMessages() {
+    std::cout << "refresh" << std::endl;
 }

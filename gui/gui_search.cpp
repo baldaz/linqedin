@@ -52,7 +52,7 @@ void Gui_Search::showResult() {
         }
         if(res.size() > 1 && it != res.end()) _tbar->actions().at(2)->setVisible(true);
         else _tbar->actions().at(2)->setVisible(false);
-        QString htmloutput = QString::fromStdString(it->second);
+        QString htmloutput = QString("<span style='color: #666'>( " + QString::fromStdString(it->first) + " )</span>" + QString::fromStdString(it->second));
         _display->setHtml(htmloutput);
     }
     else {

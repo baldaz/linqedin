@@ -8,20 +8,21 @@ using std::vector;
 using std::map;
 
 User::User(Account* ac) : _acc(ac->clone()), _net(new LinqNet()), _visitcount(0)  {}
-User::User(const User& usr) : _acc(usr._acc->clone()), _net(usr._net->clone()), _visitcount(usr._visitcount) {
-    for(list<Message*>::const_iterator it = usr._inMail.begin(); it != usr._inMail.end(); ++it)
-        _inMail.push_back(new Message(**it));
-    for(list<Message*>::const_iterator it = usr._outMail.begin(); it != usr._outMail.end(); ++it)
-        _outMail.push_back(new Message(**it));
+User::User(const User& usr) : _acc(usr._acc->clone()), _net(usr._net->clone()), _visitcount(usr._visitcount), _inMail(usr._inMail), _outMail(usr._outMail) {
+    // for(list<Message*>::const_iterator it = usr._inMail.begin(); it != usr._inMail.end(); ++it)
+    //     _inMail.push_back(new Message(**it));
+    // for(list<Message*>::const_iterator it = usr._outMail.begin(); it != usr._outMail.end(); ++it)
+    //     _outMail.push_back(new Message(**it));
 }
 User::~User() {
     delete _acc;
     delete _net;
-    for(list<Message*>::iterator it = _inMail.begin(); it != _inMail.end(); ++it)
-        delete *it;
+    // std::cout << _inMail.size() << " " << _outMail.size() << std::endl;
+    // for(list<Message*>::iterator it = _inMail.begin(); it != _inMail.end(); ++it)
+    //     delete *it;
     _inMail.clear();
-    for(list<Message*>::iterator it = _outMail.begin(); it != _outMail.end(); ++it)
-        delete *it;
+    // for(list<Message*>::iterator it = _outMail.begin(); it != _outMail.end(); ++it)
+    //     delete *it;
     _outMail.clear();
 }
 User& User::operator=(const User& usr) {
@@ -180,12 +181,12 @@ bool User::linked(const Username& usr) const {
     return found;
 }
 void User::loadInMail(const Message& mex) {
-    _inMail.push_back(const_cast<Message*> (&mex));
+    _inMail.push_back(SmartPtr<Message> (const_cast<Message*> (&mex)));
 }
-list<Message*> User::inMail() const {
+list<SmartPtr<Message> > User::inMail() const {
     return _inMail;
 }
-list<Message*> User::outMail() const {
+list<SmartPtr<Message> > User::outMail() const {
     return _outMail;
 }
 
@@ -197,15 +198,17 @@ User* BasicUser::clone() const {
 map<string, string> BasicUser::userSearch(const LinqDB& db, const string& wanted) const {
     return std::for_each(db.begin(), db.end(), searchFunctor(1, wanted, this)).result();
 }
-void BasicUser::sendMessage(const Username& dest, const string& obj, const string& body, bool read) {
-    if(_outMail.size() < basicMailLimit) {
-        Message mex((this->account()->username()), dest, obj, body, read);
-        _outMail.push_back(&mex);
-    }
+// void BasicUser::sendMessage(const Username& dest, const string& obj, const string& body, bool read) {
+//     Message* mex = new Message((this->account()->username()), dest, obj, body, read);
+//     loadOutMail(*mex);
+//     // delete mex;
+// }
+void BasicUser::sendMessage(const Message& mex) {
+    loadOutMail(mex);
 }
 void BasicUser::loadOutMail(const Message& mex) {
     if(_outMail.size() < basicMailLimit)
-        _outMail.push_back(const_cast<Message*> (&mex));
+        _outMail.push_back(SmartPtr<Message> (const_cast<Message*> (&mex)));
 }
 unsigned int BasicUser::basicMailLimit = 10;
 
@@ -217,15 +220,17 @@ User* BusinessUser::clone() const {
 map<string, string> BusinessUser::userSearch(const LinqDB& db, const string& wanted) const {
     return std::for_each(db.begin(), db.end(), searchFunctor(2, wanted, this)).result();
 }
-void BusinessUser::sendMessage(const Username& dest, const string& obj, const string& body, bool read) {
-    if(_outMail.size() < businessMailLimit) {
-        Message mex((this->account()->username()), dest, obj, body, read);
-        _outMail.push_back(&mex);
-    }
+// void BusinessUser::sendMessage(const Username& dest, const string& obj, const string& body, bool read) {
+//     Message* mex = new Message((this->account()->username()), dest, obj, body, read);
+//     loadOutMail(*mex);
+//     // delete mex;
+// }
+void BusinessUser::sendMessage(const Message& mex) {
+    loadOutMail(mex);
 }
 void BusinessUser::loadOutMail(const Message& mex) {
     if(_outMail.size() < businessMailLimit)
-        _outMail.push_back(const_cast<Message*> (&mex));
+        _outMail.push_back(SmartPtr<Message> (const_cast<Message*> (&mex)));
 }
 unsigned int BusinessUser::businessMailLimit = 25;
 
@@ -238,12 +243,16 @@ User* ExecutiveUser::clone() const {
 map<string, string> ExecutiveUser::userSearch(const LinqDB& db, const string& wanted) const {
     return std::for_each(db.begin(), db.end(), searchFunctor(3, wanted, this)).result();
 }
-void ExecutiveUser::sendMessage(const Username& dest, const string& obj, const string& body, bool read) {
-    Message mex((this->account()->username()), dest, obj, body, read);
-    _outMail.push_back(&mex);
+// void ExecutiveUser::sendMessage(const Username& dest, const string& obj, const string& body, bool read) {
+//     Message* mex = new Message((this->account()->username()), dest, obj, body, read);
+//     loadOutMail(*mex);
+//     delete mex;
+// }
+void ExecutiveUser::sendMessage(const Message& mex) {
+    loadOutMail(mex);
 }
 void ExecutiveUser::loadOutMail(const Message& mex) {
-    _outMail.push_back(const_cast<Message*> (&mex));
+    _outMail.push_back(SmartPtr<Message> (const_cast<Message*> (&mex)));
 }
 void ExecutiveUser::addKeyword(const string& key) {
     ++_keywords[key];

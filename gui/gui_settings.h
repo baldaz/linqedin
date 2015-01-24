@@ -17,6 +17,7 @@ private:
     LinqClient* _client;
     QListWidget* skills;
     QListWidget* inters;
+    QListWidget* lang;
 public:
     Gui_Settings(LinqClient*, QWidget* = 0);
 public slots:

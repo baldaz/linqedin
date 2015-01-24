@@ -137,7 +137,11 @@ void Gui_UserWindow::payments() {
 
 //SLOT
 void Gui_UserWindow::logout() {
-    // user->save();
+    user->save();
     delete user;
+    delete _mex;
+    delete _set;
+    delete _pay;
+    delete _layout;
     close();
 }

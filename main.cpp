@@ -14,8 +14,9 @@ int main(int argc, char**argv) {
     // LinqClient* client = new LinqClient(Username("Baldaz", "qwerty"));
     // client->addContact(Username("Casey", "rayback"));
     // client->removeContact(Username("Atilio", ""));
+    // client->sendMail("Casey", "Memcheck", "Garbage left?", false);
     // cout << client->displayProfile() << endl;
-    // // client->save();
+    // client->save();
     // delete client;
     QApplication app(argc, argv);
     Gui_UserWindow window;

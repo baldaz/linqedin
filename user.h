@@ -22,8 +22,8 @@ private:
     LinqNet* _net;
     int _visitcount;
 protected:
-    list<Message*> _outMail;
-    list<Message*> _inMail;
+    list<SmartPtr<Message> > _outMail;
+    list<SmartPtr<Message> > _inMail;
     class searchFunctor {
     private:
         int _s_type;
@@ -62,11 +62,12 @@ public:
     bool linked(const Username&) const;
     vector<SmartPtr<User> > listPossibleLinks(const LinqDB&) const;
     virtual map<string, string> userSearch(const LinqDB&, const string&) const =0;
-    virtual void sendMessage(const Username&, const string& = "", const string& = "", bool = false) =0;
+    // virtual void sendMessage(const Username&, const string& = "", const string& = "", bool = false) =0;
+    virtual void sendMessage(const Message&) =0;
     void loadInMail(const Message&);
     virtual void loadOutMail(const Message&) =0;
-    list<Message*> inMail() const;
-    list<Message*> outMail() const;
+    list<SmartPtr<Message> > inMail() const;
+    list<SmartPtr<Message> > outMail() const;
 };
 
 class BasicUser : public User {
@@ -77,7 +78,8 @@ public:
     BasicUser(const BasicUser&);
     virtual User* clone() const;
     virtual map<string, string> userSearch(const LinqDB&, const string&) const;
-    virtual void sendMessage(const Username&, const string& = "", const string& = "", bool = false);
+    // virtual void sendMessage(const Username&, const string& = "", const string& = "", bool = false);
+    virtual void sendMessage(const Message&);
     virtual void loadOutMail(const Message&);
 };
 
@@ -89,7 +91,8 @@ public:
     BusinessUser(const BusinessUser&);
     virtual User* clone() const;
     virtual map<string, string> userSearch(const LinqDB&, const string&) const;
-    virtual void sendMessage(const Username&, const string& = "", const string& = "", bool = false);
+    // virtual void sendMessage(const Username&, const string& = "", const string& = "", bool = false);
+    virtual void sendMessage(const Message&);
     virtual void loadOutMail(const Message&);
 };
 
@@ -102,7 +105,8 @@ public:
     virtual ~ExecutiveUser();
     virtual User* clone() const;
     virtual map<string, string> userSearch(const LinqDB&, const string&) const;
-    virtual void sendMessage(const Username&, const string& = "", const string& = "", bool = false);
+    // virtual void sendMessage(const Username&, const string& = "", const string& = "", bool = false);
+    virtual void sendMessage(const Message&);
     virtual void loadOutMail(const Message&);
     virtual void addKeyword(const string&);
     virtual map<string, int> keywordPercent() const;

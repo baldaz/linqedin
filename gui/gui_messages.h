@@ -10,7 +10,6 @@
 #include <QListWidget>
 #include <QTextBrowser>
 #include <QTabWidget>
-#include <QFormLayout>
 
 class Gui_Messages : public QGridLayout {
     Q_OBJECT
@@ -19,12 +18,17 @@ private:
     QListWidget* _listIn;
     QListWidget* _listOut;
     QTextBrowser* _output;
+    QLineEdit* edt1;
+    QLineEdit* edt2;
+    QTextEdit* te;
 public:
     Gui_Messages(LinqClient*, QWidget* parent = 0);
 signals:
+    void messageSent();
 public slots:
     void viewInMailBody();
     void viewOutMailBody();
     void sendMail();
+    void refreshMessages();
 };
 #endif

@@ -22,8 +22,10 @@ Gui_Settings::Gui_Settings(LinqClient* cli, QWidget* parent) : _client(cli), QGr
 
     skills = new QListWidget;
     inters = new QListWidget;
+    lang = new QListWidget;
     vector<string> v = _client->skills();
     vector<string> i = _client->interests();
+    vector<string> l = _client->languages();
     for(vector<string>::iterator it = v.begin(); it != v.end(); ++it) {
         QListWidgetItem* item = new QListWidgetItem;
         item->setData(Qt::DisplayRole, QString::fromStdString(*it));
@@ -35,6 +37,12 @@ Gui_Settings::Gui_Settings(LinqClient* cli, QWidget* parent) : _client(cli), QGr
         item->setData(Qt::DisplayRole, QString::fromStdString(*it));
         item->setData(Qt::DecorationRole, QPixmap("img/atom2.png"));
         inters->addItem(item);
+    }
+    for(vector<string>::iterator it = l.begin(); it != l.end(); ++it) {
+        QListWidgetItem* item = new QListWidgetItem;
+        item->setData(Qt::DisplayRole, QString::fromStdString(*it));
+        item->setData(Qt::DecorationRole, QPixmap("img/flag27.png"));
+        lang->addItem(item);
     }
     connect(skills, SIGNAL(customContextMenuRequested(const QPoint &)), this, SLOT(skillsMenu(const QPoint &)));
     connect(inters, SIGNAL(customContextMenuRequested(const QPoint &)), this, SLOT(interestsMenu(const QPoint &)));
@@ -79,6 +87,7 @@ Gui_Settings::Gui_Settings(LinqClient* cli, QWidget* parent) : _client(cli), QGr
     frm->addRow(birth, edtBirth);
     frm->addRow(address, edtAddr);
     frm->addRow("Skills:", skills);
+    frm->addRow("Languages:", lang);
     frm2->addRow(phone, edtPhone);
     frm2->addRow(email, edtMail);
     frm2->addRow(website, edtWebsite);

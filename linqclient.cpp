@@ -24,9 +24,9 @@ string LinqClient::displayProfile() const {
     profile += "Friend list >> ";
     profile += o2.str() + "\n";
     profile += "inMail >> ";
-    list<Message*> inm = _usr->inMail();
-    list<Message*> outm = _usr->outMail();
-    list<Message*>::const_iterator it = inm.begin();
+    list<SmartPtr<Message> > inm = _usr->inMail();
+    list<SmartPtr<Message> > outm = _usr->outMail();
+    list<SmartPtr<Message> >::const_iterator it = inm.begin();
     for(; it != inm.end(); ++it)
         profile += "Sender: " + (*it)->sender().login() + " Receiver: " + (*it)->receiver().login() + "\n";
     return profile;
@@ -70,6 +70,12 @@ vector<string> LinqClient::interests() const {
         ret = p->interests();
     return ret;
 }
+vector<string> LinqClient::languages() const {
+    vector<string> ret;
+    if(UserInfo* p = dynamic_cast<UserInfo*> (_usr->account()->info()))
+        ret = p->languages();
+    return ret;
+}
 vector<string> LinqClient::displayHtmlNet() const {
     vector<string> ret;
     string html = "";
@@ -101,10 +107,10 @@ vector<SmartPtr<User> > LinqClient::contactsInfo() const {
     }
     return ret;
 }
-list<Message*> LinqClient::inMail() const {
+list<SmartPtr<Message> > LinqClient::inMail() const {
     return _usr->inMail();
 }
-list<Message*> LinqClient::outMail() const {
+list<SmartPtr<Message> > LinqClient::outMail() const {
     return _usr->outMail();
 }
 map<string, string> LinqClient::find(const string& wanted = "") const {
@@ -115,7 +121,6 @@ map<string, int> LinqClient::keywordFrequency() const {
     map<string, int> ret;
     if(tmp) {
         ret = tmp->keywordPercent();
-        // std::sort(ret.begin(), ret.end(), value_compare);
         return ret;
     }
 }
@@ -135,6 +140,16 @@ string LinqClient::avatar() const {
 }
 void LinqClient::setAvatar(const string& path) {
     _avatar = path;
+}
+void LinqClient::sendMail(const string& dest, const string& obj, const string& body, bool read) {
+    Username* dst = new Username(dest, "");
+    // _usr->sendMessage(*dst, obj, body, read);
+    User* recip = _db->find(*dst);
+    Message* mail = new Message(_usr->account()->username(), *dst, obj, body, read);
+    recip->loadInMail(*mail);
+    _usr->sendMessage(*mail);
+    delete dst;
+    delete mail;
 }
 int LinqClient::visitCount() const {
     return _usr->visitCount();
