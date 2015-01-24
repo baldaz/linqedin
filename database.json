@@ -147,7 +147,9 @@
             "Bootstrap"
         ],
         "username": "Baldaz",
-        "visitcount": 19
+        "visitcount": 19,
+        "visitors": [
+        ]
     },
     {
         "formations": [
@@ -477,7 +479,8 @@
             "knives",
             "knives",
             "knives",
-            "ninjitsu"
+            "ninjitsu",
+            "steven seagal"
         ],
         "languages": [
             "Italian",
@@ -529,7 +532,13 @@
             "Knives"
         ],
         "username": "Casey",
-        "visitcount": 9
+        "visitcount": 10,
+        "visitors": [
+            "Baldaz",
+            "Atilio",
+            "Baldaz",
+            "Pablito"
+        ]
     },
     {
         "formations": [
@@ -614,7 +623,9 @@
             "Knives"
         ],
         "username": "Danny",
-        "visitcount": 8
+        "visitcount": 8,
+        "visitors": [
+        ]
     },
     {
         "formations": [
@@ -694,7 +705,9 @@
             "Surgery"
         ],
         "username": "Hannibal",
-        "visitcount": 5
+        "visitcount": 5,
+        "visitors": [
+        ]
     },
     {
         "formations": [
@@ -761,6 +774,8 @@
             "Surgery"
         ],
         "username": "Willg",
-        "visitcount": 5
+        "visitcount": 5,
+        "visitors": [
+        ]
     }
 ]

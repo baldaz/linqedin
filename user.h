@@ -99,6 +99,7 @@ public:
 class ExecutiveUser : public BusinessUser {
 protected:
     map<string, int> _keywords;
+    list<SmartPtr<User> > _visitors;
 public:
     ExecutiveUser(Account*);
     ExecutiveUser(const ExecutiveUser&);
@@ -108,9 +109,11 @@ public:
     // virtual void sendMessage(const Username&, const string& = "", const string& = "", bool = false);
     virtual void sendMessage(const Message&);
     virtual void loadOutMail(const Message&);
-    virtual void addKeyword(const string&);
-    virtual map<string, int> keywordPercent() const;
-    virtual map<string, int> keywords() const;
+    void addKeyword(const string&);
+    map<string, int> keywordPercent() const;
+    map<string, int> keywords() const;
+    void addVisitor(const SmartPtr<User>&);
+    list<SmartPtr<User> > visitors() const;
 };
 
 #endif

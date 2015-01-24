@@ -75,7 +75,7 @@ void LinqDB::read(const QJsonArray& qjs) {
         }
         User* s = NULL;
         ExecutiveUser* us;
-        QJsonArray keys;
+        QJsonArray keys, visitors;
         switch(priv) {
             case 0:
                 s = new BasicUser(acc);
@@ -89,6 +89,11 @@ void LinqDB::read(const QJsonArray& qjs) {
                 us = dynamic_cast<ExecutiveUser*> (s);
                 for(int i = 0; i < keys.size(); ++i)
                     us->addKeyword(keys[i].toString().toStdString());
+                visitors = obj["visitors"].toArray();
+                for(int i = 0; i < visitors.size(); ++i) {
+                    Username usr(visitors[i].toString().toStdString(), "");
+                    us->addVisitor(find(usr));
+                }
             break;
             case 3:
             break;
@@ -137,7 +142,7 @@ vector<QJsonObject> LinqDB::writeJson() const {
     list<SmartPtr<User> >::const_iterator it = _db.begin();
     for(; it != _db.end(); ++it) {
         QJsonObject jUser, jInf, jFormations, jWork, jPayment, jInMail, jOutMail;
-        QJsonArray jArr, jLang, jSkill, jInterest, jForArr, jForWrk, jPay, jKWords, jInMailArr, jOutMailArr;
+        QJsonArray jArr, jLang, jSkill, jInterest, jForArr, jForWrk, jPay, jKWords, jVis, jInMailArr, jOutMailArr;
         list<Experience> experience;
         list<SmartPtr<Message> > inMail;
         list<SmartPtr<Message> > outMail;
@@ -208,10 +213,13 @@ vector<QJsonObject> LinqDB::writeJson() const {
                     jKWords.append(QString::fromStdString(itm->first));
             }
             jUser["keywords"] = jKWords;
+            list<SmartPtr<User> > v = ex->visitors();
+            for(list<SmartPtr<User> >::iterator itr = v.begin(); itr != v.end(); ++itr)
+                jVis.append(QString::fromStdString((*itr)->account()->username().login()));
+            jUser["visitors"] = jVis;
         }
         inMail = (*it)->inMail();
         outMail = (*it)->outMail();
-        // std::cout << inMail.size() << " " << outMail.size() << std::endl;
         list<SmartPtr<Message> >::const_iterator m_it = inMail.begin();
         for(; m_it != inMail.end(); ++m_it) {
             jInMail["receiver"] = QString::fromStdString((*it)->account()->username().login());

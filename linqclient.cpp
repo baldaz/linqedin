@@ -51,6 +51,12 @@ string LinqClient::displayHtmlMessages() const {
 int LinqClient::netSize() const {
     return _usr->net()->size();
 }
+list<SmartPtr<User> > LinqClient::visitors() const {
+    list<SmartPtr<User> > u;
+    if(ExecutiveUser* p = dynamic_cast<ExecutiveUser*> (_usr))
+        u = p->visitors();
+    return u;
+}
 vector<SmartPtr<User> > LinqClient::similarity() const {
     // ExecutiveUser* eu = dynamic_cast<ExecutiveUser*> (_usr);
     return _usr->listPossibleLinks(*_db);

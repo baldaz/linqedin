@@ -4,6 +4,7 @@
 #include <QGridLayout>
 #include <QTextBrowser>
 #include <QListWidget>
+#include <QFormLayout>
 #include "gui_avatar.h"
 #include "linqclient.h"
 // #include "gui_paymentsdelegate.h"

@@ -35,6 +35,7 @@ public:
     vector<string> languages() const;
     vector<string> displayHtmlNet() const;
     vector<SmartPtr<User> > contactsInfo() const;
+    list<SmartPtr<User> > visitors() const;
     list<SmartPtr<Message> > inMail() const;
     list<SmartPtr<Message> > outMail() const;
     void alterProfile();

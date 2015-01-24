@@ -105,6 +105,7 @@ void User::searchFunctor::operator()(const SmartPtr<User>& spu) {
                         if(spu->account()->prLevel() == executive) {
                             ExecutiveUser* eu = dynamic_cast<ExecutiveUser*> (&(*spu));
                             eu->addKeyword(_wanted);
+                            eu->addVisitor(SmartPtr<User>(const_cast<User*> (_caller)));
                         }
                     }
                 }
@@ -235,8 +236,11 @@ void BusinessUser::loadOutMail(const Message& mex) {
 unsigned int BusinessUser::businessMailLimit = 25;
 
 ExecutiveUser::ExecutiveUser(Account* ac) : BusinessUser(ac) {}
-ExecutiveUser::ExecutiveUser(const ExecutiveUser& usr) : BusinessUser(usr), _keywords(usr._keywords) {}
-ExecutiveUser::~ExecutiveUser() {_keywords.clear();}
+ExecutiveUser::ExecutiveUser(const ExecutiveUser& usr) : BusinessUser(usr), _keywords(usr._keywords), _visitors(usr._visitors) {
+    // for(list<SmartPtr<User> >::const_iterator it = usr._visitors.begin(); it != usr._visitors.end(); ++it)
+    //     _visitors.push_back(*it);
+}
+ExecutiveUser::~ExecutiveUser() {_keywords.clear(); _visitors.clear();}
 User* ExecutiveUser::clone() const {
     return new ExecutiveUser(*this);
 }
@@ -273,4 +277,15 @@ map<string, int> ExecutiveUser::keywordPercent() const {
 }
 map<string, int> ExecutiveUser::keywords() const {
     return _keywords;
+}
+void ExecutiveUser::addVisitor(const SmartPtr<User>& v) {
+    if(_visitors.size() < 10)
+        _visitors.push_front(v);
+    else if(_visitors.size() == 10) {
+        _visitors.pop_back();
+        _visitors.push_front(v);
+    }
+}
+list<SmartPtr<User> > ExecutiveUser::visitors() const {
+    return _visitors;
 }
