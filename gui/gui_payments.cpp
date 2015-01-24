@@ -28,7 +28,7 @@ Gui_Payments::Gui_Payments(LinqClient* cli, QWidget* parent) : _client(cli), QGr
     UserInfo* i;
     for(list<SmartPtr<User> >::iterator itr = u.begin(); itr != u.end(); ++itr) {
         i = dynamic_cast<UserInfo*> ((*itr)->account()->info());
-        html.append(QString("<li><span style='font-weight:400'>" + QString::fromStdString(i->name()) + " " + QString::fromStdString(i->surname()) + "</span><span style='font-weight:400; color:#666'>( " + QString::fromStdString((*itr)->account()->username().login()) + " )</span></li>"));
+        html.append(QString("<li><span style='font-weight:400'>" + QString::fromStdString(i->name()) + " " + QString::fromStdString(i->surname()) + "</span><span style='font-weight:400; color:#666'> (" + QString::fromStdString((*itr)->account()->username().login()) + ")</span></li>"));
     }
     html.append("</ul>");
     keywords->setHtml(html);
@@ -36,11 +36,11 @@ Gui_Payments::Gui_Payments(LinqClient* cli, QWidget* parent) : _client(cli), QGr
     frm->addRow(keywords);
     addWidget(avatar, 0, 0, 1, 1, Qt::AlignBottom);
     addWidget(_list, 0, 1, 2, -1);
-    addLayout(frm, 1, 0, -1, -1);
+    addLayout(frm, 1, 0, -1, 1);
     setColumnStretch(0, 1);
     setColumnStretch(1, 5);
     setColumnStretch(2, 2);
-    // setRowStretch(0, 1);
-    // setRowStretch(1, 10);
-    // setRowStretch(2, 0);
+    setRowStretch(0, 1);
+    setRowStretch(1, 10);
+    // setRowStretch(2, 1);
 }
