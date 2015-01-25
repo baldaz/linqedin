@@ -190,6 +190,9 @@ list<SmartPtr<Message> > User::inMail() const {
 list<SmartPtr<Message> > User::outMail() const {
     return _outMail;
 }
+void User::setInMail(const list<SmartPtr<Message> >& l) {
+    _inMail = l;
+}
 
 BasicUser::BasicUser(Account* ac) : User(ac){}
 BasicUser::BasicUser(const BasicUser& usr) : User(usr){}

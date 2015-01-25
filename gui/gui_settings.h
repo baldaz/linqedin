@@ -5,6 +5,7 @@
 #include <QFormLayout>
 #include <QListWidget>
 #include <QPushButton>
+#include <QMessageBox>
 #include <QLabel>
 #include <QLineEdit>
 #include <QGroupBox>
@@ -18,10 +19,13 @@ private:
     QListWidget* skills;
     QListWidget* inters;
     QListWidget* lang;
+    QPushButton* toggle;
+    QLineEdit* newskill;
 public:
     Gui_Settings(LinqClient*, QWidget* = 0);
 public slots:
     void skillsMenu(const QPoint&);
     void interestsMenu(const QPoint&);
+    void buttonToggled();
 };
 #endif

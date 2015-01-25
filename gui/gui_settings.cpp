@@ -47,7 +47,7 @@ Gui_Settings::Gui_Settings(LinqClient* cli, QWidget* parent) : _client(cli), QGr
     connect(skills, SIGNAL(customContextMenuRequested(const QPoint &)), this, SLOT(skillsMenu(const QPoint &)));
     connect(inters, SIGNAL(customContextMenuRequested(const QPoint &)), this, SLOT(interestsMenu(const QPoint &)));
 
-    QLineEdit* newskill = new QLineEdit(parent);
+    newskill = new QLineEdit(parent);
 
     edtName->setEnabled(false);
     edtAddr->setEnabled(false);
@@ -78,6 +78,9 @@ Gui_Settings::Gui_Settings(LinqClient* cli, QWidget* parent) : _client(cli), QGr
     QFormLayout* frm = new QFormLayout;
     QFormLayout* frm2 = new QFormLayout;
     QPushButton* box = new QPushButton("Alter");
+    toggle = new QPushButton("Toggle");
+    toggle->setCheckable(true);
+    connect(toggle, SIGNAL(clicked()), this, SLOT(buttonToggled()));
 
     frm->setVerticalSpacing(10);
     frm2->setVerticalSpacing(10);
@@ -87,17 +90,18 @@ Gui_Settings::Gui_Settings(LinqClient* cli, QWidget* parent) : _client(cli), QGr
     frm->addRow(birth, edtBirth);
     frm->addRow(address, edtAddr);
     frm->addRow("Skills:", skills);
+    frm->addRow(newskill);
     frm->addRow("Languages:", lang);
     frm2->addRow(phone, edtPhone);
     frm2->addRow(email, edtMail);
     frm2->addRow(website, edtWebsite);
     frm2->addRow(uname, edtUname);
     frm2->addRow("Interests:", inters);
-    frm->addRow(newskill);
     newskill->hide();
     addLayout(frm, 0, 1, 1, 1);
     addLayout(frm2, 0, 2, 1, 1);
     addWidget(box, 2, 1, 1, 1);
+    addWidget(toggle, 3, 1, 1, 1);
 
     // hbl->setSpacing(0);
     // hbl->setMargin(0);
@@ -146,4 +150,15 @@ void Gui_Settings::interestsMenu(const QPoint& pos) {
     QModelIndex t = inters->indexAt(pos);
     inters->item(t.row())->setSelected(true);           // even a right click will select the item
     // userListMenu->exec(globalPos);
+}
+
+void Gui_Settings::buttonToggled() {
+    if(toggle->isChecked()) {
+        newskill->show();
+        newskill->setEnabled(true);
+    }
+    else {
+        newskill->hide();
+        newskill->setEnabled(false);
+    }
 }

@@ -44,6 +44,7 @@ public:
     void addExperience(const Experience&);
     void addVisitTo(const Username&);
     void sendMail(const string& = "",  const string& = "", const string& = "", bool = false);
+    void modifyInMail(const list<SmartPtr<Message> >&);
     map<string, string> find(const string&) const;
     map<string, int> keywordFrequency() const;
     int visitCount() const;

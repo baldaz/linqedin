@@ -68,6 +68,7 @@ public:
     virtual void loadOutMail(const Message&) =0;
     list<SmartPtr<Message> > inMail() const;
     list<SmartPtr<Message> > outMail() const;
+    void setInMail(const list<SmartPtr<Message> >&);
 };
 
 class BasicUser : public User {

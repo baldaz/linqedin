@@ -15,6 +15,7 @@ class Gui_Messages : public QGridLayout {
     Q_OBJECT
 private:
     LinqClient* _client;
+    list<SmartPtr<Message> > inm;
     QListWidget* _listIn;
     QListWidget* _listOut;
     QTextBrowser* _output;

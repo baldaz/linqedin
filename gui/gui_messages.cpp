@@ -9,7 +9,7 @@ Gui_Messages::Gui_Messages(LinqClient* cli, QWidget* parent) : _client(cli), QGr
     _listOut->setItemDelegate(new ListDelegate(_listOut));
     _output = new QTextBrowser;
 
-    list<SmartPtr<Message> > inm = _client->inMail();
+    inm = _client->inMail();
     list<SmartPtr<Message> > out = _client->outMail();
     list<SmartPtr<Message> >::iterator it = inm.begin();
     for( ; it != inm.end(); ++it) {
@@ -99,8 +99,15 @@ Gui_Messages::Gui_Messages(LinqClient* cli, QWidget* parent) : _client(cli), QGr
 }
 
 void Gui_Messages::viewInMailBody() {
+    list<SmartPtr<Message> >::iterator it = inm.begin();
+    int c = 0;
+    while(c < _listIn->currentRow()) {++it; c++;}
+    (*it)->setRead(true);
+    _client->modifyInMail(inm);
     QString title = _listIn->currentItem()->data(Qt::DisplayRole).toString();
     QString sel = _listIn->currentItem()->data(Qt::UserRole + 2).toString();
+    _listIn->currentItem()->setData(Qt::UserRole + 3, true);
+    _listIn->currentItem()->setData(Qt::UserRole + 4, QPixmap("img/verification24.png"));
     _output->setHtml("</h2>" + title + "</h2><p style='font-weight:400'>" + sel + "</p>");
 }
 

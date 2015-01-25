@@ -433,7 +433,7 @@
             {
                 "body": "God bless smart pointer!",
                 "object": "Yeah! it works now!",
-                "read": false,
+                "read": true,
                 "receiver": "Casey",
                 "recv": "24.01.2015",
                 "sender": "Baldaz",

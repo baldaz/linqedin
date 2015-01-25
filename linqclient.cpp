@@ -160,3 +160,6 @@ void LinqClient::sendMail(const string& dest, const string& obj, const string& b
 int LinqClient::visitCount() const {
     return _usr->visitCount();
 }
+void LinqClient::modifyInMail(const list<SmartPtr<Message> >& l) {
+    _usr->setInMail(l);
+}

@@ -3,8 +3,8 @@
 Gui_Payments::Gui_Payments(LinqClient* cli, QWidget* parent) : _client(cli), QGridLayout(parent) {
     Gui_Avatar* avatar = new Gui_Avatar(QString::fromStdString(_client->avatar()));
     QTextBrowser* keywords = new QTextBrowser(parent);
-    QFormLayout* frm = new QFormLayout;
-    keywords->setSizePolicy(QSizePolicy(QSizePolicy::Minimum, QSizePolicy::Expanding));
+    QGridLayout* frm = new QGridLayout;
+    keywords->setSizePolicy(QSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding));
 
     _list = new QTextBrowser(parent);
     _list->setEnabled(true);
@@ -33,14 +33,13 @@ Gui_Payments::Gui_Payments(LinqClient* cli, QWidget* parent) : _client(cli), QGr
     html.append("</ul>");
     keywords->setHtml(html);
 
-    frm->addRow(keywords);
-    addWidget(avatar, 0, 0, 1, 1, Qt::AlignBottom);
-    addWidget(_list, 0, 1, 2, -1);
-    addLayout(frm, 1, 0, -1, 1);
+    frm->addWidget(keywords, 0, 0, -1, -1);
+    addWidget(avatar, 0, 0, 1, 1);
+    addWidget(_list, 0, 1, 3, -1);
+    addLayout(frm, 1, 0, -1, -1);
     setColumnStretch(0, 1);
-    setColumnStretch(1, 5);
-    setColumnStretch(2, 2);
-    setRowStretch(0, 1);
+    setColumnStretch(1, 2);
+    setColumnStretch(2, 4);
+    setRowStretch(0, 0);
     setRowStretch(1, 10);
-    // setRowStretch(2, 1);
 }
