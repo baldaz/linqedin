@@ -4,21 +4,21 @@ Gui_Settings::Gui_Settings(LinqClient* cli, QWidget* parent) : _client(cli), QGr
     Gui_Avatar* avatar = new Gui_Avatar(QString::fromStdString(_client->avatar()));
     setSpacing(5);
     QLabel* name = new QLabel("Name:", parent);
-    QLineEdit *edtName = new QLineEdit(parent);
+    edtInfo[0] = new QLineEdit(parent);
     QLabel* surname = new QLabel("Last Name:", parent);
-    QLineEdit *edtSurname = new QLineEdit(parent);
+    edtInfo[1] = new QLineEdit(parent);
     QLabel* address = new QLabel("Address:", parent);
-    QLineEdit* edtAddr = new QLineEdit(parent);
+    edtInfo[2] = new QLineEdit(parent);
     QLabel* email = new QLabel("E-mail:", parent);
-    QLineEdit* edtMail = new QLineEdit(parent);
+    edtInfo[3] = new QLineEdit(parent);
     QLabel* birth = new QLabel("Birth:", parent);
-    QLineEdit* edtBirth = new QLineEdit(parent);
+    edtInfo[4] = new QLineEdit(parent);
     QLabel* phone = new QLabel("Phone:", parent);
-    QLineEdit* edtPhone = new QLineEdit(parent);
+    edtInfo[5] = new QLineEdit(parent);
     QLabel* website = new QLabel("Website:", parent);
-    QLineEdit* edtWebsite = new QLineEdit(parent);
+    edtInfo[6] = new QLineEdit(parent);
     QLabel* uname = new QLabel("Username:", parent);
-    QLineEdit* edtUname = new QLineEdit(parent);
+    edtInfo[7] = new QLineEdit(parent);
 
     skills = new QListWidget;
     inters = new QListWidget;
@@ -47,27 +47,36 @@ Gui_Settings::Gui_Settings(LinqClient* cli, QWidget* parent) : _client(cli), QGr
     connect(skills, SIGNAL(customContextMenuRequested(const QPoint &)), this, SLOT(skillsMenu(const QPoint &)));
     connect(inters, SIGNAL(customContextMenuRequested(const QPoint &)), this, SLOT(interestsMenu(const QPoint &)));
 
-    newskill = new QLineEdit(parent);
+    edtInfo[8] = new QLineEdit(parent);
+    edtInfo[8]->setPlaceholderText("Add new skill");
+    edtInfo[8]->setEnabled(false);
+    edtInfo[8]->hide();
+    edtInfo[9] = new QLineEdit(parent);
+    edtInfo[9]->setPlaceholderText("Add new interest");
+    edtInfo[9]->setEnabled(false);
+    edtInfo[9]->hide();
+    edtInfo[10] = new QLineEdit(parent);
+    edtInfo[10]->setPlaceholderText("Add new language");
+    edtInfo[10]->setEnabled(false);
+    edtInfo[10]->hide();
 
-    edtName->setEnabled(false);
-    edtAddr->setEnabled(false);
-    edtMail->setEnabled(false);
-    edtSurname->setEnabled(false);
-    edtBirth->setEnabled(false);
-    edtPhone->setEnabled(false);
-    edtWebsite->setEnabled(false);
-    edtUname->setEnabled(false);
-    newskill->setPlaceholderText("Add new experience");
-    newskill->setEnabled(false);
+    edtInfo[0]->setEnabled(false);
+    edtInfo[1]->setEnabled(false);
+    edtInfo[2]->setEnabled(false);
+    edtInfo[3]->setEnabled(false);
+    edtInfo[4]->setEnabled(false);
+    edtInfo[5]->setEnabled(false);
+    edtInfo[6]->setEnabled(false);
+    edtInfo[7]->setEnabled(false);
 
-    edtName->setText("Steven");
-    edtAddr->setText("Via IV Novembre 24 Stra (VE)");
-    edtMail->setText("steven@seagal.ss");
-    edtSurname->setText("Seagal");
-    edtBirth->setText("08-11-1946");
-    edtPhone->setText("3250525147");
-    edtWebsite->setText("www.stevenseagal.ss");
-    edtUname->setText("Casey");
+    edtInfo[0]->setText("Steven");
+    edtInfo[1]->setText("Via IV Novembre 24 Stra (VE)");
+    edtInfo[2]->setText("steven@seagal.ss");
+    edtInfo[3]->setText("Seagal");
+    edtInfo[4]->setText("08-11-1946");
+    edtInfo[5]->setText("3250525147");
+    edtInfo[6]->setText("www.stevenseagal.ss");
+    edtInfo[7]->setText("Casey");
 
     addWidget(avatar, 0, 0, 1, 1, Qt::AlignTop);
 
@@ -85,57 +94,25 @@ Gui_Settings::Gui_Settings(LinqClient* cli, QWidget* parent) : _client(cli), QGr
     frm->setVerticalSpacing(10);
     frm2->setVerticalSpacing(10);
 
-    frm->addRow(name, edtName);
-    frm->addRow(surname, edtSurname);
-    frm->addRow(birth, edtBirth);
-    frm->addRow(address, edtAddr);
+    frm->addRow(name, edtInfo[0]);
+    frm->addRow(surname, edtInfo[1]);
+    frm->addRow(birth, edtInfo[2]);
+    frm->addRow(address, edtInfo[3]);
     frm->addRow("Skills:", skills);
-    frm->addRow(newskill);
+    frm->addRow(edtInfo[8]);
     frm->addRow("Languages:", lang);
-    frm2->addRow(phone, edtPhone);
-    frm2->addRow(email, edtMail);
-    frm2->addRow(website, edtWebsite);
-    frm2->addRow(uname, edtUname);
+    frm->addRow(edtInfo[9]);
+    frm2->addRow(phone, edtInfo[4]);
+    frm2->addRow(email, edtInfo[5]);
+    frm2->addRow(website, edtInfo[6]);
+    frm2->addRow(uname, edtInfo[7]);
     frm2->addRow("Interests:", inters);
-    newskill->hide();
+    frm2->addRow(edtInfo[10]);
+
     addLayout(frm, 0, 1, 1, 1);
     addLayout(frm2, 0, 2, 1, 1);
     addWidget(box, 2, 1, 1, 1);
     addWidget(toggle, 3, 1, 1, 1);
-
-    // hbl->setSpacing(0);
-    // hbl->setMargin(0);
-    // hbl->setContentsMargins(0,0,0,0);
-    // hbl->addWidget(name);
-    // hbl->addWidget(edtName);
-    // hbl->addWidget(birth);
-    // hbl->addWidget(edtBirth);
-    // hbl->addWidget(surname);
-    // hbl->addWidget(edtSurname);
-    // hbl->addWidget(email);
-    // hbl->addWidget(edtMail);
-
-    // hbl2->addWidget(address);
-    // hbl2->addWidget(edtAddr);
-    // hbl2->addWidget(phone);
-    // hbl2->addWidget(edtPhone);
-    // hbl2->addWidget(website);
-    // hbl2->addWidget(edtWebsite);
-
-    // setColumnStretch(0, 0);
-    // setColumnStretch(1, 0);
-    // setColumnStretch(2, 0);
-    // setColumnStretch(3, 0);
-    // setColumnStretch(4, 0);
-    // setRowStretch(0, 0);
-    // setRowStretch(1, 0);
-    // setRowStretch(2, 10);
-    // vbl->addLayout(hbl);
-    // vbl->addLayout(hbl2);
-    // vbl->setSpacing(0);
-    // vbl->setMargin(0);
-    // vbl->setContentsMargins(0,0,0,0);
-    // addLayout(vbl, 0, 1, 1, 1);
 }
 
 void Gui_Settings::skillsMenu(const QPoint& pos) {
@@ -154,11 +131,35 @@ void Gui_Settings::interestsMenu(const QPoint& pos) {
 
 void Gui_Settings::buttonToggled() {
     if(toggle->isChecked()) {
-        newskill->show();
-        newskill->setEnabled(true);
+        edtInfo[0]->setEnabled(true);
+        edtInfo[1]->setEnabled(true);
+        edtInfo[2]->setEnabled(true);
+        edtInfo[3]->setEnabled(true);
+        edtInfo[4]->setEnabled(true);
+        edtInfo[5]->setEnabled(true);
+        edtInfo[6]->setEnabled(true);
+        edtInfo[7]->setEnabled(true);
+        edtInfo[8]->show();
+        edtInfo[8]->setEnabled(true);
+        edtInfo[9]->show();
+        edtInfo[9]->setEnabled(true);
+        edtInfo[10]->show();
+        edtInfo[10]->setEnabled(true);
     }
     else {
-        newskill->hide();
-        newskill->setEnabled(false);
+        edtInfo[0]->setEnabled(false);
+        edtInfo[1]->setEnabled(false);
+        edtInfo[2]->setEnabled(false);
+        edtInfo[3]->setEnabled(false);
+        edtInfo[4]->setEnabled(false);
+        edtInfo[5]->setEnabled(false);
+        edtInfo[6]->setEnabled(false);
+        edtInfo[7]->setEnabled(false);
+        edtInfo[8]->hide();
+        edtInfo[8]->setEnabled(false);
+        edtInfo[9]->hide();
+        edtInfo[9]->setEnabled(false);
+        edtInfo[10]->hide();
+        edtInfo[10]->setEnabled(false);
     }
 }

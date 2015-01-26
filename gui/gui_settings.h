@@ -15,12 +15,13 @@
 class Gui_Settings : public QGridLayout {
     Q_OBJECT
 private:
+    enum {NumLineEdit = 11};
     LinqClient* _client;
+    QLineEdit* edtInfo[NumLineEdit];
     QListWidget* skills;
     QListWidget* inters;
     QListWidget* lang;
     QPushButton* toggle;
-    QLineEdit* newskill;
 public:
     Gui_Settings(LinqClient*, QWidget* = 0);
 public slots:
