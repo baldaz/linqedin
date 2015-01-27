@@ -7,11 +7,23 @@ LinqClient::LinqClient(const Username& usr) : _db(new LinqDB), _avatar(STANDARD_
     _usr = _db->find(usr);
 }
 LinqClient::~LinqClient() {delete _db;}
+int LinqClient::level() const {
+    return _usr->account()->prLevel();
+}
 void LinqClient::addContact(const Username& usr) {
     _usr->addContact(_db->find(usr));
 }
 void LinqClient::removeContact(const Username& usr) {
     _usr->removeContact(usr);
+}
+void LinqClient::alterProfile(const map<int, string>& changes) {
+    // map<int, string>::iterator it = changes.begin();
+    // for(; it != changes.begin(); ++it) {
+    //     switch(it->first) {
+    //         case 0:
+
+    //     }
+    // }
 }
 string LinqClient::displayProfile() const {
     std::string profile = "";

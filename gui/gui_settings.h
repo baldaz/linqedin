@@ -6,6 +6,7 @@
 #include <QListWidget>
 #include <QPushButton>
 #include <QMessageBox>
+#include <QTextEdit>
 #include <QLabel>
 #include <QLineEdit>
 #include <QGroupBox>
@@ -18,6 +19,7 @@ private:
     enum {NumLineEdit = 11};
     LinqClient* _client;
     QLineEdit* edtInfo[NumLineEdit];
+    QTextEdit* edtBio;
     QListWidget* skills;
     QListWidget* inters;
     QListWidget* lang;

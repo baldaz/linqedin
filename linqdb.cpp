@@ -17,52 +17,25 @@ bool LinqDB::readJson() {
     loadDB.close();
 
     QJsonDocument doc(QJsonDocument::fromJson(saveData));
-    read(doc.array());
-    readNet(doc.array());
+    // read(doc.array());
+    QJsonObject db = doc.object();
+    read(db["users"].toArray());
+    readNet(db["users"].toArray());
+    readGroups(db["groups"].toArray());
     return true;
 }
 void LinqDB::read(const QJsonArray& qjs) {
+    Info* info = NULL;
+    Account* acc = NULL;
     for(int i = 0; i < qjs.size(); ++i) {
         QJsonObject obj = qjs[i].toObject();
         Username usr(obj["username"].toString().toStdString(), obj["password"].toString().toStdString());
-        UserInfo* uif = new UserInfo;
         privLevel priv = static_cast<privLevel> (obj["privilege"].toInt());
-        QJsonObject info = obj["info"].toObject();
-        if(uif) {
-            uif->setName(info["name"].toString().toStdString());
-            uif->setSurname(info["surname"].toString().toStdString());
-            uif->setBirthdate(QDate::fromString(info["birthdate"].toString(), "dd.MM.yyyy"));
-            uif->setEmail(info["email"].toString().toStdString());
-            uif->setAddress(info["address"].toString().toStdString());
-            uif->setTelephon(info["telephon"].toString().toStdString());
-            uif->setSex(info["sex"].toBool());
-            uif->setWebsite(info["website"].toString().toStdString());
-            QJsonArray languages = obj["languages"].toArray();
-            for(int i = 0; i < languages.size(); ++i)
-                uif->addLanguage(languages[i].toString().toStdString());
-            QJsonArray skills = obj["skills"].toArray();
-            for(int i = 0; i < skills.size(); ++i)
-                uif->addSkill(skills[i].toString().toStdString());
-            QJsonArray interests = obj["interests"].toArray();
-            for(int i = 0; i < interests.size(); ++i)
-                uif->addInterest(interests[i].toString().toStdString());
-            QJsonArray formations = obj["formations"].toArray();
-            QJsonObject sub;
-            for(int i = 0; i < formations.size(); ++i) {
-                sub = formations[i].toObject();
-                Experience exp(0, sub["location"].toString().toStdString(), sub["role"].toString().toStdString(), QDate::fromString(sub["from"].toString(), "dd.MM.yyyy"), QDate::fromString(sub["to"].toString(), "dd.MM.yyyy"));
-                uif->addExperience(exp);
-            }
-            QJsonArray works = obj["jobs"].toArray();
-            QJsonObject wrk;
-            for(int i = 0; i < works.size(); ++i) {
-                wrk = works[i].toObject();
-                Experience exp(1, wrk["location"].toString().toStdString(), wrk["role"].toString().toStdString(), QDate::fromString(wrk["from"].toString(), "dd.MM.yyyy"), QDate::fromString(wrk["to"].toString(), "dd.MM.yyyy"));
-                uif->addExperience(exp);
-            }
-        }
-
-        Account* acc = new Account(uif, usr, priv);
+        if((obj["info"].toObject()).contains("biography"))
+            info = new Bio;
+        else info = new UserInfo;
+        readInfo(info, obj);
+        acc = new Account(info, usr, priv);
 
         QJsonArray payments = obj["payments"].toArray();
         QJsonObject subP;
@@ -116,10 +89,51 @@ void LinqDB::read(const QJsonArray& qjs) {
             delete mex;
         }
         addUser(s);
-        delete uif;
+        delete info;
         delete acc;
         delete s;
     }
+}
+void LinqDB::readInfo(Info* inf, const QJsonObject& obj) const {
+    QJsonObject info = obj["info"].toObject();
+    if(UserInfo* uif = dynamic_cast<UserInfo*> (inf)) {
+        uif->setName(info["name"].toString().toStdString());
+        uif->setSurname(info["surname"].toString().toStdString());
+        uif->setBirthdate(QDate::fromString(info["birthdate"].toString(), "dd.MM.yyyy"));
+        uif->setEmail(info["email"].toString().toStdString());
+        uif->setAddress(info["address"].toString().toStdString());
+        uif->setTelephon(info["telephon"].toString().toStdString());
+        uif->setSex(info["sex"].toBool());
+        uif->setWebsite(info["website"].toString().toStdString());
+        QJsonArray languages = obj["languages"].toArray();
+        for(int i = 0; i < languages.size(); ++i)
+            uif->addLanguage(languages[i].toString().toStdString());
+        QJsonArray skills = obj["skills"].toArray();
+        for(int i = 0; i < skills.size(); ++i)
+            uif->addSkill(skills[i].toString().toStdString());
+        QJsonArray interests = obj["interests"].toArray();
+        for(int i = 0; i < interests.size(); ++i)
+            uif->addInterest(interests[i].toString().toStdString());
+        QJsonArray formations = obj["formations"].toArray();
+        QJsonObject sub;
+        for(int i = 0; i < formations.size(); ++i) {
+            sub = formations[i].toObject();
+            Experience exp(0, sub["location"].toString().toStdString(), sub["role"].toString().toStdString(), QDate::fromString(sub["from"].toString(), "dd.MM.yyyy"), QDate::fromString(sub["to"].toString(), "dd.MM.yyyy"));
+            uif->addExperience(exp);
+        }
+        QJsonArray works = obj["jobs"].toArray();
+        QJsonObject wrk;
+        for(int i = 0; i < works.size(); ++i) {
+            wrk = works[i].toObject();
+            Experience exp(1, wrk["location"].toString().toStdString(), wrk["role"].toString().toStdString(), QDate::fromString(wrk["from"].toString(), "dd.MM.yyyy"), QDate::fromString(wrk["to"].toString(), "dd.MM.yyyy"));
+            uif->addExperience(exp);
+        }
+    }
+    if(Bio* b = dynamic_cast<Bio*> (inf))
+        b->setBio(info["biography"].toString().toStdString());
+}
+void LinqDB::readGroups(const QJsonArray& a) const {
+
 }
 void LinqDB::readNet(const QJsonArray& qjs) {
     list<SmartPtr<User> >::iterator it = _db.begin();

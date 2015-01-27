@@ -13,6 +13,7 @@ greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 HEADERS += account.h \
            billmethod.h \
            experience.h \
+           group.h \
            gui/gui_avatar.h \
            gui/gui_displayinfo.h \
            gui/gui_links.h \
@@ -31,6 +32,7 @@ HEADERS += account.h \
            linqnet.h \
            message.h \
            payment.h \
+           post.h \
            privlevel.h \
            smartptr.h \
            subscription.h \
@@ -40,6 +42,7 @@ HEADERS += account.h \
 SOURCES += account.cpp \
            billmethod.cpp \
            experience.cpp \
+           group.cpp \
            gui/gui_avatar.cpp \
            gui/gui_displayinfo.cpp \
            gui/gui_links.cpp \
@@ -59,6 +62,7 @@ SOURCES += account.cpp \
            main.cpp \
            message.cpp \
            payment.cpp \
+           post.cpp \
            subscription.cpp \
            user.cpp \
            username.cpp \

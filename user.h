@@ -5,16 +5,19 @@
 #include <vector>
 #include <map>
 #include <list>
+#include <typeinfo>
 #include <algorithm>
 #include "account.h"
 #include "smartptr.h"
 #include "message.h"
+#include "group.h"
 
 using std::map;
 using std::list;
 
 class LinqNet;
 class LinqDB;
+class Group;
 
 class User {
 private:
@@ -62,7 +65,6 @@ public:
     bool linked(const Username&) const;
     vector<SmartPtr<User> > listPossibleLinks(const LinqDB&) const;
     virtual map<string, string> userSearch(const LinqDB&, const string&) const =0;
-    // virtual void sendMessage(const Username&, const string& = "", const string& = "", bool = false) =0;
     virtual void sendMessage(const Message&) =0;
     void loadInMail(const Message&);
     virtual void loadOutMail(const Message&) =0;
@@ -79,22 +81,25 @@ public:
     BasicUser(const BasicUser&);
     virtual User* clone() const;
     virtual map<string, string> userSearch(const LinqDB&, const string&) const;
-    // virtual void sendMessage(const Username&, const string& = "", const string& = "", bool = false);
     virtual void sendMessage(const Message&);
     virtual void loadOutMail(const Message&);
 };
 
 class BusinessUser : public BasicUser {
 private:
+    list<Group*> _groups;
     static unsigned int businessMailLimit;
 public:
     BusinessUser(Account*);
     BusinessUser(const BusinessUser&);
+    virtual ~BusinessUser();
     virtual User* clone() const;
     virtual map<string, string> userSearch(const LinqDB&, const string&) const;
-    // virtual void sendMessage(const Username&, const string& = "", const string& = "", bool = false);
     virtual void sendMessage(const Message&);
     virtual void loadOutMail(const Message&);
+    list<Group*> groups() const;
+    void addGroup(const Group&);
+    void addBio(const string&) const;
 };
 
 class ExecutiveUser : public BusinessUser {
@@ -107,7 +112,6 @@ public:
     virtual ~ExecutiveUser();
     virtual User* clone() const;
     virtual map<string, string> userSearch(const LinqDB&, const string&) const;
-    // virtual void sendMessage(const Username&, const string& = "", const string& = "", bool = false);
     virtual void sendMessage(const Message&);
     virtual void loadOutMail(const Message&);
     void addKeyword(const string&);

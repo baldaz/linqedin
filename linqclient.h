@@ -20,6 +20,7 @@ public:
     LinqClient();
     LinqClient(const Username&);
     ~LinqClient();
+    int level() const;
     int netSize() const;
     vector<SmartPtr<User> > similarity() const;
     bool linked(const Username&) const;
@@ -38,7 +39,7 @@ public:
     list<SmartPtr<User> > visitors() const;
     list<SmartPtr<Message> > inMail() const;
     list<SmartPtr<Message> > outMail() const;
-    void alterProfile();
+    void alterProfile(const map<int, string>&);
     void addContact(const Username&);
     void removeContact(const Username&);
     void addExperience(const Experience&);

@@ -32,7 +32,7 @@ private:
     QGroupBox* messagesGroupBox;
     QGroupBox* paymentsGroupBox;
     QGroupBox* settingsGroupBox;
-    enum {NumButtons = 5};
+    enum {NumButtons = 6};
     QPushButton* buttons[NumButtons];
     Gui_Overview* _layout;
     Gui_Settings* _set;

@@ -3,6 +3,13 @@
 Experience::Experience(int t, const string& l, const string& r, const QDate& f, const QDate& to)
     : _type(t), _location(l), _role(r), _from(f), _to(to) {}
 // Experience::Experience(const Experience& xp) : _type(xp._type), _location(xp._location), _role(xp._role), _from(xp._from), _to(xp._to) {}
+bool Experience::operator==(const Experience& e) const {
+	return _type == e._type
+		&& _location == e._location
+		&& _role == e._role
+		&& _from == e._from
+		&& _to == e._to ;
+}
 int Experience::type() const {
     return _type;
 }

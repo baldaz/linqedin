@@ -7,22 +7,12 @@
 using std::vector;
 using std::map;
 
-User::User(Account* ac) : _acc(ac->clone()), _net(new LinqNet()), _visitcount(0)  {}
-User::User(const User& usr) : _acc(usr._acc->clone()), _net(usr._net->clone()), _visitcount(usr._visitcount), _inMail(usr._inMail), _outMail(usr._outMail) {
-    // for(list<Message*>::const_iterator it = usr._inMail.begin(); it != usr._inMail.end(); ++it)
-    //     _inMail.push_back(new Message(**it));
-    // for(list<Message*>::const_iterator it = usr._outMail.begin(); it != usr._outMail.end(); ++it)
-    //     _outMail.push_back(new Message(**it));
-}
+User::User(Account* ac) : _acc(ac->clone()), _net(new LinqNet()), _visitcount(0) {}
+User::User(const User& usr) : _acc(usr._acc->clone()), _net(usr._net->clone()), _visitcount(usr._visitcount), _inMail(usr._inMail), _outMail(usr._outMail) {}
 User::~User() {
     delete _acc;
     delete _net;
-    // std::cout << _inMail.size() << " " << _outMail.size() << std::endl;
-    // for(list<Message*>::iterator it = _inMail.begin(); it != _inMail.end(); ++it)
-    //     delete *it;
     _inMail.clear();
-    // for(list<Message*>::iterator it = _outMail.begin(); it != _outMail.end(); ++it)
-    //     delete *it;
     _outMail.clear();
 }
 User& User::operator=(const User& usr) {
@@ -40,7 +30,6 @@ User& User::operator=(const User& usr) {
 
 User::searchFunctor::searchFunctor(int s = 0, const string& w = "", const User* call = 0) : _s_type(s), _wanted(w), _caller(call) {}
 void User::searchFunctor::operator()(const SmartPtr<User>& spu) {
-    // Account acc = spu->account();
     UserInfo* uf = dynamic_cast<UserInfo*> (spu->account()->info());
     _wanted = utilities::Utils::toLowerCase(_wanted);
     switch(_s_type) {
@@ -154,7 +143,6 @@ void User::addVisit() {
 }
 int User::similarity(const SmartPtr<User>& user) const {
     UserInfo* uf = dynamic_cast<UserInfo*> (_acc->info());
-    // Account useracc = user->account();
     UserInfo* host = dynamic_cast<UserInfo*> (user->account()->info());
     double counter = 0;
     vector<string> interests = uf->interests();
@@ -202,11 +190,6 @@ User* BasicUser::clone() const {
 map<string, string> BasicUser::userSearch(const LinqDB& db, const string& wanted) const {
     return std::for_each(db.begin(), db.end(), searchFunctor(1, wanted, this)).result();
 }
-// void BasicUser::sendMessage(const Username& dest, const string& obj, const string& body, bool read) {
-//     Message* mex = new Message((this->account()->username()), dest, obj, body, read);
-//     loadOutMail(*mex);
-//     // delete mex;
-// }
 void BasicUser::sendMessage(const Message& mex) {
     loadOutMail(mex);
 }
@@ -218,17 +201,17 @@ unsigned int BasicUser::basicMailLimit = 10;
 
 BusinessUser::BusinessUser(Account* ac) : BasicUser(ac) {}
 BusinessUser::BusinessUser(const BusinessUser& usr) : BasicUser(usr) {}
+BusinessUser::~BusinessUser() {
+    for (list<Group*>::iterator i = _groups.begin(); i != _groups.end(); ++i)
+        delete *i;
+    _groups.clear();
+}
 User* BusinessUser::clone() const {
     return new BusinessUser(*this);
 }
 map<string, string> BusinessUser::userSearch(const LinqDB& db, const string& wanted) const {
     return std::for_each(db.begin(), db.end(), searchFunctor(2, wanted, this)).result();
 }
-// void BusinessUser::sendMessage(const Username& dest, const string& obj, const string& body, bool read) {
-//     Message* mex = new Message((this->account()->username()), dest, obj, body, read);
-//     loadOutMail(*mex);
-//     // delete mex;
-// }
 void BusinessUser::sendMessage(const Message& mex) {
     loadOutMail(mex);
 }
@@ -236,13 +219,22 @@ void BusinessUser::loadOutMail(const Message& mex) {
     if(_outMail.size() < businessMailLimit)
         _outMail.push_back(SmartPtr<Message> (const_cast<Message*> (&mex)));
 }
+list<Group*> BusinessUser::groups() const {
+    return _groups;
+}
+void BusinessUser::addGroup(const Group& g) {
+    _groups.push_back(const_cast<Group*> (&g)); // controllo gruppi duplicati
+}
+void BusinessUser::addBio(const string& bio) const {
+    if(Bio* b = dynamic_cast<Bio*> (this->account()->info())) {
+        b->setBio(bio);
+        this->account()->setInfo(b);
+    }
+}
 unsigned int BusinessUser::businessMailLimit = 25;
 
 ExecutiveUser::ExecutiveUser(Account* ac) : BusinessUser(ac) {}
-ExecutiveUser::ExecutiveUser(const ExecutiveUser& usr) : BusinessUser(usr), _keywords(usr._keywords), _visitors(usr._visitors) {
-    // for(list<SmartPtr<User> >::const_iterator it = usr._visitors.begin(); it != usr._visitors.end(); ++it)
-    //     _visitors.push_back(*it);
-}
+ExecutiveUser::ExecutiveUser(const ExecutiveUser& usr) : BusinessUser(usr), _keywords(usr._keywords), _visitors(usr._visitors) {}
 ExecutiveUser::~ExecutiveUser() {_keywords.clear(); _visitors.clear();}
 User* ExecutiveUser::clone() const {
     return new ExecutiveUser(*this);
@@ -250,11 +242,6 @@ User* ExecutiveUser::clone() const {
 map<string, string> ExecutiveUser::userSearch(const LinqDB& db, const string& wanted) const {
     return std::for_each(db.begin(), db.end(), searchFunctor(3, wanted, this)).result();
 }
-// void ExecutiveUser::sendMessage(const Username& dest, const string& obj, const string& body, bool read) {
-//     Message* mex = new Message((this->account()->username()), dest, obj, body, read);
-//     loadOutMail(*mex);
-//     delete mex;
-// }
 void ExecutiveUser::sendMessage(const Message& mex) {
     loadOutMail(mex);
 }

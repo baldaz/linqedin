@@ -22,7 +22,7 @@ public:
 };
 
 class UserInfo : public Info {
-protected:
+private:
     bool _sex;
     QDate _birthdate;
     string _name, _surname, _email, _address, _telephon, _website;

@@ -202,13 +202,11 @@ string UserInfo::printHtml() const {
     }
     html += "</p>";
     html += "<h4><img src='img/business133.png'>  Contacts</h4><p style='font-weight: 400; font-size:14px'>" + _email + " &nbsp;&nbsp;<a style='color:#4782EC;' href='#'>" + _website + "</a><br> Telephon  " + _telephon + "</p>";
-    html += "<h4>Bio</h4></body></html>";
     return html;
 }
 
 Bio::Bio(bool sx, const string& n, const string& s, const string& e, const string& a, const string& t, const string& w, const QDate& b, const string& bio) : UserInfo(sx, n, s, e, a, t, w, b), _bio(bio) {}
-Bio::Bio(const Bio& bio) :
-    UserInfo(bio._sex, bio._name, bio._surname, bio._email, bio._address, bio._telephon, bio._website, bio._birthdate), _bio(bio._bio) {}
+Bio::Bio(const Bio& bio) : UserInfo(bio), _bio(bio._bio) {}
 Bio::~Bio() {}
 Info* Bio::clone() const {
     return new Bio(*this);
@@ -223,5 +221,10 @@ string Bio::print() const {
     return "";
 }
 string Bio::printHtml() const {
-    return "";
+    string html = UserInfo::printHtml();
+    if(!_bio.empty()) {
+        html += "<h4><img src='img/user91.png'> Short Biography</h4>";
+        html += "<p style='font-weight:400'>" + bio() + "</p>";
+    }
+    return html;
 }

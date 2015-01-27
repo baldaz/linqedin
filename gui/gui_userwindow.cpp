@@ -37,28 +37,34 @@ void Gui_UserWindow::createHorizontalGroupBox() {
     buttons[0] = new QPushButton("&OVERVIEW");
     buttons[0]->setIcon(QPixmap("img/user91.png"));
     // buttons[0]->installEventFilter(this);
-    layout->addWidget(buttons[0], Qt::AlignTop);
     connect(buttons[0], SIGNAL(clicked()), this, SLOT(overview()));
 
     buttons[1] = new QPushButton("&SETTINGS");
     buttons[1]->setIcon(QPixmap("img/settings48.png"));
-    layout->addWidget(buttons[1], Qt::AlignTop);
     connect(buttons[1], SIGNAL(clicked()), this, SLOT(settings()));
 
     buttons[2] = new QPushButton("S&TATISTICS");
     buttons[2]->setIcon(QPixmap("img/business155.png"));
-    layout->addWidget(buttons[2], Qt::AlignTop);
     connect(buttons[2], SIGNAL(clicked()), this, SLOT(payments()));
 
     buttons[3] = new QPushButton("&MESSAGES");
     buttons[3]->setIcon(QPixmap("img/send4.png"));
-    layout->addWidget(buttons[3], Qt::AlignTop);
     connect(buttons[3], SIGNAL(clicked()), this, SLOT(messages()));
 
     buttons[4] = new QPushButton("&LOGOUT");
     buttons[4]->setIcon(QPixmap("img/logout13.png"));
-    layout->addWidget(buttons[4], Qt::AlignTop);
     connect(buttons[4], SIGNAL(clicked()), this, SLOT(logout()));
+
+    layout->addWidget(buttons[0], Qt::AlignTop);
+    layout->addWidget(buttons[2], Qt::AlignTop);
+    if(user->level() >= business) {
+        buttons[5] = new QPushButton("&GROUPS");
+        buttons[5]->setIcon(QPixmap("img/multiple25.png"));
+        layout->addWidget(buttons[5], Qt::AlignTop);
+    }
+    layout->addWidget(buttons[3], Qt::AlignTop);
+    layout->addWidget(buttons[1], Qt::AlignTop);
+    layout->addWidget(buttons[4], Qt::AlignTop);
     layout->stretch(1);
     horizontalGroupBox->setLayout(layout);
     // horizontalGroupBox->setStyleSheet("background-color:#fff");

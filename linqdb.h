@@ -30,6 +30,8 @@ private:
     void write(const vector<QJsonObject>&) const;
     vector<Message*> readMessageDb(const string&);
     void writeMessageDb(const string&) const;
+    void readInfo(Info*, const QJsonObject&) const;
+    void readGroups(const QJsonArray&) const;
 public:
     LinqDB();
     ~LinqDB();

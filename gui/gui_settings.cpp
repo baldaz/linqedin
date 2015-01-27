@@ -19,6 +19,8 @@ Gui_Settings::Gui_Settings(LinqClient* cli, QWidget* parent) : _client(cli), QGr
     edtInfo[6] = new QLineEdit(parent);
     QLabel* uname = new QLabel("Username:", parent);
     edtInfo[7] = new QLineEdit(parent);
+    QLabel* bio = new QLabel("Short Bio:", parent);
+    edtBio = new QTextEdit(parent);
 
     skills = new QListWidget;
     inters = new QListWidget;
@@ -68,6 +70,7 @@ Gui_Settings::Gui_Settings(LinqClient* cli, QWidget* parent) : _client(cli), QGr
     edtInfo[5]->setEnabled(false);
     edtInfo[6]->setEnabled(false);
     edtInfo[7]->setEnabled(false);
+    edtBio->setReadOnly(true);
 
     edtInfo[0]->setText("Steven");
     edtInfo[1]->setText("Via IV Novembre 24 Stra (VE)");
@@ -77,6 +80,8 @@ Gui_Settings::Gui_Settings(LinqClient* cli, QWidget* parent) : _client(cli), QGr
     edtInfo[5]->setText("3250525147");
     edtInfo[6]->setText("www.stevenseagal.ss");
     edtInfo[7]->setText("Casey");
+    edtBio->setText("Seagal was born in Lansing, Michigan, where he lived until he was five years old, when the family moved to California. His mother, Patricia (1930–2003), was a medical technician, and his father, Samuel Steven Seagal (1928–1991), was a high school math teacher. His mother was of Irish ancestry and his father was Jewish (the son of immigrants from Russia). Seagal has reported that he had a Mongolian grandfather, but this seems unlikely. His parents relocated to Fullerton, California, where Seagal attended Buena Park High School in Buena Park.");
+    edtBio->setStyleSheet("background: transparent");
 
     addWidget(avatar, 0, 0, 1, 1, Qt::AlignTop);
 
@@ -87,7 +92,7 @@ Gui_Settings::Gui_Settings(LinqClient* cli, QWidget* parent) : _client(cli), QGr
     QFormLayout* frm = new QFormLayout;
     QFormLayout* frm2 = new QFormLayout;
     QPushButton* box = new QPushButton("Alter");
-    toggle = new QPushButton("Toggle");
+    toggle = new QPushButton("Unlock");
     toggle->setCheckable(true);
     connect(toggle, SIGNAL(clicked()), this, SLOT(buttonToggled()));
 
@@ -108,11 +113,12 @@ Gui_Settings::Gui_Settings(LinqClient* cli, QWidget* parent) : _client(cli), QGr
     frm2->addRow(uname, edtInfo[7]);
     frm2->addRow("Interests:", inters);
     frm2->addRow(edtInfo[10]);
+    frm2->addRow(bio, edtBio);
 
     addLayout(frm, 0, 1, 1, 1);
     addLayout(frm2, 0, 2, 1, 1);
     addWidget(box, 2, 1, 1, 1);
-    addWidget(toggle, 3, 1, 1, 1);
+    addWidget(toggle, 2, 2, 1, 1);
 }
 
 void Gui_Settings::skillsMenu(const QPoint& pos) {
@@ -131,6 +137,7 @@ void Gui_Settings::interestsMenu(const QPoint& pos) {
 
 void Gui_Settings::buttonToggled() {
     if(toggle->isChecked()) {
+        toggle->setText("Lock");
         edtInfo[0]->setEnabled(true);
         edtInfo[1]->setEnabled(true);
         edtInfo[2]->setEnabled(true);
@@ -145,8 +152,11 @@ void Gui_Settings::buttonToggled() {
         edtInfo[9]->setEnabled(true);
         edtInfo[10]->show();
         edtInfo[10]->setEnabled(true);
+        edtBio->setReadOnly(false);
+        edtBio->setStyleSheet("background: #1a1a1a;");
     }
     else {
+        toggle->setText("Unlock");
         edtInfo[0]->setEnabled(false);
         edtInfo[1]->setEnabled(false);
         edtInfo[2]->setEnabled(false);
@@ -161,5 +171,7 @@ void Gui_Settings::buttonToggled() {
         edtInfo[9]->setEnabled(false);
         edtInfo[10]->hide();
         edtInfo[10]->setEnabled(false);
+        edtBio->setReadOnly(true);
+        edtBio->setStyleSheet("background: transparent");
     }
 }
