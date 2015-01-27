@@ -133,7 +133,28 @@ void LinqDB::readInfo(Info* inf, const QJsonObject& obj) const {
         b->setBio(info["biography"].toString().toStdString());
 }
 void LinqDB::readGroups(const QJsonArray& a) const {
-
+    list<SmartPtr<User> >::const_iterator it = _db.begin();
+    for(; it != _db.end(); ++it) {
+        if(BusinessUser* bu = dynamic_cast<BusinessUser*> (&(*(*it)))) {
+            for (int i = 0; i < a.size(); ++i) {
+                Post* pst = NULL;
+                QJsonObject obj = a[i].toObject();
+                Group* grp = new Group(find(Username(obj["admin"].toString().toStdString(), ""))); // pesantino
+                QJsonArray mem = obj["members"].toArray();
+                for(int k = 0; k < mem.size(); ++k) {
+                    if((*it)->account()->username().login() == mem[k].toString().toStdString()) {
+                        QJsonArray posts = obj["posts"].toArray();
+                        for(int j = 0; j < posts.size(); ++j) {
+                            QJsonObject ps = posts[j].toObject();
+                            pst = new Post(Username(ps["author"].toString().toStdString(), ""), ps["content"].toString().toStdString());
+                            grp->insertPost(*pst);
+                        }
+                        bu->addGroup(*grp);
+                    }
+                }
+            }
+        }
+    }
 }
 void LinqDB::readNet(const QJsonArray& qjs) {
     list<SmartPtr<User> >::iterator it = _db.begin();

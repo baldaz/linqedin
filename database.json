@@ -782,5 +782,22 @@
             }
     ],
     "groups": [
+        {
+            "name": "P2 is almost harder than P1",
+            "description": "Sample group about this own exam, test of a functionality",
+            "admin": "Baldaz",
+            "members" : [
+                "Casey",
+                "Pablito",
+                "Sara87",
+                "Willg"
+            ],
+            "posts": [
+                {
+                    "author" : "Pablito",
+                    "content": "How's gone 26.01.2015 test??"
+                }
+            ]
+        }
     ]
 }
