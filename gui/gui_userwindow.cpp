@@ -11,11 +11,13 @@ Gui_UserWindow::Gui_UserWindow(QWidget* parent) : QWidget(parent) {
     createSettings();
     createMessages();
     createPayments();
+    createGroups();
     _layoutStack = new QStackedLayout;
     _layoutStack->addWidget(overviewGroupBox);
     _layoutStack->addWidget(messagesGroupBox);
     _layoutStack->addWidget(settingsGroupBox);
     _layoutStack->addWidget(paymentsGroupBox);
+    _layoutStack->addWidget(groupsGroupBox);
 
     _mainLayout = new QVBoxLayout;
     QPushButton* quit = new QPushButton;
@@ -60,6 +62,7 @@ void Gui_UserWindow::createHorizontalGroupBox() {
     if(user->level() >= business) {
         buttons[5] = new QPushButton("&GROUPS");
         buttons[5]->setIcon(QPixmap("img/multiple25.png"));
+        connect(buttons[5], SIGNAL(clicked()), this, SLOT(groups()));
         layout->addWidget(buttons[5], Qt::AlignTop);
     }
     layout->addWidget(buttons[3], Qt::AlignTop);
@@ -92,6 +95,12 @@ void Gui_UserWindow::createPayments() {
     paymentsGroupBox = new QGroupBox;
     _pay = new Gui_Payments(user, this);
     paymentsGroupBox->setLayout(_pay);
+}
+
+void Gui_UserWindow::createGroups() {
+    groupsGroupBox = new QGroupBox;
+    _grp = new Gui_Groups(user, this);
+    groupsGroupBox->setLayout(_grp);
 }
 
 void Gui_UserWindow::logicInitialize() {
@@ -139,6 +148,12 @@ void Gui_UserWindow::settings() {
 void Gui_UserWindow::payments() {
     _layoutStack->widget(3)->show();
     _layoutStack->setCurrentWidget(paymentsGroupBox);
+}
+
+//SLOT
+void Gui_UserWindow::groups() {
+    _layoutStack->widget(4)->show();
+    _layoutStack->setCurrentWidget(groupsGroupBox);
 }
 
 //SLOT

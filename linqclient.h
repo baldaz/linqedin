@@ -39,6 +39,7 @@ public:
     list<SmartPtr<User> > visitors() const;
     list<SmartPtr<Message> > inMail() const;
     list<SmartPtr<Message> > outMail() const;
+    list<Group*> listGroups() const;
     void alterProfile(const map<int, string>&);
     void addContact(const Username&);
     void removeContact(const Username&);

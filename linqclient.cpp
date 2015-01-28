@@ -131,6 +131,10 @@ list<SmartPtr<Message> > LinqClient::inMail() const {
 list<SmartPtr<Message> > LinqClient::outMail() const {
     return _usr->outMail();
 }
+list<Group*> LinqClient::listGroups() const {
+    if(BusinessUser* bu = dynamic_cast<BusinessUser*> (_usr))
+        return bu->groups();
+}
 map<string, string> LinqClient::find(const string& wanted = "") const {
     return _usr->userSearch(*_db, wanted);
 }

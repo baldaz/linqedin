@@ -2,7 +2,7 @@
 
 Username::Username(const string& l = "", const string& p = "") : _login(l), _password(p) {}
 Username::Username(const Username& usr) : _login(usr._login), _password(usr._password) {}
-Username::~Username() {}
+// Username::~Username() {}
 Username* Username::clone() const {
     return new Username(*this);
 }

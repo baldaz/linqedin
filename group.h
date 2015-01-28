@@ -13,17 +13,19 @@ using std::list;
 
 class Group {
 private:
-    User* _admin;
+    Username _admin;
     list<SmartPtr<User> > _members;
     list<Post*> _posts;
     string _name, _description;
 public:
-    Group(User*, const string& = "", const string& ="");
+    Group(const Username&, const string& = "", const string& ="");
+    Group(const Group&);
     ~Group();
-    User* admin() const;
+    Username admin() const;
     string name() const;
     string description() const;
     list<SmartPtr<User> > members() const;
+    list<Post*> posts() const;
     void addMember(User*);
     void insertPost(const Post&);
     string print() const;

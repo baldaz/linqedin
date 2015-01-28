@@ -12,7 +12,7 @@
 #include "gui_messages.h"
 #include "gui_settings.h"
 #include "gui_payments.h"
-
+#include "gui_groups.h"
 
 class Gui_UserWindow : public QWidget {
     Q_OBJECT
@@ -32,12 +32,14 @@ private:
     QGroupBox* messagesGroupBox;
     QGroupBox* paymentsGroupBox;
     QGroupBox* settingsGroupBox;
+    QGroupBox* groupsGroupBox;
     enum {NumButtons = 6};
     QPushButton* buttons[NumButtons];
     Gui_Overview* _layout;
     Gui_Settings* _set;
     Gui_Messages* _mex;
     Gui_Payments* _pay;
+    Gui_Groups* _grp;
     LinqClient* user;
 
     void logicInitialize();
@@ -46,6 +48,7 @@ private:
     void createMessages();
     void createPayments();
     void createSettings();
+    void createGroups();
 
 signals:
 
@@ -54,6 +57,7 @@ public slots:
     void messages();
     void settings();
     void payments();
+    void groups();
     void logout();
 };
 

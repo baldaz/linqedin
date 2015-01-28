@@ -184,6 +184,11 @@ void User::setInMail(const list<SmartPtr<Message> >& l) {
 
 BasicUser::BasicUser(Account* ac) : User(ac){}
 BasicUser::BasicUser(const BasicUser& usr) : User(usr){}
+BasicUser& BasicUser::operator=(const BasicUser& b) {
+    if(this != &b)
+        this->User::operator=(b);
+    return *this;
+}
 User* BasicUser::clone() const {
     return new BasicUser(*this);
 }
@@ -200,11 +205,27 @@ void BasicUser::loadOutMail(const Message& mex) {
 unsigned int BasicUser::basicMailLimit = 10;
 
 BusinessUser::BusinessUser(Account* ac) : BasicUser(ac) {}
-BusinessUser::BusinessUser(const BusinessUser& usr) : BasicUser(usr) {}
+BusinessUser::BusinessUser(const BusinessUser& usr) : BasicUser(usr)/*, _groups(usr._groups)*/ {
+    for (list<Group*>::const_iterator i = (usr._groups).begin(); i != (usr._groups).end(); ++i) {
+        _groups.push_back(new Group(**i));
+    }
+}
+BusinessUser& BusinessUser::operator=(const BusinessUser& b) {
+    if(this != &b) {
+        for(list<Group*>::iterator i = _groups.begin(); i != _groups.end(); ++i)
+            delete *i;
+        _groups.clear();
+       this->BasicUser::operator=(b);
+        _groups = b._groups;
+    }
+    return *this;
+}
 BusinessUser::~BusinessUser() {
-    for (list<Group*>::iterator i = _groups.begin(); i != _groups.end(); ++i)
-        delete *i;
-    _groups.clear();
+    if(!_groups.empty()) {
+        for(list<Group*>::iterator i = _groups.begin(); i != _groups.end(); ++i)
+            delete *i;
+        _groups.clear();
+    }
 }
 User* BusinessUser::clone() const {
     return new BusinessUser(*this);
@@ -236,6 +257,16 @@ unsigned int BusinessUser::businessMailLimit = 25;
 ExecutiveUser::ExecutiveUser(Account* ac) : BusinessUser(ac) {}
 ExecutiveUser::ExecutiveUser(const ExecutiveUser& usr) : BusinessUser(usr), _keywords(usr._keywords), _visitors(usr._visitors) {}
 ExecutiveUser::~ExecutiveUser() {_keywords.clear(); _visitors.clear();}
+ExecutiveUser& ExecutiveUser::operator=(const ExecutiveUser& e) {
+    if(this != &e) {
+        _visitors.clear();
+        _keywords.clear();
+        this->BusinessUser::operator=(e);
+        _visitors = e._visitors;
+        _keywords = e._keywords;
+    }
+    return *this;
+}
 User* ExecutiveUser::clone() const {
     return new ExecutiveUser(*this);
 }

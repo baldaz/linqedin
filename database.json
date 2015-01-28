@@ -1,802 +1,802 @@
 {
-    "users":[
-            {
-                "formations": [
-                    {
-                        "from": "15.09.2002",
-                        "location": "ITIS F.Severi",
-                        "role": "Student",
-                        "to": "15.09.2007"
-                    },
-                    {
-                        "from": "15.09.2012",
-                        "location": "Università Degli Studi di Padova facoltà di Scienze MM.FF.NN. Informatica",
-                        "role": "Student",
-                        "to": "15.09.2042"
-                    }
-                ],
-                "info": {
-                    "address": "Stra via 4 novembre 24 (VE) Italy",
-                    "birthdate": "08.10.1988",
-                    "email": "a.g.baldan@gmail.com",
-                    "name": "Andrea",
-                    "sex": true,
-                    "surname": "Baldan",
-                    "telephon": "3450515048",
-                    "website": "www.baldaz.ba"
-                },
-                "inmail": [
-                    {
-                        "body": "Test mail from Pablito.",
-                        "object": "Test",
-                        "read": true,
-                        "receiver": "Baldaz",
-                        "recv": "23.01.2015",
-                        "sender": "Pablito",
-                        "sent": "23.01.2015"
-                    },
-                    {
-                        "body": "Finally smart pointer solves our probems!",
-                        "object": "1000th try!",
-                        "read": false,
-                        "receiver": "Baldaz",
-                        "recv": "24.01.2015",
-                        "sender": "Casey",
-                        "sent": "24.01.2015"
-                    }
-                ],
-                "interests": [
-                    "Web",
-                    "Movies",
-                    "Coding",
-                    "Cooking",
-                    "BBQ",
-                    "Snowboard",
-                    "Homebrew"
-                ],
-                "jobs": [
-                    {
-                        "from": "09.06.2005",
-                        "location": "Barbato SRL, Fiesso d'artico (VE)",
-                        "role": "Worker",
-                        "to": "10.09.2005"
-                    },
-                    {
-                        "from": "15.09.2010",
-                        "location": "RGIS Padova",
-                        "role": "Auditor",
-                        "to": "10.05.2012"
-                    },
-                    {
-                        "from": "09.06.2007",
-                        "location": "Me",
-                        "role": "Freelance Web Developer",
-                        "to": "10.09.2015"
-                    }
-                ],
-                "keywords": [
-                    "c++",
-                    "c++",
-                    "c++",
-                    "c++",
-                    "c++",
-                    "c++",
-                    "c++",
-                    "c++",
-                    "html",
-                    "nodejs",
-                    "perl",
-                    "php",
-                    "php"
-                ],
-                "languages": [
-                    "Italian",
-                    "English",
-                    "Espagnol"
-                ],
-                "net": [
-                    "Pablito",
-                    "aui",
-                    "ser",
-                    "Sara87",
-                    "Casey"
-                ],
-                "outmail": [
-                    {
-                        "body": "God bless smart pointer!",
-                        "object": "Yeah! it works now!",
-                        "read": true,
-                        "receiver": "Casey",
-                        "recv": "24.01.2015",
-                        "sender": "Baldaz",
-                        "sent": "24.01.2015"
-                    }
-                ],
-                "password": "qwerty",
-                "payments": [
-                    {
-                        "approved": true,
-                        "code": "0132532",
-                        "nominee": "Andrea Baldan"
-                    },
-                    {
-                        "approved": true,
-                        "code": "0132532",
-                        "nominee": "Andrea Baldan"
-                    },
-                    {
-                        "approved": true,
-                        "code": "0132532",
-                        "nominee": "Andrea Baldan"
-                    }
-                ],
-                "privilege": 2,
-                "skills": [
-                    "Nodejs",
-                    "C++",
-                    "Mojolicious",
-                    "PHP",
-                    "Perl",
-                    "Python",
-                    "Ruby",
-                    "Ruby-Sinatra",
-                    "Ruby on Rails",
-                    "Java",
-                    "Javascript",
-                    "HTML",
-                    "CSS",
-                    "Bootstrap"
-                ],
-                "username": "Baldaz",
-                "visitcount": 19,
-                "visitors": [
-                ]
-            },
-            {
-                "formations": [
-                ],
-                "info": {
-                    "address": "calle de la muerte 1",
-                    "birthdate": "15.12.1923",
-                    "email": "escobar@cartello.cb",
-                    "name": "Pablos",
-                    "sex": true,
-                    "surname": "Escobar",
-                    "telephon": "9873478233",
-                    "website": "www.cartel.cl"
-                },
-                "inmail": [
-                    {
-                        "body": "Test mail from Baldaz.",
-                        "object": "Test",
-                        "read": true,
-                        "receiver": "Pablito",
-                        "recv": "23.01.2015",
-                        "sender": "Baldaz",
-                        "sent": "23.01.2015"
-                    }
-                ],
-                "interests": [
-                    "Web design",
-                    "Ski",
-                    "Homebrew"
-                ],
-                "jobs": [
-                ],
-                "languages": [
-                    "Italian",
-                    "English",
-                    "Espagnol"
-                ],
-                "net": [
-                    "Atilio"
-                ],
-                "outmail": [
-                ],
-                "password": "maurisio",
-                "payments": [
-                ],
-                "privilege": 0,
-                "skills": [
-                    "C++",
-                    "PHP"
-                ],
-                "username": "Pablito",
-                "visitcount": 12
-            },
-            {
-                "formations": [
-                ],
-                "info": {
-                    "address": "calle de la muerte 2",
-                    "birthdate": "15.10.1973",
-                    "email": "atos@bierta.es",
-                    "name": "Atos",
-                    "sex": true,
-                    "surname": "Bierta",
-                    "telephon": "4872474213",
-                    "website": "www.cartel.mx"
-                },
-                "inmail": [
-                ],
-                "interests": [
-                    "Gym",
-                    "Boxe",
-                    "Blades",
-                    "Knives",
-                    "Murder",
-                    "Homicide",
-                    "Martials arts",
-                    "BBQ"
-                ],
-                "jobs": [
-                ],
-                "languages": [
-                    "Italian",
-                    "English",
-                    "Espagnol"
-                ],
-                "net": [
-                    "Pablito"
-                ],
-                "outmail": [
-                ],
-                "password": "piovra",
-                "payments": [
-                ],
-                "privilege": 0,
-                "skills": [
-                    "C++",
-                    "PHP",
-                    "Perl",
-                    "Ruby"
-                ],
-                "username": "Atilio",
-                "visitcount": 13
-            },
-            {
-                "formations": [
-                ],
-                "info": {
-                    "address": "via 7 dicembre 12",
-                    "birthdate": "08.10.1288",
-                    "email": "a.g.ba@gmail.com",
-                    "name": "Andr",
-                    "sex": true,
-                    "surname": "jsjs",
-                    "telephon": "35015048",
-                    "website": "www.andr.ad"
-                },
-                "inmail": [
-                ],
-                "interests": [
-                    "Web developing",
-                    "Videogames"
-                ],
-                "jobs": [
-                ],
-                "languages": [
-                    "Italian",
-                    "English",
-                    "Espagnol"
-                ],
-                "net": [
-                    "Pablito",
-                    "Atilio",
-                    "Baldaz"
-                ],
-                "outmail": [
-                ],
-                "password": "rd",
-                "payments": [
-                ],
-                "privilege": 0,
-                "skills": [
-                    "C#",
-                    "Visual Basic",
-                    "Objective-C"
-                ],
-                "username": "aui",
-                "visitcount": 0
-            },
-            {
-                "formations": [
-                ],
-                "info": {
-                    "address": "via monghi 12",
-                    "birthdate": "08.10.1928",
-                    "email": "a.g.ban@gmail.com",
-                    "name": "Sara",
-                    "sex": false,
-                    "surname": "Mira",
-                    "telephon": "3250515048",
-                    "website": "www.sara.sr"
-                },
-                "inmail": [
-                ],
-                "interests": [
-                    "Reading",
-                    "Fishing",
-                    "Decoupage",
-                    "Web",
-                    "Movies",
-                    "Coding",
-                    "Snowboard"
-                ],
-                "jobs": [
-                ],
-                "languages": [
-                    "Italian",
-                    "English",
-                    "Espagnol"
-                ],
-                "net": [
-                    "Pablito",
-                    "Atilio",
-                    "aui"
-                ],
-                "outmail": [
-                ],
-                "password": "sara",
-                "payments": [
-                ],
-                "privilege": 0,
-                "skills": [
-                    "Math",
-                    "Matlab",
-                    "R"
-                ],
-                "username": "Sara87",
-                "visitcount": 0
-            },
-            {
-                "formations": [
-                ],
-                "info": {
-                    "address": "via 4 novembre 12",
-                    "birthdate": "08.10.1988",
-                    "email": "dan@gmail.com",
-                    "name": "Giacomo",
-                    "sex": true,
-                    "surname": "Ser",
-                    "telephon": "345215048",
-                    "website": "www.idiota.ser"
-                },
-                "inmail": [
-                ],
-                "interests": [
-                    "Drums",
-                    "Keyboard",
-                    "Music"
-                ],
-                "jobs": [
-                ],
-                "languages": [
-                    "Italian",
-                    "English",
-                    "Espagnol"
-                ],
-                "net": [
-                    "Pablito",
-                    "Atilio",
-                    "Baldaz",
-                    "Sara87"
-                ],
-                "outmail": [
-                ],
-                "password": "wword",
-                "payments": [
-                ],
-                "privilege": 0,
-                "skills": [
-                    "Elettronica",
-                    "MosFet",
-                    "Bode"
-                ],
-                "username": "ser",
-                "visitcount": 0
-            },
-            {
-                "formations": [
-                    {
-                        "from": "15.09.1962",
-                        "location": "ITIS F.Severi",
-                        "role": "Student",
-                        "to": "15.09.1967"
-                    },
-                    {
-                        "from": "15.09.1970",
-                        "location": "Università Degli Studi di Padova facoltà di Scienze MM.FF.NN. Informatica",
-                        "role": "Student",
-                        "to": "15.09.1980"
-                    }
-                ],
-                "info": {
-                    "address": "Stra via 4 novembre 24 (VE) Italy",
-                    "biography": "Seagal was born in Lansing, Michigan, where he lived until he was five years old, when the family moved to California. His mother, Patricia (1930–2003), was a medical technician, and his father, Samuel Steven Seagal (1928–1991), was a high school math teacher. His mother was of Irish ancestry and his father was Jewish (the son of immigrants from Russia). Seagal has reported that he had a Mongolian grandfather, but this seems unlikely. His parents relocated to Fullerton, California, where Seagal attended Buena Park High School in Buena Park.",
-                    "birthdate": "08.10.1949",
-                    "email": "seagal@steven.ss",
-                    "name": "Steven",
-                    "sex": true,
-                    "surname": "Seagal",
-                    "telephon": "3250525147",
-                    "website": "www.stevenseagal.ss"
-                },
-                "inmail": [
-                    {
-                        "body": "Test mail from Danny.",
-                        "object": "Test",
-                        "read": true,
-                        "receiver": "Casey",
-                        "recv": "21.01.2015",
-                        "sender": "Danny",
-                        "sent": "21.01.2015"
-                    },
-                    {
-                        "body": "God bless smart pointer!",
-                        "object": "Yeah! it works now!",
-                        "read": true,
-                        "receiver": "Casey",
-                        "recv": "24.01.2015",
-                        "sender": "Baldaz",
-                        "sent": "24.01.2015"
-                    }
-                ],
-                "interests": [
-                    "Web",
-                    "Movies",
-                    "Coding",
-                    "Cooking",
-                    "Snowboard",
-                    "Homebrew",
-                    "Haikido",
-                    "Hapkido",
-                    "Martial arts",
-                    "Fighting",
-                    "Traps",
-                    "Blades",
-                    "Knives",
-                    "BBQ"
-                ],
-                "jobs": [
-                    {
-                        "from": "15.09.1968",
-                        "location": "Hollywood Studios, California",
-                        "role": "Stuntman",
-                        "to": "15.09.1975"
-                    },
-                    {
-                        "from": "15.09.1978",
-                        "location": "Hollywood Studios, California",
-                        "role": "Actor",
-                        "to": "15.09.2015"
-                    }
-                ],
-                "keywords": [
-                    "css",
-                    "daibo",
-                    "daibo",
-                    "knives",
-                    "knives",
-                    "knives",
-                    "knives",
-                    "knives",
-                    "ninjitsu",
-                    "steven seagal"
-                ],
-                "languages": [
-                    "Italian",
-                    "English",
-                    "Espagnol",
-                    "Esquimese"
-                ],
-                "net": [
-                    "Pablito",
-                    "Atilio",
-                    "Hannibal",
-                    "Willg"
-                ],
-                "outmail": [
-                    {
-                        "body": "Finally smart pointer solves our probems!",
-                        "object": "1000th try!",
-                        "read": true,
-                        "receiver": "Baldaz",
-                        "recv": "24.01.2015",
-                        "sender": "Casey",
-                        "sent": "24.01.2015"
-                    }
-                ],
-                "password": "rayback",
-                "payments": [
-                ],
-                "privilege": 2,
-                "skills": [
-                    "Nodejs",
-                    "C++",
-                    "Mojolicious",
-                    "PHP",
-                    "Perl",
-                    "Python",
-                    "Ruby",
-                    "Ruby-Sinatra",
-                    "Ruby on Rails",
-                    "Java",
-                    "Javascript",
-                    "HTML",
-                    "CSS",
-                    "Bootstrap",
-                    "Haikido",
-                    "Hapkido",
-                    "Ninjitsu",
-                    "Ju-Jitsu",
-                    "Daibo",
-                    "Knives"
-                ],
-                "username": "Casey",
-                "visitcount": 10,
-                "visitors": [
-                    "Pablito",
-                    "Baldaz",
-                    "Atilio",
-                    "Baldaz"
-                ]
-            },
-            {
-                "formations": [
-                    {
-                        "from": "15.09.1958",
-                        "location": "ITIS F.Severi",
-                        "role": "Student",
-                        "to": "15.09.1964"
-                    },
-                    {
-                        "from": "15.09.1966",
-                        "location": "Università Degli Studi di Padova facoltà di Scienze MM.FF.NN. Informatica",
-                        "role": "Student",
-                        "to": "15.09.1977"
-                    }
-                ],
-                "info": {
-                    "address": "El Paso Muerte-Negra lane Texas",
-                    "birthdate": "08.07.1943",
-                    "email": "danny@trejo.dt",
-                    "name": "Danny \"Machete\"",
-                    "sex": true,
-                    "surname": "Trejo",
-                    "telephon": "3150535157",
-                    "website": "www.dannytrejo.dt"
-                },
-                "inmail": [
-                ],
-                "interests": [
-                    "Drugdealing",
-                    "Kidnapp",
-                    "Guerrilla",
-                    "Weapons",
-                    "Fighting",
-                    "Traps",
-                    "Blades",
-                    "Knives",
-                    "Cooking",
-                    "Movies",
-                    "BBQ"
-                ],
-                "jobs": [
-                ],
-                "keywords": [
-                    "daibo",
-                    "daibo",
-                    "knives",
-                    "knives",
-                    "knives",
-                    "knives",
-                    "knives",
-                    "ninjitsu"
-                ],
-                "languages": [
-                    "Italian",
-                    "English",
-                    "Espagnol",
-                    "Portuguese"
-                ],
-                "net": [
-                    "Pablito",
-                    "Atilio",
-                    "aui"
-                ],
-                "outmail": [
-                ],
-                "password": "machete",
-                "payments": [
-                ],
-                "privilege": 2,
-                "skills": [
-                    "Machete",
-                    "M-16",
-                    "Narcotraffic",
-                    "Burritos",
-                    "Tortillas",
-                    "Smartphones",
-                    "Hapkido",
-                    "Ninjitsu",
-                    "Ju-Jitsu",
-                    "Daibo",
-                    "Knives"
-                ],
-                "username": "Danny",
-                "visitcount": 8,
-                "visitors": [
-                ]
-            },
-            {
-                "formations": [
-                    {
-                        "from": "15.09.1967",
-                        "location": "ITIS F.Severi",
-                        "role": "Student",
-                        "to": "15.09.1972"
-                    },
-                    {
-                        "from": "15.09.1973",
-                        "location": "Università Degli Studi di Padova facoltà di Scienze MM.FF.NN. Informatica",
-                        "role": "Student",
-                        "to": "15.09.1977"
-                    }
-                ],
-                "info": {
-                    "address": "Washington lane Philadelphia",
-                    "birthdate": "08.07.1943",
-                    "email": "hannibal@lecter.hl",
-                    "name": "Hannibal",
-                    "sex": true,
-                    "surname": "Lecter",
-                    "telephon": "3150335121",
-                    "website": "www.hanniballecter.hl"
-                },
-                "inmail": [
-                ],
-                "interests": [
-                    "Meat",
-                    "Cooking",
-                    "Anatomy",
-                    "Wines",
-                    "Psichology",
-                    "Psichiatry",
-                    "Murder",
-                    "Mind-illness",
-                    "Cannibalism",
-                    "Movies",
-                    "BBQ"
-                ],
-                "jobs": [
-                ],
-                "keywords": [
-                    "knives",
-                    "knives",
-                    "knives",
-                    "knives",
-                    "knives"
-                ],
-                "languages": [
-                    "Italian",
-                    "English",
-                    "Espagnol",
-                    "Portuguese",
-                    "Deutch",
-                    "Francais"
-                ],
-                "net": [
-                    "Pablito",
-                    "Atilio",
-                    "aui",
-                    "Sara87",
-                    "Willg"
-                ],
-                "outmail": [
-                ],
-                "password": "lecter",
-                "payments": [
-                ],
-                "privilege": 2,
-                "skills": [
-                    "Knives",
-                    "Meatplates",
-                    "Psichiatry",
-                    "Literature",
-                    "Surgery"
-                ],
-                "username": "Hannibal",
-                "visitcount": 5,
-                "visitors": [
-                ]
-            },
-            {
-                "formations": [
-                    {
-                        "from": "15.09.1977",
-                        "location": "ITIS F.Severi",
-                        "role": "Student",
-                        "to": "15.09.1983"
-                    },
-                    {
-                        "from": "15.09.1985",
-                        "location": "Università Degli Studi di Padova facoltà di Scienze MM.FF.NN. Informatica",
-                        "role": "Student",
-                        "to": "15.09.1991"
-                    }
-                ],
-                "info": {
-                    "address": "Washington lane Philadelphia",
-                    "birthdate": "08.07.1943",
-                    "email": "hannibal@lecter.hl",
-                    "name": "Will",
-                    "sex": true,
-                    "surname": "Graham",
-                    "telephon": "3150335121",
-                    "website": "www.grahamwill.gw"
-                },
-                "inmail": [
-                ],
-                "interests": [
-                    "Meat",
-                    "Cooking",
-                    "Anatomy",
-                    "Wines",
-                    "Psichology",
-                    "Psichiatry",
-                    "Murder"
-                ],
-                "jobs": [
-                ],
-                "keywords": [
-                    "knives",
-                    "knives",
-                    "knives",
-                    "knives",
-                    "knives"
-                ],
-                "languages": [
-                    "Italian"
-                ],
-                "net": [
-                    "Pablito",
-                    "Atilio",
-                    "Hannibal"
-                ],
-                "outmail": [
-                ],
-                "password": "graham",
-                "payments": [
-                ],
-                "privilege": 2,
-                "skills": [
-                    "Knives",
-                    "Literature",
-                    "Surgery"
-                ],
-                "username": "Willg",
-                "visitcount": 5,
-                "visitors": [
-                ]
-            }
-    ],
     "groups": [
         {
-            "name": "P2 is almost harder than P1",
-            "description": "Sample group about this own exam, test of a functionality",
             "admin": "Baldaz",
-            "members" : [
+            "description": "Sample group about this own exam, test of a functionality",
+            "members": [
                 "Casey",
                 "Pablito",
                 "Sara87",
                 "Willg"
             ],
+            "name": "P2 is almost harder than P1",
             "posts": [
                 {
-                    "author" : "Pablito",
+                    "author": "Pablito",
                     "content": "How's gone 26.01.2015 test??"
                 }
+            ]
+        }
+    ],
+    "users": [
+        {
+            "formations": [
+                {
+                    "from": "15.09.2002",
+                    "location": "ITIS F.Severi",
+                    "role": "Student",
+                    "to": "15.09.2007"
+                },
+                {
+                    "from": "15.09.2012",
+                    "location": "Università Degli Studi di Padova facoltà di Scienze MM.FF.NN. Informatica",
+                    "role": "Student",
+                    "to": "15.09.2042"
+                }
+            ],
+            "info": {
+                "address": "Stra via 4 novembre 24 (VE) Italy",
+                "birthdate": "08.10.1988",
+                "email": "a.g.baldan@gmail.com",
+                "name": "Andrea",
+                "sex": true,
+                "surname": "Baldan",
+                "telephon": "3450515048",
+                "website": "www.baldaz.ba"
+            },
+            "inmail": [
+                {
+                    "body": "Test mail from Pablito.",
+                    "object": "Test",
+                    "read": true,
+                    "receiver": "Baldaz",
+                    "recv": "23.01.2015",
+                    "sender": "Pablito",
+                    "sent": "23.01.2015"
+                },
+                {
+                    "body": "Finally smart pointer solves our probems!",
+                    "object": "1000th try!",
+                    "read": false,
+                    "receiver": "Baldaz",
+                    "recv": "24.01.2015",
+                    "sender": "Casey",
+                    "sent": "24.01.2015"
+                }
+            ],
+            "interests": [
+                "Web",
+                "Movies",
+                "Coding",
+                "Cooking",
+                "BBQ",
+                "Snowboard",
+                "Homebrew"
+            ],
+            "jobs": [
+                {
+                    "from": "09.06.2005",
+                    "location": "Barbato SRL, Fiesso d'artico (VE)",
+                    "role": "Worker",
+                    "to": "10.09.2005"
+                },
+                {
+                    "from": "15.09.2010",
+                    "location": "RGIS Padova",
+                    "role": "Auditor",
+                    "to": "10.05.2012"
+                },
+                {
+                    "from": "09.06.2007",
+                    "location": "Me",
+                    "role": "Freelance Web Developer",
+                    "to": "10.09.2015"
+                }
+            ],
+            "keywords": [
+                "c++",
+                "c++",
+                "c++",
+                "c++",
+                "c++",
+                "c++",
+                "c++",
+                "c++",
+                "html",
+                "nodejs",
+                "perl",
+                "php",
+                "php"
+            ],
+            "languages": [
+                "Italian",
+                "English",
+                "Espagnol"
+            ],
+            "net": [
+                "Pablito",
+                "aui",
+                "ser",
+                "Sara87",
+                "Casey"
+            ],
+            "outmail": [
+                {
+                    "body": "God bless smart pointer!",
+                    "object": "Yeah! it works now!",
+                    "read": true,
+                    "receiver": "Casey",
+                    "recv": "24.01.2015",
+                    "sender": "Baldaz",
+                    "sent": "24.01.2015"
+                }
+            ],
+            "password": "qwerty",
+            "payments": [
+                {
+                    "approved": true,
+                    "code": "0132532",
+                    "nominee": "Andrea Baldan"
+                },
+                {
+                    "approved": true,
+                    "code": "0132532",
+                    "nominee": "Andrea Baldan"
+                },
+                {
+                    "approved": true,
+                    "code": "0132532",
+                    "nominee": "Andrea Baldan"
+                }
+            ],
+            "privilege": 2,
+            "skills": [
+                "Nodejs",
+                "C++",
+                "Mojolicious",
+                "PHP",
+                "Perl",
+                "Python",
+                "Ruby",
+                "Ruby-Sinatra",
+                "Ruby on Rails",
+                "Java",
+                "Javascript",
+                "HTML",
+                "CSS",
+                "Bootstrap"
+            ],
+            "username": "Baldaz",
+            "visitcount": 19,
+            "visitors": [
+            ]
+        },
+        {
+            "formations": [
+            ],
+            "info": {
+                "address": "calle de la muerte 1",
+                "birthdate": "15.12.1923",
+                "email": "escobar@cartello.cb",
+                "name": "Pablos",
+                "sex": true,
+                "surname": "Escobar",
+                "telephon": "9873478233",
+                "website": "www.cartel.cl"
+            },
+            "inmail": [
+                {
+                    "body": "Test mail from Baldaz.",
+                    "object": "Test",
+                    "read": true,
+                    "receiver": "Pablito",
+                    "recv": "23.01.2015",
+                    "sender": "Baldaz",
+                    "sent": "23.01.2015"
+                }
+            ],
+            "interests": [
+                "Web design",
+                "Ski",
+                "Homebrew"
+            ],
+            "jobs": [
+            ],
+            "languages": [
+                "Italian",
+                "English",
+                "Espagnol"
+            ],
+            "net": [
+                "Atilio"
+            ],
+            "outmail": [
+            ],
+            "password": "maurisio",
+            "payments": [
+            ],
+            "privilege": 0,
+            "skills": [
+                "C++",
+                "PHP"
+            ],
+            "username": "Pablito",
+            "visitcount": 12
+        },
+        {
+            "formations": [
+            ],
+            "info": {
+                "address": "calle de la muerte 2",
+                "birthdate": "15.10.1973",
+                "email": "atos@bierta.es",
+                "name": "Atos",
+                "sex": true,
+                "surname": "Bierta",
+                "telephon": "4872474213",
+                "website": "www.cartel.mx"
+            },
+            "inmail": [
+            ],
+            "interests": [
+                "Gym",
+                "Boxe",
+                "Blades",
+                "Knives",
+                "Murder",
+                "Homicide",
+                "Martials arts",
+                "BBQ"
+            ],
+            "jobs": [
+            ],
+            "languages": [
+                "Italian",
+                "English",
+                "Espagnol"
+            ],
+            "net": [
+                "Pablito"
+            ],
+            "outmail": [
+            ],
+            "password": "piovra",
+            "payments": [
+            ],
+            "privilege": 0,
+            "skills": [
+                "C++",
+                "PHP",
+                "Perl",
+                "Ruby"
+            ],
+            "username": "Atilio",
+            "visitcount": 13
+        },
+        {
+            "formations": [
+            ],
+            "info": {
+                "address": "via 7 dicembre 12",
+                "birthdate": "08.10.1288",
+                "email": "a.g.ba@gmail.com",
+                "name": "Andr",
+                "sex": true,
+                "surname": "jsjs",
+                "telephon": "35015048",
+                "website": "www.andr.ad"
+            },
+            "inmail": [
+            ],
+            "interests": [
+                "Web developing",
+                "Videogames"
+            ],
+            "jobs": [
+            ],
+            "languages": [
+                "Italian",
+                "English",
+                "Espagnol"
+            ],
+            "net": [
+                "Pablito",
+                "Atilio",
+                "Baldaz"
+            ],
+            "outmail": [
+            ],
+            "password": "rd",
+            "payments": [
+            ],
+            "privilege": 0,
+            "skills": [
+                "C#",
+                "Visual Basic",
+                "Objective-C"
+            ],
+            "username": "aui",
+            "visitcount": 0
+        },
+        {
+            "formations": [
+            ],
+            "info": {
+                "address": "via monghi 12",
+                "birthdate": "08.10.1928",
+                "email": "a.g.ban@gmail.com",
+                "name": "Sara",
+                "sex": false,
+                "surname": "Mira",
+                "telephon": "3250515048",
+                "website": "www.sara.sr"
+            },
+            "inmail": [
+            ],
+            "interests": [
+                "Reading",
+                "Fishing",
+                "Decoupage",
+                "Web",
+                "Movies",
+                "Coding",
+                "Snowboard"
+            ],
+            "jobs": [
+            ],
+            "languages": [
+                "Italian",
+                "English",
+                "Espagnol"
+            ],
+            "net": [
+                "Pablito",
+                "Atilio",
+                "aui"
+            ],
+            "outmail": [
+            ],
+            "password": "sara",
+            "payments": [
+            ],
+            "privilege": 0,
+            "skills": [
+                "Math",
+                "Matlab",
+                "R"
+            ],
+            "username": "Sara87",
+            "visitcount": 0
+        },
+        {
+            "formations": [
+            ],
+            "info": {
+                "address": "via 4 novembre 12",
+                "birthdate": "08.10.1988",
+                "email": "dan@gmail.com",
+                "name": "Giacomo",
+                "sex": true,
+                "surname": "Ser",
+                "telephon": "345215048",
+                "website": "www.idiota.ser"
+            },
+            "inmail": [
+            ],
+            "interests": [
+                "Drums",
+                "Keyboard",
+                "Music"
+            ],
+            "jobs": [
+            ],
+            "languages": [
+                "Italian",
+                "English",
+                "Espagnol"
+            ],
+            "net": [
+                "Pablito",
+                "Atilio",
+                "Baldaz",
+                "Sara87"
+            ],
+            "outmail": [
+            ],
+            "password": "wword",
+            "payments": [
+            ],
+            "privilege": 0,
+            "skills": [
+                "Elettronica",
+                "MosFet",
+                "Bode"
+            ],
+            "username": "ser",
+            "visitcount": 0
+        },
+        {
+            "formations": [
+                {
+                    "from": "15.09.1962",
+                    "location": "ITIS F.Severi",
+                    "role": "Student",
+                    "to": "15.09.1967"
+                },
+                {
+                    "from": "15.09.1970",
+                    "location": "Università Degli Studi di Padova facoltà di Scienze MM.FF.NN. Informatica",
+                    "role": "Student",
+                    "to": "15.09.1980"
+                }
+            ],
+            "info": {
+                "address": "Stra via 4 novembre 24 (VE) Italy",
+                "biography": "Seagal was born in Lansing, Michigan, where he lived until he was five years old, when the family moved to California. His mother, Patricia (1930–2003), was a medical technician, and his father, Samuel Steven Seagal (1928–1991), was a high school math teacher. His mother was of Irish ancestry and his father was Jewish (the son of immigrants from Russia). Seagal has reported that he had a Mongolian grandfather, but this seems unlikely. His parents relocated to Fullerton, California, where Seagal attended Buena Park High School in Buena Park.",
+                "birthdate": "08.10.1949",
+                "email": "seagal@steven.ss",
+                "name": "Steven",
+                "sex": true,
+                "surname": "Seagal",
+                "telephon": "3250525147",
+                "website": "www.stevenseagal.ss"
+            },
+            "inmail": [
+                {
+                    "body": "Test mail from Danny.",
+                    "object": "Test",
+                    "read": true,
+                    "receiver": "Casey",
+                    "recv": "21.01.2015",
+                    "sender": "Danny",
+                    "sent": "21.01.2015"
+                },
+                {
+                    "body": "God bless smart pointer!",
+                    "object": "Yeah! it works now!",
+                    "read": true,
+                    "receiver": "Casey",
+                    "recv": "24.01.2015",
+                    "sender": "Baldaz",
+                    "sent": "24.01.2015"
+                }
+            ],
+            "interests": [
+                "Web",
+                "Movies",
+                "Coding",
+                "Cooking",
+                "Snowboard",
+                "Homebrew",
+                "Haikido",
+                "Hapkido",
+                "Martial arts",
+                "Fighting",
+                "Traps",
+                "Blades",
+                "Knives",
+                "BBQ"
+            ],
+            "jobs": [
+                {
+                    "from": "15.09.1968",
+                    "location": "Hollywood Studios, California",
+                    "role": "Stuntman",
+                    "to": "15.09.1975"
+                },
+                {
+                    "from": "15.09.1978",
+                    "location": "Hollywood Studios, California",
+                    "role": "Actor",
+                    "to": "15.09.2015"
+                }
+            ],
+            "keywords": [
+                "css",
+                "daibo",
+                "daibo",
+                "knives",
+                "knives",
+                "knives",
+                "knives",
+                "knives",
+                "ninjitsu",
+                "steven seagal"
+            ],
+            "languages": [
+                "Italian",
+                "English",
+                "Espagnol",
+                "Esquimese"
+            ],
+            "net": [
+                "Pablito",
+                "Atilio",
+                "Hannibal",
+                "Willg"
+            ],
+            "outmail": [
+                {
+                    "body": "Finally smart pointer solves our probems!",
+                    "object": "1000th try!",
+                    "read": true,
+                    "receiver": "Baldaz",
+                    "recv": "24.01.2015",
+                    "sender": "Casey",
+                    "sent": "24.01.2015"
+                }
+            ],
+            "password": "rayback",
+            "payments": [
+            ],
+            "privilege": 2,
+            "skills": [
+                "Nodejs",
+                "C++",
+                "Mojolicious",
+                "PHP",
+                "Perl",
+                "Python",
+                "Ruby",
+                "Ruby-Sinatra",
+                "Ruby on Rails",
+                "Java",
+                "Javascript",
+                "HTML",
+                "CSS",
+                "Bootstrap",
+                "Haikido",
+                "Hapkido",
+                "Ninjitsu",
+                "Ju-Jitsu",
+                "Daibo",
+                "Knives"
+            ],
+            "username": "Casey",
+            "visitcount": 10,
+            "visitors": [
+                "Baldaz",
+                "Atilio",
+                "Baldaz",
+                "Pablito"
+            ]
+        },
+        {
+            "formations": [
+                {
+                    "from": "15.09.1958",
+                    "location": "ITIS F.Severi",
+                    "role": "Student",
+                    "to": "15.09.1964"
+                },
+                {
+                    "from": "15.09.1966",
+                    "location": "Università Degli Studi di Padova facoltà di Scienze MM.FF.NN. Informatica",
+                    "role": "Student",
+                    "to": "15.09.1977"
+                }
+            ],
+            "info": {
+                "address": "El Paso Muerte-Negra lane Texas",
+                "birthdate": "08.07.1943",
+                "email": "danny@trejo.dt",
+                "name": "Danny \"Machete\"",
+                "sex": true,
+                "surname": "Trejo",
+                "telephon": "3150535157",
+                "website": "www.dannytrejo.dt"
+            },
+            "inmail": [
+            ],
+            "interests": [
+                "Drugdealing",
+                "Kidnapp",
+                "Guerrilla",
+                "Weapons",
+                "Fighting",
+                "Traps",
+                "Blades",
+                "Knives",
+                "Cooking",
+                "Movies",
+                "BBQ"
+            ],
+            "jobs": [
+            ],
+            "keywords": [
+                "daibo",
+                "daibo",
+                "knives",
+                "knives",
+                "knives",
+                "knives",
+                "knives",
+                "ninjitsu"
+            ],
+            "languages": [
+                "Italian",
+                "English",
+                "Espagnol",
+                "Portuguese"
+            ],
+            "net": [
+                "Pablito",
+                "Atilio",
+                "aui"
+            ],
+            "outmail": [
+            ],
+            "password": "machete",
+            "payments": [
+            ],
+            "privilege": 2,
+            "skills": [
+                "Machete",
+                "M-16",
+                "Narcotraffic",
+                "Burritos",
+                "Tortillas",
+                "Smartphones",
+                "Hapkido",
+                "Ninjitsu",
+                "Ju-Jitsu",
+                "Daibo",
+                "Knives"
+            ],
+            "username": "Danny",
+            "visitcount": 8,
+            "visitors": [
+            ]
+        },
+        {
+            "formations": [
+                {
+                    "from": "15.09.1967",
+                    "location": "ITIS F.Severi",
+                    "role": "Student",
+                    "to": "15.09.1972"
+                },
+                {
+                    "from": "15.09.1973",
+                    "location": "Università Degli Studi di Padova facoltà di Scienze MM.FF.NN. Informatica",
+                    "role": "Student",
+                    "to": "15.09.1977"
+                }
+            ],
+            "info": {
+                "address": "Washington lane Philadelphia",
+                "birthdate": "08.07.1943",
+                "email": "hannibal@lecter.hl",
+                "name": "Hannibal",
+                "sex": true,
+                "surname": "Lecter",
+                "telephon": "3150335121",
+                "website": "www.hanniballecter.hl"
+            },
+            "inmail": [
+            ],
+            "interests": [
+                "Meat",
+                "Cooking",
+                "Anatomy",
+                "Wines",
+                "Psichology",
+                "Psichiatry",
+                "Murder",
+                "Mind-illness",
+                "Cannibalism",
+                "Movies",
+                "BBQ"
+            ],
+            "jobs": [
+            ],
+            "keywords": [
+                "knives",
+                "knives",
+                "knives",
+                "knives",
+                "knives"
+            ],
+            "languages": [
+                "Italian",
+                "English",
+                "Espagnol",
+                "Portuguese",
+                "Deutch",
+                "Francais"
+            ],
+            "net": [
+                "Pablito",
+                "Atilio",
+                "aui",
+                "Sara87",
+                "Willg"
+            ],
+            "outmail": [
+            ],
+            "password": "lecter",
+            "payments": [
+            ],
+            "privilege": 2,
+            "skills": [
+                "Knives",
+                "Meatplates",
+                "Psichiatry",
+                "Literature",
+                "Surgery"
+            ],
+            "username": "Hannibal",
+            "visitcount": 5,
+            "visitors": [
+            ]
+        },
+        {
+            "formations": [
+                {
+                    "from": "15.09.1977",
+                    "location": "ITIS F.Severi",
+                    "role": "Student",
+                    "to": "15.09.1983"
+                },
+                {
+                    "from": "15.09.1985",
+                    "location": "Università Degli Studi di Padova facoltà di Scienze MM.FF.NN. Informatica",
+                    "role": "Student",
+                    "to": "15.09.1991"
+                }
+            ],
+            "info": {
+                "address": "Washington lane Philadelphia",
+                "birthdate": "08.07.1943",
+                "email": "hannibal@lecter.hl",
+                "name": "Will",
+                "sex": true,
+                "surname": "Graham",
+                "telephon": "3150335121",
+                "website": "www.grahamwill.gw"
+            },
+            "inmail": [
+            ],
+            "interests": [
+                "Meat",
+                "Cooking",
+                "Anatomy",
+                "Wines",
+                "Psichology",
+                "Psichiatry",
+                "Murder"
+            ],
+            "jobs": [
+            ],
+            "keywords": [
+                "knives",
+                "knives",
+                "knives",
+                "knives",
+                "knives"
+            ],
+            "languages": [
+                "Italian"
+            ],
+            "net": [
+                "Pablito",
+                "Atilio",
+                "Hannibal"
+            ],
+            "outmail": [
+            ],
+            "password": "graham",
+            "payments": [
+            ],
+            "privilege": 2,
+            "skills": [
+                "Knives",
+                "Literature",
+                "Surgery"
+            ],
+            "username": "Willg",
+            "visitcount": 5,
+            "visitors": [
             ]
         }
     ]

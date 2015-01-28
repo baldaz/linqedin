@@ -12,7 +12,7 @@ private:
 public:
     Username(const string&, const string&);
     Username(const Username&);
-    ~Username();
+    // ~Username();
     Username* clone() const;
     const string& login() const;
     void setLogin(const string&);

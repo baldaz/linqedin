@@ -6,7 +6,12 @@ using std::endl;
 LinqDB::LinqDB() {
     load();
 }
-LinqDB::~LinqDB() { _db.clear(); }
+LinqDB::~LinqDB() {
+    _db.clear();
+    for(list<Group*>::const_iterator i = _grp.begin(); i != _grp.end(); ++i)
+        delete *i;
+    _grp.clear();
+}
 bool LinqDB::readJson() {
     QFile loadDB("database.json");
     if (!loadDB.open(QIODevice::ReadOnly)) {
@@ -21,6 +26,7 @@ bool LinqDB::readJson() {
     QJsonObject db = doc.object();
     read(db["users"].toArray());
     readNet(db["users"].toArray());
+    initGroups(db["groups"].toArray()); // populate _grp list
     readGroups(db["groups"].toArray());
     return true;
 }
@@ -132,21 +138,36 @@ void LinqDB::readInfo(Info* inf, const QJsonObject& obj) const {
     if(Bio* b = dynamic_cast<Bio*> (inf))
         b->setBio(info["biography"].toString().toStdString());
 }
+void LinqDB::initGroups(const QJsonArray& groups) {
+    for(int i = 0; i < groups.size(); ++i) {
+        QJsonObject obj = groups[i].toObject();
+        Group* grp = new Group(Username(obj["admin"].toString().toStdString(), ""), obj["name"].toString().toStdString(), obj["description"].toString().toStdString());
+        QJsonArray pst = obj["posts"].toArray();
+        for(int j = 0; j < pst.size(); ++j) {
+            QJsonObject ps = pst[j].toObject();
+            Post* pst = new Post(Username(ps["author"].toString().toStdString(), ""), ps["content"].toString().toStdString());
+            grp->insertPost(*pst);
+        }
+        QJsonArray mem = obj["members"].toArray();
+        for(int k = 0; k < mem.size(); ++k)
+            grp->addMember(find(Username(mem[k].toString().toStdString(), "")));
+        _grp.push_back(grp);
+    }
+}
 void LinqDB::readGroups(const QJsonArray& a) const {
     list<SmartPtr<User> >::const_iterator it = _db.begin();
     for(; it != _db.end(); ++it) {
         if(BusinessUser* bu = dynamic_cast<BusinessUser*> (&(*(*it)))) {
             for (int i = 0; i < a.size(); ++i) {
-                Post* pst = NULL;
                 QJsonObject obj = a[i].toObject();
-                Group* grp = new Group(find(Username(obj["admin"].toString().toStdString(), ""))); // pesantino
                 QJsonArray mem = obj["members"].toArray();
                 for(int k = 0; k < mem.size(); ++k) {
-                    if((*it)->account()->username().login() == mem[k].toString().toStdString()) {
+                    if(bu->account()->username().login() == mem[k].toString().toStdString()) {
                         QJsonArray posts = obj["posts"].toArray();
+                        Group* grp = new Group(Username(obj["admin"].toString().toStdString(), ""), obj["name"].toString().toStdString(), obj["description"].toString().toStdString()); // pesantino
                         for(int j = 0; j < posts.size(); ++j) {
                             QJsonObject ps = posts[j].toObject();
-                            pst = new Post(Username(ps["author"].toString().toStdString(), ""), ps["content"].toString().toStdString());
+                            Post* pst = new Post(Username(ps["author"].toString().toStdString(), ""), ps["content"].toString().toStdString());
                             grp->insertPost(*pst);
                         }
                         bu->addGroup(*grp);
@@ -291,15 +312,44 @@ vector<QJsonObject> LinqDB::writeJson() const {
     }
     return vjs;
 }
-void LinqDB::write(const vector<QJsonObject>& json) const {
+vector<QJsonObject> LinqDB::writeGroups() const {
+    vector<QJsonObject> vjs;
+    list<Group*>::const_iterator it = _grp.begin();
+    for(; it != _grp.end(); ++it) {
+        QJsonObject jGrp, jPst;
+        QJsonArray jMemArr, jPstArr;
+        jGrp["name"] = QString::fromStdString((*it)->name());
+        jGrp["description"] = QString::fromStdString((*it)->description());
+        jGrp["admin"] = QString::fromStdString((*it)->admin().login());
+        list<Post*> p = (*it)->posts();
+        for(list<Post*>::const_iterator i = p.begin(); i != p.end(); ++i) {
+            jPst["author"] = QString::fromStdString((*i)->author().login());
+            jPst["content"] = QString::fromStdString((*i)->content());
+            jPstArr.append(jPst);
+        }
+        list<SmartPtr<User> > m = (*it)->members();
+        for(list<SmartPtr<User> >::const_iterator itr = m.begin(); itr != m.end(); ++itr)
+            jMemArr.append(QString::fromStdString((*itr)->account()->username().login()));
+        jGrp["posts"] = jPstArr;
+        jGrp["members"] = jMemArr;
+        vjs.push_back(jGrp);
+    }
+    return vjs;
+}
+void LinqDB::write(const vector<QJsonObject>& json, const vector<QJsonObject>& jg) const {
     QFile saveDB(QStringLiteral("database.json"));
     if (!saveDB.open(QIODevice::WriteOnly))
         qWarning("Couldn't open database.");
+    QJsonObject db;
     QJsonArray jarr;
+    QJsonArray jgrp;
     for(unsigned int i = 0; i < json.size(); ++i)
         jarr.append(json[i]);
-
-    QJsonDocument doc(jarr);
+    for(unsigned int i = 0; i < jg.size(); ++i)
+        jgrp.append(jg[i]);
+    db["users"] = jarr;
+    db["groups"] = jgrp;
+    QJsonDocument doc(db);
     saveDB.write(doc.toJson());
     saveDB.close();
 }
@@ -322,7 +372,7 @@ void LinqDB::writeMessageDb(const string& path) const {
 }
 
 void LinqDB::save() const {
-    write(writeJson());
+    write(writeJson(), writeGroups());
 }
 void LinqDB::load() {
     bool s = readJson();

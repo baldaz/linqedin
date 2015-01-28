@@ -22,16 +22,19 @@ using std::string;
 class LinqDB {
 private:
     list<SmartPtr<User> > _db;
+    list<Group*> _grp;
 
     bool readJson();
     void read(const QJsonArray&);
     void readNet(const QJsonArray&);
     vector<QJsonObject> writeJson() const;
-    void write(const vector<QJsonObject>&) const;
+    void write(const vector<QJsonObject>&, const vector<QJsonObject>&) const;
     vector<Message*> readMessageDb(const string&);
     void writeMessageDb(const string&) const;
     void readInfo(Info*, const QJsonObject&) const;
     void readGroups(const QJsonArray&) const;
+    vector<QJsonObject> writeGroups() const;
+    void initGroups(const QJsonArray&);
 public:
     LinqDB();
     ~LinqDB();
