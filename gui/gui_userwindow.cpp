@@ -11,13 +11,15 @@ Gui_UserWindow::Gui_UserWindow(QWidget* parent) : QWidget(parent) {
     createSettings();
     createMessages();
     createPayments();
-    createGroups();
+    if(user->level() >= business)
+        createGroups();
     _layoutStack = new QStackedLayout;
     _layoutStack->addWidget(overviewGroupBox);
     _layoutStack->addWidget(messagesGroupBox);
     _layoutStack->addWidget(settingsGroupBox);
     _layoutStack->addWidget(paymentsGroupBox);
-    _layoutStack->addWidget(groupsGroupBox);
+    if(user->level() >= business)
+        _layoutStack->addWidget(groupsGroupBox);
 
     _mainLayout = new QVBoxLayout;
     QPushButton* quit = new QPushButton;
@@ -38,7 +40,6 @@ void Gui_UserWindow::createHorizontalGroupBox() {
 
     buttons[0] = new QPushButton("&OVERVIEW");
     buttons[0]->setIcon(QPixmap("img/user91.png"));
-    // buttons[0]->installEventFilter(this);
     connect(buttons[0], SIGNAL(clicked()), this, SLOT(overview()));
 
     buttons[1] = new QPushButton("&SETTINGS");
@@ -70,6 +71,7 @@ void Gui_UserWindow::createHorizontalGroupBox() {
     layout->addWidget(buttons[4], Qt::AlignTop);
     layout->stretch(1);
     horizontalGroupBox->setLayout(layout);
+    horizontalGroupBox->installEventFilter(this);
     // horizontalGroupBox->setStyleSheet("background-color:#fff");
 }
 
@@ -107,6 +109,16 @@ void Gui_UserWindow::logicInitialize() {
     user = new LinqClient(Username("Casey", "rayback"));
     user->setAvatar("img/seagal.jpg");
 }
+
+bool Gui_UserWindow::eventFilter(QObject* obj, QEvent* event) {
+    if(event->type() == QEvent::MouseButtonDblClick) {
+        QMouseEvent * mouseEvent = static_cast <QMouseEvent *> (event);
+        if(mouseEvent->button() == Qt::LeftButton | Qt::RightButton)
+            return true;
+    }
+    else return false;
+}
+
 //overload
 void Gui_UserWindow::mousePressEvent(QMouseEvent* event) {
     mpos = event->pos();

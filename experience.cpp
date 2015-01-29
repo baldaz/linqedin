@@ -3,6 +3,16 @@
 Experience::Experience(int t, const string& l, const string& r, const QDate& f, const QDate& to)
     : _type(t), _location(l), _role(r), _from(f), _to(to) {}
 // Experience::Experience(const Experience& xp) : _type(xp._type), _location(xp._location), _role(xp._role), _from(xp._from), _to(xp._to) {}
+// Experience& Experience::operator=(const Experience& x) {
+//     if(this != &x) {
+//         _type = x._type;
+//         _location = x._location;
+//         _role = x._role;
+//         _from = QDate(_from.day(), _from.month(), _from.year());
+//         _to = QDate(_to.day(), _to.month(), _to.year());
+//     }
+//     return *this;
+// }
 bool Experience::operator==(const Experience& e) const {
 	return _type == e._type
 		&& _location == e._location

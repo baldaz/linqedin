@@ -7,6 +7,9 @@ LinqClient::LinqClient(const Username& usr) : _db(new LinqDB), _avatar(STANDARD_
     _usr = _db->find(usr);
 }
 LinqClient::~LinqClient() {delete _db;}
+Username LinqClient::username() const {
+    return _usr->account()->username();
+}
 int LinqClient::level() const {
     return _usr->account()->prLevel();
 }
@@ -76,6 +79,9 @@ vector<SmartPtr<User> > LinqClient::similarity() const {
 bool LinqClient::linked(const Username& usr) const {
    return _usr->linked(usr);
 }
+// bool LinqClient::administrator(const Group& g) const {
+//     return _db->admin(g);
+// }
 vector<string> LinqClient::skills() const {
     vector<string> ret;
     if(UserInfo* p = dynamic_cast<UserInfo*> (_usr->account()->info()))
@@ -135,6 +141,12 @@ list<Group*> LinqClient::listGroups() const {
     if(BusinessUser* bu = dynamic_cast<BusinessUser*> (_usr))
         return bu->groups();
 }
+list<Post*> LinqClient::listPostFromGroup(const Group& g) const {
+    return _db->postsFromGroup(g);
+}
+int LinqClient::postNumberFromGroup(const Group& g) const {
+    return _db->postNumberFromGroup(g);
+}
 map<string, string> LinqClient::find(const string& wanted = "") const {
     return _usr->userSearch(*_db, wanted);
 }
@@ -165,7 +177,6 @@ void LinqClient::setAvatar(const string& path) {
 }
 void LinqClient::sendMail(const string& dest, const string& obj, const string& body, bool read) {
     Username* dst = new Username(dest, "");
-    // _usr->sendMessage(*dst, obj, body, read);
     User* recip = _db->find(*dst);
     Message* mail = new Message(_usr->account()->username(), *dst, obj, body, read);
     recip->loadInMail(*mail);
@@ -178,4 +189,9 @@ int LinqClient::visitCount() const {
 }
 void LinqClient::modifyInMail(const list<SmartPtr<Message> >& l) {
     _usr->setInMail(l);
+}
+void LinqClient::addPostToGroup(const Group& g, const Post& p) {
+    // if(BusinessUser* bu = dynamic_cast<BusinessUser*> (_usr))
+    //     bu->addPost(g, p);
+    _db->addPostToGroup(g, p);
 }

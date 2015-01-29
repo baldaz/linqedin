@@ -124,15 +124,15 @@ void LinqDB::readInfo(Info* inf, const QJsonObject& obj) const {
         QJsonObject sub;
         for(int i = 0; i < formations.size(); ++i) {
             sub = formations[i].toObject();
-            Experience exp(0, sub["location"].toString().toStdString(), sub["role"].toString().toStdString(), QDate::fromString(sub["from"].toString(), "dd.MM.yyyy"), QDate::fromString(sub["to"].toString(), "dd.MM.yyyy"));
-            uif->addExperience(exp);
+            Experience* expr = new Experience(0, sub["location"].toString().toStdString(), sub["role"].toString().toStdString(), QDate::fromString(sub["from"].toString(), "dd.MM.yyyy"), QDate::fromString(sub["to"].toString(), "dd.MM.yyyy"));
+            uif->addExperience(*expr);
         }
         QJsonArray works = obj["jobs"].toArray();
         QJsonObject wrk;
         for(int i = 0; i < works.size(); ++i) {
             wrk = works[i].toObject();
-            Experience exp(1, wrk["location"].toString().toStdString(), wrk["role"].toString().toStdString(), QDate::fromString(wrk["from"].toString(), "dd.MM.yyyy"), QDate::fromString(wrk["to"].toString(), "dd.MM.yyyy"));
-            uif->addExperience(exp);
+            Experience* expr = new Experience(1, wrk["location"].toString().toStdString(), wrk["role"].toString().toStdString(), QDate::fromString(wrk["from"].toString(), "dd.MM.yyyy"), QDate::fromString(wrk["to"].toString(), "dd.MM.yyyy"));
+            uif->addExperience(*expr);
         }
     }
     if(Bio* b = dynamic_cast<Bio*> (inf))
@@ -199,7 +199,7 @@ vector<QJsonObject> LinqDB::writeJson() const {
     for(; it != _db.end(); ++it) {
         QJsonObject jUser, jInf, jFormations, jWork, jPayment, jInMail, jOutMail;
         QJsonArray jArr, jLang, jSkill, jInterest, jForArr, jForWrk, jPay, jKWords, jVis, jInMailArr, jOutMailArr;
-        list<Experience> experience;
+        list<Experience*> experience;
         list<SmartPtr<Message> > inMail;
         list<SmartPtr<Message> > outMail;
         vector<SmartPtr<Payment> > payments;
@@ -217,19 +217,19 @@ vector<QJsonObject> LinqDB::writeJson() const {
             if(bio = dynamic_cast<Bio*> (info))
                 jInf["biography"] = QString::fromStdString(bio->bio());
         }
-        for(list<Experience>::const_iterator j = experience.begin(); j != experience.end(); ++j) {
-            if(j->type() == 0) {
-                jFormations["location"] = QString::fromStdString(j->location());
-                jFormations["from"] = (j->from().toString("dd.MM.yyyy"));
-                jFormations["to"] = (j->to().toString("dd.MM.yyyy"));
-                jFormations["role"] = QString::fromStdString(j->role());
+        for(list<Experience*>::const_iterator j = experience.begin(); j != experience.end(); ++j) {
+            if((*j)->type() == 0) {
+                jFormations["location"] = QString::fromStdString((*j)->location());
+                jFormations["from"] = ((*j)->from().toString("dd.MM.yyyy"));
+                jFormations["to"] = ((*j)->to().toString("dd.MM.yyyy"));
+                jFormations["role"] = QString::fromStdString((*j)->role());
                 jForArr.append(jFormations);
             }
-            else if(j->type() == 1) {
-                jWork["location"] = QString::fromStdString(j->location());
-                jWork["from"] = (j->from().toString("dd.MM.yyyy"));
-                jWork["to"] = (j->to().toString("dd.MM.yyyy"));
-                jWork["role"] = QString::fromStdString(j->role());
+            else if((*j)->type() == 1) {
+                jWork["location"] = QString::fromStdString((*j)->location());
+                jWork["from"] = ((*j)->from().toString("dd.MM.yyyy"));
+                jWork["to"] = ((*j)->to().toString("dd.MM.yyyy"));
+                jWork["role"] = QString::fromStdString((*j)->role());
                 jForWrk.append(jWork);
             }
         }
@@ -382,6 +382,18 @@ void LinqDB::load() {
 int LinqDB::size() const {
     return _db.size();
 }
+// bool LinqDB::admin(const Group& g) const {
+//     list<Group*>::const_iterator it = _grp.begin();
+//     for(; it != _grp.end(); ++it)
+//         if((**it) == g)
+//             if((*it)->)
+// }
+void LinqDB::addPostToGroup(const Group& g, const Post& p) {
+    list<Group*>::iterator it = _grp.begin();
+    for(; it != _grp.end(); ++it)
+        if((**it) == g)
+            (*it)->insertPost(p);
+}
 void LinqDB::addUser(User* u) {
     list<SmartPtr<User> >::iterator it = _db.begin();
     bool alreadyIn = false;
@@ -414,4 +426,16 @@ list<SmartPtr<User> >::const_iterator LinqDB::begin() const{
 }
 list<SmartPtr<User> >::const_iterator LinqDB::end() const{
     return _db.end();
+}
+list<Post*> LinqDB::postsFromGroup(const Group& g) const {
+    list<Group*>::const_iterator i;
+    for(i = _grp.begin(); i != _grp.end(); ++i)
+        if((**i) == g)
+            return (*i)->posts();
+}
+int LinqDB::postNumberFromGroup(const Group& g) const {
+    list<Group*>::const_iterator i;
+    for(i = _grp.begin(); i != _grp.end(); ++i)
+        if((**i) == g)
+            return (*i)->postNumber();
 }

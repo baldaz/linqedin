@@ -206,9 +206,8 @@ unsigned int BasicUser::basicMailLimit = 10;
 
 BusinessUser::BusinessUser(Account* ac) : BasicUser(ac) {}
 BusinessUser::BusinessUser(const BusinessUser& usr) : BasicUser(usr)/*, _groups(usr._groups)*/ {
-    for (list<Group*>::const_iterator i = (usr._groups).begin(); i != (usr._groups).end(); ++i) {
+    for (list<Group*>::const_iterator i = (usr._groups).begin(); i != (usr._groups).end(); ++i)
         _groups.push_back(new Group(**i));
-    }
 }
 BusinessUser& BusinessUser::operator=(const BusinessUser& b) {
     if(this != &b) {
@@ -246,6 +245,12 @@ list<Group*> BusinessUser::groups() const {
 void BusinessUser::addGroup(const Group& g) {
     _groups.push_back(const_cast<Group*> (&g)); // controllo gruppi duplicati
 }
+// void BusinessUser::addPost(const Group& g, const Post& p) {
+//     list<Group*>::iterator it = _groups.begin();
+//     for(; it != _groups.end(); ++it)
+//         if((**it) == g)
+//             (*it)->insertPost(p);
+// }
 void BusinessUser::addBio(const string& bio) const {
     if(Bio* b = dynamic_cast<Bio*> (this->account()->info())) {
         b->setBio(bio);

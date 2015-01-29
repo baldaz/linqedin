@@ -21,6 +21,8 @@ public:
     Group(const Username&, const string& = "", const string& ="");
     Group(const Group&);
     ~Group();
+    bool operator==(const Group&) const;
+    int postNumber() const;
     Username admin() const;
     string name() const;
     string description() const;

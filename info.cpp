@@ -6,7 +6,10 @@ UserInfo::UserInfo(bool sx, const string& n, const string& s, const string& e, c
 UserInfo::UserInfo(const UserInfo& uf) :
                 _sex(uf._sex), _name(uf._name), _surname(uf._surname),_birthdate(uf._birthdate),
                 _email(uf._email), _address(uf._address), _telephon(uf._telephon), _skills(uf._skills),
-                _exp(uf._exp), _interests(uf._interests), _website(uf._website), _languages(uf._languages) {}
+                _interests(uf._interests), _website(uf._website), _languages(uf._languages) {
+                    for(list<Experience*>::const_iterator it = uf._exp.begin(); it != uf._exp.end(); ++it)
+                        _exp.push_back(new Experience(**it));
+                }
 UserInfo& UserInfo::operator=(const UserInfo& uif) {
     if(this != &uif) {
         _name = uif._name;
@@ -28,6 +31,8 @@ UserInfo::~UserInfo() {
     _skills.clear();
     _interests.clear();
     _languages.clear();
+    for(list<Experience*>::const_iterator it = _exp.begin(); it != _exp.end(); ++it)
+        delete *it;
     _exp.clear();
 }
 Info* UserInfo::clone() const {
@@ -66,7 +71,7 @@ vector<string> UserInfo::skills() const {
 vector<string> UserInfo::interests() const {
     return _interests;
 }
-list<Experience> UserInfo::experiences() const {
+list<Experience*> UserInfo::experiences() const {
     return _exp;
 }
 void UserInfo::setName(const string& n = "") {
@@ -118,7 +123,7 @@ void UserInfo::addInterest(const string& newinterest = "") {
     if(!isPresent) _interests.push_back(newinterest);
 }
 void UserInfo::addExperience(const Experience& newxp) {
-    _exp.push_back(newxp);
+    _exp.push_back(const_cast<Experience*> (&newxp));
 }
 int UserInfo::age() const {
     QDate today = QDate::currentDate();
@@ -141,9 +146,9 @@ string UserInfo::print() const {
     for(; it < _skills.end(); ++it)
         ret += *it + ", ";
     ret += "\nFormation >> ";
-    list<Experience>::const_iterator itr = _exp.begin();
+    list<Experience*>::const_iterator itr = _exp.begin();
     for(; itr != _exp.end(); ++itr)
-        ret += itr->location() + ", " + itr->from().toString().toStdString() + ", " + itr->to().toString().toStdString() + " ";
+        ret += (*itr)->location() + ", " + (*itr)->from().toString().toStdString() + ", " + (*itr)->to().toString().toStdString() + " ";
     return ret;
 }
 string UserInfo::printHtml() const {
@@ -178,21 +183,21 @@ string UserInfo::printHtml() const {
     }
     if(!_exp.empty()) {
         html += "<h4><img src='img/graduate34.png'>  Educations</h4><p style='font-weight: 400; font-size:14px;'>";
-        list<Experience>::const_iterator itr = _exp.begin();
+        list<Experience*>::const_iterator itr = _exp.begin();
         string jobs = "";
         bool job = false;
         for(; itr != _exp.end(); ++itr) {
-            if((itr->type()) == 0)
+            if((*itr)->type() == 0)
                 if(itr == _exp.end())
-                    html += (itr)->role() + " at " + (itr)->location() + " from " + (itr)->from().toString("dd.MM.yyyy").toStdString() + " to " + (itr)->to().toString("dd.MM.yyyy").toStdString();
+                    html += (*itr)->role() + " at " + (*itr)->location() + " from " + (*itr)->from().toString("dd.MM.yyyy").toStdString() + " to " + (*itr)->to().toString("dd.MM.yyyy").toStdString();
                 else
-                    html += (itr)->role() + " at " + (itr)->location() + " from " + (itr)->from().toString("dd.MM.yyyy").toStdString() + " to " + (itr)->to().toString("dd.MM.yyyy").toStdString() + "<br>";
-            else if((itr->type()) == 1) {
+                    html += (*itr)->role() + " at " + (*itr)->location() + " from " + (*itr)->from().toString("dd.MM.yyyy").toStdString() + " to " + (*itr)->to().toString("dd.MM.yyyy").toStdString() + "<br>";
+            else if((*itr)->type() == 1) {
                 job = true;
                 if(itr == _exp.end())
-                    jobs += (itr)->role() + " at " + (itr)->location() + " from " + (itr)->from().toString("dd.MM.yyyy").toStdString() + " to " + (itr)->to().toString("dd.MM.yyyy").toStdString();
+                    jobs += (*itr)->role() + " at " + (*itr)->location() + " from " + (*itr)->from().toString("dd.MM.yyyy").toStdString() + " to " + (*itr)->to().toString("dd.MM.yyyy").toStdString();
                 else
-                    jobs += (itr)->role() + " at " + (itr)->location() + " from " + (itr)->from().toString("dd.MM.yyyy").toStdString() + " to " + (itr)->to().toString("dd.MM.yyyy").toStdString() + "<br>";
+                    jobs += (*itr)->role() + " at " + (*itr)->location() + " from " + (*itr)->from().toString("dd.MM.yyyy").toStdString() + " to " + (*itr)->to().toString("dd.MM.yyyy").toStdString() + "<br>";
             }
         }
         if(job) {

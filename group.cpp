@@ -13,6 +13,12 @@ Group::~Group() {
     }
     _members.clear();
 }
+bool Group::operator==(const Group& g) const {
+    return _name == g._name;
+}
+int Group::postNumber() const {
+    return _posts.size();
+}
 Username Group::admin() const {
     return _admin;
 }

@@ -50,6 +50,8 @@ private:
     void createSettings();
     void createGroups();
 
+    bool eventFilter(QObject*, QEvent*);
+
 signals:
 
 public slots:

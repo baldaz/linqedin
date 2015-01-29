@@ -43,6 +43,10 @@ public:
     void addUser(User*);
     void removeUser(const Username&);
     int size() const;
+    // bool admin(const Group&) const;
+    int postNumberFromGroup(const Group&) const;
+    void addPostToGroup(const Group&, const Post&);
+    list<Post*> postsFromGroup(const Group&) const;
     User* find(const Username&) const;
     list<SmartPtr<User> >::const_iterator begin() const;
     list<SmartPtr<User> >::const_iterator end() const;

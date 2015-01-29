@@ -28,7 +28,11 @@ Gui_Payments::Gui_Payments(LinqClient* cli, QWidget* parent) : _client(cli), QGr
     UserInfo* i;
     for(list<SmartPtr<User> >::iterator itr = u.begin(); itr != u.end(); ++itr) {
         i = dynamic_cast<UserInfo*> ((*itr)->account()->info());
-        html.append(QString("<li><span style='font-weight:400'>" + QString::fromStdString(i->name()) + " " + QString::fromStdString(i->surname()) + "</span><span style='font-weight:400; color:#666'> (" + QString::fromStdString((*itr)->account()->username().login()) + ")</span></li>"));
+        bool linked = _client->linked((*itr)->account()->username());
+        QString lnk;
+        if(linked) lnk = "linked";
+        else lnk = "unlinked";
+        html.append(QString("<li><span style='font-weight:400'>" + QString::fromStdString(i->name()) + " " + QString::fromStdString(i->surname()) + "</span><span style='font-weight:400; color:#666'> (" + QString::fromStdString((*itr)->account()->username().login()) + ")</span><span style='font-weight:400'> %1 years old, " + lnk + "</span></li>").arg(i->age()));
     }
     html.append("</ul>");
     keywords->setHtml(html);

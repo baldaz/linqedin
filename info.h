@@ -27,7 +27,7 @@ private:
     QDate _birthdate;
     string _name, _surname, _email, _address, _telephon, _website;
     vector<string> _languages, _skills, _interests;
-    list<Experience> _exp;
+    list<Experience*> _exp;
 public:
     UserInfo(bool = false, const string& ="", const string& ="", const string& ="", const string& ="", const string& ="", const string& ="", const QDate& = QDate::currentDate());
     UserInfo(const UserInfo&);
@@ -45,7 +45,8 @@ public:
     vector<string> languages() const;
     vector<string> skills() const;
     vector<string> interests() const;
-    list<Experience> experiences() const;
+    list<Experience*> experiences() const;
+    Experience* lastExperience() const;
     void setSex(bool);
     void setName(const string&);
     void setSurname(const string&);
@@ -64,7 +65,7 @@ public:
 };
 
 class Bio : public UserInfo {
-protected:
+private:
     string _bio;
 public:
     Bio(bool = true, const string& = "", const string& = "", const string& = "", const string& = "", const string& = "", const string& = "",  const QDate& = QDate::currentDate(), const string& = "");

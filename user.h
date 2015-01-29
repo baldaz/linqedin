@@ -18,6 +18,7 @@ using std::list;
 class LinqNet;
 class LinqDB;
 class Group;
+class Post;
 
 class User {
 private:
@@ -101,6 +102,7 @@ public:
     virtual void loadOutMail(const Message&);
     list<Group*> groups() const;
     void addGroup(const Group&);
+    // void addPost(const Group&, const Post&);
     void addBio(const string&) const;
 };
 

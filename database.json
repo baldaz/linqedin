@@ -7,13 +7,110 @@
                 "Casey",
                 "Pablito",
                 "Sara87",
-                "Willg"
+                "Willg",
+                "Baldaz"
             ],
-            "name": "P2 is almost harder than P1",
+            "name": "Coders of Linqedin",
             "posts": [
                 {
                     "author": "Pablito",
                     "content": "How's gone 26.01.2015 test??"
+                },
+                {
+                    "author": "Casey",
+                    "content": "Can i try to post something here??"
+                },
+                {
+                    "author": "Casey",
+                    "content": "Ya it works!"
+                },
+                {
+                    "author": "Casey",
+                    "content": "Another try!"
+                }
+            ]
+        },
+        {
+            "admin": "Baldaz",
+            "description": "OOP is hard! Those nasty pointers!",
+            "members": [
+                "Casey",
+                "Pablito",
+                "Sara87",
+                "Willg",
+                "Baldaz"
+            ],
+            "name": "OOP & Segfaults",
+            "posts": [
+                {
+                    "author": "Pablito",
+                    "content": "How's gone 26.01.2015 test??"
+                },
+                {
+                    "author": "Willg",
+                    "content": "Today's test was a bit hard on the second part, those pointers messed me up."
+                },
+                {
+                    "author": "Atilio",
+                    "content": "I've founded it really easy, model exercise was a bit long but definetly doable."
+                },
+                {
+                    "author": "Casey",
+                    "content": "I hope i've did it well, nothing more."
+                }
+            ]
+        },
+        {
+            "admin": "Casey",
+            "description": "OOP is hard! Those nasty pointers!",
+            "members": [
+                "Casey",
+                "Pablito",
+                "Sara87",
+                "Willg",
+                "Baldaz"
+            ],
+            "name": "Haikido&co",
+            "posts": [
+                {
+                    "author": "Pablito",
+                    "content": "Can i have a free lesson to try? thanks"
+                },
+                {
+                    "author": "Atilio",
+                    "content": "Our master should answer soon. I think there'll be no problems."
+                },
+                {
+                    "author": "Casey",
+                    "content": "Here i am. Sure, you're welcome whenever you want."
+                }
+            ]
+        },
+        {
+            "admin": "Pablito",
+            "description": "OOP is hard! Those nasty pointers!",
+            "members": [
+                "Pablito",
+                "Sara87",
+                "Willg"
+            ],
+            "name": "OOP & Segfaults",
+            "posts": [
+                {
+                    "author": "Pablito",
+                    "content": "How's gone 26.01.2015 test??"
+                },
+                {
+                    "author": "Willg",
+                    "content": "Today's test was a bit hard on the second part, those pointers messed me up."
+                },
+                {
+                    "author": "Atilio",
+                    "content": "I've founded it really easy, model exercise was a bit long but definetly doable."
+                },
+                {
+                    "author": "Casey",
+                    "content": "I hope i've did it well, nothing more."
                 }
             ]
         }
@@ -555,10 +652,10 @@
             "username": "Casey",
             "visitcount": 10,
             "visitors": [
+                "Pablito",
                 "Baldaz",
                 "Atilio",
-                "Baldaz",
-                "Pablito"
+                "Baldaz"
             ]
         },
         {
