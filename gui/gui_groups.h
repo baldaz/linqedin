@@ -36,6 +36,7 @@ public:
 public slots:
     void showGroup();
     void sendPost();
+    void showNewGroup();
     void newGroup();
 };
 #endif

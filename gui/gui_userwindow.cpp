@@ -175,6 +175,7 @@ void Gui_UserWindow::logout() {
     delete _mex;
     delete _set;
     delete _pay;
+    delete _grp;
     delete _layout;
     close();
 }

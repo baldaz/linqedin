@@ -43,8 +43,8 @@ public:
     void addUser(User*);
     void removeUser(const Username&);
     int size() const;
-    // bool admin(const Group&) const;
     int postNumberFromGroup(const Group&) const;
+    void addGroup(const Group&);
     void addPostToGroup(const Group&, const Post&);
     list<Post*> postsFromGroup(const Group&) const;
     User* find(const Username&) const;

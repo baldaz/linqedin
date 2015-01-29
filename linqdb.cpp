@@ -382,12 +382,16 @@ void LinqDB::load() {
 int LinqDB::size() const {
     return _db.size();
 }
-// bool LinqDB::admin(const Group& g) const {
-//     list<Group*>::const_iterator it = _grp.begin();
-//     for(; it != _grp.end(); ++it)
-//         if((**it) == g)
-//             if((*it)->)
-// }
+void LinqDB::addGroup(const Group& g) {
+    bool found = false;
+    for(list<Group*>::iterator it = _grp.begin(); it != _grp.end() && !found; ++it)
+        if((**it) == g) found = true;
+    if(!found) {
+        Group& gg = const_cast<Group&> (g);
+        gg.addMember(this->find(g.admin()));
+        _grp.push_back(static_cast<Group*> (&gg));
+    }
+}
 void LinqDB::addPostToGroup(const Group& g, const Post& p) {
     list<Group*>::iterator it = _grp.begin();
     for(; it != _grp.end(); ++it)

@@ -24,7 +24,6 @@ public:
     int netSize() const;
     vector<SmartPtr<User> > similarity() const;
     bool linked(const Username&) const;
-    // bool administrator(const Group&) const;
     void setAvatar(const string& = STANDARD_AVATAR);
     Username username() const;
     string avatar() const;
@@ -52,6 +51,7 @@ public:
     void sendMail(const string& = "",  const string& = "", const string& = "", bool = false);
     void modifyInMail(const list<SmartPtr<Message> >&);
     void addPostToGroup(const Group&, const Post&);
+    void createNewGroup(const Group&);
     map<string, string> find(const string&) const;
     map<string, int> keywordFrequency() const;
     int visitCount() const;

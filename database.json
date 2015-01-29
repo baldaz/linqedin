@@ -27,6 +27,10 @@
                 {
                     "author": "Casey",
                     "content": "Another try!"
+                },
+                {
+                    "author": "Casey",
+                    "content": "Testing for memory leaks!"
                 }
             ]
         },
@@ -112,6 +116,16 @@
                     "author": "Casey",
                     "content": "I hope i've did it well, nothing more."
                 }
+            ]
+        },
+        {
+            "admin": "Casey",
+            "description": "Every man who dare call itself a real Steven Seagal fan should undoubtly join this exclusive group!",
+            "members": [
+                "Casey"
+            ],
+            "name": "Seagal's Raiders",
+            "posts": [
             ]
         }
     ],
@@ -652,10 +666,10 @@
             "username": "Casey",
             "visitcount": 10,
             "visitors": [
-                "Pablito",
                 "Baldaz",
                 "Atilio",
-                "Baldaz"
+                "Baldaz",
+                "Pablito"
             ]
         },
         {

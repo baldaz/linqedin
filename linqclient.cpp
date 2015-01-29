@@ -79,9 +79,6 @@ vector<SmartPtr<User> > LinqClient::similarity() const {
 bool LinqClient::linked(const Username& usr) const {
    return _usr->linked(usr);
 }
-// bool LinqClient::administrator(const Group& g) const {
-//     return _db->admin(g);
-// }
 vector<string> LinqClient::skills() const {
     vector<string> ret;
     if(UserInfo* p = dynamic_cast<UserInfo*> (_usr->account()->info()))
@@ -194,4 +191,8 @@ void LinqClient::addPostToGroup(const Group& g, const Post& p) {
     // if(BusinessUser* bu = dynamic_cast<BusinessUser*> (_usr))
     //     bu->addPost(g, p);
     _db->addPostToGroup(g, p);
+}
+void LinqClient::createNewGroup(const Group& g) {
+    if(dynamic_cast<ExecutiveUser*> (_usr))
+        _db->addGroup(g);
 }

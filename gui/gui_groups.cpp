@@ -3,6 +3,7 @@
 Gui_Groups::Gui_Groups(LinqClient* c, QWidget* parent) : _client(c), QGridLayout(parent) {
     Gui_Avatar* portrait = new Gui_Avatar(QString::fromStdString(_client->avatar()));
     QPushButton* create = new QPushButton("CREATE");
+    QLabel* title = new QLabel("NEW GROUP");
     showgrp = new QTextBrowser;
     newpost = new QTextEdit;
     newgrp = new QLineEdit;
@@ -11,6 +12,7 @@ Gui_Groups::Gui_Groups(LinqClient* c, QWidget* parent) : _client(c), QGridLayout
     grpname = new QLineEdit;
     newgrplayout = new QFormLayout;
     newgrplayout->setSpacing(15);
+    newgrplayout->addRow(title);
     newgrplayout->addRow("Group name:", grpname);
     newgrplayout->addRow("Group description:", newgrp);
     newgrplayout->addRow(create);
@@ -41,7 +43,8 @@ Gui_Groups::Gui_Groups(LinqClient* c, QWidget* parent) : _client(c), QGridLayout
     frm->addRow(mbuttons[1]);
     frm->addRow(mbuttons[2]);
 
-    connect(mbuttons[0], SIGNAL(clicked()), this, SLOT(newGroup()));
+    connect(mbuttons[0], SIGNAL(clicked()), this, SLOT(showNewGroup()));
+    connect(create, SIGNAL(clicked()), this, SLOT(newGroup()));
 
     mbuttons[0]->hide();
     mbuttons[1]->hide();
@@ -135,9 +138,18 @@ void Gui_Groups::sendPost() {
 }
 
 //SLOT
-void Gui_Groups::newGroup() {
+void Gui_Groups::showNewGroup() {
     showgrp->hide();
     newpost->hide();
     post->hide();
     newbox->show();
+}
+
+//SLOT
+void Gui_Groups::newGroup() {
+    QString name = grpname->text();
+    QString desc = newgrp->text();
+    Group* g = new Group(_client->username(), name.toStdString(), desc.toStdString());
+    _client->createNewGroup(*g);
+    _client->save();
 }
