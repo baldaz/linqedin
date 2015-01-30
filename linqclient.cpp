@@ -138,6 +138,9 @@ list<Group*> LinqClient::listGroups() const {
     if(BusinessUser* bu = dynamic_cast<BusinessUser*> (_usr))
         return bu->groups();
 }
+list<Group*> LinqClient::listAllGroups() const {
+    return _db->allGroups();
+}
 list<Post*> LinqClient::listPostFromGroup(const Group& g) const {
     return _db->postsFromGroup(g);
 }
@@ -154,6 +157,9 @@ map<string, int> LinqClient::keywordFrequency() const {
         ret = tmp->keywordPercent();
         return ret;
     }
+}
+Group LinqClient::findGroup(const string& n) const {
+    return _db->findGroubByName(n);
 }
 void LinqClient::addExperience(const Experience& xp) {
     UserInfo* uf = dynamic_cast<UserInfo*> (_usr->account()->info());
@@ -195,4 +201,14 @@ void LinqClient::addPostToGroup(const Group& g, const Post& p) {
 void LinqClient::createNewGroup(const Group& g) {
     if(dynamic_cast<ExecutiveUser*> (_usr))
         _db->addGroup(g);
+}
+void LinqClient::addGroup(const Group& g) {
+    if(BusinessUser* bu = dynamic_cast<BusinessUser*> (_usr)) {
+        bu->addGroup(g);
+        _db->addMemberToGroup(g, username());
+    }
+}
+void LinqClient::addGroup(const string& n, const string& a) {
+    Group* g = new Group(Username(a, ""), n);
+    addGroup(*g);
 }

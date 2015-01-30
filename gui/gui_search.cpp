@@ -38,8 +38,8 @@ void Gui_Search::search() {
 void Gui_Search::showResult() {
     if(it != res.end()) {
         bool list = _client->linked(Username(it->first, ""));
-        _display->setDocumentTitle(QString::fromStdString(it->first));
-        _cnt = _display->documentTitle();
+        _display->setInfo1(QString::fromStdString(it->first));
+        _cnt = _display->info1();
         if(!list) {
             _tbar->actions().at(0)->setVisible(true);
             _tbar->actions().at(1)->setVisible(false);

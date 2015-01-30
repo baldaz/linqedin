@@ -4,9 +4,10 @@ Gui_Groups::Gui_Groups(LinqClient* c, QWidget* parent) : _client(c), QGridLayout
     Gui_Avatar* portrait = new Gui_Avatar(QString::fromStdString(_client->avatar()));
     QPushButton* create = new QPushButton("CREATE");
     QLabel* title = new QLabel("NEW GROUP");
-    showgrp = new QTextBrowser;
+    showgrp = new Gui_DisplayInfo;
     newpost = new QTextEdit;
     newgrp = new QLineEdit;
+    search = new QLineEdit;
     newbox = new QGroupBox;
 
     grpname = new QLineEdit;
@@ -19,6 +20,24 @@ Gui_Groups::Gui_Groups(LinqClient* c, QWidget* parent) : _client(c), QGridLayout
 
     newbox->setLayout(newgrplayout);
     newbox->hide();
+
+    search->setPlaceholderText("Search group..");
+    search->hide();
+    if(_client->level() >= business) {
+        QStringList completions;
+        list<Group*> grps = _client->listAllGroups();
+        if(!grps.empty()) {
+            list<Group*>::iterator it = grps.begin();
+            for(; it != grps.end(); ++it)
+                completions.push_back(QString::fromStdString((*it)->name()));
+        }
+        QCompleter* completer = new QCompleter(completions);
+        completer->setCaseSensitivity(Qt::CaseInsensitive);
+        search->setCompleter(completer);
+        search->setClearButtonEnabled(true);
+        search->show();
+        connect(search,  SIGNAL(returnPressed()), this, SLOT(searchGroup()));
+    }
 
     post = new QPushButton("POST");
     grplist = new QListWidget;
@@ -82,6 +101,7 @@ Gui_Groups::Gui_Groups(LinqClient* c, QWidget* parent) : _client(c), QGridLayout
     addWidget(post, 4, 4, 1, 1, Qt::AlignRight);
     addWidget(grplbl, 1, 0, 1, 1);
     addWidget(grplist, 2, 0, 1, 1);
+    addWidget(search, 4, 0, 1, 1);
     setRowStretch(0, 0);
     setRowStretch(1, 10);
     setColumnStretch(0, 1);
@@ -119,6 +139,8 @@ void Gui_Groups::showGroup() {
         for(list<Post*>::iterator it = p.begin(); it != p.end(); ++it)
             output.append(QString("<h5>Author: <span style='font-weight:400;font-size:10px'>" + QString::fromStdString((*it)->author().login()) + "</span></h5><p style='font-weight:400;font-size:11px;'>" + QString::fromStdString((*it)->content()) + "</p><hr>"));
     }
+    showgrp->setInfo1(name);
+    showgrp->setInfo2(admin);
     showgrp->setHtml(output);
 }
 
@@ -152,4 +174,43 @@ void Gui_Groups::newGroup() {
     Group* g = new Group(_client->username(), name.toStdString(), desc.toStdString());
     _client->createNewGroup(*g);
     _client->save();
+}
+
+//SLOT
+void Gui_Groups::addGroup() {
+    QString name = showgrp->info1();
+    QString admin = showgrp->info2();
+    _client->addGroup(name.toStdString(), admin.toStdString());
+}
+
+//SLOT
+void Gui_Groups::searchGroup() {
+    newbox->hide();
+    showgrp->show();
+    newpost->show();
+    post->show();
+    QString name = search->text();
+    Group g = _client->findGroup(name.toStdString());
+    admin = QString::fromStdString(g.admin().login());
+    if(admin == QString::fromStdString(_client->username().login()) && mbuttons[1]->isHidden() && mbuttons[2]->isHidden()) {
+        mbuttons[1]->show();
+        mbuttons[2]->show();
+        mbuttons[3]->hide();
+    }
+    else {
+        mbuttons[1]->hide();
+        mbuttons[2]->hide();
+        mbuttons[3]->show();
+    }
+    list<Post*> p = _client->listPostFromGroup(g);
+    int num = _client->postNumberFromGroup(g);
+    QString output = "<h1>" + name + "</h1><h4>Admin: <span style='font-weight:400'>" + admin + "</span></h4><h5>" + desc + "</h5>";
+    if(!p.empty()) {
+        output.append(QString("<h2>Posts (%1):</h2>").arg(num));
+        for(list<Post*>::iterator it = p.begin(); it != p.end(); ++it)
+            output.append(QString("<h5>Author: <span style='font-weight:400;font-size:10px'>" + QString::fromStdString((*it)->author().login()) + "</span></h5><p style='font-weight:400;font-size:11px;'>" + QString::fromStdString((*it)->content()) + "</p><hr>"));
+    }
+    showgrp->setInfo1(name);
+    showgrp->setInfo2(admin);
+    showgrp->setHtml(output);
 }

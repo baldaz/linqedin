@@ -45,8 +45,11 @@ public:
     int size() const;
     int postNumberFromGroup(const Group&) const;
     void addGroup(const Group&);
+    void addMemberToGroup(const Group&, const Username&);
     void addPostToGroup(const Group&, const Post&);
+    list<Group*> allGroups() const;
     list<Post*> postsFromGroup(const Group&) const;
+    Group findGroubByName(const string&) const;
     User* find(const Username&) const;
     list<SmartPtr<User> >::const_iterator begin() const;
     list<SmartPtr<User> >::const_iterator end() const;

@@ -3,7 +3,6 @@
 Gui_Links::Gui_Links(LinqClient* client, Gui_DisplayInfo* disp, QToolBar* tb, QWidget* parent) : _client(client), _display(disp), _tbar(tb), QListWidget(parent) {
     refresh();
     connect(this, SIGNAL(clicked(QModelIndex)), this, SLOT(viewContact()));
-    // connect(this->model(), SIGNAL(rowsInserted(QModelIndex, int, int)), this, SLOT(reload()));
 }
 void Gui_Links::createList() {
     vector<SmartPtr<User> > vec = _client->contactsInfo();
@@ -28,7 +27,6 @@ void Gui_Links::refresh() {
 //slot
 void Gui_Links::viewContact() {
     _selected = this->currentItem()->data(Qt::UserRole + 1).toString();
-    // Gui_ViewContact* _view = new Gui_ViewContact(_display, _client->contactsInfo(), _selected);
 
     vector<SmartPtr<User> > _contacts = _client->contactsInfo();
     vector<SmartPtr<User> >::iterator it = _contacts.begin();
@@ -37,7 +35,7 @@ void Gui_Links::viewContact() {
             QString output = QString("<span style='color: #666'>( " + QString::fromStdString((*it)->account()->username().login()) + " )</span>" + QString::fromStdString((*it)->account()->info()->printHtml()) + "<h5>Visit Count</h5><p> %1").arg((*it)->visitCount());
             _display->setHtml(output);
             QString title = QString(QString::fromStdString((*it)->account()->username().login()));
-            _display->setDocumentTitle(title);
+            _display->setInfo1(title);
         }
     _client->addVisitTo(Username(_selected.toStdString(), ""));
 
@@ -53,10 +51,10 @@ void Gui_Links::reload() {
 }
 
 void Gui_Links::addConn() {
-    Username us((_display->documentTitle()).toStdString(), "");
+    Username us((_display->info1()).toStdString(), "");
     _client->addContact(us);
 }
 void Gui_Links::rmConn() {
-    Username us((_display->documentTitle()).toStdString(), "");
+    Username us((_display->info1()).toStdString(), "");
     _client->removeContact(us);
 }

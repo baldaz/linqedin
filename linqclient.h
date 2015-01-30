@@ -41,6 +41,7 @@ public:
     list<SmartPtr<Message> > inMail() const;
     list<SmartPtr<Message> > outMail() const;
     list<Group*> listGroups() const;
+    list<Group*> listAllGroups() const;
     list<Post*> listPostFromGroup(const Group&) const;
     int postNumberFromGroup(const Group&) const;
     void alterProfile(const map<int, string>&);
@@ -52,6 +53,9 @@ public:
     void modifyInMail(const list<SmartPtr<Message> >&);
     void addPostToGroup(const Group&, const Post&);
     void createNewGroup(const Group&);
+    void addGroup(const Group&);
+    void addGroup(const string&, const string&);
+    Group findGroup(const string&) const;
     map<string, string> find(const string&) const;
     map<string, int> keywordFrequency() const;
     int visitCount() const;

@@ -314,6 +314,21 @@ vector<QJsonObject> LinqDB::writeJson() const {
 }
 vector<QJsonObject> LinqDB::writeGroups() const {
     vector<QJsonObject> vjs;
+    // list<SmartPtr<User> >::const_iterator i = _db.begin();
+    // for(; i != _db.end(); ++i) {
+    //     if(BusinessUser* bu = dynamic_cast<BusinessUser*> (&(**i))) {
+    //         list<Group*> lg = bu->groups();
+    //         for(list<Group*>::const_iterator itr = lg.begin(); itr != lg.end(); ++itr) {
+    //             list<Group*>::const_iterator k = _grp.begin();
+    //             for(; k != _grp.end(); ++k)
+    //                 if((**k) == (**itr)) {
+    //                     list<SmartPtr<User> > lu = (*itr)->members();
+    //                     for(list<SmartPtr<User> >::const_iterator j = lu.begin(); j != lu.end(); ++j)
+    //                         (*k)->addMember(&(**j));
+    //                 }
+    //         }
+    //     }
+    // }
     list<Group*>::const_iterator it = _grp.begin();
     for(; it != _grp.end(); ++it) {
         QJsonObject jGrp, jPst;
@@ -392,6 +407,13 @@ void LinqDB::addGroup(const Group& g) {
         _grp.push_back(static_cast<Group*> (&gg));
     }
 }
+void LinqDB::addMemberToGroup(const Group& g, const Username& u) {
+    bool found = false;
+    list<Group*>::iterator it = _grp.begin();
+    for(; it != _grp.end() && !found; ++it)
+        if((**it) == g) found = true;
+    if(found) (*it)->addMember(find(u));
+}
 void LinqDB::addPostToGroup(const Group& g, const Post& p) {
     list<Group*>::iterator it = _grp.begin();
     for(; it != _grp.end(); ++it)
@@ -425,11 +447,21 @@ User* LinqDB::find(const Username& usr) const {
             ret = &(*(*it));
     return ret;
 }
+Group LinqDB::findGroubByName(const string& n) const {
+    bool found = false;
+    list<Group*>::const_iterator it = _grp.begin();
+    for(; it != _grp.end() && !found; ++it)
+        if((*it)->name() == n) found = true;
+    if(found) return (**it);
+}
 list<SmartPtr<User> >::const_iterator LinqDB::begin() const{
     return _db.begin();
 }
 list<SmartPtr<User> >::const_iterator LinqDB::end() const{
     return _db.end();
+}
+list<Group*> LinqDB::allGroups() const {
+    return _grp;
 }
 list<Post*> LinqDB::postsFromGroup(const Group& g) const {
     list<Group*>::const_iterator i;

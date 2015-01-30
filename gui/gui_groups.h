@@ -2,10 +2,10 @@
 #define GUI_GROUPS_H
 
 #include <QGridLayout>
-#include <QTextBrowser>
 #include <QListWidget>
 #include <QListWidgetItem>
 #include <QPushButton>
+#include <QCompleter>
 #include <QToolBar>
 #include <QToolButton>
 #include <QGroupBox>
@@ -13,16 +13,18 @@
 #include <QFormLayout>
 #include "linqclient.h"
 #include "gui_avatar.h"
+#include "gui_displayinfo.h"
 
 class Gui_Groups : public QGridLayout {
     Q_OBJECT
 private:
     LinqClient* _client;
-    QTextBrowser* showgrp;
+    Gui_DisplayInfo* showgrp;
     QListWidget* grplist;
     QTextEdit* newpost;
     QLineEdit* newgrp;
     QLineEdit* grpname;
+    QLineEdit* search;
     QPushButton* post;
     QString name, desc, admin;
     QFormLayout* newgrplayout;
@@ -38,5 +40,7 @@ public slots:
     void sendPost();
     void showNewGroup();
     void newGroup();
+    void addGroup();
+    void searchGroup();
 };
 #endif

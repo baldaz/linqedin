@@ -1,15 +1,11 @@
 #include "gui_overview.h"
 
 Gui_Overview::Gui_Overview(LinqClient* cli, QWidget* parent) : _client(cli), QGridLayout(parent) {
-    dispInfo = new Gui_DisplayInfo(_client);
+    dispInfo = new Gui_DisplayInfo(QString::fromStdString(_client->displayHtmlInfo()));
 
     portrait = new Gui_Avatar(QString::fromStdString(_client->avatar()));
     QLabel* links = new QLabel(tr("Connections (%1)").arg(_client->netSize()));
     links->setMaximumSize(120,20);
-    // links->setPixmap(QPixmap("img/share12.png"));
-    // dispInfo->setStyleSheet("background:#000 url('img/abstract.png') no-repeat; background-attachment:fixed; border-radius: 10px; background-position: bottom;");
-    // searchBar->setStyleSheet("background: #f0f");
-    // dispInfo->setStyleSheet("background: #fff");
 
     toolbar = new QToolBar;
     toolButtons[0] = new QToolButton(toolbar);
@@ -39,7 +35,6 @@ Gui_Overview::Gui_Overview(LinqClient* cli, QWidget* parent) : _client(cli), QGr
     this->addWidget(portrait, 0, 0, 1, 1, Qt::AlignTop);
     this->addWidget(dispInfo, 0, 1, 3, 1); /* 0 1 4 2*/
     this->addWidget(links, 1, 0, 1, 1);
-    // listLinks->setStyleSheet("background: #f0f");
     this->addWidget(listLinks, 2, 0, 1, 1);
     this->addWidget(searchBar, 3, 0, 1, 1);
     this->addWidget(toolbar, 3, 1, 1, 1, Qt::AlignCenter);
@@ -49,11 +44,8 @@ Gui_Overview::Gui_Overview(LinqClient* cli, QWidget* parent) : _client(cli), QGr
     this->setColumnStretch(0, 1);
     this->setColumnStretch(1, 6);
     this->setColumnStretch(2, 2);
-    // this->setColumnStretch(3, 2);
     this->setRowStretch(0, 0);
     this->setRowStretch(1, 10);
-    // layout->setRowStretch(2, 20);
-    // layout->setRowStretch(3, 1);
 }
 
 void Gui_Overview::createRightSideList(QGridLayout* lay) {
@@ -82,7 +74,6 @@ void Gui_Overview::createRightSideList(QGridLayout* lay) {
         itemD->setData(Qt::ToolTipRole, desc);
         rightSide->addItem(itemD);
     }
-    // rightSide->setStyleSheet("background:#ff0");
     lay->addWidget(rightSide, 0, 2, 2, 1, Qt::AlignTop);
     connect(rightSide, SIGNAL(clicked(QModelIndex)), this, SLOT(viewContact()));
 }
@@ -108,23 +99,21 @@ void Gui_Overview::viewContact() {
         QString sel = rightSide->currentItem()->data(Qt::DisplayRole).toString();
         map<string, string> _contacts = _client->find(sel.toStdString());
         map<string, string>::iterator it = _contacts.begin();
-        // for(; it != _contacts.end(); ++it) {
-            QString output = QString(QString::fromStdString(it->second));
-            dispInfo->setHtml(output);
-            QString title = QString(QString::fromStdString(it->first));
-            dispInfo->setDocumentTitle(title);
-            _client->addVisitTo(Username(it->first, ""));
-        // }
+        QString output = QString(QString::fromStdString(it->second));
+        dispInfo->setHtml(output);
+        QString title = QString(QString::fromStdString(it->first));
+        dispInfo->setInfo1(title);
+        _client->addVisitTo(Username(it->first, ""));
         toolbar->show();
     }
 }
 
 void Gui_Overview::addConnection() {
-    if(!dispInfo->documentTitle().isEmpty()) listLinks->addConn();
+    if(!dispInfo->info1().isEmpty()) listLinks->addConn();
     else searchBar->addConn();
 }
 
 void Gui_Overview::removeConnection() {
-    if(!dispInfo->documentTitle().isEmpty()) listLinks->rmConn();
+    if(!dispInfo->info1().isEmpty()) listLinks->rmConn();
     else searchBar->rmConn();
 }
