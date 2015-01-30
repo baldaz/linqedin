@@ -55,6 +55,7 @@ public:
     void createNewGroup(const Group&);
     void addGroup(const Group&);
     void addGroup(const string&, const string&);
+    void deleteGroup(const string&, const string&);
     Group findGroup(const string&) const;
     map<string, string> find(const string&) const;
     map<string, int> keywordFrequency() const;

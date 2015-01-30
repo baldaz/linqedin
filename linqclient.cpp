@@ -212,3 +212,9 @@ void LinqClient::addGroup(const string& n, const string& a) {
     Group* g = new Group(Username(a, ""), n);
     addGroup(*g);
 }
+void LinqClient::deleteGroup(const string& n, const string& a) {
+    Group* g = new Group(Username(a, ""), n);
+    // _db->deleteGroup(*g);
+    if(ExecutiveUser* ex = dynamic_cast<ExecutiveUser*> (_usr))
+        ex->globalRemoveGroup(*_db, *g);
+ }

@@ -102,14 +102,23 @@ public:
     virtual void loadOutMail(const Message&);
     list<Group*> groups() const;
     void addGroup(const Group&);
+    void removeGroup(const Group&);
     // void addPost(const Group&, const Post&);
     void addBio(const string&) const;
 };
 
 class ExecutiveUser : public BusinessUser {
-protected:
+private:
     map<string, int> _keywords;
     list<SmartPtr<User> > _visitors;
+
+    class RemoveGroup {
+    private:
+        Group* gr;
+    public:
+        RemoveGroup(Group*);
+        void operator()(const SmartPtr<User>&);
+    };
 public:
     ExecutiveUser(Account*);
     ExecutiveUser(const ExecutiveUser&);
@@ -119,6 +128,7 @@ public:
     virtual map<string, string> userSearch(const LinqDB&, const string&) const;
     virtual void sendMessage(const Message&);
     virtual void loadOutMail(const Message&);
+    void globalRemoveGroup(const LinqDB&, const Group&);
     void addKeyword(const string&);
     map<string, int> keywordPercent() const;
     map<string, int> keywords() const;

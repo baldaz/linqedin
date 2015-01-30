@@ -42,5 +42,6 @@ public slots:
     void newGroup();
     void addGroup();
     void searchGroup();
+    void deleteGroup();
 };
 #endif

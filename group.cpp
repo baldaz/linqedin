@@ -1,5 +1,6 @@
 #include "group.h"
 
+// Group::Group(){}
 Group::Group(const Username& u, const string& n, const string& d) : _admin(u), _name(n), _description(d) {}
 Group::Group(const Group& g) : _admin(g._admin), _name(g._name), _description(g._description),/* _posts(g._posts),*/ _members(g._members) {
     for(list<Post*>::const_iterator i = g._posts.begin(); i != g._posts.end(); ++i)
@@ -14,7 +15,7 @@ Group::~Group() {
     _members.clear();
 }
 bool Group::operator==(const Group& g) const {
-    return _name == g._name;
+    return _name == g._name && _admin.login() == g._admin.login();
 }
 int Group::postNumber() const {
     return _posts.size();

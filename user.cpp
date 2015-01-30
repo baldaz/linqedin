@@ -245,6 +245,16 @@ list<Group*> BusinessUser::groups() const {
 void BusinessUser::addGroup(const Group& g) {
     _groups.push_back(const_cast<Group*> (&g)); // controllo gruppi duplicati
 }
+void BusinessUser::removeGroup(const Group& g) {
+    bool found = false;
+    list<Group*>::iterator it = _groups.begin();
+    for(; it != _groups.end() && !found; ++it)
+        if((**it) == g) {
+            delete *it;
+            _groups.erase(it);
+            found = true;
+        }
+}
 // void BusinessUser::addPost(const Group& g, const Post& p) {
 //     list<Group*>::iterator it = _groups.begin();
 //     for(; it != _groups.end(); ++it)
@@ -259,6 +269,24 @@ void BusinessUser::addBio(const string& bio) const {
 }
 unsigned int BusinessUser::businessMailLimit = 25;
 
+ExecutiveUser::RemoveGroup::RemoveGroup(Group* g) : gr(g) {}
+void ExecutiveUser::RemoveGroup::operator()(const SmartPtr<User>& u) {
+    if(BusinessUser* ex = dynamic_cast<BusinessUser*> (&(*u))) {
+        list<Group*> lu = ex->groups();
+        list<Group*>::iterator it = lu.begin();
+        for(; it != lu.end(); ++it) {
+            // list<SmartPtr<User> > members = (*it)->members();
+            bool found = false;
+            if((**it) == *gr)
+                ex->removeGroup(**it);
+            // list<SmartPtr<User> >::iterator j = members.begin();
+            // for(; j != members.end() && !found; ++j)
+            //     if((*j)->username()->login() == us.login())
+            //         found = true;
+            // if(found) bu->removeGroup(*it)
+        }
+    }
+}
 ExecutiveUser::ExecutiveUser(Account* ac) : BusinessUser(ac) {}
 ExecutiveUser::ExecutiveUser(const ExecutiveUser& usr) : BusinessUser(usr), _keywords(usr._keywords), _visitors(usr._visitors) {}
 ExecutiveUser::~ExecutiveUser() {_keywords.clear(); _visitors.clear();}
@@ -286,6 +314,11 @@ void ExecutiveUser::loadOutMail(const Message& mex) {
 }
 void ExecutiveUser::addKeyword(const string& key) {
     ++_keywords[key];
+}
+void ExecutiveUser::globalRemoveGroup(const LinqDB& db, const Group& g) {
+    std::for_each(db.begin(), db.end(), RemoveGroup(const_cast<Group*> (&g)));
+    LinqDB& d = const_cast<LinqDB&> (db);
+    d.deleteGroup(g);
 }
 map<string, int> ExecutiveUser::keywordPercent() const {
     map<string, int> ret;

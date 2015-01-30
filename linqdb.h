@@ -44,6 +44,7 @@ public:
     void removeUser(const Username&);
     int size() const;
     int postNumberFromGroup(const Group&) const;
+    void deleteGroup(const Group&);
     void addGroup(const Group&);
     void addMemberToGroup(const Group&, const Username&);
     void addPostToGroup(const Group&, const Post&);

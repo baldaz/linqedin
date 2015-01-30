@@ -314,21 +314,21 @@ vector<QJsonObject> LinqDB::writeJson() const {
 }
 vector<QJsonObject> LinqDB::writeGroups() const {
     vector<QJsonObject> vjs;
-    // list<SmartPtr<User> >::const_iterator i = _db.begin();
-    // for(; i != _db.end(); ++i) {
-    //     if(BusinessUser* bu = dynamic_cast<BusinessUser*> (&(**i))) {
-    //         list<Group*> lg = bu->groups();
-    //         for(list<Group*>::const_iterator itr = lg.begin(); itr != lg.end(); ++itr) {
-    //             list<Group*>::const_iterator k = _grp.begin();
-    //             for(; k != _grp.end(); ++k)
-    //                 if((**k) == (**itr)) {
-    //                     list<SmartPtr<User> > lu = (*itr)->members();
-    //                     for(list<SmartPtr<User> >::const_iterator j = lu.begin(); j != lu.end(); ++j)
-    //                         (*k)->addMember(&(**j));
-    //                 }
-    //         }
-    //     }
-    // }
+    list<SmartPtr<User> >::const_iterator i = _db.begin();
+    for(; i != _db.end(); ++i) {
+        if(BusinessUser* bu = dynamic_cast<BusinessUser*> (&(**i))) {
+            list<Group*> lg = bu->groups();
+            for(list<Group*>::const_iterator itr = lg.begin(); itr != lg.end(); ++itr) {
+                list<Group*>::const_iterator k = _grp.begin();
+                for(; k != _grp.end(); ++k)
+                    if((**k) == (**itr)) {
+                        list<SmartPtr<User> > lu = (*itr)->members();
+                        for(list<SmartPtr<User> >::const_iterator j = lu.begin(); j != lu.end(); ++j)
+                            (*k)->addMember(&(**j));
+                    }
+            }
+        }
+    }
     list<Group*>::const_iterator it = _grp.begin();
     for(; it != _grp.end(); ++it) {
         QJsonObject jGrp, jPst;
@@ -397,6 +397,16 @@ void LinqDB::load() {
 int LinqDB::size() const {
     return _db.size();
 }
+void LinqDB::deleteGroup(const Group& g) {
+    bool found = false;
+    list<Group*>::iterator it = _grp.begin();
+    for(; it != _grp.end() && !found; ++it)
+        if((**it) == g) {
+            delete *it;
+            _grp.erase(it);
+            found = true;
+        }
+}
 void LinqDB::addGroup(const Group& g) {
     bool found = false;
     for(list<Group*>::iterator it = _grp.begin(); it != _grp.end() && !found; ++it)
@@ -451,8 +461,10 @@ Group LinqDB::findGroubByName(const string& n) const {
     bool found = false;
     list<Group*>::const_iterator it = _grp.begin();
     for(; it != _grp.end() && !found; ++it)
-        if((*it)->name() == n) found = true;
-    if(found) return (**it);
+        if((*it)->name() == n) {
+            found = true;
+            return **it;
+        }
 }
 list<SmartPtr<User> >::const_iterator LinqDB::begin() const{
     return _db.begin();

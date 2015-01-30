@@ -10,6 +10,7 @@ private:
     string _login;
     string _password;
 public:
+    // Username();
     Username(const string&, const string&);
     Username(const Username&);
     // ~Username();

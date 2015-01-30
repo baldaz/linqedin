@@ -64,6 +64,7 @@ Gui_Groups::Gui_Groups(LinqClient* c, QWidget* parent) : _client(c), QGridLayout
 
     connect(mbuttons[0], SIGNAL(clicked()), this, SLOT(showNewGroup()));
     connect(create, SIGNAL(clicked()), this, SLOT(newGroup()));
+    connect(mbuttons[1], SIGNAL(clicked()), this, SLOT(deleteGroup()));
 
     mbuttons[0]->hide();
     mbuttons[1]->hide();
@@ -120,7 +121,7 @@ void Gui_Groups::showGroup() {
     name = grplist->currentItem()->data(Qt::DisplayRole).toString();
     desc = grplist->currentItem()->data(Qt::UserRole + 2).toString();
     admin = grplist->currentItem()->data(Qt::UserRole + 1).toString();
-    if(admin == QString::fromStdString(_client->username().login()) && mbuttons[1]->isHidden() && mbuttons[2]->isHidden()) {
+    if(admin == QString::fromStdString(_client->username().login()) /*&& mbuttons[1]->isHidden() && mbuttons[2]->isHidden()*/) {
         mbuttons[1]->show();
         mbuttons[2]->show();
         mbuttons[3]->hide();
@@ -213,4 +214,11 @@ void Gui_Groups::searchGroup() {
     showgrp->setInfo1(name);
     showgrp->setInfo2(admin);
     showgrp->setHtml(output);
+}
+
+//SLOT
+void Gui_Groups::deleteGroup() {
+    QString name = showgrp->info1();
+    QString admin = showgrp->info2();
+    _client->deleteGroup(name.toStdString(), admin.toStdString());
 }

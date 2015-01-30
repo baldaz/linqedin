@@ -18,6 +18,7 @@ private:
     list<Post*> _posts;
     string _name, _description;
 public:
+    // Group();
     Group(const Username&, const string& = "", const string& ="");
     Group(const Group&);
     ~Group();
