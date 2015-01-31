@@ -35,6 +35,7 @@ public:
     vector<string> languages() const;
     vector<string> displayHtmlNet() const;
     vector<SmartPtr<User> > contactsInfo() const;
+    vector<SmartPtr<Payment> > paymentHistory() const;
     list<SmartPtr<User> > visitors() const;
     list<SmartPtr<Message> > inMail() const;
     list<SmartPtr<Message> > outMail() const;
@@ -58,6 +59,8 @@ public:
     map<string, string> find(const string&) const;
     map<string, int> keywordFrequency() const;
     int visitCount() const;
+    int outMailCount() const;
+    int outMailLimit() const;
     void save() const;
 };
 #endif

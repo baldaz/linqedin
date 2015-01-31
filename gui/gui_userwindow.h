@@ -11,7 +11,7 @@
 #include "gui_overview.h"
 #include "gui_messages.h"
 #include "gui_settings.h"
-#include "gui_payments.h"
+#include "gui_statistics.h"
 #include "gui_groups.h"
 
 class Gui_UserWindow : public QWidget {
@@ -38,7 +38,7 @@ private:
     Gui_Overview* _layout;
     Gui_Settings* _set;
     Gui_Messages* _mex;
-    Gui_Payments* _pay;
+    Gui_Statistics* _pay;
     Gui_Groups* _grp;
     LinqClient* user;
 

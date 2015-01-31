@@ -161,6 +161,9 @@ int User::similarity(const SmartPtr<User>& user) const {
     }
     return static_cast<int> (counter);
 }
+int User::outMailCount() const {
+    return _outMail.size();
+}
 bool User::linked(const Username& usr) const {
     bool found = false;
     vector<Username> v = net()->username();
@@ -201,6 +204,9 @@ void BasicUser::sendMessage(const Message& mex) {
 void BasicUser::loadOutMail(const Message& mex) {
     if(_outMail.size() < basicMailLimit)
         _outMail.push_back(SmartPtr<Message> (const_cast<Message*> (&mex)));
+}
+unsigned int BasicUser::basicLimit() {
+    return basicMailLimit;
 }
 unsigned int BasicUser::basicMailLimit = 10;
 
@@ -266,6 +272,9 @@ void BusinessUser::addBio(const string& bio) const {
         b->setBio(bio);
         this->account()->setInfo(b);
     }
+}
+unsigned int BusinessUser::businessLimit() {
+    return businessMailLimit;
 }
 unsigned int BusinessUser::businessMailLimit = 25;
 

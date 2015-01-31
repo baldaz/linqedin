@@ -95,7 +95,7 @@ void Gui_UserWindow::createSettings() {
 
 void Gui_UserWindow::createPayments() {
     paymentsGroupBox = new QGroupBox;
-    _pay = new Gui_Payments(user, this);
+    _pay = new Gui_Statistics(user, this);
     paymentsGroupBox->setLayout(_pay);
 }
 

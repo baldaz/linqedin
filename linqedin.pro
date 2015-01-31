@@ -23,7 +23,7 @@ HEADERS += account.h \
            gui/gui_login.h \
            gui/gui_messages.h \
            gui/gui_overview.h \
-           gui/gui_payments.h \
+           gui/gui_statistics.h \
            gui/gui_search.h \
            gui/gui_settings.h \
            gui/gui_userwindow.h \
@@ -54,7 +54,7 @@ SOURCES += account.cpp \
            gui/gui_login.cpp \
            gui/gui_messages.cpp \
            gui/gui_overview.cpp \
-           gui/gui_payments.cpp \
+           gui/gui_statistics.cpp \
            gui/gui_search.cpp \
            gui/gui_settings.cpp \
            gui/gui_userwindow.cpp \

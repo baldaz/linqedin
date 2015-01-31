@@ -50,7 +50,7 @@ void LinqDB::read(const QJsonArray& qjs) {
             subP = payments[i].toObject();
             Subscription subscr(priv);
             CreditCard bmeth(subP["code"].toString().toStdString(), subP["nominee"].toString().toStdString());
-            Payment pay(&usr, &subscr, &bmeth, subP["approved"].toBool());
+            Payment pay(&usr, &subscr, &bmeth, subP["approved"].toBool(), QDate::fromString(subP["appdate"].toString(), "dd.MM.yyyy"));
             acc->addPayment(pay);
         }
         User* s = NULL;
@@ -262,6 +262,7 @@ vector<QJsonObject> LinqDB::writeJson() const {
             jPayment["code"] = QString::fromStdString((*iter)->billMethod()->code());
             jPayment["nominee"] = QString::fromStdString((*iter)->billMethod()->nominee());
             jPayment["approved"] = (*iter)->approvation();
+            jPayment["appdate"] = (*iter)->appDate().toString("dd.MM.yyyy");
             jPay.append(jPayment);
         }
         if(const ExecutiveUser* ex = dynamic_cast<const ExecutiveUser*> (&(*(*it)))) {

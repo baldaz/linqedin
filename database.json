@@ -614,6 +614,24 @@
             ],
             "password": "rayback",
             "payments": [
+                {
+                    "appdate": "06.12.2014",
+                    "approved": true,
+                    "code": "0132532",
+                    "nominee": "Steven Seagal"
+                },
+                {
+                    "appdate": "06.01.2015",
+                    "approved": true,
+                    "code": "0132532",
+                    "nominee": "Steven Seagal"
+                },
+                {
+                    "appdate": "06.02.2015",
+                    "approved": true,
+                    "code": "0132532",
+                    "nominee": "Steven Seagal"
+                }
             ],
             "privilege": 2,
             "skills": [

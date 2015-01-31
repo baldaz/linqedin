@@ -1,5 +1,5 @@
-#ifndef GUI_PAYMENTS_H
-#define GUI_PAYMENTS_H
+#ifndef GUI_STATISTICS_H
+#define GUI_STATISTICS_H
 
 #include <QGridLayout>
 #include <QTextBrowser>
@@ -8,12 +8,12 @@
 #include "gui_avatar.h"
 #include "linqclient.h"
 
-class Gui_Payments : public QGridLayout {
+class Gui_Statistics : public QGridLayout {
     Q_OBJECT
 private:
     LinqClient* _client;
     QTextBrowser* _list;
 public:
-    Gui_Payments(LinqClient*, QWidget* parent = 0);
+    Gui_Statistics(LinqClient*, QWidget* parent = 0);
 };
 #endif

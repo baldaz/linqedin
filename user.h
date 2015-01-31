@@ -71,6 +71,7 @@ public:
     virtual void loadOutMail(const Message&) =0;
     list<SmartPtr<Message> > inMail() const;
     list<SmartPtr<Message> > outMail() const;
+    int outMailCount() const;
     void setInMail(const list<SmartPtr<Message> >&);
 };
 
@@ -85,6 +86,7 @@ public:
     virtual map<string, string> userSearch(const LinqDB&, const string&) const;
     virtual void sendMessage(const Message&);
     virtual void loadOutMail(const Message&);
+    static unsigned int basicLimit();
 };
 
 class BusinessUser : public BasicUser {
@@ -105,6 +107,7 @@ public:
     void removeGroup(const Group&);
     // void addPost(const Group&, const Post&);
     void addBio(const string&) const;
+    static unsigned int businessLimit();
 };
 
 class ExecutiveUser : public BusinessUser {
@@ -134,6 +137,7 @@ public:
     map<string, int> keywords() const;
     void addVisitor(const SmartPtr<User>&);
     list<SmartPtr<User> > visitors() const;
+    static unsigned int executiveLimit();
 };
 
 #endif

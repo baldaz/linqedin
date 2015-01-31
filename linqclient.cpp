@@ -132,6 +132,9 @@ vector<SmartPtr<User> > LinqClient::contactsInfo() const {
     }
     return ret;
 }
+vector<SmartPtr<Payment> > LinqClient::paymentHistory() const {
+    return _usr->account()->history();
+}
 list<SmartPtr<Message> > LinqClient::inMail() const {
     return _usr->inMail();
 }
@@ -221,4 +224,14 @@ void LinqClient::deleteGroup(const string& n, const string& a) {
     // _db->deleteGroup(*g);
     if(ExecutiveUser* ex = dynamic_cast<ExecutiveUser*> (_usr))
         ex->globalRemoveGroup(*_db, *g);
- }
+}
+int LinqClient::outMailCount() const {
+    return _usr->outMailCount();
+}
+int LinqClient::outMailLimit() const {
+    if(level() == basic)
+        return BasicUser::basicLimit();
+    else if(level() == business)
+        return BusinessUser::businessLimit();
+    else return -1;
+}
