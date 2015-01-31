@@ -24,9 +24,9 @@ Gui_Overview::Gui_Overview(LinqClient* cli, QWidget* parent) : _client(cli), QGr
     toolbar->hide();
     toolbar->installEventFilter(this); //prevent double click maximizing window
 
-    listLinks = new Gui_Links(_client, dispInfo, toolbar);
+    listLinks = new Gui_Links(_client, dispInfo, toolbar, portrait);
 
-    searchBar = new Gui_Search(_client, dispInfo, toolbar, listLinks);
+    searchBar = new Gui_Search(_client, dispInfo, toolbar, listLinks, portrait);
 
     connect(toolButtons[0], SIGNAL(clicked()), this, SLOT(addConnection()));
     connect(toolButtons[1], SIGNAL(clicked()), this, SLOT(removeConnection()));
@@ -83,6 +83,7 @@ void Gui_Overview::refresh() {
     createRightSideList(this);
     dispInfo->setHtml(QString::fromStdString(_client->displayHtmlInfo()));
     toolbar->hide();
+    portrait->setPath(QString::fromStdString(_client->avatar()));
 }
 
 bool Gui_Overview::eventFilter(QObject* obj, QEvent* event) {
@@ -101,6 +102,7 @@ void Gui_Overview::viewContact() {
         map<string, string>::iterator it = _contacts.begin();
         QString output = QString(QString::fromStdString(it->second));
         dispInfo->setHtml(output);
+        portrait->setPath(QString::fromStdString(_client->avatarFromUser(Username(it->first, ""))));
         QString title = QString(QString::fromStdString(it->first));
         dispInfo->setInfo1(title);
         _client->addVisitTo(Username(it->first, ""));

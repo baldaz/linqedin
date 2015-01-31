@@ -42,7 +42,8 @@ void LinqDB::read(const QJsonArray& qjs) {
         else info = new UserInfo;
         readInfo(info, obj);
         acc = new Account(info, usr, priv);
-
+        Avatar avt(obj["avatar"].toString().toStdString());
+        acc->setAvatar(avt);
         QJsonArray payments = obj["payments"].toArray();
         QJsonObject subP;
         for(int i = 0; i < payments.size(); ++i) {
@@ -246,6 +247,7 @@ vector<QJsonObject> LinqDB::writeJson() const {
         itr = interests.begin();
         for(; itr < interests.end(); ++itr)
             jInterest.append(QString::fromStdString(*itr));
+        jUser["avatar"] = QString::fromStdString((*it)->account()->avatar().path());
         jUser["username"] = QString::fromStdString((*it)->account()->username().login());
         jUser["password"] = QString::fromStdString((*it)->account()->username().password());
         jUser["visitcount"] = (*it)->visitCount();

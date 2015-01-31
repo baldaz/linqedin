@@ -255,6 +255,7 @@
             ]
         },
         {
+            "avatar":"img/pablo-escobar.jpg",
             "formations": [
             ],
             "info": {
@@ -307,6 +308,7 @@
             "visitcount": 12
         },
         {
+            "avatar":"img/atilio.jpg",
             "formations": [
             ],
             "info": {
@@ -499,6 +501,7 @@
             "visitcount": 0
         },
         {
+            "avatar":"img/seagal.jpg",
             "formations": [
                 {
                     "from": "15.09.1962",
@@ -645,6 +648,7 @@
             ]
         },
         {
+            "avatar": "img/machete.jpg",
             "formations": [
                 {
                     "from": "15.09.1958",

@@ -9,6 +9,7 @@
 #include <QGridLayout>
 // #include "gui_viewcontact.h"
 #include "gui_displayinfo.h"
+#include "gui_avatar.h"
 #include "username.h"
 #include "user.h"
 #include "linqnet.h"
@@ -17,7 +18,7 @@
 class Gui_Links : public QListWidget {
     Q_OBJECT
 public:
-    Gui_Links(LinqClient*, Gui_DisplayInfo*, QToolBar*, QWidget* parent = 0);
+    Gui_Links(LinqClient*, Gui_DisplayInfo*, QToolBar*, Gui_Avatar*, QWidget* parent = 0);
     void refresh();
     void addConn();
     void rmConn();
@@ -28,6 +29,7 @@ public slots:
     void reload();
 private:
     LinqClient* _client;
+    Gui_Avatar* _avt;
     Gui_DisplayInfo* _display;
     QString _selected;
     QGridLayout* _layout;

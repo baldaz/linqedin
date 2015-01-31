@@ -107,7 +107,7 @@ void Gui_UserWindow::createGroups() {
 
 void Gui_UserWindow::logicInitialize() {
     user = new LinqClient(Username("Casey", "rayback"));
-    user->setAvatar("img/seagal.jpg");
+    // user->setAvatar("img/seagal.jpg");
 }
 
 bool Gui_UserWindow::eventFilter(QObject* obj, QEvent* event) {

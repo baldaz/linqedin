@@ -9,13 +9,10 @@
 
 using std::string;
 
-const string STANDARD_AVATAR = "img/port2.jpg";
-
 class LinqClient {
 private:
     User* _usr;
     LinqDB* _db;
-    string _avatar;
 public:
     LinqClient();
     LinqClient(const Username&);
@@ -32,6 +29,7 @@ public:
     string displayHtmlPayments() const;
     string displayHtmlSettings() const;
     string displayHtmlMessages() const;
+    string avatarFromUser(const Username&) const;
     vector<string> skills() const;
     vector<string> interests() const;
     vector<string> languages() const;

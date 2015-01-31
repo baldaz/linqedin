@@ -2,8 +2,8 @@
 
 using std::map;
 
-LinqClient::LinqClient() : _db(new LinqDB()), _avatar(STANDARD_AVATAR) {}
-LinqClient::LinqClient(const Username& usr) : _db(new LinqDB), _avatar(STANDARD_AVATAR)  {
+LinqClient::LinqClient() : _db(new LinqDB()) {}
+LinqClient::LinqClient(const Username& usr) : _db(new LinqDB) {
     _usr = _db->find(usr);
 }
 LinqClient::~LinqClient() {delete _db;}
@@ -62,6 +62,10 @@ string LinqClient::displayHtmlSettings() const {
 }
 string LinqClient::displayHtmlMessages() const {
     return "<html><table><tr><th style='padding:10px;'>Subject</th><th style='padding:10px;'>Body</th><th style='padding:10px'>From</th></tr></table></html>";
+}
+string LinqClient::avatarFromUser(const Username& u) const {
+    User* x = _db->find(u);
+    if(x) return x->account()->avatar().path();
 }
 int LinqClient::netSize() const {
     return _usr->net()->size();
@@ -173,10 +177,10 @@ void LinqClient::save() const {
     _db->save();
 }
 string LinqClient::avatar() const {
-    return _avatar;
+    return _usr->account()->avatar().path();
 }
 void LinqClient::setAvatar(const string& path) {
-    _avatar = path;
+    _usr->account()->avatar().setPath(path);
 }
 void LinqClient::sendMail(const string& dest, const string& obj, const string& body, bool read) {
     Username* dst = new Username(dest, "");

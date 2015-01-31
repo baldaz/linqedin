@@ -1,6 +1,6 @@
 #include "gui_links.h"
 
-Gui_Links::Gui_Links(LinqClient* client, Gui_DisplayInfo* disp, QToolBar* tb, QWidget* parent) : _client(client), _display(disp), _tbar(tb), QListWidget(parent) {
+Gui_Links::Gui_Links(LinqClient* client, Gui_DisplayInfo* disp, QToolBar* tb, Gui_Avatar* avt, QWidget* parent) : _client(client), _display(disp), _tbar(tb), _avt(avt), QListWidget(parent) {
     refresh();
     connect(this, SIGNAL(clicked(QModelIndex)), this, SLOT(viewContact()));
 }
@@ -34,6 +34,7 @@ void Gui_Links::viewContact() {
         if(QString::fromStdString((*it)->account()->username().login()) == _selected) {
             QString output = QString("<span style='color: #666'>( " + QString::fromStdString((*it)->account()->username().login()) + " )</span>" + QString::fromStdString((*it)->account()->info()->printHtml()) + "<h5>Visit Count</h5><p> %1").arg((*it)->visitCount());
             _display->setHtml(output);
+            _avt->setPath(QString::fromStdString((*it)->account()->avatar().path()));
             QString title = QString(QString::fromStdString((*it)->account()->username().login()));
             _display->setInfo1(title);
         }
