@@ -13,12 +13,17 @@ Gui_Login::Gui_Login(QWidget* parent) : QDialog(parent) {
 
     splash->setPixmap(QPixmap("img/linked5.png"));
     buttonBox = new QDialogButtonBox(QDialogButtonBox::Ok | QDialogButtonBox::Cancel);
+    QPushButton* quit = new QPushButton;
+    quit->setIcon(QPixmap("img/prohibited1.png"));
+    connect(quit, SIGNAL(clicked()), this, SLOT(close()));
+    mainLayout->addWidget(quit, 0, Qt::AlignTop | Qt::AlignRight);
     mainLayout->addWidget(splash, Qt::AlignCenter);
     mainLayout->addWidget(username, Qt::AlignLeft);
     mainLayout->addWidget(uname, Qt::AlignRight);
     mainLayout->addWidget(password, Qt::AlignLeft);
     mainLayout->addWidget(passw, Qt::AlignRight);
     mainLayout->addWidget(buttonBox, Qt::AlignLeft|Qt::AlignCenter);
+
     setLayout(mainLayout);
     connect(buttonBox, SIGNAL(clicked(QAbstractButton*)), this, SLOT(onClicked(QAbstractButton*)));
 }
@@ -40,7 +45,8 @@ void Gui_Login::onClicked(QAbstractButton* button) {
         close();
     }
     else {
-        admwin.show();
+        // admwin.show();
+        reg.show();
         close();
     }
 }

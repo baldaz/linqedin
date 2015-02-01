@@ -10,11 +10,13 @@
 #include <QDialogButtonBox>
 #include "gui_userwindow.h"
 #include "gui_adminwindow.h"
+#include "gui_registration.h"
 
 class Gui_Login : public QDialog {
     Q_OBJECT
 private:
     Gui_UserWindow window;
+    Gui_Registration reg;
     Gui_AdminWindow admwin;
     QDialogButtonBox* buttonBox;
 

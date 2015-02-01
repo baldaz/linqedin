@@ -25,6 +25,7 @@ HEADERS += account.h \
            gui/gui_messages.h \
            gui/gui_modpopup.h \
            gui/gui_overview.h \
+           gui/gui_registration.h \
            gui/gui_statistics.h \
            gui/gui_search.h \
            gui/gui_settings.h \
@@ -58,6 +59,7 @@ SOURCES += account.cpp \
            gui/gui_messages.cpp \
            gui/gui_modpopup.cpp \
            gui/gui_overview.cpp \
+           gui/gui_registration.cpp \
            gui/gui_statistics.cpp \
            gui/gui_search.cpp \
            gui/gui_settings.cpp \
