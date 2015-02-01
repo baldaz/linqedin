@@ -11,6 +11,7 @@
 #include <QLabel>
 #include <QLineEdit>
 #include <QGroupBox>
+#include "gui_modpopup.h"
 #include "gui_avatar.h"
 #include "linqclient.h"
 
@@ -25,6 +26,7 @@ private:
     QListWidget* inters;
     QListWidget* lang;
     QPushButton* toggle;
+    Gui_ModPopup* _modpop;
     QString _selected;
 public:
     Gui_Settings(LinqClient*, QWidget* = 0);

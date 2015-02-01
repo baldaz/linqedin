@@ -25,6 +25,8 @@ Gui_Settings::Gui_Settings(LinqClient* cli, QWidget* parent) : _client(cli), QGr
     edtInfo[12] = new QLineEdit(parent);
     edtInfo[12]->setPlaceholderText("Insert new password");
 
+    _modpop = new Gui_ModPopup;
+
     skills = new QListWidget;
     inters = new QListWidget;
     lang = new QListWidget;
@@ -229,7 +231,7 @@ void Gui_Settings::deleteSkill() {
 
 //SLOT
 void Gui_Settings::modifySkill() {
-
+    _modpop->show();
 }
 
 //SLOT
@@ -245,7 +247,7 @@ void Gui_Settings::deleteLanguage() {
 
 //SLOT
 void Gui_Settings::modifyLanguage() {
-
+    _modpop->show();
 }
 
 //SLOT
@@ -261,5 +263,5 @@ void Gui_Settings::deleteInterest() {
 
 //SLOT
 void Gui_Settings::modifyInterest() {
-
+    _modpop->show();
 }

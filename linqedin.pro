@@ -23,6 +23,7 @@ HEADERS += account.h \
            gui/gui_listdelegate.h \
            gui/gui_login.h \
            gui/gui_messages.h \
+           gui/gui_modpopup.h \
            gui/gui_overview.h \
            gui/gui_statistics.h \
            gui/gui_search.h \
@@ -55,6 +56,7 @@ SOURCES += account.cpp \
            gui/gui_listdelegate.cpp \
            gui/gui_login.cpp \
            gui/gui_messages.cpp \
+           gui/gui_modpopup.cpp \
            gui/gui_overview.cpp \
            gui/gui_statistics.cpp \
            gui/gui_search.cpp \
