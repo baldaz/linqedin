@@ -89,10 +89,10 @@ void Gui_Overview::refresh() {
 bool Gui_Overview::eventFilter(QObject* obj, QEvent* event) {
     if(event->type() == QEvent::MouseButtonDblClick) {
         QMouseEvent * mouseEvent = static_cast <QMouseEvent *> (event);
-        if(mouseEvent->button() == Qt::LeftButton | Qt::RightButton)
+        if(mouseEvent->button() == (Qt::LeftButton | Qt::RightButton))
             return true;
     }
-    else return false;
+    return false;
 }
 
 void Gui_Overview::viewContact() {

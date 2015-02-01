@@ -15,8 +15,6 @@ std::string utilities::Utils::levelToString(privLevel prl) {
         break;
         case 2: ret = "Executive";
         break;
-        case 3: ret = "Root";
-        break;
     }
     return ret;
 }

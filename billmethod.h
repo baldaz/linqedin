@@ -5,6 +5,7 @@
 
 class BillMethod {
 public:
+    virtual ~BillMethod();
     virtual std::string code() const =0;
     virtual std::string nominee() const =0;
     virtual BillMethod* clone() const = 0;

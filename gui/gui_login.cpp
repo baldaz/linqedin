@@ -12,9 +12,7 @@ Gui_Login::Gui_Login(QWidget* parent) : QDialog(parent) {
     passw->setEchoMode(QLineEdit::Password);
 
     splash->setPixmap(QPixmap("img/linked5.png"));
-    QDialogButtonBox* buttonBox = new QDialogButtonBox(QDialogButtonBox::Ok | QDialogButtonBox::Cancel);
-    connect(buttonBox, SIGNAL(accepted()), this, SLOT(accept()));
-    connect(buttonBox, SIGNAL(rejected()), this, SLOT(reject()));
+    buttonBox = new QDialogButtonBox(QDialogButtonBox::Ok | QDialogButtonBox::Cancel);
     mainLayout->addWidget(splash, Qt::AlignCenter);
     mainLayout->addWidget(username, Qt::AlignLeft);
     mainLayout->addWidget(uname, Qt::AlignRight);
@@ -22,6 +20,7 @@ Gui_Login::Gui_Login(QWidget* parent) : QDialog(parent) {
     mainLayout->addWidget(passw, Qt::AlignRight);
     mainLayout->addWidget(buttonBox, Qt::AlignLeft|Qt::AlignCenter);
     setLayout(mainLayout);
+    connect(buttonBox, SIGNAL(clicked(QAbstractButton*)), this, SLOT(onClicked(QAbstractButton*)));
 }
 
 void Gui_Login::resizeEvent(QResizeEvent* event) {
@@ -31,4 +30,17 @@ void Gui_Login::resizeEvent(QResizeEvent* event) {
     painter.setBrush(Qt::black);
     painter.drawRoundRect(pixmap.rect());
     setMask(pixmap.createMaskFromColor(Qt::white));
+}
+
+//SLOT
+void Gui_Login::onClicked(QAbstractButton* button) {
+    QDialogButtonBox::StandardButton btn = buttonBox->standardButton(button);
+    if(btn == QDialogButtonBox::Ok) {
+        window.show();
+        close();
+    }
+    else {
+        admwin.show();
+        close();
+    }
 }

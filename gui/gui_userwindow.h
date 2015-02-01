@@ -41,6 +41,7 @@ private:
     Gui_Statistics* _pay;
     Gui_Groups* _grp;
     LinqClient* user;
+    // Gui_Login* logW;
 
     void logicInitialize();
     void createHorizontalGroupBox();

@@ -1,6 +1,6 @@
 #include "gui_listdelegate.h"
 
-ListDelegate::ListDelegate(QObject* parent) {}
+ListDelegate::ListDelegate(QObject* parent) : QAbstractItemDelegate(parent) {}
 
 void ListDelegate::paint(QPainter* painter, const QStyleOptionViewItem& option, const QModelIndex& index) const {
     QRect r = option.rect;

@@ -24,10 +24,10 @@ public:
 class UserInfo : public Info {
 private:
     bool _sex;
-    QDate _birthdate;
     string _name, _surname, _email, _address, _telephon, _website;
     vector<string> _languages, _skills, _interests;
     list<Experience*> _exp;
+    QDate _birthdate;
 public:
     UserInfo(bool = false, const string& ="", const string& ="", const string& ="", const string& ="", const string& ="", const string& ="", const QDate& = QDate::currentDate());
     UserInfo(const UserInfo&);
@@ -56,8 +56,11 @@ public:
     void setTelephon(const string&);
     void setWebsite(const string&);
     void addLanguage(const string&);
+    void removeLanguage(const string&);
     void addSkill(const string&);
+    void removeSkill(const string&);
     void addInterest(const string&);
+    void removeInterest(const string&);
     void addExperience(const Experience&);
     int age() const;
     virtual string print() const;

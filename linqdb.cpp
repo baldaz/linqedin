@@ -75,8 +75,6 @@ void LinqDB::read(const QJsonArray& qjs) {
                     us->addVisitor(find(usr));
                 }
             break;
-            case 3:
-            break;
         }
         s->setVisitCount(obj["visitcount"].toInt());
         QJsonArray outmail = obj["outmail"].toArray();
@@ -205,7 +203,7 @@ vector<QJsonObject> LinqDB::writeJson() const {
         list<SmartPtr<Message> > outMail;
         vector<SmartPtr<Payment> > payments;
         Info* info = (*it)->account()->info();
-        if(uif = dynamic_cast<UserInfo*> (info)) { /*downcast a userinfo*/
+        if((uif = dynamic_cast<UserInfo*> (info))) { /*downcast a userinfo*/
             jInf["name"] = QString::fromStdString(uif->name());
             jInf["surname"] = QString::fromStdString(uif->surname());
             jInf["telephon"] = QString::fromStdString(uif->telephon());
@@ -215,7 +213,7 @@ vector<QJsonObject> LinqDB::writeJson() const {
             jInf["address"] = QString::fromStdString(uif->address());
             jInf["website"] = QString::fromStdString(uif->website());
             experience = uif->experiences();
-            if(bio = dynamic_cast<Bio*> (info))
+            if((bio = dynamic_cast<Bio*> (info)))
                 jInf["biography"] = QString::fromStdString(bio->bio());
         }
         for(list<Experience*>::const_iterator j = experience.begin(); j != experience.end(); ++j) {
@@ -371,7 +369,7 @@ void LinqDB::write(const vector<QJsonObject>& json, const vector<QJsonObject>& j
     saveDB.write(doc.toJson());
     saveDB.close();
 }
-
+/*
 vector<Message*> LinqDB::readMessageDb(const string& path) {
     vector<Message*> v;
     QFile loadMessageDB(QStringLiteral("messageDB.json"));
@@ -388,7 +386,7 @@ vector<Message*> LinqDB::readMessageDb(const string& path) {
 void LinqDB::writeMessageDb(const string& path) const {
 
 }
-
+*/
 void LinqDB::save() const {
     write(writeJson(), writeGroups());
 }
@@ -489,4 +487,5 @@ int LinqDB::postNumberFromGroup(const Group& g) const {
     for(i = _grp.begin(); i != _grp.end(); ++i)
         if((**i) == g)
             return (*i)->postNumber();
+    return 0;
 }

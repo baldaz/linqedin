@@ -19,7 +19,7 @@ private:
     string _name, _description;
 public:
     // Group();
-    Group(const Username&, const string& = "", const string& ="");
+    Group(const Username& u, const string& n = "", const string& d = "");
     Group(const Group&);
     ~Group();
     bool operator==(const Group&) const;

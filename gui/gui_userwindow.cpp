@@ -113,10 +113,10 @@ void Gui_UserWindow::logicInitialize() {
 bool Gui_UserWindow::eventFilter(QObject* obj, QEvent* event) {
     if(event->type() == QEvent::MouseButtonDblClick) {
         QMouseEvent * mouseEvent = static_cast <QMouseEvent *> (event);
-        if(mouseEvent->button() == Qt::LeftButton | Qt::RightButton)
+        if(mouseEvent->button() == (Qt::LeftButton | Qt::RightButton))
             return true;
     }
-    else return false;
+    return false;
 }
 
 //overload
@@ -178,4 +178,5 @@ void Gui_UserWindow::logout() {
     delete _grp;
     delete _layout;
     close();
+    // logW->show();
 }

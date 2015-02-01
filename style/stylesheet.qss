@@ -12,6 +12,7 @@ QPushButton {
     border: none;
     background-color: transparent;
     color: #fff; /*#888*/
+    font-weight: 700;
 }
 QPushButton:hover {
     color: #e6e6e6;
@@ -94,4 +95,14 @@ QScrollBar::add-line:horizontal {
 QScrollBar::sub-line:horizontal {
     border: none;
     background: none;
+}
+QMenu {
+    background-color: rgba(255, 255, 255, .1); /* sets background of the menu */
+    border: 1px solid black;
+}
+QMenu::item {
+    background-color: transparent;
+}
+QMenu::item:selected { /* when user selects item using mouse or keyboard */
+    background-color: #1a1a1a;
 }

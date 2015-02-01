@@ -7,6 +7,7 @@
 #include <QPushButton>
 #include <QMessageBox>
 #include <QTextEdit>
+#include <QMenu>
 #include <QLabel>
 #include <QLineEdit>
 #include <QGroupBox>
@@ -16,7 +17,7 @@
 class Gui_Settings : public QGridLayout {
     Q_OBJECT
 private:
-    enum {NumLineEdit = 11};
+    enum {NumLineEdit = 13};
     LinqClient* _client;
     QLineEdit* edtInfo[NumLineEdit];
     QTextEdit* edtBio;
@@ -24,11 +25,22 @@ private:
     QListWidget* inters;
     QListWidget* lang;
     QPushButton* toggle;
+    QString _selected;
 public:
     Gui_Settings(LinqClient*, QWidget* = 0);
 public slots:
     void skillsMenu(const QPoint&);
     void interestsMenu(const QPoint&);
+    void languagesMenu(const QPoint&);
     void buttonToggled();
+    void addSkill();
+    void deleteSkill();
+    void modifySkill();
+    void addInterest();
+    void deleteInterest();
+    void modifyInterest();
+    void addLanguage();
+    void deleteLanguage();
+    void modifyLanguage();
 };
 #endif

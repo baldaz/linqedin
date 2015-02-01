@@ -235,3 +235,48 @@ int LinqClient::outMailLimit() const {
         return BusinessUser::businessLimit();
     else return -1;
 }
+// aggiunge una caratteristica alle info del client, 0 => skill, 1 => language, 2 => interest
+void LinqClient::addTrait(int trait, const string& value) {
+    UserInfo* ui = dynamic_cast<UserInfo*> (_usr->account()->info());
+    switch(trait) {
+        case 0:
+            ui->addSkill(value);
+        break;
+        case 1:
+            ui->addLanguage(value);
+        break;
+        case 2:
+            ui->addInterest(value);
+        break;
+    }
+}
+// cancella una caratteristica dalle info del client, 0 => skill, 1 => language, 2 => interest
+void LinqClient::deleteTrait(int trait, const string& value) {
+    UserInfo* ui = dynamic_cast<UserInfo*> (_usr->account()->info());
+    switch(trait) {
+        case 0:
+            ui->removeSkill(value);
+        break;
+        case 1:
+            ui->removeLanguage(value);
+        break;
+        case 2:
+            ui->removeInterest(value);
+        break;
+    }
+}
+// modifica una caratteristica nelle indo del client, 0 => skill, 1 => language, 2 => interest
+// void LinqClient::modifyTrait(int trait, const string& value) {
+//     UserInfo* ui = dynamic_cast<UserInfo*> (_usr->account()->info());
+//     switch(trait) {
+//         case 0:
+//             ui->modifySkill(value);
+//         break;
+//         case 1:
+//             ui->modifyLanguage(value);
+//         break;
+//         case 2:
+//             ui->modifyInterest(value);
+//         break;
+//     }
+// }

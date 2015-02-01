@@ -19,7 +19,12 @@ Gui_Statistics::Gui_Statistics(LinqClient* cli, QWidget* parent) : _client(cli),
         else lvl = "Executive";
         bool appr = (*i)->approvation();
         if(!appr) status = "Pending";
-        content.append("<tr><td style='font-weight:400' align=center>" + (*i)->appDate().toString() + "</td><td style='font-weight:400' align=center>" + (*i)->appDate().addDays(30).toString() + "</td><td style='font-weight:400' align=center>" + lvl + "</td><td style='font-weight:400' align=center>Expired</td></tr>");
+        else {
+            if((*i)->appDate().addDays(30) < QDate::currentDate())
+                status = "Expired";
+            else status = "Approved";
+        }
+        content.append("<tr><td style='font-weight:400' align=center>" + (*i)->appDate().toString() + "</td><td style='font-weight:400' align=center>" + (*i)->appDate().addDays(30).toString() + "</td><td style='font-weight:400' align=center>" + lvl + "</td><td style='font-weight:400' align=center>" + status + "</td></tr>");
     }
     content.append("</table>");
     _list->setHtml(content);
@@ -51,7 +56,7 @@ Gui_Statistics::Gui_Statistics(LinqClient* cli, QWidget* parent) : _client(cli),
     keywords->setHtml(html);
 
     frm->addWidget(keywords, 0, 0, -1, -1);
-    addWidget(avatar, 0, 0, 1, 1);
+    addWidget(avatar, 0, 0, 1, 1, Qt::AlignTop);
     addWidget(_list, 0, 1, 1, -1);
     addLayout(frm, 1, 0, -1, -1);
     setColumnStretch(0, 1);

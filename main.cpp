@@ -24,17 +24,18 @@ int main(int argc, char**argv) {
     // client->save();
     // delete client;
     QApplication app(argc, argv);
-    Gui_UserWindow window;
+    // Gui_UserWindow window;
     Gui_Login logW;
     QFile File("style/stylesheet.qss");
     File.open(QFile::ReadOnly);
     QString StyleSheet = QLatin1String(File.readAll());
     app.setStyleSheet(StyleSheet);
-    window.setWindowTitle("");
-    if (logW.exec() == QDialog::Accepted) {
-        window.show();
-    }
-    else return 0;
+    // window.setWindowTitle("");
+    // if (logW.exec() == QDialog::Accepted) {
+        // window.show();
+    // }
+    // else return 0;
+    logW.show();
     return app.exec();
     // return 0;
 }

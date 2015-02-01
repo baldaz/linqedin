@@ -1,5 +1,6 @@
 #include "billmethod.h"
 
+BillMethod::~BillMethod() {}
 CreditCard::CreditCard(std::string code, std::string nominee) : _code(code), _nominee(nominee) {}
 CreditCard::CreditCard(const CreditCard& cr) : _code(cr._code), _nominee(cr._nominee) {}
 BillMethod* CreditCard::clone() const {

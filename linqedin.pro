@@ -15,6 +15,7 @@ HEADERS += account.h \
            billmethod.h \
            experience.h \
            group.h \
+           gui/gui_adminwindow.h \
            gui/gui_avatar.h \
            gui/gui_displayinfo.h \
            gui/gui_groups.h \
@@ -46,6 +47,7 @@ SOURCES += account.cpp \
            billmethod.cpp \
            experience.cpp \
            group.cpp \
+           gui/gui_adminwindow.cpp \
            gui/gui_avatar.cpp \
            gui/gui_displayinfo.cpp \
            gui/gui_groups.cpp \

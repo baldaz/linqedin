@@ -4,9 +4,9 @@ Info::~Info() {}
 UserInfo::UserInfo(bool sx, const string& n, const string& s, const string& e, const string& a, const string& t, const string& w, const QDate& b) :
                 _sex(sx), _name(n), _surname(s), _email(e), _address(a), _telephon(t), _website(w), _birthdate(b){}
 UserInfo::UserInfo(const UserInfo& uf) :
-                _sex(uf._sex), _name(uf._name), _surname(uf._surname),_birthdate(uf._birthdate),
-                _email(uf._email), _address(uf._address), _telephon(uf._telephon), _skills(uf._skills),
-                _interests(uf._interests), _website(uf._website), _languages(uf._languages) {
+                _sex(uf._sex), _name(uf._name), _surname(uf._surname), _email(uf._email), _address(uf._address),
+                _telephon(uf._telephon), _website(uf._website), _birthdate(uf._birthdate), _languages(uf._languages),
+                _skills(uf._skills), _interests(uf._interests) {
                     for(list<Experience*>::const_iterator it = uf._exp.begin(); it != uf._exp.end(); ++it)
                         _exp.push_back(new Experience(**it));
                 }
@@ -106,6 +106,15 @@ void UserInfo::addLanguage(const string& newlang) {
             isPresent = true;
     if(!isPresent) _languages.push_back(newlang);
 }
+void UserInfo::removeLanguage(const string& lang) {
+    vector<string>::iterator it = _languages.begin();
+    bool isPresent = false;
+    for(; it < _languages.end() && !isPresent; ++it)
+        if(*it == lang) {
+            _languages.erase(it);
+            isPresent = true;
+        }
+}
 void UserInfo::addSkill(const string& newskill) {
     vector<string>::iterator it = _skills.begin();
     bool isPresent = false;
@@ -114,6 +123,15 @@ void UserInfo::addSkill(const string& newskill) {
             isPresent = true;
     if(!isPresent) _skills.push_back(newskill);
 }
+void UserInfo::removeSkill(const string& skill) {
+    vector<string>::iterator it = _skills.begin();
+    bool isPresent = false;
+    for(; it < _skills.end() && !isPresent; ++it)
+        if(*it == skill) {
+            _skills.erase(it);
+            isPresent = true;
+        }
+}
 void UserInfo::addInterest(const string& newinterest = "") {
     vector<string>::iterator it = _interests.begin();
     bool isPresent = false;
@@ -121,6 +139,15 @@ void UserInfo::addInterest(const string& newinterest = "") {
         if(*it == newinterest)
             isPresent = true;
     if(!isPresent) _interests.push_back(newinterest);
+}
+void UserInfo::removeInterest(const string& inter) {
+    vector<string>::iterator it = _interests.begin();
+    bool isPresent = false;
+    for(; it < _interests.end() && !isPresent; ++it)
+        if(*it == inter) {
+            _interests.erase(it);
+            isPresent = true;
+        }
 }
 void UserInfo::addExperience(const Experience& newxp) {
     _exp.push_back(const_cast<Experience*> (&newxp));

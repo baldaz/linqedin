@@ -8,7 +8,7 @@ using std::vector;
 using std::map;
 
 User::User(Account* ac) : _acc(ac->clone()), _net(new LinqNet()), _visitcount(0) {}
-User::User(const User& usr) : _acc(usr._acc->clone()), _net(usr._net->clone()), _visitcount(usr._visitcount), _inMail(usr._inMail), _outMail(usr._outMail) {}
+User::User(const User& usr) : _acc(usr._acc->clone()), _net(usr._net->clone()), _visitcount(usr._visitcount), _outMail(usr._outMail), _inMail(usr._inMail) {}
 User::~User() {
     delete _acc;
     delete _net;
@@ -285,7 +285,7 @@ void ExecutiveUser::RemoveGroup::operator()(const SmartPtr<User>& u) {
         list<Group*>::iterator it = lu.begin();
         for(; it != lu.end(); ++it) {
             // list<SmartPtr<User> > members = (*it)->members();
-            bool found = false;
+            //bool found = false;
             if((**it) == *gr)
                 ex->removeGroup(**it);
             // list<SmartPtr<User> >::iterator j = members.begin();
