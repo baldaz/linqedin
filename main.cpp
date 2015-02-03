@@ -1,6 +1,3 @@
-// #include <iostream>
-// #include "linqclient.h"
-// #include "linqadmin.h"
 #include "gui/gui_login.h"
 #include "gui/gui_userwindow.h"
 
@@ -9,7 +6,15 @@ using std::endl;
 
 int main(int argc, char**argv) {
     // LinqAdmin* admin = new LinqAdmin;
-    // admin->removeUser(Username("Baldaz",""));
+    // // admin->removeUser(Username("Baldaz",""));
+    // // Bio b;
+    // // Username u("ciao", "pirla");
+    // // Account a(&b, u, basic);
+    // // User* n = new BasicUser(&a);
+    // // admin->insertUser(n);
+    // map<string, string> par;
+    // par["name"] = "ciao";
+    // admin->insertUser("osis", "dsds", par);
     // delete admin;
     // LinqClient* client = new LinqClient(Username("Casey", "rayback"));
     // client->addContact(Username("Casey", "rayback"));

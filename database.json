@@ -122,7 +122,6 @@
                 "birthdate": "08.10.1988",
                 "email": "a.g.baldan@gmail.com",
                 "name": "Andrea",
-                "sex": true,
                 "surname": "Baldan",
                 "telephon": "3450515048",
                 "website": "www.baldaz.ba"
@@ -263,7 +262,6 @@
                 "birthdate": "15.12.1923",
                 "email": "escobar@cartello.cb",
                 "name": "Pablos",
-                "sex": true,
                 "surname": "Escobar",
                 "telephon": "9873478233",
                 "website": "www.cartel.cl"
@@ -316,7 +314,6 @@
                 "birthdate": "15.10.1973",
                 "email": "atos@bierta.es",
                 "name": "Atos",
-                "sex": true,
                 "surname": "Bierta",
                 "telephon": "4872474213",
                 "website": "www.cartel.mx"
@@ -366,7 +363,6 @@
                 "birthdate": "08.10.1288",
                 "email": "a.g.ba@gmail.com",
                 "name": "Andr",
-                "sex": true,
                 "surname": "jsjs",
                 "telephon": "35015048",
                 "website": "www.andr.ad"
@@ -411,7 +407,6 @@
                 "birthdate": "08.10.1928",
                 "email": "a.g.ban@gmail.com",
                 "name": "Sara",
-                "sex": false,
                 "surname": "Mira",
                 "telephon": "3250515048",
                 "website": "www.sara.sr"
@@ -461,7 +456,6 @@
                 "birthdate": "08.10.1988",
                 "email": "dan@gmail.com",
                 "name": "Giacomo",
-                "sex": true,
                 "surname": "Ser",
                 "telephon": "345215048",
                 "website": "www.idiota.ser"
@@ -522,7 +516,6 @@
                 "birthdate": "08.10.1949",
                 "email": "seagal@steven.ss",
                 "name": "Steven",
-                "sex": true,
                 "surname": "Seagal",
                 "telephon": "3250525147",
                 "website": "www.stevenseagal.ss"
@@ -686,7 +679,6 @@
                 "birthdate": "08.07.1943",
                 "email": "danny@trejo.dt",
                 "name": "Danny \"Machete\"",
-                "sex": true,
                 "surname": "Trejo",
                 "telephon": "3150535157",
                 "website": "www.dannytrejo.dt"
@@ -773,7 +765,6 @@
                 "birthdate": "08.07.1943",
                 "email": "hannibal@lecter.hl",
                 "name": "Hannibal",
-                "sex": true,
                 "surname": "Lecter",
                 "telephon": "3150335121",
                 "website": "www.hanniballecter.hl"
@@ -855,7 +846,6 @@
                 "birthdate": "08.07.1943",
                 "email": "hannibal@lecter.hl",
                 "name": "Will",
-                "sex": true,
                 "surname": "Graham",
                 "telephon": "3150335121",
                 "website": "www.grahamwill.gw"

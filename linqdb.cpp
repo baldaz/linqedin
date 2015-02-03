@@ -108,7 +108,6 @@ void LinqDB::readInfo(Info* inf, const QJsonObject& obj) const {
         uif->setEmail(info["email"].toString().toStdString());
         uif->setAddress(info["address"].toString().toStdString());
         uif->setTelephon(info["telephon"].toString().toStdString());
-        uif->setSex(info["sex"].toBool());
         uif->setWebsite(info["website"].toString().toStdString());
         QJsonArray languages = obj["languages"].toArray();
         for(int i = 0; i < languages.size(); ++i)
@@ -209,7 +208,6 @@ vector<QJsonObject> LinqDB::writeJson() const {
             jInf["telephon"] = QString::fromStdString(uif->telephon());
             jInf["birthdate"] = (uif->birthdate().toString("dd.MM.yyyy"));
             jInf["email"] = QString::fromStdString(uif->email());
-            jInf["sex"] = uif->sex();
             jInf["address"] = QString::fromStdString(uif->address());
             jInf["website"] = QString::fromStdString(uif->website());
             experience = uif->experiences();

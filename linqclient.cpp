@@ -10,6 +10,9 @@ LinqClient::~LinqClient() {delete _db;}
 Username LinqClient::username() const {
     return _usr->account()->username();
 }
+Info* LinqClient::info() const {
+    return _usr->account()->info();
+}
 int LinqClient::level() const {
     return _usr->account()->prLevel();
 }

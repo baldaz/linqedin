@@ -19,3 +19,6 @@ P2 Project 2014
 
 ####Graphic
     - Modularize parts (showuser etc..)
+
+####IMPORTANT
+    - Watch for random segfaults in registration with more client logged.

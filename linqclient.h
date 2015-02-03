@@ -23,6 +23,7 @@ public:
     bool linked(const Username&) const;
     void setAvatar(const string& = STANDARD_AVATAR);
     Username username() const;
+    Info* info() const;
     string avatar() const;
     string displayProfile() const;
     string displayHtmlInfo() const;

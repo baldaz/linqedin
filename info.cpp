@@ -1,10 +1,9 @@
 #include "info.h"
 
 Info::~Info() {}
-UserInfo::UserInfo(bool sx, const string& n, const string& s, const string& e, const string& a, const string& t, const string& w, const QDate& b) :
-                _sex(sx), _name(n), _surname(s), _email(e), _address(a), _telephon(t), _website(w), _birthdate(b){}
-UserInfo::UserInfo(const UserInfo& uf) :
-                _sex(uf._sex), _name(uf._name), _surname(uf._surname), _email(uf._email), _address(uf._address),
+UserInfo::UserInfo(const string& n, const string& s, const string& e, const string& a, const string& t, const string& w, const QDate& b) :
+                _name(n), _surname(s), _email(e), _address(a), _telephon(t), _website(w), _birthdate(b){}
+UserInfo::UserInfo(const UserInfo& uf) : _name(uf._name), _surname(uf._surname), _email(uf._email), _address(uf._address),
                 _telephon(uf._telephon), _website(uf._website), _birthdate(uf._birthdate), _languages(uf._languages),
                 _skills(uf._skills), _interests(uf._interests) {
                     for(list<Experience*>::const_iterator it = uf._exp.begin(); it != uf._exp.end(); ++it)
@@ -18,7 +17,6 @@ UserInfo& UserInfo::operator=(const UserInfo& uif) {
         _address = uif._address;
         _email = uif._email;
         _telephon = uif._telephon;
-        _sex = uif._sex;
         _website = uif._website;
         _skills = uif._skills;
         _exp = uif._exp;
@@ -56,9 +54,6 @@ string UserInfo::address() const {
 string UserInfo::telephon() const {
     return _telephon;
 }
-bool UserInfo::sex() const {
-    return _sex;
-}
 string UserInfo::website() const {
     return _website;
 }
@@ -91,9 +86,6 @@ void UserInfo::setTelephon(const string& t = "") {
 }
 void UserInfo::setAddress(const string& a = "") {
     _address = a;
-}
-void UserInfo::setSex(bool s = true) {
-    _sex = s;
 }
 void UserInfo::setWebsite(const string& site = "") {
     _website = site;
@@ -160,10 +152,7 @@ int UserInfo::age() const {
 string UserInfo::print() const {
     vector<string>::const_iterator it = _interests.begin();
     string ret = "";
-    string sex = "";
-    if(this->sex()) sex = "Maschio";
-    else sex = "Femmina";
-    ret += _name + " , " + _surname + " , " + sex + " , " + _address + " , " + _telephon + ", nato il " + _birthdate.toString().toStdString() + "\n";
+    ret += _name + " , " + _surname + " , " + _address + " , " + _telephon + ", nato il " + _birthdate.toString().toStdString() + "\n";
     ret += "E-mail >> " + _email + " Sito web >> " + _website + "\n";
     ret += "Personal interests >> ";
     for(; it < _interests.end(); ++it)
@@ -237,7 +226,7 @@ string UserInfo::printHtml() const {
     return html;
 }
 
-Bio::Bio(bool sx, const string& n, const string& s, const string& e, const string& a, const string& t, const string& w, const QDate& b, const string& bio) : UserInfo(sx, n, s, e, a, t, w, b), _bio(bio) {}
+Bio::Bio(const string& n, const string& s, const string& e, const string& a, const string& t, const string& w, const QDate& b, const string& bio) : UserInfo(n, s, e, a, t, w, b), _bio(bio) {}
 Bio::Bio(const Bio& bio) : UserInfo(bio), _bio(bio._bio) {}
 Bio::~Bio() {}
 Info* Bio::clone() const {

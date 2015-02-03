@@ -23,13 +23,12 @@ public:
 
 class UserInfo : public Info {
 private:
-    bool _sex;
     string _name, _surname, _email, _address, _telephon, _website;
     vector<string> _languages, _skills, _interests;
     list<Experience*> _exp;
     QDate _birthdate;
 public:
-    UserInfo(bool = false, const string& ="", const string& ="", const string& ="", const string& ="", const string& ="", const string& ="", const QDate& = QDate::currentDate());
+    UserInfo(const string& ="", const string& ="", const string& ="", const string& ="", const string& ="", const string& ="", const QDate& = QDate::currentDate());
     UserInfo(const UserInfo&);
     virtual ~UserInfo();
     Info* clone() const;
@@ -41,13 +40,11 @@ public:
     string address() const;
     string telephon() const;
     string website() const;
-    bool sex() const;
     vector<string> languages() const;
     vector<string> skills() const;
     vector<string> interests() const;
     list<Experience*> experiences() const;
     Experience* lastExperience() const;
-    void setSex(bool);
     void setName(const string&);
     void setSurname(const string&);
     void setBirthdate(const QDate& = QDate::currentDate());
@@ -71,7 +68,7 @@ class Bio : public UserInfo {
 private:
     string _bio;
 public:
-    Bio(bool = true, const string& = "", const string& = "", const string& = "", const string& = "", const string& = "", const string& = "",  const QDate& = QDate::currentDate(), const string& = "");
+    Bio(const string& = "", const string& = "", const string& = "", const string& = "", const string& = "", const string& = "",  const QDate& = QDate::currentDate(), const string& = "");
     Bio(const Bio&);
     virtual ~Bio();
     Info* clone() const;

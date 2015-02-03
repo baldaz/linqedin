@@ -52,6 +52,7 @@ protected:
 public:
     User(Account*);
     User(const User&);
+    User(const map<string, string>&);
     User& operator=(const User&);
     virtual ~User();
     virtual User* clone() const =0;
@@ -81,6 +82,7 @@ private:
 public:
     BasicUser(Account*);
     BasicUser(const BasicUser&);
+    BasicUser(const map<string,string>&);
     BasicUser& operator=(const BasicUser&);
     virtual User* clone() const;
     virtual map<string, string> userSearch(const LinqDB&, const string&) const;
@@ -96,6 +98,7 @@ private:
 public:
     BusinessUser(Account*);
     BusinessUser(const BusinessUser&);
+    BusinessUser(const map<string,string>&);
     BusinessUser& operator=(const BusinessUser&);
     virtual ~BusinessUser();
     virtual User* clone() const;
@@ -125,6 +128,7 @@ private:
 public:
     ExecutiveUser(Account*);
     ExecutiveUser(const ExecutiveUser&);
+    ExecutiveUser(const map<string,string>&);
     ExecutiveUser& operator=(const ExecutiveUser&);
     virtual ~ExecutiveUser();
     virtual User* clone() const;

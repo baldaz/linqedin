@@ -18,6 +18,7 @@ public:
     LinqAdmin();
     ~LinqAdmin();
     void insertUser(User*);
+    void insertUser(const string&, const string&, const map<string, string>& = map<string,string>());
     void removeUser(const Username&);
     void find() const;
     void alterSubscription(const Username&, privLevel);

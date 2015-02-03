@@ -4,7 +4,7 @@ Gui_Login::Gui_Login(QWidget* parent) : QDialog(parent) {
     setWindowFlags(Qt::FramelessWindowHint);
     setWindowOpacity(0.95);
     QVBoxLayout *mainLayout = new QVBoxLayout;
-    QLabel* splash = new QLabel(this);
+    QLabel* splash = new QLabel("LINQEDIN" ,this);
     QLabel* username = new QLabel("Username:", this);
     QLineEdit* uname = new QLineEdit(this);
     QLabel* password = new QLabel("Password:", this);
@@ -14,9 +14,13 @@ Gui_Login::Gui_Login(QWidget* parent) : QDialog(parent) {
     splash->setPixmap(QPixmap("img/linked5.png"));
     buttonBox = new QDialogButtonBox(QDialogButtonBox::Ok | QDialogButtonBox::Cancel);
     QPushButton* quit = new QPushButton;
+    // QPushButton* login = new QPushButton("&Login");
+    // QPushButton* reg = new QPushButton("&Register");
+
     quit->setIcon(QPixmap("img/prohibited1.png"));
     connect(quit, SIGNAL(clicked()), this, SLOT(close()));
     mainLayout->addWidget(quit, 0, Qt::AlignTop | Qt::AlignRight);
+    mainLayout->addWidget(new QLabel("LINQEDIN"), 0, Qt::AlignTop | Qt::AlignCenter);
     mainLayout->addWidget(splash, Qt::AlignCenter);
     mainLayout->addWidget(username, Qt::AlignLeft);
     mainLayout->addWidget(uname, Qt::AlignRight);
@@ -41,11 +45,13 @@ void Gui_Login::resizeEvent(QResizeEvent* event) {
 void Gui_Login::onClicked(QAbstractButton* button) {
     QDialogButtonBox::StandardButton btn = buttonBox->standardButton(button);
     if(btn == QDialogButtonBox::Ok) {
+        // reg.close();
         window.show();
         close();
     }
     else {
         // admwin.show();
+        // window.close();
         reg.show();
         close();
     }

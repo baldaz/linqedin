@@ -30,6 +30,8 @@ private:
     QString _selected;
 public:
     Gui_Settings(LinqClient*, QWidget* = 0);
+signals:
+    // void modified(int);
 public slots:
     void skillsMenu(const QPoint&);
     void interestsMenu(const QPoint&);

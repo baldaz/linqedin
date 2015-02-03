@@ -87,16 +87,19 @@ Gui_Settings::Gui_Settings(LinqClient* cli, QWidget* parent) : _client(cli), QGr
     edtInfo[11]->setEnabled(false);
     edtBio->setReadOnly(true);
 
-    edtInfo[0]->setText("Steven");
-    edtInfo[1]->setText("Via IV Novembre 24 Stra (VE)");
-    edtInfo[2]->setText("steven@seagal.ss");
-    edtInfo[3]->setText("Seagal");
-    edtInfo[4]->setText("08-11-1946");
-    edtInfo[5]->setText("3250525147");
-    edtInfo[6]->setText("www.stevenseagal.ss");
-    edtInfo[7]->setText("Casey");
+    Info* in = _client->info();
+    Bio* b = dynamic_cast<Bio*>(in);
+
+    edtInfo[0]->setText(QString::fromStdString(b->name()));
+    edtInfo[1]->setText(QString::fromStdString(b->surname()));
+    edtInfo[2]->setText(QString::fromStdString(b->address()));
+    edtInfo[3]->setText(QString::fromStdString(b->email()));
+    edtInfo[4]->setText(b->birthdate().toString("dd.MM.yyyy"));
+    edtInfo[5]->setText(QString::fromStdString(b->telephon()));
+    edtInfo[6]->setText(QString::fromStdString(b->website()));
+    edtInfo[7]->setText(QString::fromStdString(_client->username().login()));
     edtInfo[11]->setText(QString::fromStdString(_client->avatar()));
-    edtBio->setText("Seagal was born in Lansing, Michigan, where he lived until he was five years old, when the family moved to California. His mother, Patricia (1930–2003), was a medical technician, and his father, Samuel Steven Seagal (1928–1991), was a high school math teacher. His mother was of Irish ancestry and his father was Jewish (the son of immigrants from Russia). Seagal has reported that he had a Mongolian grandfather, but this seems unlikely. His parents relocated to Fullerton, California, where Seagal attended Buena Park High School in Buena Park.");
+    edtBio->setText(QString::fromStdString(b->bio()));
     edtBio->setStyleSheet("background: transparent");
 
     addWidget(avatar, 0, 0, 1, 1, Qt::AlignTop);
@@ -135,7 +138,7 @@ Gui_Settings::Gui_Settings(LinqClient* cli, QWidget* parent) : _client(cli), QGr
 
     addLayout(frm, 0, 1, 1, 1);
     addLayout(frm2, 0, 2, 1, 1);
-    addWidget(box, 2, 1, 1, 1);
+    // addWidget(box, 2, 1, 1, 1);
     addWidget(toggle, 2, 2, 1, 1);
 }
 
@@ -146,8 +149,9 @@ void Gui_Settings::skillsMenu(const QPoint& pos) {
     _selected = skills->item(t.row())->data(Qt::DisplayRole).toString();
     QMenu myMenu;
     myMenu.addAction("Delete", this, SLOT(deleteSkill()));
-    myMenu.addAction("Modify", this, SLOT(modifySkill()));
+    QAction* act = myMenu.addAction("Modify", this, SLOT(modifySkill()));
     myMenu.exec(globalPos);
+    // connect(act, SIGNAL(modified(int)), this, SLOT(modifySkill(int)));
 }
 
 void Gui_Settings::interestsMenu(const QPoint& pos) {
@@ -174,7 +178,7 @@ void Gui_Settings::languagesMenu(const QPoint& pos) {
 
 void Gui_Settings::buttonToggled() {
     if(toggle->isChecked()) {
-        toggle->setText("Lock");
+        toggle->setText("Save");
         edtInfo[0]->setEnabled(true);
         edtInfo[1]->setEnabled(true);
         edtInfo[2]->setEnabled(true);
