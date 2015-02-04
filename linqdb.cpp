@@ -468,6 +468,9 @@ Group LinqDB::findGroubByName(const string& n) const {
             return **it;
         }
 }
+list<SmartPtr<User> > LinqDB::db() const {
+    return _db;
+}
 list<SmartPtr<User> >::const_iterator LinqDB::begin() const{
     return _db.begin();
 }

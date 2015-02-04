@@ -17,6 +17,7 @@ private:
 public:
     LinqAdmin();
     ~LinqAdmin();
+    list<SmartPtr<User> > listUsers() const;
     void insertUser(User*);
     void insertUser(const string&, const string&, const map<string, string>& = map<string,string>());
     void removeUser(const Username&);

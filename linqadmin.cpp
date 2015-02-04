@@ -11,6 +11,9 @@ void LinqAdmin::insertUser(User* newuser) {
     _db->addUser(newuser);
     save();
 }
+list<SmartPtr<User> > LinqAdmin::listUsers() const {
+    return _db->db();
+}
 void LinqAdmin::insertUser(const string& username, const string& password, const map<string, string>& info) {
     string name = (info.find("name"))->second;
     string surname = info.find("surname")->second;

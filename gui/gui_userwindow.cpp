@@ -1,7 +1,7 @@
 #include "gui_userwindow.h"
 
-Gui_UserWindow::Gui_UserWindow(const string& usr, const string& pas, QWidget* parent) : QWidget(parent) {
-    logicInitialize(usr, pas);
+Gui_UserWindow::Gui_UserWindow(LinqClient* cli, QWidget* parent) : user(cli), QWidget(parent) {
+    // logicInitialize(usr, pas);
     setWindowFlags(Qt::FramelessWindowHint);
     setWindowOpacity(0.95);
     // this->setStyleSheet("* { background-color: white; }");
@@ -105,8 +105,12 @@ void Gui_UserWindow::createGroups() {
     groupsGroupBox->setLayout(_grp);
 }
 
-void Gui_UserWindow::logicInitialize(const string& uname, const string& pwd) {
-    user = new LinqClient(Username(uname, pwd));
+// void Gui_UserWindow::logicInitialize(const string& uname, const string& pwd) {
+//     user = new LinqClient(Username(uname, pwd));
+// }
+
+void Gui_UserWindow::setClient(LinqClient* cli) {
+    user = cli;
 }
 
 bool Gui_UserWindow::eventFilter(QObject* obj, QEvent* event) {

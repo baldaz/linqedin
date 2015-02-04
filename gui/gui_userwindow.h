@@ -17,8 +17,8 @@
 class Gui_UserWindow : public QWidget {
     Q_OBJECT
 public:
-    explicit Gui_UserWindow(const string& ="Casey", const string& ="rayback", QWidget* parent = 0);
-
+    explicit Gui_UserWindow(LinqClient* cli = 0, QWidget* parent = 0);
+    void setClient(LinqClient*);
 protected:
     void mousePressEvent(QMouseEvent*);
     void mouseMoveEvent(QMouseEvent*);
@@ -43,7 +43,7 @@ private:
     LinqClient* user;
     // Gui_Login* logW;
 
-    void logicInitialize(const string&, const string&);
+    // void logicInitialize(const string&, const string&);
     void createHorizontalGroupBox();
     void createOverview();
     void createMessages();

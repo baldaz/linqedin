@@ -48,16 +48,19 @@ void Gui_Login::onClicked(QAbstractButton* button) {
         QString us = uname->text();
         QString pw = passw->text();
         Username u(us.toStdString(), pw.toStdString());
-        if(_loader.isAdmin(u))
-            admwin.show();
-        else
-            window.show();
+        if(_loader.isAdmin(u)) {
+            admwin = new Gui_AdminWindow;
+            admwin->show();
+        }
+        else {
+            window = new Gui_UserWindow(_loader.getClientHandle(u));
+            window->show();
+        }
         close();
     }
     else {
-        // admwin.show();
-        // window.close();
-        reg.show();
+        reg = new Gui_Registration;
+        reg->show();
         close();
     }
 }

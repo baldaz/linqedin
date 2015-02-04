@@ -49,6 +49,7 @@ public:
     void addMemberToGroup(const Group&, const Username&);
     void addPostToGroup(const Group&, const Post&);
     Username getAdmin() const;
+    list<SmartPtr<User> > db() const;
     list<Group*> allGroups() const;
     list<Post*> postsFromGroup(const Group&) const;
     Group findGroubByName(const string&) const;
