@@ -34,6 +34,7 @@ public:
     vector<string> skills() const;
     vector<string> interests() const;
     vector<string> languages() const;
+    list<Experience*> experiences() const;
     vector<string> displayHtmlNet() const;
     vector<SmartPtr<User> > contactsInfo() const;
     vector<SmartPtr<Payment> > paymentHistory() const;

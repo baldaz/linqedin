@@ -22,7 +22,6 @@ bool LinqDB::readJson() {
     loadDB.close();
 
     QJsonDocument doc(QJsonDocument::fromJson(saveData));
-    // read(doc.array());
     QJsonObject db = doc.object();
     read(db["users"].toArray());
     readNet(db["users"].toArray());
@@ -357,10 +356,14 @@ void LinqDB::write(const vector<QJsonObject>& json, const vector<QJsonObject>& j
     QJsonObject db;
     QJsonArray jarr;
     QJsonArray jgrp;
+    QJsonObject jadm;
     for(unsigned int i = 0; i < json.size(); ++i)
         jarr.append(json[i]);
     for(unsigned int i = 0; i < jg.size(); ++i)
         jgrp.append(jg[i]);
+    jadm["username"] = QString("root");
+    jadm["password"] = QString("toor");
+    db["admin"] = jadm;
     db["users"] = jarr;
     db["groups"] = jgrp;
     QJsonDocument doc(db);
@@ -486,4 +489,19 @@ int LinqDB::postNumberFromGroup(const Group& g) const {
         if((**i) == g)
             return (*i)->postNumber();
     return 0;
+}
+Username LinqDB::getAdmin() const {
+    QFile loadDB("database.json");
+    if (!loadDB.open(QIODevice::ReadOnly)) {
+        std::cout << "Couldn't open database." << std::endl;
+        exit(1); // insert exception
+    }
+    QByteArray saveData = loadDB.readAll();
+    loadDB.close();
+
+    QJsonDocument doc(QJsonDocument::fromJson(saveData));
+    QJsonObject db = doc.object();
+    QJsonObject adm = db["admin"].toObject();
+    Username u(adm["username"].toString().toStdString(), adm["password"].toString().toStdString());
+    return u;
 }

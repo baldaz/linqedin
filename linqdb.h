@@ -48,6 +48,7 @@ public:
     void addGroup(const Group&);
     void addMemberToGroup(const Group&, const Username&);
     void addPostToGroup(const Group&, const Post&);
+    Username getAdmin() const;
     list<Group*> allGroups() const;
     list<Post*> postsFromGroup(const Group&) const;
     Group findGroubByName(const string&) const;

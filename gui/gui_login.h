@@ -8,9 +8,11 @@
 #include <QLineEdit>
 #include <QVBoxLayout>
 #include <QDialogButtonBox>
+#include "loader.h"
 #include "gui_userwindow.h"
 #include "gui_adminwindow.h"
 #include "gui_registration.h"
+
 
 class Gui_Login : public QDialog {
     Q_OBJECT
@@ -19,6 +21,9 @@ private:
     Gui_Registration reg;
     Gui_AdminWindow admwin;
     QDialogButtonBox* buttonBox;
+    QLineEdit* uname;
+    QLineEdit* passw;
+    Loader _loader;
 
     void resizeEvent(QResizeEvent*);
 public:

@@ -104,6 +104,12 @@ vector<string> LinqClient::languages() const {
         ret = p->languages();
     return ret;
 }
+list<Experience*> LinqClient::experiences() const {
+    list<Experience*> ret;
+    if(UserInfo* p = dynamic_cast<UserInfo*> (_usr->account()->info()))
+        ret = p->experiences();
+    return ret;
+}
 vector<string> LinqClient::displayHtmlNet() const {
     vector<string> ret;
     string html = "";

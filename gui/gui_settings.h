@@ -25,6 +25,7 @@ private:
     QListWidget* skills;
     QListWidget* inters;
     QListWidget* lang;
+    QListWidget* exps;
     QPushButton* toggle;
     Gui_ModPopup* _modpop;
     QString _selected;
@@ -36,6 +37,8 @@ public slots:
     void skillsMenu(const QPoint&);
     void interestsMenu(const QPoint&);
     void languagesMenu(const QPoint&);
+    void experiencesMenu(const QPoint&);
+
     void buttonToggled();
     void addSkill();
     void deleteSkill();
@@ -46,5 +49,7 @@ public slots:
     void addLanguage();
     void deleteLanguage();
     void modifyLanguage();
+    void deleteExperience();
+    void modifyExperience();
 };
 #endif

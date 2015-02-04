@@ -6,9 +6,9 @@ Gui_Login::Gui_Login(QWidget* parent) : QDialog(parent) {
     QVBoxLayout *mainLayout = new QVBoxLayout;
     QLabel* splash = new QLabel("LINQEDIN" ,this);
     QLabel* username = new QLabel("Username:", this);
-    QLineEdit* uname = new QLineEdit(this);
+    uname = new QLineEdit(this);
     QLabel* password = new QLabel("Password:", this);
-    QLineEdit* passw = new QLineEdit(this);
+    passw = new QLineEdit(this);
     passw->setEchoMode(QLineEdit::Password);
 
     splash->setPixmap(QPixmap("img/linked5.png"));
@@ -45,8 +45,13 @@ void Gui_Login::resizeEvent(QResizeEvent* event) {
 void Gui_Login::onClicked(QAbstractButton* button) {
     QDialogButtonBox::StandardButton btn = buttonBox->standardButton(button);
     if(btn == QDialogButtonBox::Ok) {
-        // reg.close();
-        window.show();
+        QString us = uname->text();
+        QString pw = passw->text();
+        Username u(us.toStdString(), pw.toStdString());
+        if(_loader.isAdmin(u))
+            admwin.show();
+        else
+            window.show();
         close();
     }
     else {

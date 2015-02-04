@@ -19,8 +19,8 @@
 
 QT_BEGIN_MOC_NAMESPACE
 struct qt_meta_stringdata_Gui_Settings_t {
-    QByteArrayData data[15];
-    char stringdata[185];
+    QByteArrayData data[18];
+    char stringdata[235];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -34,22 +34,27 @@ QT_MOC_LITERAL(1, 13, 10),
 QT_MOC_LITERAL(2, 24, 0),
 QT_MOC_LITERAL(3, 25, 13),
 QT_MOC_LITERAL(4, 39, 13),
-QT_MOC_LITERAL(5, 53, 13),
-QT_MOC_LITERAL(6, 67, 8),
-QT_MOC_LITERAL(7, 76, 11),
-QT_MOC_LITERAL(8, 88, 11),
-QT_MOC_LITERAL(9, 100, 11),
-QT_MOC_LITERAL(10, 112, 14),
-QT_MOC_LITERAL(11, 127, 14),
-QT_MOC_LITERAL(12, 142, 11),
-QT_MOC_LITERAL(13, 154, 14),
-QT_MOC_LITERAL(14, 169, 14)
+QT_MOC_LITERAL(5, 53, 15),
+QT_MOC_LITERAL(6, 69, 13),
+QT_MOC_LITERAL(7, 83, 8),
+QT_MOC_LITERAL(8, 92, 11),
+QT_MOC_LITERAL(9, 104, 11),
+QT_MOC_LITERAL(10, 116, 11),
+QT_MOC_LITERAL(11, 128, 14),
+QT_MOC_LITERAL(12, 143, 14),
+QT_MOC_LITERAL(13, 158, 11),
+QT_MOC_LITERAL(14, 170, 14),
+QT_MOC_LITERAL(15, 185, 14),
+QT_MOC_LITERAL(16, 200, 16),
+QT_MOC_LITERAL(17, 217, 16)
     },
     "Gui_Settings\0skillsMenu\0\0interestsMenu\0"
-    "languagesMenu\0buttonToggled\0addSkill\0"
-    "deleteSkill\0modifySkill\0addInterest\0"
-    "deleteInterest\0modifyInterest\0addLanguage\0"
-    "deleteLanguage\0modifyLanguage\0"
+    "languagesMenu\0experiencesMenu\0"
+    "buttonToggled\0addSkill\0deleteSkill\0"
+    "modifySkill\0addInterest\0deleteInterest\0"
+    "modifyInterest\0addLanguage\0deleteLanguage\0"
+    "modifyLanguage\0deleteExperience\0"
+    "modifyExperience\0"
 };
 #undef QT_MOC_LITERAL
 
@@ -59,7 +64,7 @@ static const uint qt_meta_data_Gui_Settings[] = {
        7,       // revision
        0,       // classname
        0,    0, // classinfo
-      13,   14, // methods
+      16,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -67,24 +72,30 @@ static const uint qt_meta_data_Gui_Settings[] = {
        0,       // signalCount
 
  // slots: name, argc, parameters, tag, flags
-       1,    1,   79,    2, 0x0a,
-       3,    1,   82,    2, 0x0a,
-       4,    1,   85,    2, 0x0a,
-       5,    0,   88,    2, 0x0a,
-       6,    0,   89,    2, 0x0a,
-       7,    0,   90,    2, 0x0a,
-       8,    0,   91,    2, 0x0a,
-       9,    0,   92,    2, 0x0a,
-      10,    0,   93,    2, 0x0a,
-      11,    0,   94,    2, 0x0a,
-      12,    0,   95,    2, 0x0a,
-      13,    0,   96,    2, 0x0a,
-      14,    0,   97,    2, 0x0a,
+       1,    1,   94,    2, 0x0a,
+       3,    1,   97,    2, 0x0a,
+       4,    1,  100,    2, 0x0a,
+       5,    1,  103,    2, 0x0a,
+       6,    0,  106,    2, 0x0a,
+       7,    0,  107,    2, 0x0a,
+       8,    0,  108,    2, 0x0a,
+       9,    0,  109,    2, 0x0a,
+      10,    0,  110,    2, 0x0a,
+      11,    0,  111,    2, 0x0a,
+      12,    0,  112,    2, 0x0a,
+      13,    0,  113,    2, 0x0a,
+      14,    0,  114,    2, 0x0a,
+      15,    0,  115,    2, 0x0a,
+      16,    0,  116,    2, 0x0a,
+      17,    0,  117,    2, 0x0a,
 
  // slots: parameters
     QMetaType::Void, QMetaType::QPoint,    2,
     QMetaType::Void, QMetaType::QPoint,    2,
     QMetaType::Void, QMetaType::QPoint,    2,
+    QMetaType::Void, QMetaType::QPoint,    2,
+    QMetaType::Void,
+    QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
@@ -107,16 +118,19 @@ void Gui_Settings::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id
         case 0: _t->skillsMenu((*reinterpret_cast< const QPoint(*)>(_a[1]))); break;
         case 1: _t->interestsMenu((*reinterpret_cast< const QPoint(*)>(_a[1]))); break;
         case 2: _t->languagesMenu((*reinterpret_cast< const QPoint(*)>(_a[1]))); break;
-        case 3: _t->buttonToggled(); break;
-        case 4: _t->addSkill(); break;
-        case 5: _t->deleteSkill(); break;
-        case 6: _t->modifySkill(); break;
-        case 7: _t->addInterest(); break;
-        case 8: _t->deleteInterest(); break;
-        case 9: _t->modifyInterest(); break;
-        case 10: _t->addLanguage(); break;
-        case 11: _t->deleteLanguage(); break;
-        case 12: _t->modifyLanguage(); break;
+        case 3: _t->experiencesMenu((*reinterpret_cast< const QPoint(*)>(_a[1]))); break;
+        case 4: _t->buttonToggled(); break;
+        case 5: _t->addSkill(); break;
+        case 6: _t->deleteSkill(); break;
+        case 7: _t->modifySkill(); break;
+        case 8: _t->addInterest(); break;
+        case 9: _t->deleteInterest(); break;
+        case 10: _t->modifyInterest(); break;
+        case 11: _t->addLanguage(); break;
+        case 12: _t->deleteLanguage(); break;
+        case 13: _t->modifyLanguage(); break;
+        case 14: _t->deleteExperience(); break;
+        case 15: _t->modifyExperience(); break;
         default: ;
         }
     }
@@ -147,13 +161,13 @@ int Gui_Settings::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 13)
+        if (_id < 16)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 13;
+        _id -= 16;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 13)
+        if (_id < 16)
             *reinterpret_cast<int*>(_a[0]) = -1;
-        _id -= 13;
+        _id -= 16;
     }
     return _id;
 }

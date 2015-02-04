@@ -3,23 +3,14 @@
 Gui_Settings::Gui_Settings(LinqClient* cli, QWidget* parent) : _client(cli), QGridLayout(parent) {
     Gui_Avatar* avatar = new Gui_Avatar(QString::fromStdString(_client->avatar()));
     setSpacing(5);
-    QLabel* name = new QLabel("Name:", parent);
     edtInfo[0] = new QLineEdit(parent);
-    QLabel* surname = new QLabel("Last Name:", parent);
     edtInfo[1] = new QLineEdit(parent);
-    QLabel* address = new QLabel("Address:", parent);
     edtInfo[2] = new QLineEdit(parent);
-    QLabel* email = new QLabel("E-mail:", parent);
     edtInfo[3] = new QLineEdit(parent);
-    QLabel* birth = new QLabel("Birth:", parent);
     edtInfo[4] = new QLineEdit(parent);
-    QLabel* phone = new QLabel("Phone:", parent);
     edtInfo[5] = new QLineEdit(parent);
-    QLabel* website = new QLabel("Website:", parent);
     edtInfo[6] = new QLineEdit(parent);
-    QLabel* uname = new QLabel("Username:", parent);
     edtInfo[7] = new QLineEdit(parent);
-    QLabel* bio = new QLabel("Short Bio:", parent);
     edtBio = new QTextEdit(parent);
     edtInfo[11] = new QLineEdit(parent);
     edtInfo[12] = new QLineEdit(parent);
@@ -30,9 +21,11 @@ Gui_Settings::Gui_Settings(LinqClient* cli, QWidget* parent) : _client(cli), QGr
     skills = new QListWidget;
     inters = new QListWidget;
     lang = new QListWidget;
+    exps = new QListWidget;
     vector<string> v = _client->skills();
     vector<string> i = _client->interests();
     vector<string> l = _client->languages();
+    list<Experience*> e = _client->experiences();
     for(vector<string>::iterator it = v.begin(); it != v.end(); ++it) {
         QListWidgetItem* item = new QListWidgetItem;
         item->setData(Qt::DisplayRole, QString::fromStdString(*it));
@@ -51,12 +44,21 @@ Gui_Settings::Gui_Settings(LinqClient* cli, QWidget* parent) : _client(cli), QGr
         item->setData(Qt::DecorationRole, QPixmap("img/flag27.png"));
         lang->addItem(item);
     }
+    for(list<Experience*>::iterator it = e.begin(); it != e.end(); ++it) {
+        QListWidgetItem* item = new QListWidgetItem;
+        QString cont = QString(QString::fromStdString((*it)->role()) + " " + QString::fromStdString((*it)->location()));
+        item->setData(Qt::DisplayRole, cont);
+        item->setData(Qt::DecorationRole, QPixmap("img/work3.png"));
+        exps->addItem(item);
+    }
     skills->setContextMenuPolicy(Qt::CustomContextMenu);
     inters->setContextMenuPolicy(Qt::CustomContextMenu);
     lang->setContextMenuPolicy(Qt::CustomContextMenu);
-    connect(skills, SIGNAL(customContextMenuRequested(const QPoint &)), this, SLOT(skillsMenu(const QPoint &)));
-    connect(inters, SIGNAL(customContextMenuRequested(const QPoint &)), this, SLOT(interestsMenu(const QPoint &)));
+    exps->setContextMenuPolicy(Qt::CustomContextMenu);
+    connect(skills, SIGNAL(customContextMenuRequested(const QPoint&)), this, SLOT(skillsMenu(const QPoint&)));
+    connect(inters, SIGNAL(customContextMenuRequested(const QPoint&)), this, SLOT(interestsMenu(const QPoint&)));
     connect(lang, SIGNAL(customContextMenuRequested(const QPoint&)), this, SLOT(languagesMenu(const QPoint&)));
+    connect(exps, SIGNAL(customContextMenuRequested(const QPoint&)), this, SLOT(experiencesMenu(const QPoint&)));
 
     edtInfo[8] = new QLineEdit(parent);
     edtInfo[8]->setPlaceholderText("Add new skill");
@@ -92,10 +94,10 @@ Gui_Settings::Gui_Settings(LinqClient* cli, QWidget* parent) : _client(cli), QGr
 
     edtInfo[0]->setText(QString::fromStdString(b->name()));
     edtInfo[1]->setText(QString::fromStdString(b->surname()));
-    edtInfo[2]->setText(QString::fromStdString(b->address()));
-    edtInfo[3]->setText(QString::fromStdString(b->email()));
-    edtInfo[4]->setText(b->birthdate().toString("dd.MM.yyyy"));
-    edtInfo[5]->setText(QString::fromStdString(b->telephon()));
+    edtInfo[3]->setText(QString::fromStdString(b->address()));
+    edtInfo[5]->setText(QString::fromStdString(b->email()));
+    edtInfo[2]->setText(b->birthdate().toString("dd.MM.yyyy"));
+    edtInfo[4]->setText(QString::fromStdString(b->telephon()));
     edtInfo[6]->setText(QString::fromStdString(b->website()));
     edtInfo[7]->setText(QString::fromStdString(_client->username().login()));
     edtInfo[11]->setText(QString::fromStdString(_client->avatar()));
@@ -118,23 +120,24 @@ Gui_Settings::Gui_Settings(LinqClient* cli, QWidget* parent) : _client(cli), QGr
     frm->setVerticalSpacing(10);
     frm2->setVerticalSpacing(10);
 
-    frm->addRow(name, edtInfo[0]);
-    frm->addRow(surname, edtInfo[1]);
-    frm->addRow(birth, edtInfo[2]);
-    frm->addRow(address, edtInfo[3]);
-    frm->addRow(uname, edtInfo[7]);
+    frm->addRow("Name:", edtInfo[0]);
+    frm->addRow("Surname:", edtInfo[1]);
+    frm->addRow("Birthdate:", edtInfo[2]);
+    frm->addRow("Address:" , edtInfo[3]);
+    frm->addRow("Username:", edtInfo[7]);
     frm->addRow("Skills:", skills);
     frm->addRow(edtInfo[8]);
     frm->addRow("Languages:", lang);
     frm->addRow(edtInfo[9]);
-    frm2->addRow(phone, edtInfo[4]);
-    frm2->addRow(email, edtInfo[5]);
-    frm2->addRow(website, edtInfo[6]);
+    frm2->addRow("Phone:", edtInfo[4]);
+    frm2->addRow("E-mail:", edtInfo[5]);
+    frm2->addRow("Website:", edtInfo[6]);
     frm2->addRow("Avatar path:", edtInfo[11]);
     frm2->addRow(edtInfo[12]); //pwd
     frm2->addRow("Interests:", inters);
     frm2->addRow(edtInfo[10]);
-    frm2->addRow(bio, edtBio);
+    frm2->addRow("Experiences:", exps);
+    frm2->addRow("Short bio:", edtBio);
 
     addLayout(frm, 0, 1, 1, 1);
     addLayout(frm2, 0, 2, 1, 1);
@@ -173,6 +176,17 @@ void Gui_Settings::languagesMenu(const QPoint& pos) {
     QMenu myMenu;
     myMenu.addAction("Delete", this, SLOT(deleteLanguage()));
     myMenu.addAction("Modify", this, SLOT(modifyLanguage()));
+    myMenu.exec(globalPos);
+}
+
+void Gui_Settings::experiencesMenu(const QPoint& pos) {
+    QPoint globalPos = exps->mapToGlobal(pos);
+    QModelIndex t = exps->indexAt(pos);
+    exps->item(t.row())->setSelected(true);
+    _selected = exps->item(t.row())->data(Qt::DisplayRole).toString();
+    QMenu myMenu;
+    myMenu.addAction("Delete", this, SLOT(deleteExperience()));
+    myMenu.addAction("Modify", this, SLOT(modifyExperience()));
     myMenu.exec(globalPos);
 }
 
@@ -267,5 +281,15 @@ void Gui_Settings::deleteInterest() {
 
 //SLOT
 void Gui_Settings::modifyInterest() {
+    _modpop->show();
+}
+
+//SLOT
+void Gui_Settings::deleteExperience() {
+    // _client->deleteTrait(2, _selected.toStdString());
+}
+
+//SLOT
+void Gui_Settings::modifyExperience() {
     _modpop->show();
 }

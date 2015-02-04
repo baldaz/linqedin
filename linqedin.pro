@@ -35,6 +35,7 @@ HEADERS += account.h \
            linqclient.h \
            linqdb.h \
            linqnet.h \
+           loader.h \
            message.h \
            payment.h \
            post.h \
@@ -69,6 +70,7 @@ SOURCES += account.cpp \
            linqclient.cpp \
            linqdb.cpp \
            linqnet.cpp \
+           loader.cpp \
            main.cpp \
            message.cpp \
            payment.cpp \
