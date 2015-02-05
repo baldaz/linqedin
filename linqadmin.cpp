@@ -25,7 +25,10 @@ void LinqAdmin::insertUser(const string& username, const string& password, const
     string bio = info.find("bio")->second;
     Bio b(name, surname, email, address, phone, website, QDate::fromString(QString::fromStdString(birthdate), "dd.MM.yyyy"), bio);
     Username u(username, password);
+    // Subscription s(basic);
+    // Payment p(&u, &s, true);
     Account a(&b, u, basic);
+    // a.addPayment(p);
     BasicUser nu(&a);
     this->insertUser(&nu);
 }

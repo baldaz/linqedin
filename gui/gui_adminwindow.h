@@ -10,6 +10,7 @@
 #include <QLineEdit>
 #include <QListWidget>
 #include <QListWidgetItem>
+#include <QComboBox>
 
 class LinqAdmin;
 class QToolBar;
@@ -21,8 +22,9 @@ private:
     LinqAdmin* _admin;
     QListWidget* _userList;
     Gui_DisplayInfo* _userInfo;
-    QLineEdit* edt[4];
+    QLineEdit* edt[5];
     QToolBar* tbar;
+    QComboBox* _level;
 
     void createUserList();
 public:
@@ -31,6 +33,7 @@ signals:
     void modified();
 public slots:
     void showUser();
+    void addUser();
     void removeUser();
     void refreshLists();
 };

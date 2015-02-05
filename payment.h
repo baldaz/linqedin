@@ -14,6 +14,7 @@ private:
     bool _approvation;
     QDate _appdate;
 public:
+    Payment(Username*, Subscription*, bool = false, const QDate& = QDate::currentDate());
     Payment(Username*, Subscription*, BillMethod*, bool = false, const QDate& = QDate::currentDate());
     Payment(const Payment&);
     ~Payment();

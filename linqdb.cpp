@@ -254,8 +254,10 @@ vector<QJsonObject> LinqDB::writeJson() const {
         payments = (*it)->account()->history();
         vector<SmartPtr<Payment> >::const_iterator iter = payments.begin();
         for(; iter < payments.end(); ++iter) {
-            jPayment["code"] = QString::fromStdString((*iter)->billMethod()->code());
-            jPayment["nominee"] = QString::fromStdString((*iter)->billMethod()->nominee());
+            if((*iter)->billMethod() != NULL) {
+                jPayment["code"] = QString::fromStdString((*iter)->billMethod()->code());
+                jPayment["nominee"] = QString::fromStdString((*iter)->billMethod()->nominee());
+            }
             jPayment["approved"] = (*iter)->approvation();
             jPayment["appdate"] = (*iter)->appDate().toString("dd.MM.yyyy");
             jPay.append(jPayment);
