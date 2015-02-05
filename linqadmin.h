@@ -13,6 +13,14 @@ private:
         ~completeRemove();
         void operator()(const SmartPtr<User>&) const;
     };
+    class adminSearch {
+        string _wanted;
+        map<string,string> _result;
+    public:
+        adminSearch(const string&);
+        void operator()(const SmartPtr<User>&);
+        map<string,string> result() const;
+    };
     LinqDB* _db;
 public:
     LinqAdmin();
@@ -21,7 +29,7 @@ public:
     void insertUser(User*);
     void insertUser(const string&, const string&, const map<string, string>& = map<string,string>());
     void removeUser(const Username&);
-    void find() const;
+    map<string,string> find(const string&) const;
     void alterSubscription(const Username&, privLevel);
     void save() const;
 };
