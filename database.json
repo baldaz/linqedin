@@ -300,6 +300,11 @@
             ],
             "password": "maurisio",
             "payments": [
+                {
+                    "approved": true,
+                    "code": "0132532",
+                    "nominee": "Pablos Escobar"
+                }
             ],
             "privilege": 0,
             "skills": [
@@ -348,6 +353,11 @@
             ],
             "password": "piovra",
             "payments": [
+                {
+                    "approved": false,
+                    "code": "0132532",
+                    "nominee": "Atilio Sousa"
+                }
             ],
             "privilege": 0,
             "skills": [
@@ -393,6 +403,11 @@
             ],
             "password": "rd",
             "payments": [
+                {
+                    "approved": true,
+                    "code": "0132532",
+                    "nominee": "Sara Rea"
+                }
             ],
             "privilege": 0,
             "skills": [
@@ -442,6 +457,11 @@
             ],
             "password": "sara",
             "payments": [
+                {
+                    "approved": true,
+                    "code": "0132532",
+                    "nominee": "Sara Rea"
+                }
             ],
             "privilege": 0,
             "skills": [
@@ -488,6 +508,11 @@
             ],
             "password": "wword",
             "payments": [
+                {
+                    "approved": true,
+                    "code": "0132532",
+                    "nominee": "Dan Serrano"
+                }
             ],
             "privilege": 0,
             "skills": [
@@ -729,6 +754,11 @@
             ],
             "password": "machete",
             "payments": [
+                {
+                    "approved": false,
+                    "code": "0132532",
+                    "nominee": "Danny Trejo"
+                }
             ],
             "privilege": 2,
             "skills": [
@@ -816,6 +846,11 @@
             ],
             "password": "lecter",
             "payments": [
+                {
+                    "approved": true,
+                    "code": "0132532",
+                    "nominee": "Hannibal Lecter"
+                }
             ],
             "privilege": 2,
             "skills": [
@@ -886,6 +921,11 @@
             ],
             "password": "graham",
             "payments": [
+                {
+                    "approved": true,
+                    "code": "0132532",
+                    "nominee": "Will Graham"
+                }
             ],
             "privilege": 2,
             "skills": [

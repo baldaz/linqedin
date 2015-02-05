@@ -72,7 +72,6 @@ void Gui_UserWindow::createHorizontalGroupBox() {
     layout->stretch(1);
     horizontalGroupBox->setLayout(layout);
     horizontalGroupBox->installEventFilter(this);
-    // horizontalGroupBox->setStyleSheet("background-color:#fff");
 }
 
 void Gui_UserWindow::createOverview() {
@@ -116,7 +115,7 @@ void Gui_UserWindow::setClient(LinqClient* cli) {
 bool Gui_UserWindow::eventFilter(QObject* obj, QEvent* event) {
     if(event->type() == QEvent::MouseButtonDblClick) {
         QMouseEvent * mouseEvent = static_cast <QMouseEvent *> (event);
-        if(mouseEvent->button() == (Qt::LeftButton | Qt::RightButton))
+        if(mouseEvent->button() == Qt::LeftButton)
             return true;
     }
     return false;
@@ -136,8 +135,9 @@ void Gui_UserWindow::mouseMoveEvent(QMouseEvent* event) {
 }
 
 void Gui_UserWindow::mouseDoubleClickEvent(QMouseEvent* event) {
-    if(isMaximized()) showNormal();
-    else showMaximized();
+    if(event->button() == Qt::LeftButton)
+        if(isMaximized()) showNormal();
+        else showMaximized();
 }
 
 //SLOT

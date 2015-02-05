@@ -23,7 +23,7 @@ private:
     map<string, string>::iterator it;
 
 public:
-    Gui_Search(LinqClient*, Gui_DisplayInfo*, QToolBar*, Gui_Links*, Gui_Avatar*, QWidget* parent = 0);
+    Gui_Search(LinqClient*, Gui_DisplayInfo*, QToolBar*, /*Gui_Links*,*/ Gui_Avatar*, QWidget* parent = 0);
     void addConn();
     void rmConn();
 

@@ -22,7 +22,7 @@ public:
 protected:
     void mousePressEvent(QMouseEvent*);
     void mouseMoveEvent(QMouseEvent*);
-    void mouseDoubleClickEvent(QMouseEvent*);
+    bool eventFilter(QObject*, QEvent*);
 private:
     QStackedLayout* _layoutStack;
     QVBoxLayout* _mainLayout;
@@ -51,7 +51,7 @@ private:
     void createSettings();
     void createGroups();
 
-    bool eventFilter(QObject*, QEvent*);
+    void mouseDoubleClickEvent(QMouseEvent*);
 
 signals:
 

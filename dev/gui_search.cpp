@@ -1,6 +1,6 @@
 #include "gui_search.h"
 
-Gui_Search::Gui_Search(LinqClient* cli, Gui_DisplayInfo* disp, QToolBar* tb, Gui_Links* links, Gui_Avatar* avt, QWidget* parent) : _client(cli), _display(disp), _tbar(tb), _links(links), _avt(avt), QLineEdit(parent) {
+Gui_Search::Gui_Search(LinqClient* cli, Gui_DisplayInfo* disp, QToolBar* tb, /*Gui_Links* links,*/ Gui_Avatar* avt, QWidget* parent) : _client(cli), _display(disp), _tbar(tb), /*_links(links),*/ _avt(avt), QLineEdit(parent) {
     setPlaceholderText("Search..");
     setToolTip("<p>You can activate unified search by typing ':'. E.G: ':c++,perl,snowboard' will list all users that have c++ perl and snowboard into their skills / interests fields.</p>");
     vector<string> vec = _client->displayHtmlNet();
