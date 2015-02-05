@@ -11,6 +11,7 @@
 #include "smartptr.h"
 #include "message.h"
 #include "group.h"
+#include "error.h"
 
 using std::map;
 using std::list;

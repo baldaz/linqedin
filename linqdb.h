@@ -43,8 +43,8 @@ public:
     void removeUser(const Username&) throw(Error);
     int size() const;
     int postNumberFromGroup(const Group&) const;
-    void deleteGroup(const Group&);
-    void addGroup(const Group&);
+    void deleteGroup(const Group&) throw(Error);
+    void addGroup(const Group&) throw(Error);
     void addMemberToGroup(const Group&, const Username&);
     void addPostToGroup(const Group&, const Post&);
     Username getAdmin() const throw(Error);

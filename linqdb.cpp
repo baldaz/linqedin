@@ -384,7 +384,7 @@ void LinqDB::load() {
 int LinqDB::size() const {
     return _db.size();
 }
-void LinqDB::deleteGroup(const Group& g) {
+void LinqDB::deleteGroup(const Group& g) throw(Error) {
     bool found = false;
     list<Group*>::iterator it = _grp.begin();
     for(; it != _grp.end() && !found; ++it)
@@ -393,8 +393,9 @@ void LinqDB::deleteGroup(const Group& g) {
             _grp.erase(it);
             found = true;
         }
+    if(!found) throw Error(groupNotFound, "Requested group not found");
 }
-void LinqDB::addGroup(const Group& g) {
+void LinqDB::addGroup(const Group& g) throw(Error) {
     bool found = false;
     for(list<Group*>::iterator it = _grp.begin(); it != _grp.end() && !found; ++it)
         if((**it) == g) found = true;
@@ -403,6 +404,7 @@ void LinqDB::addGroup(const Group& g) {
         gg.addMember(this->find(g.admin()));
         _grp.push_back(static_cast<Group*> (&gg));
     }
+    else throw Error(dupGroup, "A group with the same name already exists");
 }
 void LinqDB::addMemberToGroup(const Group& g, const Username& u) {
     bool found = false;

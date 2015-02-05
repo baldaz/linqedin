@@ -201,7 +201,7 @@ map<string, string> BasicUser::userSearch(const LinqDB& db, const string& wanted
 void BasicUser::sendMessage(const Message& mex) {
     loadOutMail(mex);
 }
-void BasicUser::loadOutMail(const Message& mex) {
+void BasicUser::loadOutMail(const Message& mex) { // da spostare su sendmessage
     if(_outMail.size() < basicMailLimit)
         _outMail.push_back(SmartPtr<Message> (const_cast<Message*> (&mex)));
 }
@@ -284,15 +284,8 @@ void ExecutiveUser::RemoveGroup::operator()(const SmartPtr<User>& u) {
         list<Group*> lu = ex->groups();
         list<Group*>::iterator it = lu.begin();
         for(; it != lu.end(); ++it) {
-            // list<SmartPtr<User> > members = (*it)->members();
-            //bool found = false;
             if((**it) == *gr)
                 ex->removeGroup(**it);
-            // list<SmartPtr<User> >::iterator j = members.begin();
-            // for(; j != members.end() && !found; ++j)
-            //     if((*j)->username()->login() == us.login())
-            //         found = true;
-            // if(found) bu->removeGroup(*it)
         }
     }
 }
