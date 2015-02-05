@@ -13,7 +13,7 @@ LinqNet* LinqNet::clone() const {
 int LinqNet::size() const {
     return _net.size();
 }
-void LinqNet::addUser(User* usr) {
+void LinqNet::addUser(User* usr) throw(Error) {
     list<SmartPtr<User> >::iterator it = _net.begin();
     bool alreadyIn = false;
     for(; it != _net.end() && !alreadyIn; ++it) {
@@ -21,16 +21,17 @@ void LinqNet::addUser(User* usr) {
             alreadyIn = true;
     }
     if(!alreadyIn) _net.push_back(SmartPtr<User>(usr));
-    else std::cout << "già collegato!" << std::endl;
+    else throw Error(dupLink, "Already connected with that user");
 }
-void LinqNet::removeUser(const Username& usr) {
+void LinqNet::removeUser(const Username& usr) throw(Error) {
     list<SmartPtr<User> >::iterator it = _net.begin();
     bool found = false;
     for(; it != _net.end() && !found; ++it)
         if(((*it)->account()->username().login()) == (usr.login())) {
             found = true;
-            if(found) _net.erase(it);
+            _net.erase(it);
         }
+    if(!found) throw Error(userNotFound, "Connection not found");
 }
 vector<Username> LinqNet::username() const {
     vector<Username> us_list;
@@ -56,9 +57,6 @@ string LinqNet::printHtml() const {
     }
     return html;
 }
-// SmartPtr<User> LinqNet::operator[](const int& i) const {
-//     return _net[i];
-// }
 list<SmartPtr<User> >::const_iterator LinqNet::begin() const {
     return _net.begin();
 }

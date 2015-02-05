@@ -5,6 +5,7 @@
 #include <vector>
 #include <list>
 #include "user.h"
+#include "error.h"
 
 using std::list;
 using std::vector;
@@ -18,11 +19,10 @@ public:
     LinqNet(const LinqNet&);
     ~LinqNet();
     LinqNet* clone() const;
-    void addUser(User*);
-    void removeUser(const Username&);
+    void addUser(User*) throw(Error);
+    void removeUser(const Username&) throw(Error);
     int size() const;
     vector<Username> username() const;
-    // SmartPtr<User> operator[](const int&) const;
     string printHtml() const;
     list<SmartPtr<User> >::const_iterator begin() const;
     list<SmartPtr<User> >::const_iterator end() const;

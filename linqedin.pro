@@ -13,6 +13,7 @@ greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 HEADERS += account.h \
            avatar.h \
            billmethod.h \
+           error.h \
            experience.h \
            group.h \
            gui/gui_adminwindow.h \

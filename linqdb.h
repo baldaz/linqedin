@@ -14,6 +14,7 @@
 #include "linqnet.h"
 #include "privlevel.h"
 #include "smartptr.h"
+#include "error.h"
 
 using std::list;
 using std::vector;
@@ -24,13 +25,11 @@ private:
     list<SmartPtr<User> > _db;
     list<Group*> _grp;
 
-    bool readJson();
+    bool readJson() throw (Error);
     void read(const QJsonArray&);
     void readNet(const QJsonArray&);
     vector<QJsonObject> writeJson() const;
-    void write(const vector<QJsonObject>&, const vector<QJsonObject>&) const;
-/*    vector<Message*> readMessageDb(const string&);
-    void writeMessageDb(const string&) const;*/
+    void write(const vector<QJsonObject>&, const vector<QJsonObject>&) const throw(Error);
     void readInfo(Info*, const QJsonObject&) const;
     void readGroups(const QJsonArray&) const;
     vector<QJsonObject> writeGroups() const;
@@ -40,19 +39,19 @@ public:
     ~LinqDB();
     void load();
     void save() const;
-    void addUser(User*);
-    void removeUser(const Username&);
+    void addUser(User*) throw(Error);
+    void removeUser(const Username&) throw(Error);
     int size() const;
     int postNumberFromGroup(const Group&) const;
     void deleteGroup(const Group&);
     void addGroup(const Group&);
     void addMemberToGroup(const Group&, const Username&);
     void addPostToGroup(const Group&, const Post&);
-    Username getAdmin() const;
+    Username getAdmin() const throw(Error);
     list<SmartPtr<User> > db() const;
     list<Group*> allGroups() const;
     list<Post*> postsFromGroup(const Group&) const;
-    Group findGroubByName(const string&) const;
+    Group findGroubByName(const string&) const throw(Error);
     User* find(const Username&) const;
     list<SmartPtr<User> >::const_iterator begin() const;
     list<SmartPtr<User> >::const_iterator end() const;

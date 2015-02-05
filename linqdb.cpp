@@ -1,4 +1,5 @@
 #include "linqdb.h"
+#include "error.h"
 
 using std::ostream;
 using std::endl;
@@ -12,10 +13,10 @@ LinqDB::~LinqDB() {
         delete *i;
     _grp.clear();
 }
-bool LinqDB::readJson() {
+bool LinqDB::readJson() throw(Error) {
     QFile loadDB("database.json");
     if (!loadDB.open(QIODevice::ReadOnly)) {
-        std::cout << "Couldn't open database." << std::endl;
+        throw Error(IO, "Database not found");
         return false;
     }
     QByteArray saveData = loadDB.readAll();
@@ -351,10 +352,10 @@ vector<QJsonObject> LinqDB::writeGroups() const {
     }
     return vjs;
 }
-void LinqDB::write(const vector<QJsonObject>& json, const vector<QJsonObject>& jg) const {
+void LinqDB::write(const vector<QJsonObject>& json, const vector<QJsonObject>& jg) const throw(Error) {
     QFile saveDB(QStringLiteral("database.json"));
     if (!saveDB.open(QIODevice::WriteOnly))
-        qWarning("Couldn't open database.");
+        throw Error(IO, "Database not found");
     QJsonObject db;
     QJsonArray jarr;
     QJsonArray jgrp;
@@ -372,24 +373,6 @@ void LinqDB::write(const vector<QJsonObject>& json, const vector<QJsonObject>& j
     saveDB.write(doc.toJson());
     saveDB.close();
 }
-/*
-vector<Message*> LinqDB::readMessageDb(const string& path) {
-    vector<Message*> v;
-    QFile loadMessageDB(QStringLiteral("messageDB.json"));
-    if (!loadMessageDB.open(QIODevice::ReadOnly))
-        qWarning("Couldn't open database.");
-    QByteArray saveMessages = loadMessageDB.readAll();
-    loadMessageDB.close();
-
-    QJsonDocument doc(QJsonDocument::fromJson(saveMessages));
-    QJsonArray qjs = doc.array();
-
-    return v;
-}
-void LinqDB::writeMessageDb(const string& path) const {
-
-}
-*/
 void LinqDB::save() const {
     write(writeJson(), writeGroups());
 }
@@ -434,7 +417,7 @@ void LinqDB::addPostToGroup(const Group& g, const Post& p) {
         if((**it) == g)
             (*it)->insertPost(p);
 }
-void LinqDB::addUser(User* u) {
+void LinqDB::addUser(User* u) throw(Error) {
     list<SmartPtr<User> >::iterator it = _db.begin();
     bool alreadyIn = false;
     for(; it != _db.end() && !alreadyIn; ++it) {
@@ -442,8 +425,9 @@ void LinqDB::addUser(User* u) {
             alreadyIn = true;
     }
     if(!alreadyIn) _db.push_back(SmartPtr<User>(u));
+    else throw Error(dupUser, "An user with that username already exists in Linqedin");
 }
-void LinqDB::removeUser(const Username& usr) {
+void LinqDB::removeUser(const Username& usr) throw(Error) {
     list<SmartPtr<User> >::iterator it = _db.begin();
     bool found = false;
     for(; it != _db.end() && !found; ++it)
@@ -451,6 +435,7 @@ void LinqDB::removeUser(const Username& usr) {
             found = true;
             _db.erase(it);
         }
+    if(!found) throw Error(userNotFound, "Requested user not found");
 }
 User* LinqDB::find(const Username& usr) const {
     User* ret = NULL;
@@ -461,7 +446,7 @@ User* LinqDB::find(const Username& usr) const {
             ret = &(*(*it));
     return ret;
 }
-Group LinqDB::findGroubByName(const string& n) const {
+Group LinqDB::findGroubByName(const string& n) const throw(Error) {
     bool found = false;
     list<Group*>::const_iterator it = _grp.begin();
     for(; it != _grp.end() && !found; ++it)
@@ -469,6 +454,7 @@ Group LinqDB::findGroubByName(const string& n) const {
             found = true;
             return **it;
         }
+    throw Error(groupNotFound, "Requested group not found");
 }
 list<SmartPtr<User> > LinqDB::db() const {
     return _db;
@@ -495,11 +481,11 @@ int LinqDB::postNumberFromGroup(const Group& g) const {
             return (*i)->postNumber();
     return 0;
 }
-Username LinqDB::getAdmin() const {
+Username LinqDB::getAdmin() const throw(Error) {
     QFile loadDB("database.json");
     if (!loadDB.open(QIODevice::ReadOnly)) {
         std::cout << "Couldn't open database." << std::endl;
-        exit(1); // insert exception
+        throw Error(IO, "Database not found");
     }
     QByteArray saveData = loadDB.readAll();
     loadDB.close();
