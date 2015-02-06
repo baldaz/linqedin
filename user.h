@@ -58,6 +58,7 @@ public:
     virtual User* clone() const =0;
     Account* account() const;
     LinqNet* net() const;
+    string showInfo() const;
     void addContact(User*);
     void removeContact(const Username&);
     int visitCount() const;
@@ -68,6 +69,7 @@ public:
     vector<SmartPtr<User> > listPossibleLinks(const LinqDB&) const;
     virtual map<string, string> userSearch(const LinqDB&, const string&) const =0;
     virtual void sendMessage(const Message&) =0;
+    virtual void resetMail() = 0;
     void loadInMail(const Message&);
     void loadOutMail(const Message&);
     list<SmartPtr<Message> > inMail() const;
@@ -86,6 +88,7 @@ public:
     virtual User* clone() const;
     virtual map<string, string> userSearch(const LinqDB&, const string&) const;
     virtual void sendMessage(const Message&) throw(Error);
+    virtual void resetMail();
     static unsigned int basicLimit();
 };
 
@@ -101,6 +104,7 @@ public:
     virtual User* clone() const;
     virtual map<string, string> userSearch(const LinqDB&, const string&) const;
     virtual void sendMessage(const Message&) throw(Error);
+    virtual void resetMail();
     list<Group*> groups() const;
     void addGroup(const Group&);
     void removeGroup(const Group&);

@@ -2,3 +2,4 @@ linqedin
 *.o
 *.out
 Makefile
+userinterface.h

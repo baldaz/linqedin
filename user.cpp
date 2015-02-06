@@ -2,6 +2,7 @@
 #include "linqnet.h"
 #include "linqdb.h"
 #include "utils.h"
+#include "dispatcher.h"
 #include <sstream>
 
 using std::vector;
@@ -46,7 +47,7 @@ void User::searchFunctor::operator()(const SmartPtr<User>& spu) {
             if(uf) {
                 string fullName = utilities::Utils::toLowerCase(uf->name() + " " + uf->surname());
                 if(utilities::Utils::toLowerCase(uf->name()) == _wanted || utilities::Utils::toLowerCase(uf->surname()) == _wanted || fullName == _wanted) {
-                    _result.insert(std::pair<string, string>(spu->account()->username().login(), spu->account()->info()->printHtml() + "\n"));
+                    _result.insert(std::pair<string, string>(spu->account()->username().login(), spu->showInfo() + "\n"));
                     spu->addVisit();
                 }
             }
@@ -74,7 +75,7 @@ void User::searchFunctor::operator()(const SmartPtr<User>& spu) {
                             found = false;
                         else found = true;
                     if(!found) {
-                        _result.insert(std::pair<string, string>(spu->account()->username().login(), spu->account()->info()->printHtml() + "\n" + spu->net()->printHtml()));
+                        _result.insert(std::pair<string, string>(spu->account()->username().login(), spu->showInfo() + "\n" + spu->net()->printHtml()));
                         spu->addVisit();
                     }
                 }
@@ -89,7 +90,7 @@ void User::searchFunctor::operator()(const SmartPtr<User>& spu) {
                     if((utilities::Utils::toLowerCase(uf->name()) == _wanted ||
                        utilities::Utils::toLowerCase(uf->surname()) == _wanted ||
                        fullName == _wanted || std::find(skills.begin(), skills.end(), _wanted) != skills.end()) && (spu->account()->username().login() != _caller->account()->username().login())){
-                        _result.insert(std::pair<string, string>(spu->account()->username().login(), spu->account()->info()->printHtml() + "\n" + spu->net()->printHtml()));
+                        _result.insert(std::pair<string, string>(spu->account()->username().login(), spu->showInfo() + "\n" + spu->net()->printHtml()));
                         spu->addVisit();
                         if(spu->account()->prLevel() == executive) {
                             ExecutiveUser* eu = dynamic_cast<ExecutiveUser*> (&(*spu));
@@ -131,6 +132,10 @@ Account* User::account() const {
 }
 LinqNet* User::net() const {
     return _net;
+}
+string User::showInfo() const {
+    DispatcherHtml d;
+    return _acc->info()->dispatch(d);
 }
 int User::visitCount() const {
     return _visitcount;
@@ -206,13 +211,15 @@ void BasicUser::sendMessage(const Message& mex) throw(Error) {
         loadOutMail(mex);
     else throw Error(permission, "Mail limit for basic user reached, wait for monthly reset");
 }
+void BasicUser::resetMail() {
+}
 unsigned int BasicUser::basicLimit() {
     return basicMailLimit;
 }
 unsigned int BasicUser::basicMailLimit = 10;
 
 BusinessUser::BusinessUser(Account* ac) : BasicUser(ac) {}
-BusinessUser::BusinessUser(const BusinessUser& usr) : BasicUser(usr)/*, _groups(usr._groups)*/ {
+BusinessUser::BusinessUser(const BusinessUser& usr) : BasicUser(usr) {
     for (list<Group*>::const_iterator i = (usr._groups).begin(); i != (usr._groups).end(); ++i)
         _groups.push_back(new Group(**i));
 }
@@ -243,6 +250,8 @@ void BusinessUser::sendMessage(const Message& mex) throw(Error) {
     if(outMailCount() < businessMailLimit)
         loadOutMail(mex);
     else throw Error(permission, "Mail limit for business user reached, wait for monthly reset");
+}
+void BusinessUser::resetMail() {
 }
 list<Group*> BusinessUser::groups() const {
     return _groups;

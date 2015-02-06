@@ -114,7 +114,7 @@ void Gui_AdminWindow::createUserList() {
         }
         else
             item->setData(Qt::DecorationRole, QPixmap("img/profile11.png"));
-        item->setData(Qt::UserRole + 1, QString::fromStdString((*it)->account()->info()->printHtml()));
+        item->setData(Qt::UserRole + 1, QString::fromStdString((*it)->showInfo()));
         item->setData(Qt::UserRole + 2, QString::fromStdString((*it)->account()->username().login()));
         _userList->addItem(item);
     }

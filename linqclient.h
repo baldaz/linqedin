@@ -27,9 +27,6 @@ public:
     string avatar() const;
     string displayProfile() const;
     string displayHtmlInfo() const;
-    string displayHtmlPayments() const;
-    string displayHtmlSettings() const;
-    string displayHtmlMessages() const;
     string avatarFromUser(const Username&) const;
     vector<string> skills() const;
     vector<string> interests() const;

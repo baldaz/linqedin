@@ -83,11 +83,7 @@ void Gui_Overview::createLinks() {
         if(UserInfo* uf = dynamic_cast<UserInfo*> ((*it)->account()->info()))
             link = QString::fromStdString(uf->name()) + " " + QString::fromStdString(uf->surname());
         item->setData(Qt::DisplayRole, link);
-        // if(UserInfo* uf = dynamic_cast<UserInfo*> ((*it)->account()->info()))
-        //     item->setData(Qt::UserRole + 1, QString::fromStdString(uf->printHtml()));
-        // else if(Bio* b = dynamic_cast<Bio*> ((*it)->account()->info()))
-        //     item->setData(Qt::UserRole + 1, QString::fromStdString(b->printHtml()));
-        item->setData(Qt::UserRole + 1, QString::fromStdString((*it)->account()->info()->printHtml()));
+        item->setData(Qt::UserRole + 1, QString::fromStdString((*it)->showInfo()));
         item->setData(Qt::UserRole + 2, QString::fromStdString((*it)->account()->username().login()));
         item->setData(Qt::UserRole + 3, QString::fromStdString((*it)->account()->avatar().path()));
         item->setData(Qt::DecorationRole, QPixmap("img/link63.png"));

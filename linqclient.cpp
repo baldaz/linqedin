@@ -50,21 +50,7 @@ string LinqClient::displayProfile() const {
     return profile;
 }
 string LinqClient::displayHtmlInfo() const {
-    return _usr->account()->info()->printHtml();
-}
-string LinqClient::displayHtmlPayments() const {
-    vector<SmartPtr<Payment> > v = _usr->account()->history();
-    return "<html><table><tr><th style='padding:10px;'>Subscription</th><th style='padding:10px;'>Method</th><th style='padding:10px'>Amount</th></tr></table></html>";
-}
-string LinqClient::displayHtmlSettings() const {
-    string html = "";
-    html = "<html>";
-    html += "<h3> Username</h3><p style='font-weight:400;'>" + _usr->account()->username().login() + "</p>";
-    html += "<h3> Account type</h3><p style='font-weight:400;'>" + utilities::Utils::levelToString(_usr->account()->prLevel()) + "</p></html>";
-    return html;
-}
-string LinqClient::displayHtmlMessages() const {
-    return "<html><table><tr><th style='padding:10px;'>Subject</th><th style='padding:10px;'>Body</th><th style='padding:10px'>From</th></tr></table></html>";
+    return _usr->showInfo();
 }
 string LinqClient::avatarFromUser(const Username& u) const {
     User* x = _db->find(u);
@@ -80,7 +66,6 @@ list<SmartPtr<User> > LinqClient::visitors() const {
     return u;
 }
 vector<SmartPtr<User> > LinqClient::similarity() const {
-    // ExecutiveUser* eu = dynamic_cast<ExecutiveUser*> (_usr);
     return _usr->listPossibleLinks(*_db);
 }
 bool LinqClient::linked(const Username& usr) const {

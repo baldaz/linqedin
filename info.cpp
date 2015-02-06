@@ -1,4 +1,5 @@
 #include "info.h"
+#include "dispatcher.h"
 
 Info::~Info() {}
 UserInfo::UserInfo(const string& n, const string& s, const string& e, const string& a, const string& t, const string& w, const QDate& b) :
@@ -167,63 +168,8 @@ string UserInfo::print() const {
         ret += (*itr)->location() + ", " + (*itr)->from().toString().toStdString() + ", " + (*itr)->to().toString().toStdString() + " ";
     return ret;
 }
-string UserInfo::printHtml() const {
-    std::ostringstream o;
-    o << age();
-    string html = "";
-    html = "<html><body>";
-    html += "<h2>" + _name + " " + _surname + "</h2>";
-    html += "<p style='font-weight: 400; font-size:14px;'> " + o.str() + " years old<br>";
-    html += _address + "</p>";
-    html += "<h4><img src='img/rugby100.png'>  Interests</h4><p style='font-weight: 400; font-size:14px;line-height:26px'>";
-    vector<string>::const_iterator it;
-    if(!_interests.empty()) {
-        it = _interests.begin();
-        for(; it < _interests.end(); ++it)
-            html += "<span style='background-color:rgba(102,102,156,.5);'>&nbsp;" + *it + "&nbsp;</span>&nbsp;&nbsp;";
-        html += "</p>";
-    }
-    if(!_skills.empty()) {
-        html += "<h4><img src='img/atom2.png'>  Skills</h4><p style='font-weight: 400; font-size:14px; line-height:26px;'>";
-        it = _skills.begin();
-        for(; it < _skills.end(); ++it)
-            html += "<span style='background-color:rgba(102,102,102,.5);'>&nbsp;"  + *it + "&nbsp;</span>&nbsp;&nbsp;";
-        html += "</p>";
-    }
-    if(!_languages.empty()) {
-        html += "<h4><img src='img/flag27.png'>  Languages</h4><p style='font-weight: 400; font-size:14px;'>";
-        it = _languages.begin();
-        for(; it < _languages.end(); ++it)
-            html += *it + " ";
-        html += "</p>";
-    }
-    if(!_exp.empty()) {
-        html += "<h4><img src='img/graduate34.png'>  Educations</h4><p style='font-weight: 400; font-size:14px;'>";
-        list<Experience*>::const_iterator itr = _exp.begin();
-        string jobs = "";
-        bool job = false;
-        for(; itr != _exp.end(); ++itr) {
-            if((*itr)->type() == 0)
-                if(itr == _exp.end())
-                    html += (*itr)->role() + " at " + (*itr)->location() + " from " + (*itr)->from().toString("dd.MM.yyyy").toStdString() + " to " + (*itr)->to().toString("dd.MM.yyyy").toStdString();
-                else
-                    html += (*itr)->role() + " at " + (*itr)->location() + " from " + (*itr)->from().toString("dd.MM.yyyy").toStdString() + " to " + (*itr)->to().toString("dd.MM.yyyy").toStdString() + "<br>";
-            else if((*itr)->type() == 1) {
-                job = true;
-                if(itr == _exp.end())
-                    jobs += (*itr)->role() + " at " + (*itr)->location() + " from " + (*itr)->from().toString("dd.MM.yyyy").toStdString() + " to " + (*itr)->to().toString("dd.MM.yyyy").toStdString();
-                else
-                    jobs += (*itr)->role() + " at " + (*itr)->location() + " from " + (*itr)->from().toString("dd.MM.yyyy").toStdString() + " to " + (*itr)->to().toString("dd.MM.yyyy").toStdString() + "<br>";
-            }
-        }
-        if(job) {
-            html += "<h4><img src='img/work3.png'>  Job Experiences</h4><p style='font-weight: 400; font-size:14px;'>";
-            html += jobs;
-        }
-    }
-    html += "</p>";
-    html += "<h4><img src='img/business133.png'>  Contacts</h4><p style='font-weight: 400; font-size:14px'>" + _email + " &nbsp;&nbsp;<a style='color:#4782EC;' href='#'>" + _website + "</a><br> Telephon  " + _telephon + "</p>";
-    return html;
+string UserInfo::dispatch(const Dispatcher& d) const {
+        return d.dispatch(*this);
 }
 
 Bio::Bio(const string& n, const string& s, const string& e, const string& a, const string& t, const string& w, const QDate& b, const string& bio) : UserInfo(n, s, e, a, t, w, b), _bio(bio) {}
@@ -241,11 +187,6 @@ void Bio::setBio(const string& bio = "") {
 string Bio::print() const {
     return "";
 }
-string Bio::printHtml() const {
-    string html = UserInfo::printHtml();
-    if(!_bio.empty()) {
-        html += "<h4><img src='img/user91.png'> Short Biography</h4>";
-        html += "<p style='font-weight:400'>" + bio() + "</p>";
-    }
-    return html;
+string Bio::dispatch(const Dispatcher& d) const {
+    return d.dispatch(*this);
 }

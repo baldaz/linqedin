@@ -93,6 +93,7 @@ void LinqDB::read(const QJsonArray& qjs) {
             s->loadInMail(*mex);// add to inmail
             delete mex;
         }
+        s->resetMail();
         addUser(s);
         delete info;
         delete acc;

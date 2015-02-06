@@ -13,12 +13,14 @@ using std::vector;
 using std::list;
 using std::string;
 
+class Dispatcher;
+
 class Info {
 public:
     virtual ~Info();
     virtual Info* clone() const =0;
     virtual string print() const =0;
-    virtual string printHtml() const =0;
+    virtual string dispatch(const Dispatcher&) const =0;
 };
 
 class UserInfo : public Info {
@@ -61,7 +63,7 @@ public:
     void addExperience(const Experience&);
     int age() const;
     virtual string print() const;
-    virtual string printHtml() const;
+    virtual string dispatch(const Dispatcher&) const;
 };
 
 class Bio : public UserInfo {
@@ -75,6 +77,6 @@ public:
     const string& bio() const;
     void setBio(const string&);
     virtual string print() const;
-    virtual string printHtml() const;
+    virtual string dispatch(const Dispatcher&) const;
 };
 #endif

@@ -32,7 +32,7 @@ void LinqAdmin::adminSearch::operator()(const SmartPtr<User>& user) {
                 if(std::find(skills.begin(), skills.end(), *it) != skills.end())
                     found = false;
                 else found = true;
-            if(!found) _result.insert(std::pair<string, string>(user->account()->username().login(), user->account()->info()->printHtml() + "\n" + user->net()->printHtml()));
+            if(!found) _result.insert(std::pair<string, string>(user->account()->username().login(), user->showInfo() + "\n" + user->net()->printHtml()));
         }
     }
     else {
@@ -43,7 +43,7 @@ void LinqAdmin::adminSearch::operator()(const SmartPtr<User>& user) {
                 *it = utilities::Utils::toLowerCase(*it);
             string fullName = utilities::Utils::toLowerCase(uf->name() + " " + uf->surname());
             if((utilities::Utils::toLowerCase(uf->name()) == _wanted || utilities::Utils::toLowerCase(uf->surname()) == _wanted || fullName == _wanted || std::find(skills.begin(), skills.end(), _wanted) != skills.end()))
-                 _result.insert(std::pair<string, string>(user->account()->username().login(), user->account()->info()->printHtml() + "\n" + user->net()->printHtml()));
+                 _result.insert(std::pair<string, string>(user->account()->username().login(), user->showInfo() + "\n" + user->net()->printHtml()));
         }
     }
 }
