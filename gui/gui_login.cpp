@@ -1,4 +1,5 @@
 #include "gui_login.h"
+#include <QMessageBox>
 
 Gui_Login::Gui_Login(QWidget* parent) : QDialog(parent) {
     setWindowFlags(Qt::FramelessWindowHint);
@@ -30,6 +31,7 @@ Gui_Login::Gui_Login(QWidget* parent) : QDialog(parent) {
 
     setLayout(mainLayout);
     connect(buttonBox, SIGNAL(clicked(QAbstractButton*)), this, SLOT(onClicked(QAbstractButton*)));
+    connect(this, SIGNAL(logged()), this, SLOT(login()));
 }
 
 void Gui_Login::resizeEvent(QResizeEvent* event) {
@@ -45,6 +47,7 @@ void Gui_Login::resizeEvent(QResizeEvent* event) {
 void Gui_Login::onClicked(QAbstractButton* button) {
     QDialogButtonBox::StandardButton btn = buttonBox->standardButton(button);
     if(btn == QDialogButtonBox::Ok) {
+        bool log = true;
         QString us = uname->text();
         QString pw = passw->text();
         Username u(us.toStdString(), pw.toStdString());
@@ -53,8 +56,15 @@ void Gui_Login::onClicked(QAbstractButton* button) {
             admwin->show();
         }
         else {
-            window = new Gui_UserWindow(_loader.getClientHandle(u));
-            window->show();
+            try {
+                c = _loader.getClientHandle(u);
+            }catch(Error e) {
+                QMessageBox::critical(this, "Error!", QString::fromStdString(e.errorMessage()));
+                log = false;
+            }
+            if(log) emit logged();
+            // window = new Gui_UserWindow(c);
+            // window->show();
         }
         close();
     }
@@ -63,4 +73,10 @@ void Gui_Login::onClicked(QAbstractButton* button) {
         reg->show();
         close();
     }
+}
+
+//SLOT
+void Gui_Login::login() {
+    window = new Gui_UserWindow(c);
+    window->show();
 }

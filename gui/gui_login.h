@@ -24,11 +24,15 @@ private:
     QLineEdit* uname;
     QLineEdit* passw;
     Loader _loader;
+    LinqClient* c;
 
     void resizeEvent(QResizeEvent*);
 public:
     Gui_Login(QWidget* = 0);
+signals:
+    void logged();
 public slots:
     void onClicked(QAbstractButton*);
+    void login();
 };
 #endif

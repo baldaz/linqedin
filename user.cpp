@@ -149,7 +149,9 @@ void User::addVisit() {
 int User::similarity(const SmartPtr<User>& user) const {
     UserInfo* uf = dynamic_cast<UserInfo*> (_acc->info());
     UserInfo* host = dynamic_cast<UserInfo*> (user->account()->info());
+    int i_w = 2, s_w = 5, l_w = 2;
     double counter = 0;
+    // interests
     vector<string> interests = uf->interests();
     vector<string> h_interests = host->interests();
     if(interests.size() <= h_interests.size()) {
@@ -164,7 +166,42 @@ int User::similarity(const SmartPtr<User>& user) const {
             if(std::find(interests.begin(), interests.end(), (*ith)) != interests.end()) counter++;
         counter = (counter / interests.size()) * 100;
     }
-    return static_cast<int> (counter);
+    double countsk = 0;
+    // skills
+    vector<string> skills = uf->skills();
+    vector<string> h_skills = host->skills();
+    if(skills.size() <= h_skills.size()) {
+        vector<string>::const_iterator it = skills.begin();
+        for(; it < skills.end(); ++it)
+            if(std::find(h_skills.begin(), h_skills.end(), (*it)) != h_skills.end()) countsk++;
+        countsk = (countsk / h_skills.size()) * 100;
+    }
+    else {
+        vector<string>::const_iterator ith = h_skills.begin();
+        for(; ith < h_skills.end(); ++ith)
+            if(std::find(skills.begin(), skills.end(), (*ith)) != skills.end()) countsk++;
+        countsk = (countsk / skills.size()) * 100;
+    }
+    double countl = 0;
+    // language
+    vector<string> languages = uf->languages();
+    vector<string> h_languages = host->languages();
+    if(languages.size() <= h_languages.size()) {
+        vector<string>::const_iterator it = languages.begin();
+        for(; it < languages.end(); ++it)
+            if(std::find(h_languages.begin(), h_languages.end(), (*it)) != h_languages.end()) countl++;
+        countl = (countl / h_languages.size()) * 100;
+    }
+    else {
+        vector<string>::const_iterator ith = h_languages.begin();
+        for(; ith < h_languages.end(); ++ith)
+            if(std::find(languages.begin(), languages.end(), (*ith)) != languages.end()) countl++;
+        countl = (countl / languages.size()) * 100;
+    }
+    double res;
+    res = ((counter * i_w) + (countsk * s_w) + (countl * l_w)) / (i_w + s_w + l_w);
+    std::cout << host->name()  << " " << res << std::endl;
+    return static_cast<int> (res);
 }
 int User::outMailCount() const {
     return _outMail.size();
