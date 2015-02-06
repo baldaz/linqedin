@@ -32,7 +32,7 @@ bool LinqDB::readJson() throw(Error) {
 }
 void LinqDB::read(const QJsonArray& qjs) {
     Info* info = NULL;
-    Account* acc = NULL;
+    // Account* acc = NULL;
     for(int i = 0; i < qjs.size(); ++i) {
         QJsonObject obj = qjs[i].toObject();
         Username usr(obj["username"].toString().toStdString(), obj["password"].toString().toStdString());
@@ -41,9 +41,11 @@ void LinqDB::read(const QJsonArray& qjs) {
             info = new Bio;
         else info = new UserInfo;
         readInfo(info, obj);
-        acc = new Account(info, usr, priv);
+        // acc = new Account(info, usr, priv);
+        Account ac(info, usr, priv);
         Avatar avt(obj["avatar"].toString().toStdString());
-        acc->setAvatar(avt);
+        // acc->setAvatar(avt);
+        ac.setAvatar(avt);
         QJsonArray payments = obj["payments"].toArray();
         QJsonObject subP;
         for(int i = 0; i < payments.size(); ++i) {
@@ -51,20 +53,21 @@ void LinqDB::read(const QJsonArray& qjs) {
             Subscription subscr(priv);
             CreditCard bmeth(subP["code"].toString().toStdString(), subP["nominee"].toString().toStdString());
             Payment pay(&usr, &subscr, &bmeth, subP["approved"].toBool(), QDate::fromString(subP["appdate"].toString(), "dd.MM.yyyy"));
-            acc->addPayment(pay);
+            // acc->addPayment(pay);
+            ac.addPayment(pay);
         }
         User* s = NULL;
         ExecutiveUser* us;
         QJsonArray keys, visitors;
         switch(priv) {
             case 0:
-                s = new BasicUser(acc);
+                s = new BasicUser(&ac);
             break;
             case 1:
-                s = new BusinessUser(acc);
+                s = new BusinessUser(&ac);
             break;
             case 2:
-                s = new ExecutiveUser(acc);
+                s = new ExecutiveUser(&ac);
                 keys = obj["keywords"].toArray();
                 us = dynamic_cast<ExecutiveUser*> (s);
                 for(int i = 0; i < keys.size(); ++i)
@@ -83,20 +86,20 @@ void LinqDB::read(const QJsonArray& qjs) {
         // spostare messaggi su heap
         for(int i = 0; i < outmail.size(); ++i) {
             out = outmail[i].toObject();
-            Message* mex = new Message(usr, Username(out["receiver"].toString().toStdString(), ""), out["object"].toString().toStdString(), out["body"].toString().toStdString(), true, QDate::fromString(out["sent"].toString(), "dd.MM.yyyy"), QDate::fromString(out["recv"].toString(), "dd.MM.yyyy"));
-            s->loadOutMail(*mex);    // add to outmail
-            delete mex;
+            Message mex(usr, Username(out["receiver"].toString().toStdString(), ""), out["object"].toString().toStdString(), out["body"].toString().toStdString(), true, QDate::fromString(out["sent"].toString(), "dd.MM.yyyy"), QDate::fromString(out["recv"].toString(), "dd.MM.yyyy"));
+            s->loadOutMail(mex);    // add to outmail
+            // delete mex;
         }
         for(int i = 0; i < inmail.size(); ++i) {
             in = inmail[i].toObject();
-            Message* mex = new Message(Username(in["sender"].toString().toStdString(), ""), usr, in["object"].toString().toStdString(), in["body"].toString().toStdString(), in["read"].toBool(), QDate::fromString(in["sent"].toString(), "dd.MM.yyyy"), QDate::fromString(in["recv"].toString(), "dd.MM.yyyy"));
-            s->loadInMail(*mex);// add to inmail
-            delete mex;
+            Message mex(Username(in["sender"].toString().toStdString(), ""), usr, in["object"].toString().toStdString(), in["body"].toString().toStdString(), in["read"].toBool(), QDate::fromString(in["sent"].toString(), "dd.MM.yyyy"), QDate::fromString(in["recv"].toString(), "dd.MM.yyyy"));
+            s->loadInMail(mex);// add to inmail
+            // delete mex;
         }
         s->resetMail();
         addUser(s);
         delete info;
-        delete acc;
+        // delete acc;
         delete s;
     }
 }
