@@ -659,7 +659,7 @@
                 {
                     "body": "Have to test exception!",
                     "object": "Test",
-                    "read": false,
+                    "read": true,
                     "receiver": "Baldaz",
                     "recv": "06.02.2015",
                     "sender": "Casey",
@@ -713,10 +713,10 @@
             "username": "Casey",
             "visitcount": 10,
             "visitors": [
+                "Pablito",
                 "Baldaz",
                 "Atilio",
-                "Baldaz",
-                "Pablito"
+                "Baldaz"
             ]
         },
         {

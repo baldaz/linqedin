@@ -200,7 +200,6 @@ int User::similarity(const SmartPtr<User>& user) const {
     }
     double res;
     res = ((counter * i_w) + (countsk * s_w) + (countl * l_w)) / (i_w + s_w + l_w);
-    std::cout << host->name()  << " " << res << std::endl;
     return static_cast<int> (res);
 }
 int User::outMailCount() const {

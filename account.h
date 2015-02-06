@@ -7,6 +7,7 @@
 #include "info.h"
 #include "privlevel.h"
 #include "payment.h"
+#include "error.h"
 
 class Account {
 private:
@@ -30,7 +31,7 @@ public:
     void setInfo(Info*);
     void setPrLevel(privLevel);
     vector<SmartPtr<Payment> > history() const;
-    SmartPtr<Payment> lastPayment() const;
+    SmartPtr<Payment> lastPayment() const throw(Error);
     void addPayment(const Payment&);
 };
 #endif

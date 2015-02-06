@@ -42,10 +42,10 @@ void Account::setPrLevel(privLevel newlevel) {
 vector<SmartPtr<Payment> > Account::history() const {
     return _history;
 }
-SmartPtr<Payment> Account::lastPayment() const {
+SmartPtr<Payment> Account::lastPayment() const throw(Error) {
     if(!_history.empty())
         return _history.back();
-    return NULL;
+    else throw Error(payment, "No payment added yet");
 }
 void Account::addPayment(const Payment& pay) {
     Payment* p = const_cast<Payment*> (&pay);
