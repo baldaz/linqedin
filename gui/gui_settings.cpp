@@ -91,17 +91,18 @@ Gui_Settings::Gui_Settings(LinqClient* cli, QWidget* parent) : _client(cli), QGr
 
     Info* in = _client->info();
     Bio* b = dynamic_cast<Bio*>(in);
-
-    edtInfo[0]->setText(QString::fromStdString(b->name()));
-    edtInfo[1]->setText(QString::fromStdString(b->surname()));
-    edtInfo[3]->setText(QString::fromStdString(b->address()));
-    edtInfo[5]->setText(QString::fromStdString(b->email()));
-    edtInfo[2]->setText(b->birthdate().toString("dd.MM.yyyy"));
-    edtInfo[4]->setText(QString::fromStdString(b->telephon()));
-    edtInfo[6]->setText(QString::fromStdString(b->website()));
-    edtInfo[7]->setText(QString::fromStdString(_client->username().login()));
-    edtInfo[11]->setText(QString::fromStdString(_client->avatar()));
-    edtBio->setText(QString::fromStdString(b->bio()));
+    if(b) {
+        edtInfo[0]->setText(QString::fromStdString(b->name()));
+        edtInfo[1]->setText(QString::fromStdString(b->surname()));
+        edtInfo[3]->setText(QString::fromStdString(b->address()));
+        edtInfo[5]->setText(QString::fromStdString(b->email()));
+        edtInfo[2]->setText(b->birthdate().toString("dd.MM.yyyy"));
+        edtInfo[4]->setText(QString::fromStdString(b->telephon()));
+        edtInfo[6]->setText(QString::fromStdString(b->website()));
+        edtInfo[7]->setText(QString::fromStdString(_client->username().login()));
+        edtInfo[11]->setText(QString::fromStdString(_client->avatar()));
+        edtBio->setText(QString::fromStdString(b->bio()));
+    }
     edtBio->setStyleSheet("background: transparent");
 
     addWidget(avatar, 0, 0, 1, 1, Qt::AlignTop);

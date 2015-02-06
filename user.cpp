@@ -175,6 +175,9 @@ bool User::linked(const Username& usr) const {
 void User::loadInMail(const Message& mex) {
     _inMail.push_back(SmartPtr<Message> (const_cast<Message*> (&mex)));
 }
+void User::loadOutMail(const Message& mex) {
+    _outMail.push_back(SmartPtr<Message> (const_cast<Message*> (&mex)));
+}
 list<SmartPtr<Message> > User::inMail() const {
     return _inMail;
 }
@@ -198,12 +201,10 @@ User* BasicUser::clone() const {
 map<string, string> BasicUser::userSearch(const LinqDB& db, const string& wanted) const {
     return std::for_each(db.begin(), db.end(), searchFunctor(1, wanted, this)).result();
 }
-void BasicUser::sendMessage(const Message& mex) {
-    loadOutMail(mex);
-}
-void BasicUser::loadOutMail(const Message& mex) { // da spostare su sendmessage
-    if(_outMail.size() < basicMailLimit)
-        _outMail.push_back(SmartPtr<Message> (const_cast<Message*> (&mex)));
+void BasicUser::sendMessage(const Message& mex) throw(Error) {
+    if(outMailCount() < basicMailLimit)
+        loadOutMail(mex);
+    else throw Error(permission, "Mail limit for basic user reached, wait for monthly reset");
 }
 unsigned int BasicUser::basicLimit() {
     return basicMailLimit;
@@ -238,12 +239,10 @@ User* BusinessUser::clone() const {
 map<string, string> BusinessUser::userSearch(const LinqDB& db, const string& wanted) const {
     return std::for_each(db.begin(), db.end(), searchFunctor(2, wanted, this)).result();
 }
-void BusinessUser::sendMessage(const Message& mex) {
-    loadOutMail(mex);
-}
-void BusinessUser::loadOutMail(const Message& mex) {
-    if(_outMail.size() < businessMailLimit)
-        _outMail.push_back(SmartPtr<Message> (const_cast<Message*> (&mex)));
+void BusinessUser::sendMessage(const Message& mex) throw(Error) {
+    if(outMailCount() < businessMailLimit)
+        loadOutMail(mex);
+    else throw Error(permission, "Mail limit for business user reached, wait for monthly reset");
 }
 list<Group*> BusinessUser::groups() const {
     return _groups;
@@ -308,11 +307,8 @@ User* ExecutiveUser::clone() const {
 map<string, string> ExecutiveUser::userSearch(const LinqDB& db, const string& wanted) const {
     return std::for_each(db.begin(), db.end(), searchFunctor(3, wanted, this)).result();
 }
-void ExecutiveUser::sendMessage(const Message& mex) {
+void ExecutiveUser::sendMessage(const Message& mex) throw(Error) {
     loadOutMail(mex);
-}
-void ExecutiveUser::loadOutMail(const Message& mex) {
-    _outMail.push_back(SmartPtr<Message> (const_cast<Message*> (&mex)));
 }
 void ExecutiveUser::addKeyword(const string& key) {
     ++_keywords[key];

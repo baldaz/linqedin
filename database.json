@@ -1,7 +1,7 @@
 {
     "admin": {
-        "username": "root",
-        "password": "toor"
+        "password": "toor",
+        "username": "root"
     },
     "groups": [
         {
@@ -107,6 +107,7 @@
     ],
     "users": [
         {
+            "avatar": "img/port2.jpg",
             "formations": [
                 {
                     "from": "15.09.2002",
@@ -123,6 +124,7 @@
             ],
             "info": {
                 "address": "Stra via 4 novembre 24 (VE) Italy",
+                "biography": "San Pietro di Stra",
                 "birthdate": "08.10.1988",
                 "email": "a.g.baldan@gmail.com",
                 "name": "Andrea",
@@ -148,6 +150,15 @@
                     "recv": "24.01.2015",
                     "sender": "Casey",
                     "sent": "24.01.2015"
+                },
+                {
+                    "body": "Have to test exception!",
+                    "object": "Test",
+                    "read": false,
+                    "receiver": "Baldaz",
+                    "recv": "06.02.2015",
+                    "sender": "Casey",
+                    "sent": "06.02.2015"
                 }
             ],
             "interests": [
@@ -220,16 +231,19 @@
             "password": "qwerty",
             "payments": [
                 {
+                    "appdate": "",
                     "approved": true,
                     "code": "0132532",
                     "nominee": "Andrea Baldan"
                 },
                 {
+                    "appdate": "",
                     "approved": true,
                     "code": "0132532",
                     "nominee": "Andrea Baldan"
                 },
                 {
+                    "appdate": "",
                     "approved": true,
                     "code": "0132532",
                     "nominee": "Andrea Baldan"
@@ -258,11 +272,12 @@
             ]
         },
         {
-            "avatar":"img/pablo-escobar.jpg",
+            "avatar": "img/pablo-escobar.jpg",
             "formations": [
             ],
             "info": {
                 "address": "calle de la muerte 1",
+                "biography": "maurisio",
                 "birthdate": "15.12.1923",
                 "email": "escobar@cartello.cb",
                 "name": "Pablos",
@@ -301,6 +316,7 @@
             "password": "maurisio",
             "payments": [
                 {
+                    "appdate": "",
                     "approved": true,
                     "code": "0132532",
                     "nominee": "Pablos Escobar"
@@ -315,7 +331,7 @@
             "visitcount": 12
         },
         {
-            "avatar":"img/atilio.jpg",
+            "avatar": "img/atilio.jpg",
             "formations": [
             ],
             "info": {
@@ -354,6 +370,7 @@
             "password": "piovra",
             "payments": [
                 {
+                    "appdate": "",
                     "approved": false,
                     "code": "0132532",
                     "nominee": "Atilio Sousa"
@@ -370,6 +387,7 @@
             "visitcount": 13
         },
         {
+            "avatar": "img/port2.jpg",
             "formations": [
             ],
             "info": {
@@ -404,6 +422,7 @@
             "password": "rd",
             "payments": [
                 {
+                    "appdate": "",
                     "approved": true,
                     "code": "0132532",
                     "nominee": "Sara Rea"
@@ -419,6 +438,7 @@
             "visitcount": 0
         },
         {
+            "avatar": "img/port2.jpg",
             "formations": [
             ],
             "info": {
@@ -458,6 +478,7 @@
             "password": "sara",
             "payments": [
                 {
+                    "appdate": "",
                     "approved": true,
                     "code": "0132532",
                     "nominee": "Sara Rea"
@@ -473,6 +494,7 @@
             "visitcount": 0
         },
         {
+            "avatar": "img/port2.jpg",
             "formations": [
             ],
             "info": {
@@ -509,6 +531,7 @@
             "password": "wword",
             "payments": [
                 {
+                    "appdate": "",
                     "approved": true,
                     "code": "0132532",
                     "nominee": "Dan Serrano"
@@ -524,7 +547,7 @@
             "visitcount": 0
         },
         {
-            "avatar":"img/seagal.jpg",
+            "avatar": "img/seagal.jpg",
             "formations": [
                 {
                     "from": "15.09.1962",
@@ -632,6 +655,15 @@
                     "recv": "24.01.2015",
                     "sender": "Casey",
                     "sent": "24.01.2015"
+                },
+                {
+                    "body": "Have to test exception!",
+                    "object": "Test",
+                    "read": false,
+                    "receiver": "Baldaz",
+                    "recv": "06.02.2015",
+                    "sender": "Casey",
+                    "sent": "06.02.2015"
                 }
             ],
             "password": "rayback",
@@ -681,10 +713,10 @@
             "username": "Casey",
             "visitcount": 10,
             "visitors": [
-                "Pablito",
                 "Baldaz",
                 "Atilio",
-                "Baldaz"
+                "Baldaz",
+                "Pablito"
             ]
         },
         {
@@ -755,6 +787,7 @@
             "password": "machete",
             "payments": [
                 {
+                    "appdate": "",
                     "approved": false,
                     "code": "0132532",
                     "nominee": "Danny Trejo"
@@ -780,6 +813,7 @@
             ]
         },
         {
+            "avatar": "img/port2.jpg",
             "formations": [
                 {
                     "from": "15.09.1967",
@@ -847,6 +881,7 @@
             "password": "lecter",
             "payments": [
                 {
+                    "appdate": "",
                     "approved": true,
                     "code": "0132532",
                     "nominee": "Hannibal Lecter"
@@ -866,6 +901,7 @@
             ]
         },
         {
+            "avatar": "img/port2.jpg",
             "formations": [
                 {
                     "from": "15.09.1977",
@@ -922,6 +958,7 @@
             "password": "graham",
             "payments": [
                 {
+                    "appdate": "",
                     "approved": true,
                     "code": "0132532",
                     "nominee": "Will Graham"

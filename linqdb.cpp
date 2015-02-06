@@ -133,8 +133,9 @@ void LinqDB::readInfo(Info* inf, const QJsonObject& obj) const {
             uif->addExperience(*expr);
         }
     }
-    if(Bio* b = dynamic_cast<Bio*> (inf))
-        b->setBio(info["biography"].toString().toStdString());
+    // if(info.contains("biography"))
+        if(Bio* b = dynamic_cast<Bio*> (inf))
+            b->setBio(info["biography"].toString().toStdString());
 }
 void LinqDB::initGroups(const QJsonArray& groups) {
     for(int i = 0; i < groups.size(); ++i) {
