@@ -20,8 +20,6 @@ bool LinqDB::readJson() throw(Error) {
         QJsonObject db, jadm;
         jadm["username"] = QString("root");
         jadm["password"] = QString("toor");
-        // db["users"] = "";
-        // db["groups"] = "";
         db["admin"] = jadm;
         QJsonDocument doc(db);
         loadDB.write(doc.toJson());

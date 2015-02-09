@@ -8,6 +8,6 @@ Avatar::Avatar(const Avatar& a) : _path(a._path) {}
 string Avatar::path() const {
     return _path;
 }
-void Avatar::setPath(const string& p) {
-    _path = p;
-}
+// void Avatar::setPath(const string& p) {
+//     _path = p;
+// }

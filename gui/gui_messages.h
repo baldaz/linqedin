@@ -30,7 +30,6 @@ public:
     explicit Gui_Messages(LinqClient*, QWidget* parent = 0);
 signals:
     void messageSent();
-    // void unreadMex(int);
 public slots:
     void viewInMailBody();
     void viewOutMailBody();

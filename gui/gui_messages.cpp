@@ -44,12 +44,10 @@ Gui_Messages::Gui_Messages(LinqClient* cli, QWidget* parent) : _client(cli), QGr
     // _listIn->setStyleSheet("background:#ff0");
     addWidget(portrait, 0, 0, 1, 1, Qt::AlignTop);
     addWidget(tab, 0, 1, 1, 1);
-    // addWidget(_listIn, 0, 1, 1, 1);
     addWidget(_output, 0, 2, 1, -1);
     setColumnStretch(0, 1);
     setColumnStretch(1, 2);
     setColumnStretch(2, 4);
-    // setColumnStretch(3, 2);
     setRowStretch(0, 0);
     setRowStretch(1, 0);
     setRowStretch(2, 10);

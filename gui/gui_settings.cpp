@@ -4,16 +4,26 @@ Gui_Settings::Gui_Settings(LinqClient* cli, QWidget* parent) : _client(cli), QGr
     Gui_Avatar* avatar = new Gui_Avatar(QString::fromStdString(_client->avatar()));
     setSpacing(5);
     for(int i = 0; i < NumLineEdit; ++i)
-        edtInfo[i] = new QLineEdit(parent);
+        edtInfo[i] = new QLineEdit;
     edtBio = new QTextEdit(parent);
     edtInfo[12]->setPlaceholderText("Insert new password");
+    edtInfo[12]->setEchoMode(QLineEdit::Password);
 
+    bdate = new QLabel("Birthdate:");
+    setBdate = new QLabel("Birthdate:");
     _modpop = new Gui_ModPopup;
+    calendar = new QCalendarWidget;
+    calendar->setStyleSheet("font-size:12px");
+    calendar->setHorizontalHeaderFormat(QCalendarWidget::NoHorizontalHeader);
+    calendar->setVerticalHeaderFormat(QCalendarWidget::NoVerticalHeader);
+    calendar->hide();
+    setBdate->hide();
 
     skills = new QListWidget;
     inters = new QListWidget;
     lang = new QListWidget;
-    exps = new QListWidget;
+    forms = new QListWidget;
+    jobs = new QListWidget;
     vector<string> v = _client->skills();
     vector<string> i = _client->interests();
     vector<string> l = _client->languages();
@@ -41,16 +51,19 @@ Gui_Settings::Gui_Settings(LinqClient* cli, QWidget* parent) : _client(cli), QGr
         QString cont = QString(QString::fromStdString((*it)->role()) + " " + QString::fromStdString((*it)->location()));
         item->setData(Qt::DisplayRole, cont);
         item->setData(Qt::DecorationRole, QPixmap("img/work3.png"));
-        exps->addItem(item);
+        if((*it)->type() == 0) jobs->addItem(item);
+        else forms->addItem(item);
     }
     skills->setContextMenuPolicy(Qt::CustomContextMenu);
     inters->setContextMenuPolicy(Qt::CustomContextMenu);
     lang->setContextMenuPolicy(Qt::CustomContextMenu);
-    exps->setContextMenuPolicy(Qt::CustomContextMenu);
+    forms->setContextMenuPolicy(Qt::CustomContextMenu);
+    jobs->setContextMenuPolicy(Qt::CustomContextMenu);
     connect(skills, SIGNAL(customContextMenuRequested(const QPoint&)), this, SLOT(skillsMenu(const QPoint&)));
     connect(inters, SIGNAL(customContextMenuRequested(const QPoint&)), this, SLOT(interestsMenu(const QPoint&)));
     connect(lang, SIGNAL(customContextMenuRequested(const QPoint&)), this, SLOT(languagesMenu(const QPoint&)));
-    connect(exps, SIGNAL(customContextMenuRequested(const QPoint&)), this, SLOT(experiencesMenu(const QPoint&)));
+    connect(forms, SIGNAL(customContextMenuRequested(const QPoint&)), this, SLOT(formationsMenu(const QPoint&)));
+    connect(jobs, SIGNAL(customContextMenuRequested(const QPoint&)), this, SLOT(jobsMenu(const QPoint&)));
 
     edtInfo[8] = new QLineEdit(parent);
     edtInfo[8]->setPlaceholderText("Add new skill");
@@ -94,6 +107,7 @@ Gui_Settings::Gui_Settings(LinqClient* cli, QWidget* parent) : _client(cli), QGr
         edtInfo[7]->setText(QString::fromStdString(_client->username().login()));
         edtInfo[11]->setText(QString::fromStdString(_client->avatar()));
         edtBio->setText(QString::fromStdString(b->bio()));
+        calendar->setSelectedDate(b->birthdate());
     }
     edtBio->setStyleSheet("background: transparent");
 
@@ -101,19 +115,20 @@ Gui_Settings::Gui_Settings(LinqClient* cli, QWidget* parent) : _client(cli), QGr
 
     QFormLayout* frm = new QFormLayout;
     QFormLayout* frm2 = new QFormLayout;
-    QPushButton* box = new QPushButton("Alter");
     toggle = new QPushButton("Unlock");
     toggle->setCheckable(true);
     connect(toggle, SIGNAL(clicked()), this, SLOT(buttonToggled()));
+    connect(edtInfo[11], SIGNAL(returnPressed()), this, SLOT(triggerFileDialog()));
 
-    frm->setVerticalSpacing(10);
-    frm2->setVerticalSpacing(10);
+    frm->setVerticalSpacing(5);
+    frm2->setVerticalSpacing(5);
 
     frm->addRow("Name:", edtInfo[0]);
     frm->addRow("Surname:", edtInfo[1]);
-    frm->addRow("Birthdate:", edtInfo[2]);
     frm->addRow("Address:" , edtInfo[3]);
     frm->addRow("Username:", edtInfo[7]);
+    frm->addRow(bdate, edtInfo[2]);
+    frm->addRow(setBdate, calendar);
     frm->addRow("Skills:", skills);
     frm->addRow(edtInfo[8]);
     frm->addRow("Languages:", lang);
@@ -125,12 +140,12 @@ Gui_Settings::Gui_Settings(LinqClient* cli, QWidget* parent) : _client(cli), QGr
     frm2->addRow(edtInfo[12]); //pwd
     frm2->addRow("Interests:", inters);
     frm2->addRow(edtInfo[10]);
-    frm2->addRow("Experiences:", exps);
+    frm2->addRow("Formations:", forms);
+    frm2->addRow("Jobs:", jobs);
     frm2->addRow("Short bio:", edtBio);
 
     addLayout(frm, 0, 1, 1, 1);
     addLayout(frm2, 0, 2, 1, 1);
-    // addWidget(box, 2, 1, 1, 1);
     addWidget(toggle, 2, 2, 1, 1);
 }
 
@@ -141,9 +156,7 @@ void Gui_Settings::skillsMenu(const QPoint& pos) {
     _selected = skills->item(t.row())->data(Qt::DisplayRole).toString();
     QMenu myMenu;
     myMenu.addAction("Delete", this, SLOT(deleteSkill()));
-    QAction* act = myMenu.addAction("Modify", this, SLOT(modifySkill()));
     myMenu.exec(globalPos);
-    // connect(act, SIGNAL(modified(int)), this, SLOT(modifySkill(int)));
 }
 
 void Gui_Settings::interestsMenu(const QPoint& pos) {
@@ -153,7 +166,6 @@ void Gui_Settings::interestsMenu(const QPoint& pos) {
     _selected = inters->item(t.row())->data(Qt::DisplayRole).toString();
     QMenu myMenu;
     myMenu.addAction("Delete", this, SLOT(deleteInterest()));
-    myMenu.addAction("Modify", this, SLOT(modifyInterest()));
     QAction* selectedItem = myMenu.exec(globalPos);
 }
 
@@ -164,16 +176,28 @@ void Gui_Settings::languagesMenu(const QPoint& pos) {
     _selected = lang->item(t.row())->data(Qt::DisplayRole).toString();
     QMenu myMenu;
     myMenu.addAction("Delete", this, SLOT(deleteLanguage()));
-    myMenu.addAction("Modify", this, SLOT(modifyLanguage()));
     myMenu.exec(globalPos);
 }
 
-void Gui_Settings::experiencesMenu(const QPoint& pos) {
-    QPoint globalPos = exps->mapToGlobal(pos);
-    QModelIndex t = exps->indexAt(pos);
-    exps->item(t.row())->setSelected(true);
-    _selected = exps->item(t.row())->data(Qt::DisplayRole).toString();
+void Gui_Settings::formationsMenu(const QPoint& pos) {
+    QPoint globalPos = forms->mapToGlobal(pos);
+    QModelIndex t = forms->indexAt(pos);
+    forms->item(t.row())->setSelected(true);
+    _selected = forms->item(t.row())->data(Qt::DisplayRole).toString();
     QMenu myMenu;
+    myMenu.addAction("Add", this, SLOT(addExperience()));
+    myMenu.addAction("Delete", this, SLOT(deleteExperience()));
+    myMenu.addAction("Modify", this, SLOT(modifyExperience()));
+    myMenu.exec(globalPos);
+}
+
+void Gui_Settings::jobsMenu(const QPoint& pos) {
+    QPoint globalPos = jobs->mapToGlobal(pos);
+    QModelIndex t = jobs->indexAt(pos);
+    jobs->item(t.row())->setSelected(true);
+    _selected = jobs->item(t.row())->data(Qt::DisplayRole).toString();
+    QMenu myMenu;
+    myMenu.addAction("Add", this, SLOT(addExperience()));
     myMenu.addAction("Delete", this, SLOT(deleteExperience()));
     myMenu.addAction("Modify", this, SLOT(modifyExperience()));
     myMenu.exec(globalPos);
@@ -184,7 +208,10 @@ void Gui_Settings::buttonToggled() {
         toggle->setText("Save");
         edtInfo[0]->setEnabled(true);
         edtInfo[1]->setEnabled(true);
-        edtInfo[2]->setEnabled(true);
+        edtInfo[2]->hide();
+        bdate->hide();
+        calendar->show();
+        setBdate->show();
         edtInfo[3]->setEnabled(true);
         edtInfo[4]->setEnabled(true);
         edtInfo[5]->setEnabled(true);
@@ -205,7 +232,10 @@ void Gui_Settings::buttonToggled() {
         toggle->setText("Unlock");
         edtInfo[0]->setEnabled(false);
         edtInfo[1]->setEnabled(false);
-        edtInfo[2]->setEnabled(false);
+        edtInfo[2]->show();
+        bdate->show();
+        calendar->hide();
+        setBdate->hide();
         edtInfo[3]->setEnabled(false);
         edtInfo[4]->setEnabled(false);
         edtInfo[5]->setEnabled(false);
@@ -224,11 +254,15 @@ void Gui_Settings::buttonToggled() {
         _client->alterProfile(0, edtInfo[0]->text().toStdString());
         _client->alterProfile(1, edtInfo[1]->text().toStdString());
         _client->alterProfile(2, edtInfo[3]->text().toStdString());
-        _client->alterProfile(3, edtInfo[2]->text().toStdString());
+        _client->alterProfile(3, calendar->selectedDate().toString("dd.MM.yyyy").toStdString());
+        edtInfo[2]->setText(calendar->selectedDate().toString("dd.MM.yyyy"));
         _client->alterProfile(4, edtInfo[5]->text().toStdString());
         _client->alterProfile(5, edtInfo[4]->text().toStdString());
         _client->alterProfile(6, edtInfo[6]->text().toStdString());
         _client->alterProfile(7, edtBio->toPlainText().toStdString());
+        _client->alterProfile(8, edtInfo[7]->text().toStdString());
+        _client->alterProfile(9, edtInfo[12]->text().toStdString());
+        _client->setAvatar(edtInfo[11]->text().toStdString());
     }
 }
 
@@ -244,11 +278,6 @@ void Gui_Settings::deleteSkill() {
 }
 
 //SLOT
-void Gui_Settings::modifySkill() {
-    _modpop->show();
-}
-
-//SLOT
 void Gui_Settings::addLanguage() {
     if(!edtInfo[10]->text().isEmpty())
         _client->addTrait(1, edtInfo[10]->text().toStdString());
@@ -257,11 +286,6 @@ void Gui_Settings::addLanguage() {
 //SLOT
 void Gui_Settings::deleteLanguage() {
     _client->deleteTrait(1, _selected.toStdString());
-}
-
-//SLOT
-void Gui_Settings::modifyLanguage() {
-    _modpop->show();
 }
 
 //SLOT
@@ -276,8 +300,13 @@ void Gui_Settings::deleteInterest() {
 }
 
 //SLOT
-void Gui_Settings::modifyInterest() {
-    _modpop->show();
+void Gui_Settings::addFormation() {
+
+}
+
+//SLOT
+void Gui_Settings::addJob() {
+
 }
 
 //SLOT
@@ -287,5 +316,11 @@ void Gui_Settings::deleteExperience() {
 
 //SLOT
 void Gui_Settings::modifyExperience() {
-    _modpop->show();
+    // _modpop->show();
+}
+
+//SLOT
+void Gui_Settings::triggerFileDialog() {
+     avatarPath = QFileDialog::getOpenFileName(0, "Select Image", "img", "Image Files (*.png *.jpg *.bmp)");
+     edtInfo[11]->setText(avatarPath);
 }

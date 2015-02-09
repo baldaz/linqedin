@@ -25,31 +25,39 @@ void LinqClient::removeContact(const Username& usr) {
 }
 void LinqClient::alterProfile(int field, const string& value) {
     Bio* ui = dynamic_cast<Bio*> (_usr->account()->info());
-    switch(field) {
-        case 0:
-            ui->setName(value);
-        break;
-        case 1:
-            ui->setSurname(value);
-        break;
-        case 2:
-            ui->setAddress(value);
-        break;
-        case 3:
-            ui->setBirthdate(QDate::fromString(QString::fromStdString(value), "dd.MM.yyyy"));
-        break;
-        case 4:
-            ui->setEmail(value);
-        break;
-        case 5:
-            ui->setTelephon(value);
-        break;
-        case 6:
-            ui->setWebsite(value);
-        break;
-        case 7:
-            ui->setBio(value);
-        break;
+    if(ui) {
+        switch(field) {
+            case 0:
+                ui->setName(value);
+            break;
+            case 1:
+                ui->setSurname(value);
+            break;
+            case 2:
+                ui->setAddress(value);
+            break;
+            case 3:
+                ui->setBirthdate(QDate::fromString(QString::fromStdString(value), "dd.MM.yyyy"));
+            break;
+            case 4:
+                ui->setEmail(value);
+            break;
+            case 5:
+                ui->setTelephon(value);
+            break;
+            case 6:
+                ui->setWebsite(value);
+            break;
+            case 7:
+                ui->setBio(value);
+            break;
+            case 8:
+                _usr->account()->username().setLogin(value);
+            break;
+            case 9:
+                if(!value.empty()) _usr->account()->username().setPassword(value);
+            break;
+        }
     }
 }
 string LinqClient::displayProfile() const {
@@ -198,7 +206,9 @@ string LinqClient::avatar() const {
     return _usr->account()->avatar().path();
 }
 void LinqClient::setAvatar(const string& path) {
-    _usr->account()->avatar().setPath(path);
+    // _usr->account()->avatar().setPath(path);
+    Avatar avt(path);
+    _usr->account()->setAvatar(avt);
 }
 void LinqClient::sendMail(const string& dest, const string& obj, const string& body, bool read) {
     Username* dst = new Username(dest, "");
