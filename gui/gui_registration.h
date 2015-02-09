@@ -29,7 +29,10 @@ private:
     void createForm();
 public:
     Gui_Registration(QWidget* parent = 0);
+signals:
+    void userCreated(bool);
 public slots:
     void submitData();
+    void proceed(bool);
 };
 #endif

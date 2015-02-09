@@ -1,4 +1,6 @@
 #include "gui_registration.h"
+#include "gui_userwindow.h"
+#include <QMessageBox>
 
 Gui_Registration::Gui_Registration(QWidget* parent) : QWidget(parent) {
     setWindowFlags(Qt::FramelessWindowHint);
@@ -22,6 +24,7 @@ Gui_Registration::Gui_Registration(QWidget* parent) : QWidget(parent) {
     setLayout(_mainLayout);
     move(250, 150);
     resize(900, 450);
+    connect(this, SIGNAL(userCreated(bool)), this, SLOT(proceed(bool)));
 }
 
 void Gui_Registration::createForm() {
@@ -66,6 +69,7 @@ void Gui_Registration::createForm() {
 
 //SLOT
 void Gui_Registration::submitData() {
+    bool created = true;
     QString uname = edt[0]->text();
     QString pass = edt[1]->text();
     QMap<string, string> info;
@@ -77,5 +81,25 @@ void Gui_Registration::submitData() {
     info.insert("website", edt[7]->text().toStdString());
     info.insert("birthdate", calendar->selectedDate().toString("dd.MM.yyyy").toStdString());
     info.insert("bio", bio->toPlainText().toStdString());
-    _admin->insertUser(uname.toStdString(), pass.toStdString(), info.toStdMap());
+    try {
+        _admin->insertUser(uname.toStdString(), pass.toStdString(), info.toStdMap());
+    }catch(Error e) {
+        QMessageBox::critical(this, "Error!", QString::fromStdString(e.errorMessage()));
+        created = false;
+    }
+    emit userCreated(created);
+}
+
+//SLOT
+void Gui_Registration::proceed(bool pr) {
+    if(pr) {
+        QMessageBox::information(this, "Operation complete", "Account successfully created!", QMessageBox::Ok);
+        LinqClient* c = new LinqClient(Username(edt[0]->text().toStdString(), edt[1]->text().toStdString()));
+        Gui_UserWindow* w = new Gui_UserWindow(c);
+        w->show();
+        close();
+    }
+    else {
+        QMessageBox::critical(this, "Error", "Account creation has ecountered an error", QMessageBox::Ok);
+    }
 }

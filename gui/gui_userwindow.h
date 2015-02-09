@@ -52,7 +52,7 @@ private:
     void createGroups();
 
     void mouseDoubleClickEvent(QMouseEvent*);
-
+    void closeEvent(QCloseEvent*);
 signals:
 
 public slots:

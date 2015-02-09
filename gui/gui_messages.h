@@ -22,10 +22,15 @@ private:
     QLineEdit* edt1;
     QLineEdit* edt2;
     QTextEdit* te;
+    int mexcount;
+    QString rcv;
+
+    QString unreadMex(int);
 public:
-    Gui_Messages(LinqClient*, QWidget* parent = 0);
+    explicit Gui_Messages(LinqClient*, QWidget* parent = 0);
 signals:
     void messageSent();
+    // void unreadMex(int);
 public slots:
     void viewInMailBody();
     void viewOutMailBody();

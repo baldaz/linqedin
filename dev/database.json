@@ -580,7 +580,7 @@
                 {
                     "body": "Test mail from Danny.",
                     "object": "Test",
-                    "read": false,
+                    "read": true,
                     "receiver": "Casey",
                     "recv": "21.01.2015",
                     "sender": "Danny",

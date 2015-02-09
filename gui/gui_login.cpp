@@ -11,7 +11,7 @@ Gui_Login::Gui_Login(QWidget* parent) : QDialog(parent) {
     QLabel* password = new QLabel("Password:", this);
     passw = new QLineEdit(this);
     passw->setEchoMode(QLineEdit::Password);
-
+    passw->installEventFilter(this);
     splash->setPixmap(QPixmap("img/linked5.png"));
     buttonBox = new QDialogButtonBox(QDialogButtonBox::Ok | QDialogButtonBox::Cancel);
     QPushButton* quit = new QPushButton;
@@ -30,6 +30,12 @@ Gui_Login::Gui_Login(QWidget* parent) : QDialog(parent) {
     mainLayout->addWidget(buttonBox, Qt::AlignLeft|Qt::AlignCenter);
 
     setLayout(mainLayout);
+    try {
+        _loader = new Loader;
+    }catch (Error e) {
+        QMessageBox::warning(this, "Database missing", "No database found, creating a new one");
+        _loader = new Loader;
+    }
     connect(buttonBox, SIGNAL(clicked(QAbstractButton*)), this, SLOT(onClicked(QAbstractButton*)));
     connect(this, SIGNAL(logged()), this, SLOT(login()));
 }
@@ -51,22 +57,20 @@ void Gui_Login::onClicked(QAbstractButton* button) {
         QString us = uname->text();
         QString pw = passw->text();
         Username u(us.toStdString(), pw.toStdString());
-        if(_loader.isAdmin(u)) {
+        if(_loader->isAdmin(u)) {
             admwin = new Gui_AdminWindow;
             admwin->show();
+            close();
         }
         else {
             try {
-                c = _loader.getClientHandle(u);
+                c = _loader->getClientHandle(u);
             }catch(Error e) {
                 QMessageBox::critical(this, "Error!", QString::fromStdString(e.errorMessage()));
                 log = false;
             }
             if(log) emit logged();
-            // window = new Gui_UserWindow(c);
-            // window->show();
         }
-        close();
     }
     else {
         reg = new Gui_Registration;
@@ -79,4 +83,12 @@ void Gui_Login::onClicked(QAbstractButton* button) {
 void Gui_Login::login() {
     window = new Gui_UserWindow(c);
     window->show();
+    close();
 }
+
+// void Gui_Login::closeEvent(QCloseEvent* event) {
+//     if(window) delete window;
+//     // if(reg) delete reg;
+//     // if(admwin) delete admwin;
+//     event->accept();
+// }

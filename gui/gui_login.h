@@ -23,10 +23,11 @@ private:
     QDialogButtonBox* buttonBox;
     QLineEdit* uname;
     QLineEdit* passw;
-    Loader _loader;
+    Loader* _loader;
     LinqClient* c;
 
     void resizeEvent(QResizeEvent*);
+    // void closeEvent(QCloseEvent *);
 public:
     Gui_Login(QWidget* = 0);
 signals:

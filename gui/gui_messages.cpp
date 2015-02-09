@@ -1,6 +1,7 @@
 #include "gui_messages.h"
 
 Gui_Messages::Gui_Messages(LinqClient* cli, QWidget* parent) : _client(cli), QGridLayout(parent) {
+    mexcount = 0;
     QTabWidget* tab = new QTabWidget(parent);
     Gui_Avatar* portrait = new Gui_Avatar(QString::fromStdString(_client->avatar()));
     _listIn = new QListWidget;
@@ -22,6 +23,7 @@ Gui_Messages::Gui_Messages(LinqClient* cli, QWidget* parent) : _client(cli), QGr
         item->setData(Qt::UserRole + 3, (*it)->isRead());
         if((*it)->isRead())
             item->setData(Qt::UserRole + 4, QPixmap("img/verification24.png"));
+        else mexcount++;
         _listIn->addItem(item);
     }
     for(it = out.begin(); it != out.end(); ++it) {
@@ -34,8 +36,8 @@ Gui_Messages::Gui_Messages(LinqClient* cli, QWidget* parent) : _client(cli), QGr
         item->setData(Qt::UserRole + 3, 1);
         _listOut->addItem(item);
     }
-
-    tab->addTab(_listIn, "Received");
+    rcv = unreadMex(mexcount);
+    tab->addTab(_listIn, rcv);
     tab->addTab(_listOut, "Sent");
 
     // portrait->setStyleSheet("background:#fff");
@@ -58,16 +60,6 @@ Gui_Messages::Gui_Messages(LinqClient* cli, QWidget* parent) : _client(cli), QGr
     addWidget(ne, 1, 0, 1, -1, Qt::AlignCenter);
     QGridLayout* frm = new QGridLayout;
     frm->setSpacing(20);
-    // QLabel *title = new QLabel("To:");
-    // QLineEdit *edt1 = new QLineEdit;
-    // frm->addRow(title, edt1);
-    // QLabel *author = new QLabel("Subject:");
-    // QLineEdit *edt2 = new QLineEdit;
-    // frm->addRow(author, edt2);
-    // QLabel *review = new QLabel("Body:");
-    // QTextEdit *te = new QTextEdit;
-    // te->setStyleSheet("background: #1a1a1a; border-radius: 5px; color: #e6e6e6; font-weight: 400;");
-    // frm->addRow(review, te);
     QLabel *title = new QLabel("To:");
     frm->addWidget(title, 0, 0, 1, 1);
 
@@ -127,4 +119,11 @@ void Gui_Messages::sendMail() {
 
 void Gui_Messages::refreshMessages() {
     std::cout << "refresh" << std::endl;
+}
+
+QString Gui_Messages::unreadMex(int mc) {
+    QString rcv = QString("Received");
+    if(mc > 0)
+        rcv.append(QString("(%1)").arg(mc));
+    return rcv;
 }

@@ -3,17 +3,9 @@
 Gui_Settings::Gui_Settings(LinqClient* cli, QWidget* parent) : _client(cli), QGridLayout(parent) {
     Gui_Avatar* avatar = new Gui_Avatar(QString::fromStdString(_client->avatar()));
     setSpacing(5);
-    edtInfo[0] = new QLineEdit(parent);
-    edtInfo[1] = new QLineEdit(parent);
-    edtInfo[2] = new QLineEdit(parent);
-    edtInfo[3] = new QLineEdit(parent);
-    edtInfo[4] = new QLineEdit(parent);
-    edtInfo[5] = new QLineEdit(parent);
-    edtInfo[6] = new QLineEdit(parent);
-    edtInfo[7] = new QLineEdit(parent);
+    for(int i = 0; i < NumLineEdit; ++i)
+        edtInfo[i] = new QLineEdit(parent);
     edtBio = new QTextEdit(parent);
-    edtInfo[11] = new QLineEdit(parent);
-    edtInfo[12] = new QLineEdit(parent);
     edtInfo[12]->setPlaceholderText("Insert new password");
 
     _modpop = new Gui_ModPopup;
@@ -106,11 +98,7 @@ Gui_Settings::Gui_Settings(LinqClient* cli, QWidget* parent) : _client(cli), QGr
     edtBio->setStyleSheet("background: transparent");
 
     addWidget(avatar, 0, 0, 1, 1, Qt::AlignTop);
-/*
-    QHBoxLayout* hbl = new QHBoxLayout;
-    QHBoxLayout* hbl2 = new QHBoxLayout;
 
-    QVBoxLayout* vbl = new QVBoxLayout; */
     QFormLayout* frm = new QFormLayout;
     QFormLayout* frm2 = new QFormLayout;
     QPushButton* box = new QPushButton("Alter");
@@ -233,6 +221,14 @@ void Gui_Settings::buttonToggled() {
         edtInfo[12]->hide();
         edtBio->setReadOnly(true);
         edtBio->setStyleSheet("background: transparent");
+        _client->alterProfile(0, edtInfo[0]->text().toStdString());
+        _client->alterProfile(1, edtInfo[1]->text().toStdString());
+        _client->alterProfile(2, edtInfo[3]->text().toStdString());
+        _client->alterProfile(3, edtInfo[2]->text().toStdString());
+        _client->alterProfile(4, edtInfo[5]->text().toStdString());
+        _client->alterProfile(5, edtInfo[4]->text().toStdString());
+        _client->alterProfile(6, edtInfo[6]->text().toStdString());
+        _client->alterProfile(7, edtBio->toPlainText().toStdString());
     }
 }
 
@@ -244,7 +240,6 @@ void Gui_Settings::addSkill() {
 
 //SLOT
 void Gui_Settings::deleteSkill() {
-    std::cout << "click on delete" << std::endl;
     _client->deleteTrait(0, _selected.toStdString());
 }
 

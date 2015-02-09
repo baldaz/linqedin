@@ -31,7 +31,7 @@ Gui_Groups::Gui_Groups(LinqClient* c, QWidget* parent) : _client(c), QGridLayout
             for(; it != grps.end(); ++it)
                 completions.push_back(QString::fromStdString((*it)->name()));
         }
-        QCompleter* completer = new QCompleter(completions);
+        QCompleter* completer = new QCompleter(completions, this);
         completer->setCaseSensitivity(Qt::CaseInsensitive);
         search->setCompleter(completer);
         search->setClearButtonEnabled(true);
@@ -150,8 +150,8 @@ void Gui_Groups::sendPost() {
     QString pst = newpost->toPlainText();
     Group g(Username(admin.toStdString(), ""), name.toStdString());
     if(!pst.isEmpty()) {
-        Post* p = new Post(_client->username(), pst.toStdString());
-        _client->addPostToGroup(g, *p);
+        Post p(_client->username(), pst.toStdString());
+        _client->addPostToGroup(g, p);
         QString dump = showgrp->toHtml();
         QString me = QString::fromStdString(_client->username().login());
         dump.append(QString("<h5>Author: <span style='font-weight:400;font-size:10px'>" + me + "</span></h5><p style='font-weight:400;font-size:11px;'>" + pst + "</p><hr>"));
@@ -172,8 +172,8 @@ void Gui_Groups::showNewGroup() {
 void Gui_Groups::newGroup() {
     QString name = grpname->text();
     QString desc = newgrp->text();
-    Group* g = new Group(_client->username(), name.toStdString(), desc.toStdString());
-    _client->createNewGroup(*g);
+    Group g(_client->username(), name.toStdString(), desc.toStdString());
+    _client->createNewGroup(g);
     _client->save();
 }
 

@@ -3,6 +3,7 @@
 
 #include "username.h"
 #include "linqdb.h"
+#include "error.h"
 
 class LinqAdmin {
 private:
@@ -27,7 +28,7 @@ public:
     ~LinqAdmin();
     list<SmartPtr<User> > listUsers() const;
     void insertUser(User*);
-    void insertUser(const string&, const string&, const map<string, string>& = map<string,string>());
+    void insertUser(const string&, const string&, const map<string, string>& = map<string,string>()) throw(Error);
     void removeUser(const Username&);
     map<string,string> find(const string&) const;
     void alterSubscription(const Username&, privLevel);

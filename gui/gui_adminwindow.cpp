@@ -7,6 +7,7 @@
 #include <QToolBar>
 #include <QToolButton>
 #include <QCompleter>
+#include <QMessageBox>
 
 Gui_AdminWindow::Gui_AdminWindow(QWidget* parent) : QWidget(parent) {
     _admin = new LinqAdmin;
@@ -133,6 +134,7 @@ void Gui_AdminWindow::showUser() {
 
 //SLOT
 void Gui_AdminWindow::addUser() {
+    bool inserted = true;
     QString name = edt[0]->text();
     QString surn = edt[1]->text();
     QString uname = edt[2]->text();
@@ -143,13 +145,27 @@ void Gui_AdminWindow::addUser() {
     QMap<string, string> map;
     map.insert("name", name.toStdString());
     map.insert("surname", surn.toStdString());
-    _admin->insertUser(uname.toStdString(), passw.toStdString(), map.toStdMap());
+    map.insert("birthdate", QDate::currentDate().toString("dd.MM.yyyy").toStdString());
+    try {
+        _admin->insertUser(uname.toStdString(), passw.toStdString(), map.toStdMap());
+    }catch(Error e) {
+        QMessageBox::critical(this, "Error", QString::fromStdString(e.errorMessage()));
+        inserted = false;
+    }
+    if(inserted) {
+        QMessageBox::information(this, "Operation complete", "User successfully created");
+        emit modified();
+    }
 }
 
 //SLOT
 void Gui_AdminWindow::removeUser() {
     // int row = _userList->currentRow() - 1;
-    _admin->removeUser(Username(_userInfo->info1().toStdString(), ""));
+    try {
+        _admin->removeUser(Username(_userInfo->info1().toStdString(), ""));
+    }catch(Error e) {
+        QMessageBox::critical(this, "Error", QString::fromStdString(e.errorMessage()));
+    }
     // _userList->setCurrentItem(_userList->item(row));
     // showUser();
     emit modified();

@@ -183,3 +183,14 @@ void Gui_UserWindow::logout() {
     close();
     // logW->show();
 }
+
+void Gui_UserWindow::closeEvent(QCloseEvent* event) {
+    // delete user;
+    // delete _mex;
+    // delete _set;
+    // delete _pay;
+    // delete _grp;
+    // delete _layout;
+    // delete this;
+    event->accept();
+}

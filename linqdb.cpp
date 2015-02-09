@@ -16,6 +16,16 @@ LinqDB::~LinqDB() {
 bool LinqDB::readJson() throw(Error) {
     QFile loadDB("database.json");
     if (!loadDB.open(QIODevice::ReadOnly)) {
+        loadDB.open(QIODevice::WriteOnly | QIODevice::ReadOnly);
+        QJsonObject db, jadm;
+        jadm["username"] = QString("root");
+        jadm["password"] = QString("toor");
+        // db["users"] = "";
+        // db["groups"] = "";
+        db["admin"] = jadm;
+        QJsonDocument doc(db);
+        loadDB.write(doc.toJson());
+        loadDB.close();
         throw Error(IO, "Database not found");
         return false;
     }
@@ -490,10 +500,8 @@ int LinqDB::postNumberFromGroup(const Group& g) const {
 }
 Username LinqDB::getAdmin() const throw(Error) {
     QFile loadDB("database.json");
-    if (!loadDB.open(QIODevice::ReadOnly)) {
-        std::cout << "Couldn't open database." << std::endl;
+    if (!loadDB.open(QIODevice::ReadOnly))
         throw Error(IO, "Database not found");
-    }
     QByteArray saveData = loadDB.readAll();
     loadDB.close();
 

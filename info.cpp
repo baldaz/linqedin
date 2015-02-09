@@ -148,6 +148,7 @@ void UserInfo::addExperience(const Experience& newxp) {
 int UserInfo::age() const {
     QDate today = QDate::currentDate();
     int age = today.toJulianDay() - _birthdate.toJulianDay();
+    if (age == 0) return -1;
     return age / 365;
 }
 string UserInfo::print() const {

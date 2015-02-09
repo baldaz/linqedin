@@ -42,7 +42,7 @@ public:
     list<Group*> listAllGroups() const;
     list<Post*> listPostFromGroup(const Group&) const;
     int postNumberFromGroup(const Group&) const;
-    void alterProfile(const map<int, string>&);
+    void alterProfile(int, const string&);
     void addContact(const Username&);
     void removeContact(const Username&);
     void addExperience(const Experience&);

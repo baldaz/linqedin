@@ -30,7 +30,7 @@ private:
     list<Experience*> _exp;
     QDate _birthdate;
 public:
-    UserInfo(const string& ="", const string& ="", const string& ="", const string& ="", const string& ="", const string& ="", const QDate& = QDate::currentDate());
+    UserInfo(const string& ="", const string& ="", const string& ="", const string& ="", const string& ="", const string& ="", const QDate& bb = QDate::currentDate());
     UserInfo(const UserInfo&);
     virtual ~UserInfo();
     Info* clone() const;

@@ -5,7 +5,9 @@
 LinqAdmin::completeRemove::completeRemove(const Username& usr) : rmusr(usr) {}
 LinqAdmin::completeRemove::~completeRemove() { }
 void LinqAdmin::completeRemove::operator()(const SmartPtr<User>& user) const {
-    user->removeContact(rmusr);
+    try {
+        user->removeContact(rmusr);
+    }catch(Error e){}
 }
 
 LinqAdmin::adminSearch::adminSearch(const string& w) : _wanted(w){}
@@ -60,7 +62,8 @@ void LinqAdmin::insertUser(User* newuser) {
 list<SmartPtr<User> > LinqAdmin::listUsers() const {
     return _db->db();
 }
-void LinqAdmin::insertUser(const string& username, const string& password, const map<string, string>& info) {
+void LinqAdmin::insertUser(const string& username, const string& password, const map<string, string>& info) throw(Error) {
+    if(username.empty() || password.empty()) throw Error(missingField, "Username or password missing");
     string name = (info.find("name"))->second;
     string surname = info.find("surname")->second;
     string address = info.find("address")->second;

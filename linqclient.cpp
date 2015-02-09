@@ -23,14 +23,34 @@ void LinqClient::addContact(const Username& usr) {
 void LinqClient::removeContact(const Username& usr) {
     _usr->removeContact(usr);
 }
-void LinqClient::alterProfile(const map<int, string>& changes) {
-    // map<int, string>::iterator it = changes.begin();
-    // for(; it != changes.begin(); ++it) {
-    //     switch(it->first) {
-    //         case 0:
-
-    //     }
-    // }
+void LinqClient::alterProfile(int field, const string& value) {
+    Bio* ui = dynamic_cast<Bio*> (_usr->account()->info());
+    switch(field) {
+        case 0:
+            ui->setName(value);
+        break;
+        case 1:
+            ui->setSurname(value);
+        break;
+        case 2:
+            ui->setAddress(value);
+        break;
+        case 3:
+            ui->setBirthdate(QDate::fromString(QString::fromStdString(value), "dd.MM.yyyy"));
+        break;
+        case 4:
+            ui->setEmail(value);
+        break;
+        case 5:
+            ui->setTelephon(value);
+        break;
+        case 6:
+            ui->setWebsite(value);
+        break;
+        case 7:
+            ui->setBio(value);
+        break;
+    }
 }
 string LinqClient::displayProfile() const {
     std::string profile = "";

@@ -8,12 +8,13 @@ string DispatcherHtml::dispatch(const UserInfo& info) const {
     string html = "";
     html = "<html><body>";
     html += "<h2>" + info.name() + " " + info.surname() + "</h2>";
-    html += "<p style='font-weight: 400; font-size:14px;'> " + o.str() + " years old<br>";
+    if(info.age() > -1)
+        html += "<p style='font-weight: 400; font-size:14px;'> " + o.str() + " years old<br>";
     html += info.address() + "</p>";
-    html += "<h4><img src='img/rugby100.png'>  Interests</h4><p style='font-weight: 400; font-size:14px;line-height:26px'>";
     vector<string>::const_iterator it;
     vector<string> _interests = info.interests();
     if(!_interests.empty()) {
+        html += "<h4><img src='img/rugby100.png'>  Interests</h4><p style='font-weight: 400; font-size:14px;line-height:26px'>";
         it = _interests.begin();
         for(; it < _interests.end(); ++it)
             html += "<span style='background-color:rgba(102,102,156,.5);'>&nbsp;" + *it + "&nbsp;</span>&nbsp;&nbsp;";
@@ -61,7 +62,8 @@ string DispatcherHtml::dispatch(const UserInfo& info) const {
         }
     }
     html += "</p>";
-    html += "<h4><img src='img/business133.png'>  Contacts</h4><p style='font-weight: 400; font-size:14px'>" + info.email() + " &nbsp;&nbsp;<a style='color:#4782EC;' href='#'>" + info.website() + "</a><br> Telephon  " + info.telephon() + "</p>";
+    if(!info.email().empty() || !info.telephon().empty() || !info.address().empty())
+        html += "<h4><img src='img/business133.png'>  Contacts</h4><p style='font-weight: 400; font-size:14px'>" + info.email() + " &nbsp;&nbsp;<a style='color:#4782EC;' href='#'>" + info.website() + "</a><br> Telephon  " + info.telephon() + "</p>";
     return html;
 }
 
@@ -71,12 +73,13 @@ string DispatcherHtml::dispatch(const Bio& bio) const {
     string html = "";
     html = "<html><body>";
     html += "<h2>" + bio.name() + " " + bio.surname() + "</h2>";
-    html += "<p style='font-weight: 400; font-size:14px;'> " + o.str() + " years old<br>";
+    if(bio.age() > -1)
+        html += "<p style='font-weight: 400; font-size:14px;'> " + o.str() + " years old<br>";
     html += bio.address() + "</p>";
-    html += "<h4><img src='img/rugby100.png'>  Interests</h4><p style='font-weight: 400; font-size:14px;line-height:26px'>";
     vector<string>::const_iterator it;
     vector<string> _interests = bio.interests();
     if(!_interests.empty()) {
+        html += "<h4><img src='img/rugby100.png'>  Interests</h4><p style='font-weight: 400; font-size:14px;line-height:26px'>";
         it = _interests.begin();
         for(; it < _interests.end(); ++it)
             html += "<span style='background-color:rgba(102,102,156,.5);'>&nbsp;" + *it + "&nbsp;</span>&nbsp;&nbsp;";
@@ -124,7 +127,8 @@ string DispatcherHtml::dispatch(const Bio& bio) const {
         }
     }
     html += "</p>";
-    html += "<h4><img src='img/business133.png'>  Contacts</h4><p style='font-weight: 400; font-size:14px'>" + bio.email() + " &nbsp;&nbsp;<a style='color:#4782EC;' href='#'>" + bio.website() + "</a><br> Telephon  " + bio.telephon() + "</p>";
+    if(!bio.email().empty() || !bio.telephon().empty() || !bio.address().empty())
+        html += "<h4><img src='img/business133.png'>  Contacts</h4><p style='font-weight: 400; font-size:14px'>" + bio.email() + " &nbsp;&nbsp;<a style='color:#4782EC;' href='#'>" + bio.website() + "</a><br> Telephon  " + bio.telephon() + "</p>";
     if(!(bio.bio()).empty()) {
         html += "<h4><img src='img/user91.png'> Short Summary</h4>";
         html += "<p style='font-weight:400'>" + bio.bio() + "</p>";
