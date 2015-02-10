@@ -12,7 +12,7 @@ Gui_Settings::Gui_Settings(LinqClient* cli, QWidget* parent) : QGridLayout(paren
     bdate = new QLabel("Birthdate:");
     setBdate = new QLabel("Birthdate:");
     _newxp = new Gui_NewExp(_client);
-    _upop = new Gui_Upgrade;
+    _upop = new Gui_Upgrade(_client);
     calendar = new QCalendarWidget;
     calendar->setStyleSheet("font-size:12px");
     calendar->setHorizontalHeaderFormat(QCalendarWidget::NoHorizontalHeader);

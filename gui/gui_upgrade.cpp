@@ -1,6 +1,6 @@
 #include "gui_upgrade.h"
 
-Gui_Upgrade::Gui_Upgrade(QWidget* parent) : QDialog(parent) {
+Gui_Upgrade::Gui_Upgrade(LinqClient* cli, QWidget* parent) : QDialog(parent), _client(cli) {
     setWindowFlags(Qt::FramelessWindowHint | Qt::Popup);
     setWindowOpacity(0.95);
     QVBoxLayout* _mainLayout = new QVBoxLayout;
@@ -24,6 +24,9 @@ Gui_Upgrade::Gui_Upgrade(QWidget* parent) : QDialog(parent) {
     select[0]->setText("BASIC");
     select[1]->setText("BUSINESS");
     select[2]->setText("EXECUTIVE");
+    connect(select[0], SIGNAL(clicked()), this, SLOT(basicSelected()));
+    connect(select[1], SIGNAL(clicked()), this, SLOT(businessSelected()));
+    connect(select[2], SIGNAL(clicked()), this, SLOT(executiveSelected()));
     _mainLayout->addLayout(layout);
     setLayout(_mainLayout);
     move(400, 30);
@@ -31,6 +34,13 @@ Gui_Upgrade::Gui_Upgrade(QWidget* parent) : QDialog(parent) {
 }
 
 //SLOT
-void Gui_Upgrade::offerSelected() {
+void Gui_Upgrade::basicSelected() {
+}
 
+//SLOT
+void Gui_Upgrade::businessSelected() {
+}
+
+//SLOT
+void Gui_Upgrade::executiveSelected() {
 }

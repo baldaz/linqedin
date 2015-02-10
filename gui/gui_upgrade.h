@@ -7,18 +7,20 @@
 #include <QMessageBox>
 #include <QVBoxLayout>
 #include <QGridLayout>
+#include "linqclient.h"
 
 class Gui_Upgrade : public QDialog {
     Q_OBJECT
 private:
+    LinqClient* _client;
     QTextBrowser* offers[3];
     QPushButton* select[3];
 public:
-    Gui_Upgrade(QWidget* parent = 0);
-signals:
-    void plan(int);
+    Gui_Upgrade(LinqClient*, QWidget* parent = 0);
 public slots:
-    void offerSelected();
+    void basicSelected();
+    void businessSelected();
+    void executiveSelected();
 };
 
 #endif
