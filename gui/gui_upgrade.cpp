@@ -30,7 +30,7 @@ Gui_Upgrade::Gui_Upgrade(LinqClient* cli, QWidget* parent) : QDialog(parent), _c
     _mainLayout->addLayout(layout);
     setLayout(_mainLayout);
     move(400, 30);
-    resize(550, 700);
+    resize(600, 700);
 }
 
 //SLOT
