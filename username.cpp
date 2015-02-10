@@ -23,5 +23,5 @@ bool Username::operator==(const Username& usr) const {
     return ((usr._login == _login) && (usr._password == _password));
 }
 bool Username::operator!=(const Username& usr) const {
-    return ((usr._login != _login) && (usr._password != _password));
+    return ((usr._login != _login) || (usr._password != _password));
 }

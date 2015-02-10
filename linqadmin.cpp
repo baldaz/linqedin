@@ -89,7 +89,7 @@ void LinqAdmin::removeUser(const Username& user) {
     _db->removeUser(user);
     save();
 }
-void LinqAdmin::alterSubscription(const Username& usr, privLevel newlevel) {
+void LinqAdmin::upgradeSubscription(const Username& usr, privLevel newlevel) {
     User* current = _db->find(usr);
     current->account()->setPrLevel(newlevel);
     save();

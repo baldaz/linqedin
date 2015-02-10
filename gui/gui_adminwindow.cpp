@@ -31,6 +31,7 @@ Gui_AdminWindow::Gui_AdminWindow(QWidget* parent) : QWidget(parent) {
     ok->setToolTip("Upgrade this user");
     connect(rm, SIGNAL(clicked()), this, SLOT(removeUser()));
     connect(add, SIGNAL(clicked()), this, SLOT(addUser()));
+    connect(ok, SIGNAL(clicked()), this, SLOT(upgradeUser()));
     tbar->addWidget(rm);
     tbar->addWidget(ok);
     tbar->actions().at(1)->setVisible(false);
@@ -112,6 +113,7 @@ void Gui_AdminWindow::createUserList() {
         if(!(*it)->account()->lastPayment()->approvation()) {
             item->setData(Qt::DecorationRole, QPixmap("img/arrow106.png"));
             item->setData(Qt::UserRole + 3, 1);
+            item->setData(Qt::UserRole + 4, QString::number((*it)->account()->prLevel()));
         }
         else
             item->setData(Qt::DecorationRole, QPixmap("img/profile11.png"));
@@ -128,7 +130,10 @@ void Gui_AdminWindow::showUser() {
     _userInfo->setHtml(_sel);
     _userInfo->setInfo1(_userList->currentItem()->data(Qt::UserRole + 2).toString());
     if(tbar->isHidden()) tbar->show();
-    if(_userList->currentItem()->data(Qt::UserRole + 3) == 1) tbar->actions().at(1)->setVisible(true);
+    if(_userList->currentItem()->data(Qt::UserRole + 3) == 1) {
+        tbar->actions().at(1)->setVisible(true);
+        _userInfo->setInfo2(_userList->currentItem()->data(Qt::UserRole + 4).toString());
+    }
     else tbar->actions().at(1)->setVisible(false);
 }
 
@@ -160,15 +165,19 @@ void Gui_AdminWindow::addUser() {
 
 //SLOT
 void Gui_AdminWindow::removeUser() {
-    // int row = _userList->currentRow() - 1;
     try {
         _admin->removeUser(Username(_userInfo->info1().toStdString(), ""));
     }catch(Error e) {
         QMessageBox::critical(this, "Error", QString::fromStdString(e.errorMessage()));
     }
-    // _userList->setCurrentItem(_userList->item(row));
-    // showUser();
     emit modified();
+}
+
+//SLOT
+void Gui_AdminWindow::upgradeUser() {
+    _admin->upgradeSubscription(Username(_userInfo->info1().toStdString(), ""), (privLevel) ((_userInfo->info2().toInt()) + 1));
+    int k = _userInfo->info2().toInt() + 1;
+    std::cout << k << std::endl;
 }
 
 //SLOT

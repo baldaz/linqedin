@@ -222,15 +222,6 @@
                 "Casey"
             ],
             "outmail": [
-                {
-                    "body": "God bless smart pointer!",
-                    "object": "Yeah! it works now!",
-                    "read": true,
-                    "receiver": "Casey",
-                    "recv": "24.01.2015",
-                    "sender": "Baldaz",
-                    "sent": "24.01.2015"
-                }
             ],
             "password": "qwerty",
             "payments": [
@@ -374,7 +365,7 @@
             "password": "piovra",
             "payments": [
                 {
-                    "appdate": "",
+                    "appdate": "10.02.2015",
                     "approved": false,
                     "code": "0132532",
                     "nominee": "Atilio Sousa"
@@ -426,7 +417,7 @@
             "password": "rd",
             "payments": [
                 {
-                    "appdate": "",
+                    "appdate": "10.02.2015",
                     "approved": true,
                     "code": "0132532",
                     "nominee": "Sara Rea"
@@ -658,15 +649,6 @@
             ],
             "outmail": [
                 {
-                    "body": "Finally smart pointer solves our probems!",
-                    "object": "1000th try!",
-                    "read": true,
-                    "receiver": "Baldaz",
-                    "recv": "24.01.2015",
-                    "sender": "Casey",
-                    "sent": "24.01.2015"
-                },
-                {
                     "body": "Have to test exception!",
                     "object": "Test",
                     "read": true,
@@ -678,7 +660,7 @@
                 {
                     "body": "Dovrebbe funzionare.",
                     "object": "Dei che ndemo!",
-                    "read": false,
+                    "read": true,
                     "receiver": "Willg",
                     "recv": "10.02.2015",
                     "sender": "Casey",
@@ -732,10 +714,10 @@
             "username": "Casey",
             "visitcount": 10,
             "visitors": [
+                "Pablito",
                 "Baldaz",
                 "Atilio",
-                "Baldaz",
-                "Pablito"
+                "Baldaz"
             ]
         },
         {
@@ -1002,6 +984,47 @@
             "visitcount": 6,
             "visitors": [
             ]
+        },
+        {
+            "avatar": "img/port2.jpg",
+            "formations": [
+            ],
+            "info": {
+                "address": "via padova 12",
+                "biography": "Lived in Padova since birth. Studied computer science ad I.T.I.S. \"F.Severi\".",
+                "birthdate": "14.06.1988",
+                "email": "alesalvi@gmail.com",
+                "name": "Alessandro",
+                "surname": "Salvi",
+                "telephon": "3345678928",
+                "website": "www.puffopro.altervista.org"
+            },
+            "inmail": [
+            ],
+            "interests": [
+            ],
+            "jobs": [
+            ],
+            "languages": [
+            ],
+            "net": [
+            ],
+            "outmail": [
+            ],
+            "password": "ale",
+            "payments": [
+                {
+                    "appdate": "10.02.2015",
+                    "approved": true,
+                    "code": "N/A",
+                    "nominee": "N/A"
+                }
+            ],
+            "privilege": 0,
+            "skills": [
+            ],
+            "username": "Puffo",
+            "visitcount": 0
         }
     ]
 }

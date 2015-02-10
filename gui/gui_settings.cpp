@@ -12,29 +12,27 @@ Gui_Settings::Gui_Settings(LinqClient* cli, QWidget* parent) : QGridLayout(paren
     bdate = new QLabel("Birthdate:");
     setBdate = new QLabel("Birthdate:");
     _newxp = new Gui_NewExp(_client);
+    _upop = new Gui_Upgrade;
     calendar = new QCalendarWidget;
     calendar->setStyleSheet("font-size:12px");
     calendar->setHorizontalHeaderFormat(QCalendarWidget::NoHorizontalHeader);
     calendar->setVerticalHeaderFormat(QCalendarWidget::NoVerticalHeader);
     calendar->hide();
     setBdate->hide();
-
+    upg = new QPushButton("UPGRADE");
     skills = new QListWidget;
     inters = new QListWidget;
     lang = new QListWidget;
     exps = new QListWidget;
-    // jobs = new QListWidget;
     createLists();
     skills->setContextMenuPolicy(Qt::CustomContextMenu);
     inters->setContextMenuPolicy(Qt::CustomContextMenu);
     lang->setContextMenuPolicy(Qt::CustomContextMenu);
     exps->setContextMenuPolicy(Qt::CustomContextMenu);
-    // jobs->setContextMenuPolicy(Qt::CustomContextMenu);
     connect(skills, SIGNAL(customContextMenuRequested(const QPoint&)), this, SLOT(skillsMenu(const QPoint&)));
     connect(inters, SIGNAL(customContextMenuRequested(const QPoint&)), this, SLOT(interestsMenu(const QPoint&)));
     connect(lang, SIGNAL(customContextMenuRequested(const QPoint&)), this, SLOT(languagesMenu(const QPoint&)));
     connect(exps, SIGNAL(customContextMenuRequested(const QPoint&)), this, SLOT(experiencesMenu(const QPoint&)));
-    // connect(jobs, SIGNAL(customContextMenuRequested(const QPoint&)), this, SLOT(jobsMenu(const QPoint&)));
 
     edtInfo[8] = new QLineEdit(parent);
     edtInfo[8]->setPlaceholderText("Add new skill");
@@ -113,13 +111,13 @@ Gui_Settings::Gui_Settings(LinqClient* cli, QWidget* parent) : QGridLayout(paren
     frm2->addRow("Interests:", inters);
     frm2->addRow(edtInfo[10]);
     frm2->addRow("Experiences:", exps);
-    // frm2->addRow("Jobs:", jobs);
     frm->addRow("Short bio:", edtBio);
-    // edtBio->setFixedSize(200,200);
 
     addLayout(frm, 0, 1, 1, 1);
     addLayout(frm2, 0, 2, 1, 1);
+    addWidget(upg, 2, 1, 1, 1);
     addWidget(toggle, 2, 2, 1, 1);
+    connect(upg, SIGNAL(clicked()), this, SLOT(upgradePopup()));
     connect(_newxp, SIGNAL(modified()), this, SLOT(refresh()));
 }
 
@@ -172,52 +170,71 @@ void Gui_Settings::refresh() {
     createLists();
 }
 
+//SLOT
+void Gui_Settings::upgradePopup() {
+    _upop->show();
+}
+
 void Gui_Settings::skillsMenu(const QPoint& pos) {
-    QPoint globalPos = skills->mapToGlobal(pos);    // Map the global position to the userlist
-    QModelIndex t = skills->indexAt(pos);
-    skills->item(t.row())->setSelected(true);           // even a right click will select the item
-    _selected = skills->item(t.row())->data(Qt::DisplayRole).toString();
-    QMenu myMenu;
-    myMenu.addAction("Delete", this, SLOT(deleteSkill()));
-    myMenu.exec(globalPos);
+    if(skills->item(skills->indexAt(pos).row())) {
+        QPoint globalPos = skills->mapToGlobal(pos);    // Map the global position to the userlist
+        QModelIndex t = skills->indexAt(pos);
+        skills->item(t.row())->setSelected(true);           // even a right click will select the item
+        _selected = skills->item(t.row())->data(Qt::DisplayRole).toString();
+        QMenu myMenu;
+        myMenu.addAction("Delete", this, SLOT(deleteSkill()));
+        myMenu.exec(globalPos);
+    }
 }
 
 void Gui_Settings::interestsMenu(const QPoint& pos) {
-    QPoint globalPos = inters->mapToGlobal(pos);    // Map the global position to the userlist
-    QModelIndex t = inters->indexAt(pos);
-    inters->item(t.row())->setSelected(true);           // even a right click will select the item
-    _selected = inters->item(t.row())->data(Qt::DisplayRole).toString();
-    QMenu myMenu;
-    myMenu.addAction("Delete", this, SLOT(deleteInterest()));
-    myMenu.exec(globalPos);
+    if(inters->item(inters->indexAt(pos).row())) {
+        QPoint globalPos = inters->mapToGlobal(pos);    // Map the global position to the userlist
+        QModelIndex t = inters->indexAt(pos);
+        inters->item(t.row())->setSelected(true);           // even a right click will select the item
+        _selected = inters->item(t.row())->data(Qt::DisplayRole).toString();
+        QMenu myMenu;
+        myMenu.addAction("Delete", this, SLOT(deleteInterest()));
+        myMenu.exec(globalPos);
+    }
 }
 
 void Gui_Settings::languagesMenu(const QPoint& pos) {
-    QPoint globalPos = lang->mapToGlobal(pos);
-    QModelIndex t = lang->indexAt(pos);
-    lang->item(t.row())->setSelected(true);
-    _selected = lang->item(t.row())->data(Qt::DisplayRole).toString();
-    QMenu myMenu;
-    myMenu.addAction("Delete", this, SLOT(deleteLanguage()));
-    myMenu.exec(globalPos);
+    if(lang->item(lang->indexAt(pos).row())) {
+        QPoint globalPos = lang->mapToGlobal(pos);
+        QModelIndex t = lang->indexAt(pos);
+        lang->item(t.row())->setSelected(true);
+        _selected = lang->item(t.row())->data(Qt::DisplayRole).toString();
+        QMenu myMenu;
+        myMenu.addAction("Delete", this, SLOT(deleteLanguage()));
+        myMenu.exec(globalPos);
+    }
 }
 
 void Gui_Settings::experiencesMenu(const QPoint& pos) {
-    QPoint globalPos = exps->mapToGlobal(pos);
-    QModelIndex t = exps->indexAt(pos);
-    exps->item(t.row())->setSelected(true);
-    string role = exps->item(t.row())->data(Qt::UserRole + 1).toString().toStdString();
-    string location = exps->item(t.row())->data(Qt::UserRole + 2).toString().toStdString();
-    QDate from = QDate::fromString(exps->item(t.row())->data(Qt::UserRole + 3).toString(), "dd.MM.yyyy");
-    QDate to = QDate::fromString(exps->item(t.row())->data(Qt::UserRole + 4).toString(), "dd.MM.yyyy");
-    int type = exps->item(t.row())->data(Qt::UserRole + 5).toInt();
-    Experience e(type, location, role, from, to);
-    xp = e;
-    QMenu myMenu;
-    myMenu.addAction("Add", this, SLOT(addExperience()));
-    myMenu.addAction("Delete", this, SLOT(deleteExperience()));
-    myMenu.addAction("Modify", this, SLOT(modifyExperience()));
-    myMenu.exec(globalPos);
+    if(exps->item(exps->indexAt(pos).row())) {
+        QPoint globalPos = exps->mapToGlobal(pos);
+        QModelIndex t = exps->indexAt(pos);
+        exps->item(t.row())->setSelected(true);
+        string role = exps->item(t.row())->data(Qt::UserRole + 1).toString().toStdString();
+        string location = exps->item(t.row())->data(Qt::UserRole + 2).toString().toStdString();
+        QDate from = QDate::fromString(exps->item(t.row())->data(Qt::UserRole + 3).toString(), "dd.MM.yyyy");
+        QDate to = QDate::fromString(exps->item(t.row())->data(Qt::UserRole + 4).toString(), "dd.MM.yyyy");
+        int type = exps->item(t.row())->data(Qt::UserRole + 5).toInt();
+        Experience e(type, location, role, from, to);
+        xp = e;
+        QMenu myMenu;
+        myMenu.addAction("Add", this, SLOT(addExperience()));
+        myMenu.addAction("Delete", this, SLOT(deleteExperience()));
+        myMenu.addAction("Modify", this, SLOT(modifyExperience()));
+        myMenu.exec(globalPos);
+    }
+    else {
+        QPoint globalPos = exps->mapToGlobal(pos);
+        QMenu myMenu;
+        myMenu.addAction("Add", this, SLOT(addExperience()));
+        myMenu.exec(globalPos);
+    }
 }
 
 void Gui_Settings::buttonToggled() {

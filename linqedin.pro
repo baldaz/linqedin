@@ -29,6 +29,7 @@ HEADERS += account.h \
            gui/gui_registration.h \
            gui/gui_statistics.h \
            gui/gui_settings.h \
+           gui/gui_upgrade.h \
            gui/gui_userwindow.h \
            info.h \
            linqadmin.h \
@@ -63,6 +64,7 @@ SOURCES += account.cpp \
            gui/gui_registration.cpp \
            gui/gui_statistics.cpp \
            gui/gui_settings.cpp \
+           gui/gui_upgrade.cpp \
            gui/gui_userwindow.cpp \
            info.cpp \
            linqadmin.cpp \

@@ -75,25 +75,25 @@ vector<string> UserInfo::interests() const {
 list<Experience*> UserInfo::experiences() const {
     return _exp;
 }
-void UserInfo::setName(const string& n = "") {
+void UserInfo::setName(const string& n) {
     _name = n;
 }
-void UserInfo::setSurname(const string& s = "") {
+void UserInfo::setSurname(const string& s) {
     _surname = s;
 }
-void UserInfo::setBirthdate(const QDate& b ) {
+void UserInfo::setBirthdate(const QDate& b) {
     _birthdate = b;
 }
-void UserInfo::setEmail(const string& e = "") {
+void UserInfo::setEmail(const string& e) {
     _email = e;
 }
-void UserInfo::setTelephon(const string& t = "") {
+void UserInfo::setTelephon(const string& t) {
     _telephon = t;
 }
-void UserInfo::setAddress(const string& a = "") {
+void UserInfo::setAddress(const string& a) {
     _address = a;
 }
-void UserInfo::setWebsite(const string& site = "") {
+void UserInfo::setWebsite(const string& site) {
     _website = site;
 }
 void UserInfo::addLanguage(const string& newlang) {
@@ -130,7 +130,7 @@ void UserInfo::removeSkill(const string& skill) {
             isPresent = true;
         }
 }
-void UserInfo::addInterest(const string& newinterest = "") {
+void UserInfo::addInterest(const string& newinterest) {
     vector<string>::iterator it = _interests.begin();
     bool isPresent = false;
     for(; it < _interests.end() && !isPresent; ++it)
@@ -196,7 +196,7 @@ Info* Bio::clone() const {
 const string& Bio::bio() const {
     return _bio;
 }
-void Bio::setBio(const string& bio = "") {
+void Bio::setBio(const string& bio) {
     _bio = bio;
 }
 string Bio::print() const {

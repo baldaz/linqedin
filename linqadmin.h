@@ -31,7 +31,7 @@ public:
     void insertUser(const string&, const string&, const map<string, string>& = map<string,string>()) throw(Error);
     void removeUser(const Username&);
     map<string,string> find(const string&) const;
-    void alterSubscription(const Username&, privLevel);
+    void upgradeSubscription(const Username&, privLevel);
     void save() const;
 };
 #endif

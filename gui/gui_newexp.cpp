@@ -47,7 +47,6 @@ void Gui_NewExp::insert() {
     QDate t = to->selectedDate();
     try {
         Experience* e = new Experience(type, location, role, frm, t);
-        std::cout << frm.toString("dd.MM.yyyy").toStdString() << " " << t.toString("dd.MM.yyyy").toStdString() << std::endl;
         _client->addExperience(*e);
         QMessageBox::information(this, "Operation success", "Experience added correctly", QMessageBox::Ok);
         emit modified();

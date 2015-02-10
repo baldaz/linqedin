@@ -6,6 +6,7 @@ LinqClient::LinqClient() : _db(new LinqDB()) {}
 LinqClient::LinqClient(const Username& usr) : _db(new LinqDB) {
     _usr = _db->find(usr);
     if (_usr == NULL) throw Error(userNotFound, "User not found");
+    if(_usr->account()->username() != usr) throw Error(userNotFound, "User not found");
 }
 LinqClient::~LinqClient() {delete _db;}
 Username LinqClient::username() const {

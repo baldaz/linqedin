@@ -14,6 +14,7 @@
 #include <QGroupBox>
 #include <QFileDialog>
 #include "gui_newexp.h"
+#include "gui_upgrade.h"
 #include "gui_avatar.h"
 #include "linqclient.h"
 
@@ -30,9 +31,10 @@ private:
     QListWidget* inters;
     QListWidget* lang;
     QListWidget* exps;
-    // QListWidget* jobs;
     QPushButton* toggle;
+    QPushButton* upg;
     Gui_NewExp* _newxp;
+    Gui_Upgrade* _upop;
     QString _selected;
     QCalendarWidget* calendar;
     QString avatarPath;
@@ -46,7 +48,7 @@ signals:
 public slots:
     void refresh();
     void triggerFileDialog();
-
+    void upgradePopup();
     void skillsMenu(const QPoint&);
     void interestsMenu(const QPoint&);
     void languagesMenu(const QPoint&);

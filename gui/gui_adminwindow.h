@@ -35,6 +35,7 @@ public slots:
     void showUser();
     void addUser();
     void removeUser();
+    void upgradeUser();
     void refreshLists();
 };
 #endif

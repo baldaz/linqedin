@@ -247,8 +247,6 @@ void BasicUser::sendMessage(const Message& mex) throw(Error) {
         loadOutMail(mex);
     else throw Error(permission, "Mail limit for basic user reached, wait for monthly reset");
 }
-void BasicUser::resetMail() {
-}
 unsigned int BasicUser::basicLimit() {
     return basicMailLimit;
 }
@@ -287,8 +285,6 @@ void BusinessUser::sendMessage(const Message& mex) throw(Error) {
         loadOutMail(mex);
     else throw Error(permission, "Mail limit for business user reached, wait for monthly reset");
 }
-void BusinessUser::resetMail() {
-}
 list<Group*> BusinessUser::groups() const {
     return _groups;
 }
@@ -305,12 +301,6 @@ void BusinessUser::removeGroup(const Group& g) {
             found = true;
         }
 }
-// void BusinessUser::addPost(const Group& g, const Post& p) {
-//     list<Group*>::iterator it = _groups.begin();
-//     for(; it != _groups.end(); ++it)
-//         if((**it) == g)
-//             (*it)->insertPost(p);
-// }
 void BusinessUser::addBio(const string& bio) const {
     if(Bio* b = dynamic_cast<Bio*> (this->account()->info())) {
         b->setBio(bio);
