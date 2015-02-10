@@ -61,6 +61,7 @@ public:
     void addInterest(const string&);
     void removeInterest(const string&);
     void addExperience(const Experience&);
+    void removeExperience(const Experience&);
     int age() const;
     virtual string print() const;
     virtual string dispatch(const Dispatcher&) const;

@@ -1,6 +1,6 @@
 #include "gui_statistics.h"
 
-Gui_Statistics::Gui_Statistics(LinqClient* cli, QWidget* parent) : _client(cli), QGridLayout(parent) {
+Gui_Statistics::Gui_Statistics(LinqClient* cli, QWidget* parent) : QGridLayout(parent), _client(cli) {
     Gui_Avatar* avatar = new Gui_Avatar(QString::fromStdString(_client->avatar()));
     QTextBrowser* keywords = new QTextBrowser(parent);
     QGridLayout* frm = new QGridLayout;

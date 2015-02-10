@@ -1,6 +1,6 @@
 #include "gui_avatar.h"
 
-Gui_Avatar::Gui_Avatar(const QString& path, QWidget* parent) : _path(path), QLabel(parent) {
+Gui_Avatar::Gui_Avatar(const QString& path, QWidget* parent) : QLabel(parent), _path(path) {
    setPath(_path);
 }
 

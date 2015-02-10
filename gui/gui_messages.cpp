@@ -1,6 +1,6 @@
 #include "gui_messages.h"
 
-Gui_Messages::Gui_Messages(LinqClient* cli, QWidget* parent) : _client(cli), QGridLayout(parent) {
+Gui_Messages::Gui_Messages(LinqClient* cli, QWidget* parent) : QGridLayout(parent), _client(cli) {
     mexcount = 0;
     QTabWidget* tab = new QTabWidget(parent);
     Gui_Avatar* portrait = new Gui_Avatar(QString::fromStdString(_client->avatar()));

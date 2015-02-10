@@ -14,9 +14,10 @@ using std::list;
 class Group {
 private:
     Username _admin;
-    list<SmartPtr<User> > _members;
     list<Post*> _posts;
-    string _name, _description;
+    list<SmartPtr<User> > _members;
+    string _name;
+    string _description;
 public:
     // Group();
     Group(const Username& u, const string& n = "", const string& d = "");

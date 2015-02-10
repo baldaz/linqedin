@@ -1,10 +1,8 @@
 #include "gui_userwindow.h"
 
-Gui_UserWindow::Gui_UserWindow(LinqClient* cli, QWidget* parent) : user(cli), QWidget(parent) {
-    // logicInitialize(usr, pas);
+Gui_UserWindow::Gui_UserWindow(LinqClient* cli, QWidget* parent) : QWidget(parent), user(cli) {
     setWindowFlags(Qt::FramelessWindowHint);
     setWindowOpacity(0.95);
-    // this->setStyleSheet("* { background-color: white; }");
 
     createHorizontalGroupBox();
     createOverview();
@@ -104,16 +102,12 @@ void Gui_UserWindow::createGroups() {
     groupsGroupBox->setLayout(_grp);
 }
 
-// void Gui_UserWindow::logicInitialize(const string& uname, const string& pwd) {
-//     user = new LinqClient(Username(uname, pwd));
-// }
-
 void Gui_UserWindow::setClient(LinqClient* cli) {
     user = cli;
 }
 
 bool Gui_UserWindow::eventFilter(QObject* obj, QEvent* event) {
-    if(event->type() == QEvent::MouseButtonDblClick) {
+    if(obj == horizontalGroupBox && event->type() == QEvent::MouseButtonDblClick) {
         QMouseEvent * mouseEvent = static_cast <QMouseEvent *> (event);
         if(mouseEvent->button() == Qt::LeftButton)
             return true;
@@ -135,9 +129,10 @@ void Gui_UserWindow::mouseMoveEvent(QMouseEvent* event) {
 }
 
 void Gui_UserWindow::mouseDoubleClickEvent(QMouseEvent* event) {
-    if(event->button() == Qt::LeftButton)
+    if(event->button() == Qt::LeftButton) {
         if(isMaximized()) showNormal();
         else showMaximized();
+    }
 }
 
 //SLOT

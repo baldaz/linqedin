@@ -47,6 +47,7 @@ void Gui_Login::resizeEvent(QResizeEvent* event) {
     painter.setBrush(Qt::black);
     painter.drawRoundRect(pixmap.rect());
     setMask(pixmap.createMaskFromColor(Qt::white));
+    event->accept();
 }
 
 //SLOT

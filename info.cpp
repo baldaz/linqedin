@@ -1,12 +1,17 @@
 #include "info.h"
 #include "dispatcher.h"
+#include "error.h"
+#include <iostream>
 
 Info::~Info() {}
 UserInfo::UserInfo(const string& n, const string& s, const string& e, const string& a, const string& t, const string& w, const QDate& b) :
-                _name(n), _surname(s), _email(e), _address(a), _telephon(t), _website(w), _birthdate(b){}
+                _name(n), _surname(s), _email(e), _address(a), _telephon(t), _website(w){
+                    if(b > QDate::currentDate()) throw Error(date, "Birthdate must be prior current date.");
+                    else _birthdate = b;
+                }
 UserInfo::UserInfo(const UserInfo& uf) : _name(uf._name), _surname(uf._surname), _email(uf._email), _address(uf._address),
-                _telephon(uf._telephon), _website(uf._website), _birthdate(uf._birthdate), _languages(uf._languages),
-                _skills(uf._skills), _interests(uf._interests) {
+                _telephon(uf._telephon), _website(uf._website), _languages(uf._languages),
+                _skills(uf._skills), _interests(uf._interests), _birthdate(uf._birthdate) {
                     for(list<Experience*>::const_iterator it = uf._exp.begin(); it != uf._exp.end(); ++it)
                         _exp.push_back(new Experience(**it));
                 }
@@ -19,10 +24,10 @@ UserInfo& UserInfo::operator=(const UserInfo& uif) {
         _email = uif._email;
         _telephon = uif._telephon;
         _website = uif._website;
+        _languages = uif._languages;
+        _interests = uif._interests;
         _skills = uif._skills;
         _exp = uif._exp;
-        _interests = uif._interests;
-        _languages = uif._languages;
     }
     return *this;
 }
@@ -144,6 +149,15 @@ void UserInfo::removeInterest(const string& inter) {
 }
 void UserInfo::addExperience(const Experience& newxp) {
     _exp.push_back(const_cast<Experience*> (&newxp));
+}
+void UserInfo::removeExperience(const Experience& e) {
+    bool found = false;
+    for(list<Experience*>::iterator it = _exp.begin(); it != _exp.end() && !found; ++it)
+        if(**it == e) {
+            delete *it;
+            _exp.erase(it);
+            found = true;
+        }
 }
 int UserInfo::age() const {
     QDate today = QDate::currentDate();

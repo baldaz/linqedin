@@ -243,7 +243,7 @@ map<string, string> BasicUser::userSearch(const LinqDB& db, const string& wanted
     return std::for_each(db.begin(), db.end(), searchFunctor(1, wanted, this)).result();
 }
 void BasicUser::sendMessage(const Message& mex) throw(Error) {
-    if(outMailCount() < basicMailLimit)
+    if((unsigned) outMailCount() < basicMailLimit)
         loadOutMail(mex);
     else throw Error(permission, "Mail limit for basic user reached, wait for monthly reset");
 }
@@ -283,7 +283,7 @@ map<string, string> BusinessUser::userSearch(const LinqDB& db, const string& wan
     return std::for_each(db.begin(), db.end(), searchFunctor(2, wanted, this)).result();
 }
 void BusinessUser::sendMessage(const Message& mex) throw(Error) {
-    if(outMailCount() < businessMailLimit)
+    if((unsigned) outMailCount() < businessMailLimit)
         loadOutMail(mex);
     else throw Error(permission, "Mail limit for business user reached, wait for monthly reset");
 }

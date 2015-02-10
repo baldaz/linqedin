@@ -1,6 +1,6 @@
 #include "gui_groups.h"
 
-Gui_Groups::Gui_Groups(LinqClient* c, QWidget* parent) : _client(c), QGridLayout(parent) {
+Gui_Groups::Gui_Groups(LinqClient* c, QWidget* parent) : QGridLayout(parent), _client(c) {
     Gui_Avatar* portrait = new Gui_Avatar(QString::fromStdString(_client->avatar()));
     QPushButton* create = new QPushButton("CREATE");
     QLabel* title = new QLabel("NEW GROUP");

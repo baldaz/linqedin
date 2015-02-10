@@ -72,15 +72,17 @@ void LinqAdmin::insertUser(const string& username, const string& password, const
     string email = info.find("e-mail")->second;
     string birthdate = info.find("birthdate")->second;
     string bio = info.find("bio")->second;
-    Bio b(name, surname, email, address, phone, website, QDate::fromString(QString::fromStdString(birthdate), "dd.MM.yyyy"), bio);
-    Username u(username, password);
-    Subscription s(basic);
-    CreditCard cd("N/A", "N/A");
-    Payment p(&u, &s, &cd, true);
-    Account a(&b, u, basic);
-    a.addPayment(p);
-    BasicUser nu(&a);
-    this->insertUser(&nu);
+    try {
+        Bio b(name, surname, email, address, phone, website, QDate::fromString(QString::fromStdString(birthdate), "dd.MM.yyyy"), bio);
+        Username u(username, password);
+        Subscription s(basic);
+        CreditCard cd("N/A", "N/A");
+        Payment p(&u, &s, &cd, true);
+        Account a(&b, u, basic);
+        a.addPayment(p);
+        BasicUser nu(&a);
+        this->insertUser(&nu);
+    }catch(Error e) {throw;}
 }
 void LinqAdmin::removeUser(const Username& user) {
     std::for_each(_db->begin(), _db->end(), completeRemove(user));

@@ -485,9 +485,11 @@ list<Group*> LinqDB::allGroups() const {
 }
 list<Post*> LinqDB::postsFromGroup(const Group& g) const {
     list<Group*>::const_iterator i;
+    list<Post*> ret;
     for(i = _grp.begin(); i != _grp.end(); ++i)
         if((**i) == g)
-            return (*i)->posts();
+            ret = (*i)->posts();
+    return ret;
 }
 int LinqDB::postNumberFromGroup(const Group& g) const {
     list<Group*>::const_iterator i;

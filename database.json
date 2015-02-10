@@ -580,7 +580,7 @@
                 {
                     "body": "Test mail from Danny.",
                     "object": "Test",
-                    "read": false,
+                    "read": true,
                     "receiver": "Casey",
                     "recv": "21.01.2015",
                     "sender": "Danny",
@@ -624,6 +624,12 @@
                     "location": "Hollywood Studios, California",
                     "role": "Actor",
                     "to": "15.09.2015"
+                },
+                {
+                    "from": "17.02.1984",
+                    "location": "Japan",
+                    "role": "Martialist",
+                    "to": "08.10.2003"
                 }
             ],
             "keywords": [
@@ -668,6 +674,15 @@
                     "recv": "06.02.2015",
                     "sender": "Casey",
                     "sent": "06.02.2015"
+                },
+                {
+                    "body": "Dovrebbe funzionare.",
+                    "object": "Dei che ndemo!",
+                    "read": false,
+                    "receiver": "Willg",
+                    "recv": "10.02.2015",
+                    "sender": "Casey",
+                    "sent": "10.02.2015"
                 }
             ],
             "password": "rayback",
@@ -930,6 +945,15 @@
                 "website": "www.grahamwill.gw"
             },
             "inmail": [
+                {
+                    "body": "Dovrebbe funzionare.",
+                    "object": "Dei che ndemo!",
+                    "read": false,
+                    "receiver": "Willg",
+                    "recv": "10.02.2015",
+                    "sender": "Casey",
+                    "sent": "10.02.2015"
+                }
             ],
             "interests": [
                 "Meat",

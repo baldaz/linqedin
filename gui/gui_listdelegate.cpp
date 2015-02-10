@@ -84,7 +84,12 @@ void ListDelegate::paint(QPainter* painter, const QStyleOptionViewItem& option, 
 }
 
 QSize ListDelegate::sizeHint(const QStyleOptionViewItem& option, const QModelIndex& index) const {
-    return QSize(80, 50); // very dumb value
+//    return QSize(80, 50); // very dumb value
+    const QString text = index.data(Qt::DisplayRole).toString();
+    QRect r = option.rect.adjusted(55, 0, -10, -30);
+//    QSize s = option.fontMetrics.boundingRect(r.left(), r.top(), r.width(), r.height(), Qt::AlignVCenter|Qt::AlignLeft|Qt::TextWordWrap, text).size();
+    QSize s(80, 50);
+    return s;
 }
 
 ListDelegate::~ListDelegate() {}

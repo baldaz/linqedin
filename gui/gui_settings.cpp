@@ -1,6 +1,6 @@
 #include "gui_settings.h"
 
-Gui_Settings::Gui_Settings(LinqClient* cli, QWidget* parent) : _client(cli), QGridLayout(parent) {
+Gui_Settings::Gui_Settings(LinqClient* cli, QWidget* parent) : QGridLayout(parent), _client(cli) {
     Gui_Avatar* avatar = new Gui_Avatar(QString::fromStdString(_client->avatar()));
     setSpacing(5);
     for(int i = 0; i < NumLineEdit; ++i)
@@ -11,7 +11,7 @@ Gui_Settings::Gui_Settings(LinqClient* cli, QWidget* parent) : _client(cli), QGr
 
     bdate = new QLabel("Birthdate:");
     setBdate = new QLabel("Birthdate:");
-    _modpop = new Gui_ModPopup;
+    _newxp = new Gui_NewExp(_client);
     calendar = new QCalendarWidget;
     calendar->setStyleSheet("font-size:12px");
     calendar->setHorizontalHeaderFormat(QCalendarWidget::NoHorizontalHeader);
@@ -22,48 +22,19 @@ Gui_Settings::Gui_Settings(LinqClient* cli, QWidget* parent) : _client(cli), QGr
     skills = new QListWidget;
     inters = new QListWidget;
     lang = new QListWidget;
-    forms = new QListWidget;
-    jobs = new QListWidget;
-    vector<string> v = _client->skills();
-    vector<string> i = _client->interests();
-    vector<string> l = _client->languages();
-    list<Experience*> e = _client->experiences();
-    for(vector<string>::iterator it = v.begin(); it != v.end(); ++it) {
-        QListWidgetItem* item = new QListWidgetItem;
-        item->setData(Qt::DisplayRole, QString::fromStdString(*it));
-        item->setData(Qt::DecorationRole, QPixmap("img/rugby100.png"));
-        skills->addItem(item);
-    }
-    for(vector<string>::iterator it = i.begin(); it != i.end(); ++it) {
-        QListWidgetItem* item = new QListWidgetItem;
-        item->setData(Qt::DisplayRole, QString::fromStdString(*it));
-        item->setData(Qt::DecorationRole, QPixmap("img/atom2.png"));
-        inters->addItem(item);
-    }
-    for(vector<string>::iterator it = l.begin(); it != l.end(); ++it) {
-        QListWidgetItem* item = new QListWidgetItem;
-        item->setData(Qt::DisplayRole, QString::fromStdString(*it));
-        item->setData(Qt::DecorationRole, QPixmap("img/flag27.png"));
-        lang->addItem(item);
-    }
-    for(list<Experience*>::iterator it = e.begin(); it != e.end(); ++it) {
-        QListWidgetItem* item = new QListWidgetItem;
-        QString cont = QString(QString::fromStdString((*it)->role()) + " " + QString::fromStdString((*it)->location()));
-        item->setData(Qt::DisplayRole, cont);
-        item->setData(Qt::DecorationRole, QPixmap("img/work3.png"));
-        if((*it)->type() == 0) jobs->addItem(item);
-        else forms->addItem(item);
-    }
+    exps = new QListWidget;
+    // jobs = new QListWidget;
+    createLists();
     skills->setContextMenuPolicy(Qt::CustomContextMenu);
     inters->setContextMenuPolicy(Qt::CustomContextMenu);
     lang->setContextMenuPolicy(Qt::CustomContextMenu);
-    forms->setContextMenuPolicy(Qt::CustomContextMenu);
-    jobs->setContextMenuPolicy(Qt::CustomContextMenu);
+    exps->setContextMenuPolicy(Qt::CustomContextMenu);
+    // jobs->setContextMenuPolicy(Qt::CustomContextMenu);
     connect(skills, SIGNAL(customContextMenuRequested(const QPoint&)), this, SLOT(skillsMenu(const QPoint&)));
     connect(inters, SIGNAL(customContextMenuRequested(const QPoint&)), this, SLOT(interestsMenu(const QPoint&)));
     connect(lang, SIGNAL(customContextMenuRequested(const QPoint&)), this, SLOT(languagesMenu(const QPoint&)));
-    connect(forms, SIGNAL(customContextMenuRequested(const QPoint&)), this, SLOT(formationsMenu(const QPoint&)));
-    connect(jobs, SIGNAL(customContextMenuRequested(const QPoint&)), this, SLOT(jobsMenu(const QPoint&)));
+    connect(exps, SIGNAL(customContextMenuRequested(const QPoint&)), this, SLOT(experiencesMenu(const QPoint&)));
+    // connect(jobs, SIGNAL(customContextMenuRequested(const QPoint&)), this, SLOT(jobsMenu(const QPoint&)));
 
     edtInfo[8] = new QLineEdit(parent);
     edtInfo[8]->setPlaceholderText("Add new skill");
@@ -127,8 +98,8 @@ Gui_Settings::Gui_Settings(LinqClient* cli, QWidget* parent) : _client(cli), QGr
     frm->addRow("Surname:", edtInfo[1]);
     frm->addRow("Address:" , edtInfo[3]);
     frm->addRow("Username:", edtInfo[7]);
-    frm->addRow(bdate, edtInfo[2]);
-    frm->addRow(setBdate, calendar);
+    frm->addRow(edtInfo[12]); //pwd
+
     frm->addRow("Skills:", skills);
     frm->addRow(edtInfo[8]);
     frm->addRow("Languages:", lang);
@@ -137,16 +108,68 @@ Gui_Settings::Gui_Settings(LinqClient* cli, QWidget* parent) : _client(cli), QGr
     frm2->addRow("E-mail:", edtInfo[5]);
     frm2->addRow("Website:", edtInfo[6]);
     frm2->addRow("Avatar path:", edtInfo[11]);
-    frm2->addRow(edtInfo[12]); //pwd
+    frm2->addRow(bdate, edtInfo[2]);
+    frm2->addRow(setBdate, calendar);
     frm2->addRow("Interests:", inters);
     frm2->addRow(edtInfo[10]);
-    frm2->addRow("Formations:", forms);
-    frm2->addRow("Jobs:", jobs);
-    frm2->addRow("Short bio:", edtBio);
+    frm2->addRow("Experiences:", exps);
+    // frm2->addRow("Jobs:", jobs);
+    frm->addRow("Short bio:", edtBio);
+    // edtBio->setFixedSize(200,200);
 
     addLayout(frm, 0, 1, 1, 1);
     addLayout(frm2, 0, 2, 1, 1);
     addWidget(toggle, 2, 2, 1, 1);
+    connect(_newxp, SIGNAL(modified()), this, SLOT(refresh()));
+}
+
+void Gui_Settings::createLists() {
+    vector<string> v = _client->skills();
+    vector<string> i = _client->interests();
+    vector<string> l = _client->languages();
+    list<Experience*> e = _client->experiences();
+    for(vector<string>::iterator it = v.begin(); it != v.end(); ++it) {
+        QListWidgetItem* item = new QListWidgetItem;
+        item->setData(Qt::DisplayRole, QString::fromStdString(*it));
+        item->setData(Qt::DecorationRole, QPixmap("img/rugby100.png"));
+        skills->addItem(item);
+    }
+    for(vector<string>::iterator it = i.begin(); it != i.end(); ++it) {
+        QListWidgetItem* item = new QListWidgetItem;
+        item->setData(Qt::DisplayRole, QString::fromStdString(*it));
+        item->setData(Qt::DecorationRole, QPixmap("img/atom2.png"));
+        inters->addItem(item);
+    }
+    for(vector<string>::iterator it = l.begin(); it != l.end(); ++it) {
+        QListWidgetItem* item = new QListWidgetItem;
+        item->setData(Qt::DisplayRole, QString::fromStdString(*it));
+        item->setData(Qt::DecorationRole, QPixmap("img/flag27.png"));
+        lang->addItem(item);
+    }
+    for(list<Experience*>::iterator it = e.begin(); it != e.end(); ++it) {
+        QListWidgetItem* item = new QListWidgetItem;
+        QString cont = QString(QString::fromStdString((*it)->role()) + " " + QString::fromStdString((*it)->location()));
+        item->setData(Qt::DisplayRole, cont);
+        item->setData(Qt::UserRole + 1, QString::fromStdString((*it)->role()));
+        item->setData(Qt::UserRole + 2, QString::fromStdString((*it)->location()));
+        item->setData(Qt::UserRole + 3, (*it)->from().toString("dd.MM.yyyy"));
+        item->setData(Qt::UserRole + 4, (*it)->to().toString("dd.MM.yyyy"));
+        item->setData(Qt::UserRole + 5, (*it)->type());
+        if((*it)->type() == 1)
+            item->setData(Qt::DecorationRole, QPixmap("img/work3.png"));
+        else
+            item->setData(Qt::DecorationRole, QPixmap("img/graduate34.png"));
+        exps->addItem(item);
+    }
+}
+
+//SLOT
+void Gui_Settings::refresh() {
+    skills->clear();
+    inters->clear();
+    lang->clear();
+    exps->clear();
+    createLists();
 }
 
 void Gui_Settings::skillsMenu(const QPoint& pos) {
@@ -166,7 +189,7 @@ void Gui_Settings::interestsMenu(const QPoint& pos) {
     _selected = inters->item(t.row())->data(Qt::DisplayRole).toString();
     QMenu myMenu;
     myMenu.addAction("Delete", this, SLOT(deleteInterest()));
-    QAction* selectedItem = myMenu.exec(globalPos);
+    myMenu.exec(globalPos);
 }
 
 void Gui_Settings::languagesMenu(const QPoint& pos) {
@@ -179,23 +202,17 @@ void Gui_Settings::languagesMenu(const QPoint& pos) {
     myMenu.exec(globalPos);
 }
 
-void Gui_Settings::formationsMenu(const QPoint& pos) {
-    QPoint globalPos = forms->mapToGlobal(pos);
-    QModelIndex t = forms->indexAt(pos);
-    forms->item(t.row())->setSelected(true);
-    _selected = forms->item(t.row())->data(Qt::DisplayRole).toString();
-    QMenu myMenu;
-    myMenu.addAction("Add", this, SLOT(addExperience()));
-    myMenu.addAction("Delete", this, SLOT(deleteExperience()));
-    myMenu.addAction("Modify", this, SLOT(modifyExperience()));
-    myMenu.exec(globalPos);
-}
-
-void Gui_Settings::jobsMenu(const QPoint& pos) {
-    QPoint globalPos = jobs->mapToGlobal(pos);
-    QModelIndex t = jobs->indexAt(pos);
-    jobs->item(t.row())->setSelected(true);
-    _selected = jobs->item(t.row())->data(Qt::DisplayRole).toString();
+void Gui_Settings::experiencesMenu(const QPoint& pos) {
+    QPoint globalPos = exps->mapToGlobal(pos);
+    QModelIndex t = exps->indexAt(pos);
+    exps->item(t.row())->setSelected(true);
+    string role = exps->item(t.row())->data(Qt::UserRole + 1).toString().toStdString();
+    string location = exps->item(t.row())->data(Qt::UserRole + 2).toString().toStdString();
+    QDate from = QDate::fromString(exps->item(t.row())->data(Qt::UserRole + 3).toString(), "dd.MM.yyyy");
+    QDate to = QDate::fromString(exps->item(t.row())->data(Qt::UserRole + 4).toString(), "dd.MM.yyyy");
+    int type = exps->item(t.row())->data(Qt::UserRole + 5).toInt();
+    Experience e(type, location, role, from, to);
+    xp = e;
     QMenu myMenu;
     myMenu.addAction("Add", this, SLOT(addExperience()));
     myMenu.addAction("Delete", this, SLOT(deleteExperience()));
@@ -270,53 +287,56 @@ void Gui_Settings::buttonToggled() {
 void Gui_Settings::addSkill() {
     if(!edtInfo[8]->text().isEmpty())
         _client->addTrait(0, edtInfo[8]->text().toStdString());
+    refresh();
 }
 
 //SLOT
 void Gui_Settings::deleteSkill() {
     _client->deleteTrait(0, _selected.toStdString());
+    refresh();
 }
 
 //SLOT
 void Gui_Settings::addLanguage() {
     if(!edtInfo[10]->text().isEmpty())
         _client->addTrait(1, edtInfo[10]->text().toStdString());
+    refresh();
 }
 
 //SLOT
 void Gui_Settings::deleteLanguage() {
     _client->deleteTrait(1, _selected.toStdString());
+    refresh();
 }
 
 //SLOT
 void Gui_Settings::addInterest() {
     if(!edtInfo[9]->text().isEmpty())
         _client->addTrait(2, edtInfo[9]->text().toStdString());
+    refresh();
 }
 
 //SLOT
 void Gui_Settings::deleteInterest() {
     _client->deleteTrait(2, _selected.toStdString());
+    refresh();
 }
 
 //SLOT
-void Gui_Settings::addFormation() {
-
-}
-
-//SLOT
-void Gui_Settings::addJob() {
-
+void Gui_Settings::addExperience() {
+    _newxp->show();
 }
 
 //SLOT
 void Gui_Settings::deleteExperience() {
-    // _client->deleteTrait(2, _selected.toStdString());
+    _client->removeExperience(xp);
+    refresh();
 }
 
 //SLOT
 void Gui_Settings::modifyExperience() {
-    // _modpop->show();
+    _client->removeExperience(xp);
+    _newxp->show();
 }
 
 //SLOT

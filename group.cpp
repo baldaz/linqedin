@@ -2,7 +2,7 @@
 
 // Group::Group(){}
 Group::Group(const Username& u, const string& n, const string& d) : _admin(u), _name(n), _description(d) {}
-Group::Group(const Group& g) : _admin(g._admin), _name(g._name), _description(g._description),/* _posts(g._posts),*/ _members(g._members) {
+Group::Group(const Group& g) : _admin(g._admin), _members(g._members), _name(g._name), _description(g._description) {
     for(list<Post*>::const_iterator i = g._posts.begin(); i != g._posts.end(); ++i)
         _posts.push_back(new Post(**i));
 }

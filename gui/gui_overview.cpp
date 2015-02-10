@@ -1,8 +1,9 @@
 #include "gui_overview.h"
 #include <QAction>
 #include <QCompleter>
+#include <QMessageBox>
 
-Gui_Overview::Gui_Overview(LinqClient* cli, QWidget* parent) : _client(cli), QGridLayout(parent) {
+Gui_Overview::Gui_Overview(LinqClient* cli, QWidget* parent) : QGridLayout(parent), _client(cli) {
     dispInfo = new Gui_DisplayInfo(QString::fromStdString(_client->displayHtmlInfo()));
 
     portrait = new Gui_Avatar(QString::fromStdString(_client->avatar()));
@@ -235,12 +236,20 @@ void Gui_Overview::refreshLists() {
 
 void Gui_Overview::addConnection() {
     Username us((dispInfo->info1()).toStdString(), "");
-    _client->addContact(us);
+    try {
+        _client->addContact(us);
+    }catch(Error e) {
+        QMessageBox::warning(0, "Connection warning", QString::fromStdString(e.errorMessage()));
+    }
     emit modified();
 }
 
 void Gui_Overview::removeConnection() {
     Username us((dispInfo->info1()).toStdString(), "");
-    _client->removeContact(us);
+    try {
+        _client->removeContact(us);
+    }catch(Error e) {
+        QMessageBox::warning(0, "Connection warning", QString::fromStdString(e.errorMessage()));
+    }
     emit modified();
 }

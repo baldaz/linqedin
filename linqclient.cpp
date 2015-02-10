@@ -84,6 +84,7 @@ string LinqClient::displayHtmlInfo() const {
 string LinqClient::avatarFromUser(const Username& u) const {
     User* x = _db->find(u);
     if(x) return x->account()->avatar().path();
+    return STANDARD_AVATAR;
 }
 int LinqClient::netSize() const {
     return _usr->net()->size();
@@ -165,8 +166,10 @@ list<SmartPtr<Message> > LinqClient::outMail() const {
     return _usr->outMail();
 }
 list<Group*> LinqClient::listGroups() const {
+    list<Group*> ret;
     if(BusinessUser* bu = dynamic_cast<BusinessUser*> (_usr))
-        return bu->groups();
+        ret = bu->groups();
+    return ret;
 }
 list<Group*> LinqClient::listAllGroups() const {
     return _db->allGroups();
@@ -183,10 +186,8 @@ map<string, string> LinqClient::find(const string& wanted = "") const {
 map<string, int> LinqClient::keywordFrequency() const {
     ExecutiveUser* tmp = dynamic_cast<ExecutiveUser*> (_usr);
     map<string, int> ret;
-    if(tmp) {
-        ret = tmp->keywordPercent();
-        return ret;
-    }
+    if(tmp) ret = tmp->keywordPercent();
+    return ret;
 }
 Group LinqClient::findGroup(const string& n) const {
     return _db->findGroubByName(n);
@@ -194,6 +195,10 @@ Group LinqClient::findGroup(const string& n) const {
 void LinqClient::addExperience(const Experience& xp) {
     UserInfo* uf = dynamic_cast<UserInfo*> (_usr->account()->info());
     if(uf) uf->addExperience(xp);
+}
+void LinqClient::removeExperience(const Experience& e) {
+    UserInfo* ui = dynamic_cast<UserInfo*> (_usr->account()->info());
+    if(ui) ui->removeExperience(e);
 }
 void LinqClient::addVisitTo(const Username& usr) {
     User* u = _db->find(usr);

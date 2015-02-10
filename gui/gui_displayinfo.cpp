@@ -1,6 +1,6 @@
 #include "gui_displayinfo.h"
 
-Gui_DisplayInfo::Gui_DisplayInfo(const QString& out, const QString& i1, const QString& i2, QWidget* parent) : _output(out), _info1(i1), _info2(i2), QTextBrowser(parent) {
+Gui_DisplayInfo::Gui_DisplayInfo(const QString& out, const QString& i1, const QString& i2, QWidget* parent) : QTextBrowser(parent), _output(out), _info1(i1), _info2(i2) {
     setHtml(_output);
 }
 
