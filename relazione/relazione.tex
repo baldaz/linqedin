@@ -1,0 +1,30 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{alltt}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{graphicx}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage[top=2in, bottom=1.5in, left=0.7in, right=0.7in]{geometry}
+
+\title{Relazione Programmazione ad oggetti 2014-2015}
+\author{Andrea Giacomo Baldan 579117}
+
+\begin{document}
+\maketitle
+% \let\clearpage\relax
+\section*{INTRODUZIONE}
+Il progetto LinQedin tratta lo sviluppo di un applicazione desktop atta a gestire una rete di contatti professionali e interazioni lavorative tra utenti
+basata sul famoso \textit{Social network} Linkedin\textcopyright, da cui eredita alcune funzionalità.
+\section*{SPECIFICHE PROGETTUALI}
+Il programma è stato sviluppato in C++/Qt 5.3.2 con compilatore gcc ver. 4.8.2 e testato su ambiente Linux Ubuntu 12.10 e 14.04, inoltre compila ed esegue con successo in ambiente Windows, testato
+alla versione 7 e nei computer del laboratorio Paolotti, tuttavia utilizzando alcune funzionalità della libreria Qt rilasciate solo dalla versione 5 in poi,
+la compilazione necessita del comando qmake-qt532.
+Per lo sviluppo è stato utilizzato esclusivamente l'editor Sublime Text 3, non è stato utilizzato QtCreator ne QtDesigner.
+\subsection*{ORGANIZZAZIONE DIRECTORY E INSTALLAZIONE}
+La radice contiene il file \textit{linqedin.pro} generato con il comando qmake, \textit{main.cpp} e \textit{relazione.pdf}.
+I sorgenti e gli headers della parte logica si trovano all'interno del percorso /logic, mentre /gui contiene tutti i sorgenti Qt adibiti all'interfaccia grafica.
+Alcune direttive grafiche sono state inserite in un file \textit{style.qss} nella cartella /style, la directory /img contiene invece tutte le immagini necessarie all'interfaccia grafica.
+Nel caso si renda necessario rigenerare il file \textit{.pro} con il comando qmake-qt532 -project si dovrà aggiungere la seguente istruzione all'interno del \textit{.pro} generato: \textit{greaterThan(QT\_MAJOR\_VERSION, 4): QT += widgets}.
+\end{document}

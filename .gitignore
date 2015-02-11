@@ -1,5 +1,8 @@
 linqedin
 *.o
 *.out
+*.log
+*.aux
+*.pdf
 Makefile
 userinterface.h
