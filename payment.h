@@ -26,6 +26,6 @@ public:
     BillMethod* billMethod() const;
     void setBillMethod(BillMethod*);
     QDate appDate() const;
-    void setAppDate(const QDate& = QDate::currentDate());
+    void setAppDate(const QDate&);
 };
 #endif

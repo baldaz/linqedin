@@ -226,21 +226,24 @@
             "password": "qwerty",
             "payments": [
                 {
-                    "appdate": "",
+                    "appdate": "12.12.2014",
+                    "approved": true,
+                    "code": "N/A",
+                    "level": 0,
+                    "nominee": "N/A"
+                },
+                {
+                    "appdate": "18.12.2014",
                     "approved": true,
                     "code": "0132532",
+                    "level": 1,
                     "nominee": "Andrea Baldan"
                 },
                 {
-                    "appdate": "",
+                    "appdate": "02.02.2015",
                     "approved": true,
                     "code": "0132532",
-                    "nominee": "Andrea Baldan"
-                },
-                {
-                    "appdate": "",
-                    "approved": true,
-                    "code": "0132532",
+                    "level": 2,
                     "nominee": "Andrea Baldan"
                 }
             ],
@@ -311,10 +314,11 @@
             "password": "maurisio",
             "payments": [
                 {
-                    "appdate": "",
+                    "appdate": "26.12.2014",
                     "approved": true,
-                    "code": "0132532",
-                    "nominee": "Pablos Escobar"
+                    "code": "N/A",
+                    "level": 0,
+                    "nominee": "N/A"
                 }
             ],
             "privilege": 0,
@@ -366,9 +370,10 @@
             "payments": [
                 {
                     "appdate": "10.02.2015",
-                    "approved": false,
-                    "code": "0132532",
-                    "nominee": "Atilio Sousa"
+                    "approved": true,
+                    "code": "N/A",
+                    "level": 0,
+                    "nominee": "N/A"
                 }
             ],
             "privilege": 0,
@@ -419,8 +424,16 @@
                 {
                     "appdate": "10.02.2015",
                     "approved": true,
-                    "code": "0132532",
-                    "nominee": "Sara Rea"
+                    "code": "N/A",
+                    "level": 0,
+                    "nominee": "N/A"
+                },
+                {
+                    "appdate": "",
+                    "approved": false,
+                    "code": "0123456",
+                    "level": 2,
+                    "nominee": "Auir Ien"
                 }
             ],
             "privilege": 0,
@@ -473,10 +486,11 @@
             "password": "sara",
             "payments": [
                 {
-                    "appdate": "",
+                    "appdate": "01.01.2015",
                     "approved": true,
-                    "code": "0132532",
-                    "nominee": "Sara Rea"
+                    "code": "N/A",
+                    "level": 0,
+                    "nominee": "N/A"
                 }
             ],
             "privilege": 0,
@@ -526,10 +540,11 @@
             "password": "wword",
             "payments": [
                 {
-                    "appdate": "",
+                    "appdate": "05.01.2015",
                     "approved": true,
-                    "code": "0132532",
-                    "nominee": "Dan Serrano"
+                    "code": "N/A",
+                    "level": 0,
+                    "nominee": "N/A"
                 }
             ],
             "privilege": 0,
@@ -672,19 +687,22 @@
                 {
                     "appdate": "06.12.2014",
                     "approved": true,
-                    "code": "0132532",
-                    "nominee": "Steven Seagal"
+                    "code": "N/A",
+                    "level": 0,
+                    "nominee": "N/A"
                 },
                 {
-                    "appdate": "06.01.2015",
+                    "appdate": "02.01.2015",
                     "approved": true,
                     "code": "0132532",
+                    "level": 1,
                     "nominee": "Steven Seagal"
                 },
                 {
-                    "appdate": "06.02.2015",
-                    "approved": false,
+                    "appdate": "11.02.2015",
+                    "approved": true,
                     "code": "0132532",
+                    "level": 2,
                     "nominee": "Steven Seagal"
                 }
             ],
@@ -788,13 +806,14 @@
             "password": "machete",
             "payments": [
                 {
-                    "appdate": "",
-                    "approved": false,
-                    "code": "0132532",
-                    "nominee": "Danny Trejo"
+                    "appdate": "02.01.2015",
+                    "approved": true,
+                    "code": "N/A",
+                    "level": 0,
+                    "nominee": "N/A"
                 }
             ],
-            "privilege": 2,
+            "privilege": 0,
             "skills": [
                 "Machete",
                 "M-16",
@@ -882,13 +901,14 @@
             "password": "lecter",
             "payments": [
                 {
-                    "appdate": "",
+                    "appdate": "01.01.2015",
                     "approved": true,
-                    "code": "0132532",
-                    "nominee": "Hannibal Lecter"
+                    "code": "N/A",
+                    "level": 0,
+                    "nominee": "N/A"
                 }
             ],
-            "privilege": 2,
+            "privilege": 0,
             "skills": [
                 "Knives",
                 "Meatplates",
@@ -968,13 +988,21 @@
             "password": "graham",
             "payments": [
                 {
-                    "appdate": "",
+                    "appdate": "06.01.2015",
                     "approved": true,
-                    "code": "0132532",
+                    "code": "N/A",
+                    "level": 0,
+                    "nominee": "N/A"
+                },
+                {
+                    "appdate": "",
+                    "approved": false,
+                    "code": "0123123",
+                    "level": 1,
                     "nominee": "Will Graham"
                 }
             ],
-            "privilege": 2,
+            "privilege": 0,
             "skills": [
                 "Knives",
                 "Literature",
@@ -1017,6 +1045,7 @@
                     "appdate": "10.02.2015",
                     "approved": true,
                     "code": "N/A",
+                    "level": 0,
                     "nominee": "N/A"
                 }
             ],

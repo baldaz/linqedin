@@ -11,7 +11,7 @@ Gui_Statistics::Gui_Statistics(LinqClient* cli, QWidget* parent) : QGridLayout(p
     _list->setStyleSheet("background:#000");
     vector<SmartPtr<Payment> > hist = _client->paymentHistory();
     QString content = QString("<h2>Payments History</h2>");
-    content.append("<table border=0 cellspacing='15' width='80\%'><tr><th align=center>Date</th><th align=center>Expiration</th><th align=center>Level</th><th align=center>Status</th></tr>");
+    content.append("<table border=0 cellspacing='15' width='80\%'><tr><th align=center>Approvation date</th><th align=center>Expiration</th><th align=center>Level</th><th align=center>Status</th></tr>");
     QString lvl, status;
     for(vector<SmartPtr<Payment> >::iterator i = hist.begin(); i != hist.end(); ++i) {
         if(_client->level() == basic) lvl = "Basic";
@@ -20,11 +20,13 @@ Gui_Statistics::Gui_Statistics(LinqClient* cli, QWidget* parent) : QGridLayout(p
         bool appr = (*i)->approvation();
         if(!appr) status = "Pending";
         else {
-            if((*i)->appDate().addDays(30) < QDate::currentDate())
-                status = "Expired";
-            else status = "Approved";
+            if(i == hist.end()-1)
+                status = "Approved";
+            else status = "Expired";
         }
-        content.append("<tr><td style='font-weight:400' align=center>" + (*i)->appDate().toString() + "</td><td style='font-weight:400' align=center>" + (*i)->appDate().addDays(30).toString() + "</td><td style='font-weight:400' align=center>" + lvl + "</td><td style='font-weight:400' align=center>" + status + "</td></tr>");
+        if(i != hist.end()-1)
+            content.append("<tr><td style='font-weight:400' align=center>" + (*i)->appDate().toString() + "</td><td style='font-weight:400' align=center>" + (*(i+1))->appDate().toString() + "</td><td style='font-weight:400' align=center>" + lvl + "</td><td style='font-weight:400' align=center>" + status + "</td></tr>");
+        else content.append("<tr><td style='font-weight:400' align=center>" + (*i)->appDate().toString() + "</td><td style='font-weight:400' align=center>Next request</td><td style='font-weight:400' align=center>" + lvl + "</td><td style='font-weight:400' align=center>" + status + "</td></tr>");
     }
     content.append("</table>");
     _list->setHtml(content);

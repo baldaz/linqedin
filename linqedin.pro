@@ -19,6 +19,7 @@ HEADERS += account.h \
            group.h \
            gui/gui_adminwindow.h \
            gui/gui_avatar.h \
+           gui/gui_bill.h \
            gui/gui_displayinfo.h \
            gui/gui_groups.h \
            gui/gui_listdelegate.h \
@@ -54,6 +55,7 @@ SOURCES += account.cpp \
            group.cpp \
            gui/gui_adminwindow.cpp \
            gui/gui_avatar.cpp \
+           gui/gui_bill.cpp \
            gui/gui_displayinfo.cpp \
            gui/gui_groups.cpp \
            gui/gui_listdelegate.cpp \

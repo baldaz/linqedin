@@ -8,6 +8,7 @@
 #include <QDate>
 #include "experience.h"
 #include "smartptr.h"
+#include "error.h"
 
 using std::vector;
 using std::list;
@@ -49,7 +50,7 @@ public:
     Experience* lastExperience() const;
     void setName(const string&);
     void setSurname(const string&);
-    void setBirthdate(const QDate& = QDate::currentDate());
+    void setBirthdate(const QDate&) throw(Error);
     void setEmail(const string&);
     void setAddress(const string&);
     void setTelephon(const string&);

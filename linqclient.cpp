@@ -24,7 +24,7 @@ void LinqClient::addContact(const Username& usr) {
 void LinqClient::removeContact(const Username& usr) {
     _usr->removeContact(usr);
 }
-void LinqClient::alterProfile(int field, const string& value) {
+void LinqClient::alterProfile(int field, const string& value) throw(Error) {
     Bio* ui = dynamic_cast<Bio*> (_usr->account()->info());
     if(ui) {
         switch(field) {
@@ -52,14 +52,38 @@ void LinqClient::alterProfile(int field, const string& value) {
             case 7:
                 ui->setBio(value);
             break;
-            case 8:
-                _usr->account()->username().setLogin(value);
+            case 8: {
+                list<SmartPtr<User> >::const_iterator it = _db->begin();
+                bool alreadyIn = false;
+                for(; it != _db->end() && !alreadyIn; ++it) {
+                    if(((*it)->account()->username().login()) == value)
+                        alreadyIn = true;
+                }
+                if(alreadyIn) throw Error(dupUser, "An user with that username already exists in Linqedin");
+                else _usr->account()->username().setLogin(value);
+            }
             break;
             case 9:
                 if(!value.empty()) _usr->account()->username().setPassword(value);
             break;
         }
     }
+}
+void LinqClient::requestUpgrade(const string& code, const string& nominee, privLevel newlevel) throw(Error){
+    if(code.empty() || nominee.empty()) throw Error(payment, "Nominee or code field cannot be empty");
+    if(_usr->account()->lastPayment()->approvation()) {
+        Username me = _usr->account()->username();
+        Subscription s(newlevel);
+        CreditCard card(nominee, code);
+        bool app = false;
+        if(newlevel == basic) {
+            app = true;
+            _usr->account()->setPrLevel(newlevel);
+        }
+        Payment p(&me, &s, &card, app);
+        _usr->account()->addPayment(p);
+    }
+    else throw Error(payment, "There is already a subscription pending for approvation");
 }
 string LinqClient::displayProfile() const {
     std::string profile = "";
@@ -212,7 +236,6 @@ string LinqClient::avatar() const {
     return _usr->account()->avatar().path();
 }
 void LinqClient::setAvatar(const string& path) {
-    // _usr->account()->avatar().setPath(path);
     Avatar avt(path);
     _usr->account()->setAvatar(avt);
 }
@@ -232,8 +255,6 @@ void LinqClient::modifyInMail(const list<SmartPtr<Message> >& l) {
     _usr->setInMail(l);
 }
 void LinqClient::addPostToGroup(const Group& g, const Post& p) {
-    // if(BusinessUser* bu = dynamic_cast<BusinessUser*> (_usr))
-    //     bu->addPost(g, p);
     _db->addPostToGroup(g, p);
 }
 void LinqClient::createNewGroup(const Group& g) {
@@ -252,7 +273,6 @@ void LinqClient::addGroup(const string& n, const string& a) {
 }
 void LinqClient::deleteGroup(const string& n, const string& a) {
     Group* g = new Group(Username(a, ""), n);
-    // _db->deleteGroup(*g);
     if(ExecutiveUser* ex = dynamic_cast<ExecutiveUser*> (_usr))
         ex->globalRemoveGroup(*_db, *g);
 }
@@ -296,18 +316,3 @@ void LinqClient::deleteTrait(int trait, const string& value) {
         break;
     }
 }
-// modifica una caratteristica nelle indo del client, 0 => skill, 1 => language, 2 => interest
-// void LinqClient::modifyTrait(int trait, const string& value) {
-//     UserInfo* ui = dynamic_cast<UserInfo*> (_usr->account()->info());
-//     switch(trait) {
-//         case 0:
-//             ui->modifySkill(value);
-//         break;
-//         case 1:
-//             ui->modifyLanguage(value);
-//         break;
-//         case 2:
-//             ui->modifyInterest(value);
-//         break;
-//     }
-// }

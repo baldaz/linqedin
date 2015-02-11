@@ -285,18 +285,26 @@ void Gui_Settings::buttonToggled() {
         edtInfo[12]->hide();
         edtBio->setReadOnly(true);
         edtBio->setStyleSheet("background: transparent");
-        _client->alterProfile(0, edtInfo[0]->text().toStdString());
-        _client->alterProfile(1, edtInfo[1]->text().toStdString());
-        _client->alterProfile(2, edtInfo[3]->text().toStdString());
-        _client->alterProfile(3, calendar->selectedDate().toString("dd.MM.yyyy").toStdString());
-        edtInfo[2]->setText(calendar->selectedDate().toString("dd.MM.yyyy"));
-        _client->alterProfile(4, edtInfo[5]->text().toStdString());
-        _client->alterProfile(5, edtInfo[4]->text().toStdString());
-        _client->alterProfile(6, edtInfo[6]->text().toStdString());
-        _client->alterProfile(7, edtBio->toPlainText().toStdString());
-        _client->alterProfile(8, edtInfo[7]->text().toStdString());
-        _client->alterProfile(9, edtInfo[12]->text().toStdString());
-        _client->setAvatar(edtInfo[11]->text().toStdString());
+        try {
+            _client->alterProfile(0, edtInfo[0]->text().toStdString());
+            _client->alterProfile(1, edtInfo[1]->text().toStdString());
+            _client->alterProfile(2, edtInfo[3]->text().toStdString());
+            _client->alterProfile(3, calendar->selectedDate().toString("dd.MM.yyyy").toStdString());
+            edtInfo[2]->setText(calendar->selectedDate().toString("dd.MM.yyyy"));
+            _client->alterProfile(4, edtInfo[5]->text().toStdString());
+            _client->alterProfile(5, edtInfo[4]->text().toStdString());
+            _client->alterProfile(6, edtInfo[6]->text().toStdString());
+            _client->alterProfile(7, edtBio->toPlainText().toStdString());
+            _client->alterProfile(8, edtInfo[7]->text().toStdString());
+            _client->alterProfile(9, edtInfo[12]->text().toStdString());
+            _client->setAvatar(edtInfo[11]->text().toStdString());
+            edtInfo[2]->setStyleSheet("background:#1a1a1a");
+            edtInfo[7]->setStyleSheet("background:#1a1a1a");
+        }catch(Error e) {
+            if(e.errorType() == dupUser) edtInfo[7]->setStyleSheet("background:#f00");
+            else if(e.errorType() == date) edtInfo[2]->setStyleSheet("background:#f00");
+            QMessageBox::critical(0, "Error occoured", QString::fromStdString(e.errorMessage() + ", changes will not be effective until correction."));
+        }
     }
 }
 

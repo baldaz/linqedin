@@ -2,7 +2,7 @@
 
 Message::Message(const Username& sender, const Username& receiver, const string& obj, const string& body, bool read, const QDate& s, const QDate& r) :
     _sender(sender), _receiver(receiver), _object(obj), _body(body), _read(read), _sent(s), _recv(r) {}
-Message::~Message() { /*delete _sender; delete _receiver;*/ }
+// Message::~Message() {}
 Message* Message::clone() const {
     return new Message(*this);
 }

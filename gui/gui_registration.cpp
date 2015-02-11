@@ -83,7 +83,9 @@ void Gui_Registration::submitData() {
     info.insert("bio", bio->toPlainText().toStdString());
     try {
         _admin->insertUser(uname.toStdString(), pass.toStdString(), info.toStdMap());
+        edt[0]->setStyleSheet("background:#1a1a1a");
     }catch(Error e) {
+        edt[0]->setStyleSheet("background:#f00");
         QMessageBox::critical(this, "Error!", QString::fromStdString(e.errorMessage()));
         created = false;
     }

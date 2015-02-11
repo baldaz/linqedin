@@ -81,8 +81,9 @@ void UserInfo::setName(const string& n) {
 void UserInfo::setSurname(const string& s) {
     _surname = s;
 }
-void UserInfo::setBirthdate(const QDate& b) {
-    _birthdate = b;
+void UserInfo::setBirthdate(const QDate& b) throw(Error) {
+    if(b > QDate::currentDate()) throw Error(date, "Birthdate must be prior current date");
+    else _birthdate = b;
 }
 void UserInfo::setEmail(const string& e) {
     _email = e;

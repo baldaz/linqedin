@@ -92,6 +92,10 @@ void LinqAdmin::removeUser(const Username& user) {
 void LinqAdmin::upgradeSubscription(const Username& usr, privLevel newlevel) {
     User* current = _db->find(usr);
     current->account()->setPrLevel(newlevel);
+    current->account()->lastPayment()->setApprovation(true);
+    current->account()->lastPayment()->setAppDate(QDate::currentDate());
+    Message m(Username("Linqedin",""), current->account()->username(), "Upgrade request", "Upgrade requested succesfully approved.",false);
+    current->loadInMail(m);
     save();
 }
 map<string,string> LinqAdmin::find(const string& s) const {

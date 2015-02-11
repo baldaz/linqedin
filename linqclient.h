@@ -42,7 +42,8 @@ public:
     list<Group*> listAllGroups() const;
     list<Post*> listPostFromGroup(const Group&) const;
     int postNumberFromGroup(const Group&) const;
-    void alterProfile(int, const string&);
+    void alterProfile(int, const string&) throw(Error);
+    void requestUpgrade(const string&, const string&, privLevel) throw(Error);
     void removeExperience(const Experience&);
     void addContact(const Username&);
     void removeContact(const Username&);
@@ -57,7 +58,6 @@ public:
     void deleteGroup(const string&, const string&);
     void addTrait(int, const string&);
     void deleteTrait(int, const string&);
-    // void modifyTrait(int, const string&);
     Group findGroup(const string&) const;
     map<string, string> find(const string&) const;
     map<string, int> keywordFrequency() const;

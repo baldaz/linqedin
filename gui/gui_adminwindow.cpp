@@ -113,7 +113,7 @@ void Gui_AdminWindow::createUserList() {
         if(!(*it)->account()->lastPayment()->approvation()) {
             item->setData(Qt::DecorationRole, QPixmap("img/arrow106.png"));
             item->setData(Qt::UserRole + 3, 1);
-            item->setData(Qt::UserRole + 4, QString::number((*it)->account()->prLevel()));
+            item->setData(Qt::UserRole + 4, QString::number((*it)->account()->lastPayment()->subscription()->level()));
         }
         else
             item->setData(Qt::DecorationRole, QPixmap("img/profile11.png"));
@@ -175,9 +175,9 @@ void Gui_AdminWindow::removeUser() {
 
 //SLOT
 void Gui_AdminWindow::upgradeUser() {
-    _admin->upgradeSubscription(Username(_userInfo->info1().toStdString(), ""), (privLevel) ((_userInfo->info2().toInt()) + 1));
-    int k = _userInfo->info2().toInt() + 1;
-    std::cout << k << std::endl;
+    _admin->upgradeSubscription(Username(_userInfo->info1().toStdString(), ""), (privLevel) ((_userInfo->info2().toInt())));
+    QMessageBox::information(this, "Operation successful", "Upgrade request succesfully approved.");
+    emit modified();
 }
 
 //SLOT

@@ -1,5 +1,5 @@
-#ifndef GUI_UPGRADE
-#define GUI_UPGRADE
+#ifndef GUI_UPGRADE_H
+#define GUI_UPGRADE_H
 
 #include <QDialog>
 #include <QTextBrowser>
@@ -8,11 +8,13 @@
 #include <QVBoxLayout>
 #include <QGridLayout>
 #include "linqclient.h"
+#include "gui_bill.h"
 
 class Gui_Upgrade : public QDialog {
     Q_OBJECT
 private:
     LinqClient* _client;
+    Gui_Bill* _bill;
     QTextBrowser* offers[3];
     QPushButton* select[3];
 public:
