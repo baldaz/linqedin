@@ -31,6 +31,7 @@ public:
     void insertUser(const string&, const string&, privLevel, const map<string, string>& = map<string,string>()) throw(Error);
     void removeUser(const Username&);
     map<string,string> find(const string&) const;
+    list<Group*> listUserGroups(const Username&) const;
     void upgradeSubscription(const Username&, privLevel);
     void save() const;
 };

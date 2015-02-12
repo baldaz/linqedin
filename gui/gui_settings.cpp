@@ -122,42 +122,44 @@ Gui_Settings::Gui_Settings(LinqClient* cli, QWidget* parent) : QGridLayout(paren
 }
 
 void Gui_Settings::createLists() {
-    vector<string> v = _client->skills();
-    vector<string> i = _client->interests();
-    vector<string> l = _client->languages();
-    list<Experience*> e = _client->experiences();
-    for(vector<string>::iterator it = v.begin(); it != v.end(); ++it) {
-        QListWidgetItem* item = new QListWidgetItem;
-        item->setData(Qt::DisplayRole, QString::fromStdString(*it));
-        item->setData(Qt::DecorationRole, QPixmap("img/rugby100.png"));
-        skills->addItem(item);
-    }
-    for(vector<string>::iterator it = i.begin(); it != i.end(); ++it) {
-        QListWidgetItem* item = new QListWidgetItem;
-        item->setData(Qt::DisplayRole, QString::fromStdString(*it));
-        item->setData(Qt::DecorationRole, QPixmap("img/atom2.png"));
-        inters->addItem(item);
-    }
-    for(vector<string>::iterator it = l.begin(); it != l.end(); ++it) {
-        QListWidgetItem* item = new QListWidgetItem;
-        item->setData(Qt::DisplayRole, QString::fromStdString(*it));
-        item->setData(Qt::DecorationRole, QPixmap("img/flag27.png"));
-        lang->addItem(item);
-    }
-    for(list<Experience*>::iterator it = e.begin(); it != e.end(); ++it) {
-        QListWidgetItem* item = new QListWidgetItem;
-        QString cont = QString(QString::fromStdString((*it)->role()) + " " + QString::fromStdString((*it)->location()));
-        item->setData(Qt::DisplayRole, cont);
-        item->setData(Qt::UserRole + 1, QString::fromStdString((*it)->role()));
-        item->setData(Qt::UserRole + 2, QString::fromStdString((*it)->location()));
-        item->setData(Qt::UserRole + 3, (*it)->from().toString("dd.MM.yyyy"));
-        item->setData(Qt::UserRole + 4, (*it)->to().toString("dd.MM.yyyy"));
-        item->setData(Qt::UserRole + 5, (*it)->type());
-        if((*it)->type() == 1)
-            item->setData(Qt::DecorationRole, QPixmap("img/work3.png"));
-        else
-            item->setData(Qt::DecorationRole, QPixmap("img/graduate34.png"));
-        exps->addItem(item);
+    if(UserInfo* ui = dynamic_cast<UserInfo*> (_client->info())) {
+        vector<string> v = ui->skills();
+        vector<string> i = ui->interests();
+        vector<string> l = ui->languages();
+        list<Experience*> e = ui->experiences();
+        for(vector<string>::iterator it = v.begin(); it != v.end(); ++it) {
+            QListWidgetItem* item = new QListWidgetItem;
+            item->setData(Qt::DisplayRole, QString::fromStdString(*it));
+            item->setData(Qt::DecorationRole, QPixmap("img/rugby100.png"));
+            skills->addItem(item);
+        }
+        for(vector<string>::iterator it = i.begin(); it != i.end(); ++it) {
+            QListWidgetItem* item = new QListWidgetItem;
+            item->setData(Qt::DisplayRole, QString::fromStdString(*it));
+            item->setData(Qt::DecorationRole, QPixmap("img/atom2.png"));
+            inters->addItem(item);
+        }
+        for(vector<string>::iterator it = l.begin(); it != l.end(); ++it) {
+            QListWidgetItem* item = new QListWidgetItem;
+            item->setData(Qt::DisplayRole, QString::fromStdString(*it));
+            item->setData(Qt::DecorationRole, QPixmap("img/flag27.png"));
+            lang->addItem(item);
+        }
+        for(list<Experience*>::iterator it = e.begin(); it != e.end(); ++it) {
+            QListWidgetItem* item = new QListWidgetItem;
+            QString cont = QString(QString::fromStdString((*it)->role()) + " " + QString::fromStdString((*it)->location()));
+            item->setData(Qt::DisplayRole, cont);
+            item->setData(Qt::UserRole + 1, QString::fromStdString((*it)->role()));
+            item->setData(Qt::UserRole + 2, QString::fromStdString((*it)->location()));
+            item->setData(Qt::UserRole + 3, (*it)->from().toString("dd.MM.yyyy"));
+            item->setData(Qt::UserRole + 4, (*it)->to().toString("dd.MM.yyyy"));
+            item->setData(Qt::UserRole + 5, (*it)->type());
+            if((*it)->type() == 1)
+                item->setData(Qt::DecorationRole, QPixmap("img/work3.png"));
+            else
+                item->setData(Qt::DecorationRole, QPixmap("img/graduate34.png"));
+            exps->addItem(item);
+        }
     }
 }
 

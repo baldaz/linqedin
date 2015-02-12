@@ -56,7 +56,7 @@ void LinqClient::alterProfile(int field, const string& value) throw(Error) {
                 list<SmartPtr<User> >::const_iterator it = _db->begin();
                 bool alreadyIn = false;
                 for(; it != _db->end() && !alreadyIn; ++it) {
-                    if(((*it)->account()->username().login()) == value)
+                    if(((*it)->account()->username().login()) == value && _usr->account()->username().login() != value)
                         alreadyIn = true;
                 }
                 if(alreadyIn) throw Error(dupUser, "An user with that username already exists in Linqedin");
@@ -84,24 +84,6 @@ void LinqClient::requestUpgrade(const string& code, const string& nominee, privL
         _usr->account()->addPayment(p);
     }
     else throw Error(payment, "There is already a subscription pending for approvation");
-}
-string LinqClient::displayProfile() const {
-    std::string profile = "";
-    std::ostringstream o, o2;
-    o << _usr->account()->prLevel();
-    o2 << *_usr->net();
-    profile += "Account type >> " + o.str() + "\n";
-    profile += "Credentials >> user: " + _usr->account()->username().login() + "  password: " + _usr->account()->username().password() + "\n";
-    profile += "Account info >> " + _usr->account()->info()->print() + "\n";
-    profile += "Friend list >> ";
-    profile += o2.str() + "\n";
-    profile += "inMail >> ";
-    list<SmartPtr<Message> > inm = _usr->inMail();
-    list<SmartPtr<Message> > outm = _usr->outMail();
-    list<SmartPtr<Message> >::const_iterator it = inm.begin();
-    for(; it != inm.end(); ++it)
-        profile += "Sender: " + (*it)->sender().login() + " Receiver: " + (*it)->receiver().login() + "\n";
-    return profile;
 }
 string LinqClient::displayHtmlInfo() const {
     string ret = _usr->showInfo();
@@ -138,30 +120,6 @@ vector<SmartPtr<User> > LinqClient::similarity() const {
 }
 bool LinqClient::linked(const Username& usr) const {
    return _usr->linked(usr);
-}
-vector<string> LinqClient::skills() const {
-    vector<string> ret;
-    if(UserInfo* p = dynamic_cast<UserInfo*> (_usr->account()->info()))
-        ret = p->skills();
-    return ret;
-}
-vector<string> LinqClient::interests() const {
-    vector<string> ret;
-    if(UserInfo* p = dynamic_cast<UserInfo*> (_usr->account()->info()))
-        ret = p->interests();
-    return ret;
-}
-vector<string> LinqClient::languages() const {
-    vector<string> ret;
-    if(UserInfo* p = dynamic_cast<UserInfo*> (_usr->account()->info()))
-        ret = p->languages();
-    return ret;
-}
-list<Experience*> LinqClient::experiences() const {
-    list<Experience*> ret;
-    if(UserInfo* p = dynamic_cast<UserInfo*> (_usr->account()->info()))
-        ret = p->experiences();
-    return ret;
 }
 vector<string> LinqClient::displayHtmlNet() const {
     vector<string> ret;

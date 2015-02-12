@@ -26,13 +26,8 @@ public:
     Username username() const;
     Info* info() const;
     string avatar() const;
-    string displayProfile() const;
     string displayHtmlInfo() const;
     string avatarFromUser(const Username&) const;
-    vector<string> skills() const;
-    vector<string> interests() const;
-    vector<string> languages() const;
-    list<Experience*> experiences() const;
     vector<string> displayHtmlNet() const;
     vector<SmartPtr<User> > contactsInfo() const;
     vector<SmartPtr<Payment> > paymentHistory() const;

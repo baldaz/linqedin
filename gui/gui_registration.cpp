@@ -55,7 +55,7 @@ void Gui_Registration::createForm() {
     formsx->addRow("E-mail:", edt[6]);
     formdx->addRow("Website:", edt[7]);
     formsx->addRow("Birthdate:", calendar);
-    formdx->addRow("Short bio:", bio);
+    formdx->addRow("Summary:", bio);
     mlayout->addLayout(formus, 0, 0, 1, 1);
     mlayout->setColumnStretch(0,1);
     mlayout->setColumnStretch(1,1);

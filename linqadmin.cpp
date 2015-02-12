@@ -111,6 +111,13 @@ void LinqAdmin::upgradeSubscription(const Username& usr, privLevel newlevel) {
 map<string,string> LinqAdmin::find(const string& s) const {
     return std::for_each(_db->begin(), _db->end(), adminSearch(s)).result();
 }
+list<Group*> LinqAdmin::listUserGroups(const Username& u) const {
+    list<Group*> ret;
+    User* x = _db->find(u);
+    if(BusinessUser* bu = dynamic_cast<BusinessUser*> (x))
+        ret = bu->groups();
+    return ret;
+}
 void LinqAdmin::save() const {
     _db->save();
 }

@@ -128,6 +128,13 @@ void Gui_AdminWindow::createUserList() {
 //SLOT
 void Gui_AdminWindow::showUser() {
     QString _sel = _userList->currentItem()->data(Qt::UserRole + 1).toString();
+    std::list<Group*> lsg = _admin->listUserGroups(Username(_userList->currentItem()->data(Qt::UserRole + 2).toString().toStdString(), ""));
+    if(lsg.size() > 0) {
+        _sel.append("<h4>Groups</h4><ul style='font-weight:400'>");
+        for(std::list<Group*>::iterator j = lsg.begin(); j != lsg.end(); ++j)
+            _sel += "<li>" + QString::fromStdString((*j)->name()) + "</li>";
+        _sel.append("</ul>");
+    }
     _userInfo->setHtml(_sel);
     _userInfo->setInfo1(_userList->currentItem()->data(Qt::UserRole + 2).toString());
     if(tbar->isHidden()) tbar->show();
