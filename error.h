@@ -3,7 +3,7 @@
 
 #include <string>
 
-enum eType{IO, permission, dupUser, userNotFound, payment, dupGroup, groupNotFound, dupLink, date, missingField};
+enum eType{IO, permission, dupUser, userNotFound, payment, dupGroup, groupNotFound, dupLink, date, missingField, mail};
 
 class Error {
 private:

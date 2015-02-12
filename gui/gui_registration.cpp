@@ -82,7 +82,7 @@ void Gui_Registration::submitData() {
     info.insert("birthdate", calendar->selectedDate().toString("dd.MM.yyyy").toStdString());
     info.insert("bio", bio->toPlainText().toStdString());
     try {
-        _admin->insertUser(uname.toStdString(), pass.toStdString(), info.toStdMap());
+        _admin->insertUser(uname.toStdString(), pass.toStdString(), basic, info.toStdMap());
         edt[0]->setStyleSheet("background:#1a1a1a");
     }catch(Error e) {
         edt[0]->setStyleSheet("background:#f00");

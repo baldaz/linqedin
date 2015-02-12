@@ -35,9 +35,9 @@ Gui_Upgrade::Gui_Upgrade(LinqClient* cli, QWidget* parent) : QDialog(parent), _c
         select[2]->setEnabled(false);
         select[2]->setStyleSheet("color:#1a1a1a");
     }
-    offers[0]->setHtml("<h3>BASIC</h3><h4>Offer</h4><ul style='font-weight:400'><li>Basic search(display only name if user exists)</li><li>10 in mail / month</li><li>Visit counter</li></ul><p>0.00 € / month</p>");
-    offers[1]->setHtml("<h3>BUSINESS</h3><h4>Offer</h4><ul style='font-weight:400'><li>Business search (display full profile if user exists)</li><li>Similiar users suggestions</li><li>25 in mail / month</li><li>Groups guest, with posting rights</li><li>Visit counter</li></ul><p>29.90 € / month</p>");
-    offers[2]->setHtml("<h3>EXECUTIVE</h3><h4>Offer</h4><ul style='font-weight:400'><li>Executive search (display full profile and his network connections if user exists)</li><li>Smart search, parameter search</li><li>Similiar users suggestions</li><li>Keyword frequency used to find your profile by others.</li><li>Unlimited in mail / month</li><li>Groups guest, with posting rights + Creation rights and administration of personal groups</li><li>Visit counter + last 10 visitors</li></ul><p>49.90 € / month</p>");
+    offers[0]->setHtml("<h3>BASIC</h3><h4>Offer</h4><ul style='font-weight:400'><li>Basic search(display only name if user exists)</li><li>10 in mail / month</li><li>Visit counter</li></ul><p>" + QString::number(Subscription::levelAmount(basic)) + "€ / month</p>");
+    offers[1]->setHtml("<h3>BUSINESS</h3><h4>Offer</h4><ul style='font-weight:400'><li>Business search (display full profile if user exists)</li><li>Similiar users suggestions</li><li>25 in mail / month</li><li>Groups guest, with posting rights</li><li>Visit counter</li></ul><p>" + QString::number(Subscription::levelAmount(business)) + " € / month</p>");
+    offers[2]->setHtml("<h3>EXECUTIVE</h3><h4>Offer</h4><ul style='font-weight:400'><li>Executive search (display full profile and his network connections if user exists)</li><li>Smart search, parameter search</li><li>Similiar users suggestions</li><li>Keyword frequency used to find your profile by others.</li><li>Unlimited in mail / month</li><li>Groups guest, with posting rights + Creation rights and administration of personal groups</li><li>Visit counter + last 10 visitors</li></ul><p>" + QString::number(Subscription::levelAmount(executive)) + " € / month</p>");
     select[0]->setText("BASIC");
     select[1]->setText("BUSINESS");
     select[2]->setText("EXECUTIVE");

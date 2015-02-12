@@ -41,6 +41,7 @@ Gui_AdminWindow::Gui_AdminWindow(QWidget* parent) : QWidget(parent) {
     for(int i = 0; i < 5; ++i)
         edt[i] = new QLineEdit;
     // search bar
+    edt[3]->setEchoMode(QLineEdit::Password);
     edt[4]->setPlaceholderText("Search user");
     list<SmartPtr<User> > lst = _admin->listUsers();
     QStringList completions;
@@ -145,14 +146,12 @@ void Gui_AdminWindow::addUser() {
     QString uname = edt[2]->text();
     QString passw = edt[3]->text();
     int level = _level->itemData(_level->currentIndex()).toInt();
-
-    std::cout<< level << std::endl;
     QMap<string, string> map;
     map.insert("name", name.toStdString());
     map.insert("surname", surn.toStdString());
     map.insert("birthdate", QDate::currentDate().toString("dd.MM.yyyy").toStdString());
     try {
-        _admin->insertUser(uname.toStdString(), passw.toStdString(), map.toStdMap());
+        _admin->insertUser(uname.toStdString(), passw.toStdString(), (privLevel) level, map.toStdMap());
     }catch(Error e) {
         QMessageBox::critical(this, "Error", QString::fromStdString(e.errorMessage()));
         inserted = false;

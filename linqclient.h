@@ -19,6 +19,7 @@ public:
     ~LinqClient();
     int level() const;
     int netSize() const;
+    int userSimilarity(const SmartPtr<User>&) const;
     vector<SmartPtr<User> > similarity() const;
     bool linked(const Username&) const;
     void setAvatar(const string& = STANDARD_AVATAR);
@@ -40,6 +41,7 @@ public:
     list<SmartPtr<Message> > outMail() const;
     list<Group*> listGroups() const;
     list<Group*> listAllGroups() const;
+    list<Group*> listUserGroups(const Username&) const;
     list<Post*> listPostFromGroup(const Group&) const;
     int postNumberFromGroup(const Group&) const;
     void alterProfile(int, const string&) throw(Error);
@@ -52,12 +54,13 @@ public:
     void sendMail(const string& = "",  const string& = "", const string& = "", bool = false);
     void modifyInMail(const list<SmartPtr<Message> >&);
     void addPostToGroup(const Group&, const Post&);
-    void createNewGroup(const Group&);
+    void createNewGroup(const Group&) throw(Error);
     void addGroup(const Group&);
     void addGroup(const string&, const string&);
     void deleteGroup(const string&, const string&);
     void addTrait(int, const string&);
     void deleteTrait(int, const string&);
+    void deleteMessage(const Message&);
     Group findGroup(const string&) const;
     map<string, string> find(const string&) const;
     map<string, int> keywordFrequency() const;

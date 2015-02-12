@@ -1,4 +1,6 @@
 #include "gui_messages.h"
+#include <QMenu>
+#include <QMessageBox>
 
 Gui_Messages::Gui_Messages(LinqClient* cli, QWidget* parent) : QGridLayout(parent), _client(cli) {
     mexcount = 0;
@@ -9,39 +11,13 @@ Gui_Messages::Gui_Messages(LinqClient* cli, QWidget* parent) : QGridLayout(paren
     _listOut = new QListWidget;
     _listOut->setItemDelegate(new ListDelegate(_listOut));
     _output = new QTextBrowser;
-
-    inm = _client->inMail();
-    list<SmartPtr<Message> > out = _client->outMail();
-    list<SmartPtr<Message> >::iterator it = inm.begin();
-    for( ; it != inm.end(); ++it) {
-        QListWidgetItem* item = new QListWidgetItem;
-        QString from = QString("From: ").append(QString::fromStdString((*it)->sender().login())).append(" ").append((*it)->sent().toString("dd.MM.yyyy"));
-        item->setData(Qt::DisplayRole, QString::fromStdString((*it)->object()));
-        item->setData(Qt::DecorationRole, QPixmap("img/envelope12.png"));
-        item->setData(Qt::UserRole + 1, from);
-        item->setData(Qt::UserRole + 2, QString::fromStdString((*it)->body()));
-        item->setData(Qt::UserRole + 3, (*it)->isRead());
-        if((*it)->isRead())
-            item->setData(Qt::UserRole + 4, QPixmap("img/verification24.png"));
-        else mexcount++;
-        _listIn->addItem(item);
-    }
-    for(it = out.begin(); it != out.end(); ++it) {
-        QListWidgetItem* item = new QListWidgetItem;
-        QString from = QString("To: ").append(QString::fromStdString((*it)->receiver().login())).append(" ").append((*it)->sent().toString("dd.MM.yyyy"));
-        item->setData(Qt::DisplayRole, QString::fromStdString((*it)->object()));
-        item->setData(Qt::DecorationRole, QPixmap("img/envelope12.png"));
-        item->setData(Qt::UserRole + 1, from);
-        item->setData(Qt::UserRole + 2, QString::fromStdString((*it)->body()));
-        item->setData(Qt::UserRole + 3, 1);
-        _listOut->addItem(item);
-    }
+    _listIn->setContextMenuPolicy(Qt::CustomContextMenu);
+    connect(_listIn, SIGNAL(customContextMenuRequested(const QPoint&)), this, SLOT(delMenu(const QPoint&)));
+    createLists();
     rcv = unreadMex(mexcount);
     tab->addTab(_listIn, rcv);
     tab->addTab(_listOut, "Sent");
 
-    // portrait->setStyleSheet("background:#fff");
-    // _listIn->setStyleSheet("background:#ff0");
     addWidget(portrait, 0, 0, 1, 1, Qt::AlignTop);
     addWidget(tab, 0, 1, 1, 1);
     addWidget(_output, 0, 2, 1, -1);
@@ -85,7 +61,38 @@ Gui_Messages::Gui_Messages(LinqClient* cli, QWidget* parent) : QGridLayout(paren
     connect(_listIn, SIGNAL(clicked(QModelIndex)), this, SLOT(viewInMailBody()));
     connect(_listOut, SIGNAL(clicked(QModelIndex)), this, SLOT(viewOutMailBody()));
     connect(box, SIGNAL(clicked()), this, SLOT(sendMail()));
-    connect(box, SIGNAL(clicked()), this, SLOT(refreshMessages()));
+    connect(this, SIGNAL(modified()), this, SLOT(refreshMessages()));
+}
+
+void Gui_Messages::createLists() {
+    inm = _client->inMail();
+    list<SmartPtr<Message> > out = _client->outMail();
+    list<SmartPtr<Message> >::iterator it = inm.begin();
+    for( ; it != inm.end(); ++it) {
+        QListWidgetItem* item = new QListWidgetItem;
+        QString from = QString("From: ").append(QString::fromStdString((*it)->sender().login())).append(" ").append((*it)->sent().toString("dd.MM.yyyy"));
+        item->setData(Qt::DisplayRole, QString::fromStdString((*it)->object()));
+        item->setData(Qt::DecorationRole, QPixmap("img/envelope12.png"));
+        item->setData(Qt::UserRole + 1, from);
+        item->setData(Qt::UserRole + 2, QString::fromStdString((*it)->body()));
+        item->setData(Qt::UserRole + 3, (*it)->isRead());
+        item->setData(Qt::UserRole + 5, (*it)->sent());
+        item->setData(Qt::UserRole + 6, QString::fromStdString((*it)->sender().login()));
+        if((*it)->isRead())
+            item->setData(Qt::UserRole + 4, QPixmap("img/verification24.png"));
+        else mexcount++;
+        _listIn->addItem(item);
+    }
+    for(it = out.begin(); it != out.end(); ++it) {
+        QListWidgetItem* item = new QListWidgetItem;
+        QString from = QString("To: ").append(QString::fromStdString((*it)->receiver().login())).append(" ").append((*it)->sent().toString("dd.MM.yyyy"));
+        item->setData(Qt::DisplayRole, QString::fromStdString((*it)->object()));
+        item->setData(Qt::DecorationRole, QPixmap("img/envelope12.png"));
+        item->setData(Qt::UserRole + 1, from);
+        item->setData(Qt::UserRole + 2, QString::fromStdString((*it)->body()));
+        item->setData(Qt::UserRole + 3, 1);
+        _listOut->addItem(item);
+    }
 }
 
 void Gui_Messages::viewInMailBody() {
@@ -112,11 +119,13 @@ void Gui_Messages::sendMail() {
     QString obj = edt2->text();
     QString body = te->toPlainText();
     _client->sendMail(dest.toStdString(), obj.toStdString(), body.toStdString(), false);
-    emit messageSent();
+    emit modified();
 }
 
 void Gui_Messages::refreshMessages() {
-    std::cout << "refresh" << std::endl;
+    _listIn->clear();
+    _listOut->clear();
+    createLists();
 }
 
 QString Gui_Messages::unreadMex(int mc) {
@@ -124,4 +133,36 @@ QString Gui_Messages::unreadMex(int mc) {
     if(mc > 0)
         rcv.append(QString("(%1)").arg(mc));
     return rcv;
+}
+
+//SLOT
+void Gui_Messages::delMenu(const QPoint& pos) {
+    if(_listIn->item(_listIn->indexAt(pos).row())) {
+        QPoint globalPos = _listIn->mapToGlobal(pos);    // Map the global position to the userlist
+        QModelIndex t = _listIn->indexAt(pos);
+        _listIn->item(t.row())->setSelected(true);           // even a right click will select the item
+        string obj = _listIn->item(t.row())->data(Qt::DisplayRole).toString().toStdString();
+        string body = _listIn->item(t.row())->data(Qt::UserRole + 2).toString().toStdString();
+        string from = _listIn->item(t.row())->data(Qt::UserRole + 6).toString().toStdString();
+        string to = _client->username().login();
+        QDate sent, recv;
+        sent = recv = _listIn->item(t.row())->data(Qt::UserRole + 5).toDate();
+        std::cout << obj << " " << body << " " << from << " " << to << " " << sent.toString("dd.MM.yyyy").toStdString() << " " << recv.toString("dd.MM.yyyy").toStdString() << std::endl;
+        bool read = _listIn->item(t.row())->data(Qt::UserRole + 3).toBool();
+        _m_sel = new Message(Username(from, ""), Username(to, ""), obj, body, read, sent, recv);
+        QMenu myMenu;
+        myMenu.addAction("Delete", this, SLOT(deleteMessage()));
+        myMenu.exec(globalPos);
+    }
+}
+
+//SLOT
+void Gui_Messages::deleteMessage() {
+    try {
+        _client->deleteMessage(*_m_sel);
+        _client->save();
+        emit modified();
+    }catch (Error e) {
+        QMessageBox::critical(0, "Error occoured", QString::fromStdString(e.errorMessage()));
+    }
 }

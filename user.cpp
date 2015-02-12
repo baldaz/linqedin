@@ -81,6 +81,14 @@ void User::searchFunctor::operator()(const SmartPtr<User>& spu) {
                 }
             }
             else {
+                std::list<Group*> lg;
+                if(BusinessUser* bs = dynamic_cast<BusinessUser*> (&(*spu)))
+                    lg = bs->groups();
+                std::vector<string> g_names;
+                if(!lg.empty()) {
+                    for(std::list<Group*>::iterator g = lg.begin(); g != lg.end(); ++g)
+                        g_names.push_back(utilities::Utils::toLowerCase((*g)->name()));
+                }
                 if(uf) {
                     vector<string> skills = uf->skills();
                     vector<string>::iterator it = skills.begin();
@@ -89,7 +97,8 @@ void User::searchFunctor::operator()(const SmartPtr<User>& spu) {
                     string fullName = utilities::Utils::toLowerCase(uf->name() + " " + uf->surname());
                     if((utilities::Utils::toLowerCase(uf->name()) == _wanted ||
                        utilities::Utils::toLowerCase(uf->surname()) == _wanted ||
-                       fullName == _wanted || std::find(skills.begin(), skills.end(), _wanted) != skills.end()) && (spu->account()->username().login() != _caller->account()->username().login())){
+                       fullName == _wanted || std::find(skills.begin(), skills.end(), _wanted) != skills.end() ||
+                       std::find(g_names.begin(), g_names.end(), _wanted) != g_names.end()) && (spu->account()->username().login() != _caller->account()->username().login())){
                         _result.insert(std::pair<string, string>(spu->account()->username().login(), spu->showInfo() + "\n" + spu->net()->printHtml()));
                         spu->addVisit();
                         if(spu->account()->prLevel() == executive) {
@@ -100,9 +109,6 @@ void User::searchFunctor::operator()(const SmartPtr<User>& spu) {
                     }
                 }
             }
-        break;
-        default:
-            std::cout << "Schifo search" << std::endl;
         break;
     }
 }
@@ -218,6 +224,15 @@ void User::loadInMail(const Message& mex) {
 }
 void User::loadOutMail(const Message& mex) {
     _outMail.push_back(SmartPtr<Message> (const_cast<Message*> (&mex)));
+}
+void User::deleteMessage(const Message& m) throw(Error) {
+    bool found = false;
+    for(list<SmartPtr<Message> >::iterator it = _inMail.begin(); it != _inMail.end() && !found; ++it)
+        if(**it == m) {
+            _inMail.erase(it);
+            found = true;
+        }
+    if(!found) throw Error(mail, "Message not found");
 }
 list<SmartPtr<Message> > User::inMail() const {
     return _inMail;

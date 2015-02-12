@@ -19,8 +19,8 @@
 
 QT_BEGIN_MOC_NAMESPACE
 struct qt_meta_stringdata_Gui_Groups_t {
-    QByteArrayData data[9];
-    char stringdata[87];
+    QByteArrayData data[11];
+    char stringdata[103];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -30,17 +30,19 @@ struct qt_meta_stringdata_Gui_Groups_t {
 static const qt_meta_stringdata_Gui_Groups_t qt_meta_stringdata_Gui_Groups = {
     {
 QT_MOC_LITERAL(0, 0, 10),
-QT_MOC_LITERAL(1, 11, 9),
-QT_MOC_LITERAL(2, 21, 0),
-QT_MOC_LITERAL(3, 22, 8),
-QT_MOC_LITERAL(4, 31, 12),
-QT_MOC_LITERAL(5, 44, 8),
-QT_MOC_LITERAL(6, 53, 8),
-QT_MOC_LITERAL(7, 62, 11),
-QT_MOC_LITERAL(8, 74, 11)
+QT_MOC_LITERAL(1, 11, 7),
+QT_MOC_LITERAL(2, 19, 0),
+QT_MOC_LITERAL(3, 20, 7),
+QT_MOC_LITERAL(4, 28, 9),
+QT_MOC_LITERAL(5, 38, 8),
+QT_MOC_LITERAL(6, 47, 12),
+QT_MOC_LITERAL(7, 60, 8),
+QT_MOC_LITERAL(8, 69, 8),
+QT_MOC_LITERAL(9, 78, 11),
+QT_MOC_LITERAL(10, 90, 11)
     },
-    "Gui_Groups\0showGroup\0\0sendPost\0"
-    "showNewGroup\0newGroup\0addGroup\0"
+    "Gui_Groups\0created\0\0refresh\0showGroup\0"
+    "sendPost\0showNewGroup\0newGroup\0addGroup\0"
     "searchGroup\0deleteGroup\0"
 };
 #undef QT_MOC_LITERAL
@@ -51,23 +53,31 @@ static const uint qt_meta_data_Gui_Groups[] = {
        7,       // revision
        0,       // classname
        0,    0, // classinfo
-       7,   14, // methods
+       9,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
        0,       // flags
-       0,       // signalCount
+       1,       // signalCount
+
+ // signals: name, argc, parameters, tag, flags
+       1,    0,   59,    2, 0x06,
 
  // slots: name, argc, parameters, tag, flags
-       1,    0,   49,    2, 0x0a,
-       3,    0,   50,    2, 0x0a,
-       4,    0,   51,    2, 0x0a,
-       5,    0,   52,    2, 0x0a,
-       6,    0,   53,    2, 0x0a,
-       7,    0,   54,    2, 0x0a,
-       8,    0,   55,    2, 0x0a,
+       3,    0,   60,    2, 0x0a,
+       4,    0,   61,    2, 0x0a,
+       5,    0,   62,    2, 0x0a,
+       6,    0,   63,    2, 0x0a,
+       7,    0,   64,    2, 0x0a,
+       8,    0,   65,    2, 0x0a,
+       9,    0,   66,    2, 0x0a,
+      10,    0,   67,    2, 0x0a,
+
+ // signals: parameters
+    QMetaType::Void,
 
  // slots: parameters
+    QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
@@ -84,14 +94,25 @@ void Gui_Groups::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, 
     if (_c == QMetaObject::InvokeMetaMethod) {
         Gui_Groups *_t = static_cast<Gui_Groups *>(_o);
         switch (_id) {
-        case 0: _t->showGroup(); break;
-        case 1: _t->sendPost(); break;
-        case 2: _t->showNewGroup(); break;
-        case 3: _t->newGroup(); break;
-        case 4: _t->addGroup(); break;
-        case 5: _t->searchGroup(); break;
-        case 6: _t->deleteGroup(); break;
+        case 0: _t->created(); break;
+        case 1: _t->refresh(); break;
+        case 2: _t->showGroup(); break;
+        case 3: _t->sendPost(); break;
+        case 4: _t->showNewGroup(); break;
+        case 5: _t->newGroup(); break;
+        case 6: _t->addGroup(); break;
+        case 7: _t->searchGroup(); break;
+        case 8: _t->deleteGroup(); break;
         default: ;
+        }
+    } else if (_c == QMetaObject::IndexOfMethod) {
+        int *result = reinterpret_cast<int *>(_a[0]);
+        void **func = reinterpret_cast<void **>(_a[1]);
+        {
+            typedef void (Gui_Groups::*_t)();
+            if (*reinterpret_cast<_t *>(func) == static_cast<_t>(&Gui_Groups::created)) {
+                *result = 0;
+            }
         }
     }
     Q_UNUSED(_a);
@@ -122,14 +143,20 @@ int Gui_Groups::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 7)
+        if (_id < 9)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 7;
+        _id -= 9;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 7)
+        if (_id < 9)
             *reinterpret_cast<int*>(_a[0]) = -1;
-        _id -= 7;
+        _id -= 9;
     }
     return _id;
+}
+
+// SIGNAL 0
+void Gui_Groups::created()
+{
+    QMetaObject::activate(this, &staticMetaObject, 0, 0);
 }
 QT_END_MOC_NAMESPACE

@@ -104,7 +104,17 @@ string LinqClient::displayProfile() const {
     return profile;
 }
 string LinqClient::displayHtmlInfo() const {
-    return _usr->showInfo();
+    string ret = _usr->showInfo();
+    if(level() > basic) {
+        list<Group*> ls = listGroups();
+        if(ls.size() > 0) {
+            ret += "<h4>Groups</h4><ul style='font-weight:400'>";
+            for(list<Group*>::iterator j = ls.begin(); j != ls.end(); ++j)
+                ret += "<li>" + (*j)->name() + "</li>";
+            ret += "</ul>";
+        }
+    }
+    return ret;
 }
 string LinqClient::avatarFromUser(const Username& u) const {
     User* x = _db->find(u);
@@ -119,6 +129,9 @@ list<SmartPtr<User> > LinqClient::visitors() const {
     if(ExecutiveUser* p = dynamic_cast<ExecutiveUser*> (_usr))
         u = p->visitors();
     return u;
+}
+int LinqClient::userSimilarity(const SmartPtr<User>& u) const {
+    return _usr->similarity(u);
 }
 vector<SmartPtr<User> > LinqClient::similarity() const {
     return _usr->listPossibleLinks(*_db);
@@ -199,6 +212,13 @@ list<Group*> LinqClient::listGroups() const {
 list<Group*> LinqClient::listAllGroups() const {
     return _db->allGroups();
 }
+list<Group*> LinqClient::listUserGroups(const Username& u) const {
+    list<Group*> ret;
+    User* x = _db->find(u);
+    if(BusinessUser* bu = dynamic_cast<BusinessUser*> (x))
+        ret = bu->groups();
+    return ret;
+}
 list<Post*> LinqClient::listPostFromGroup(const Group& g) const {
     return _db->postsFromGroup(g);
 }
@@ -248,6 +268,9 @@ void LinqClient::sendMail(const string& dest, const string& obj, const string& b
     delete dst;
     delete mail;
 }
+void LinqClient::deleteMessage(const Message& m) {
+    _usr->deleteMessage(m);
+}
 int LinqClient::visitCount() const {
     return _usr->visitCount();
 }
@@ -257,9 +280,10 @@ void LinqClient::modifyInMail(const list<SmartPtr<Message> >& l) {
 void LinqClient::addPostToGroup(const Group& g, const Post& p) {
     _db->addPostToGroup(g, p);
 }
-void LinqClient::createNewGroup(const Group& g) {
+void LinqClient::createNewGroup(const Group& g) throw(Error) {
     if(dynamic_cast<ExecutiveUser*> (_usr))
         _db->addGroup(g);
+    else throw Error(permission, "You must be at least Executive privileged to create a group");
 }
 void LinqClient::addGroup(const Group& g) {
     if(BusinessUser* bu = dynamic_cast<BusinessUser*> (_usr)) {

@@ -62,7 +62,7 @@ void LinqAdmin::insertUser(User* newuser) {
 list<SmartPtr<User> > LinqAdmin::listUsers() const {
     return _db->db();
 }
-void LinqAdmin::insertUser(const string& username, const string& password, const map<string, string>& info) throw(Error) {
+void LinqAdmin::insertUser(const string& username, const string& password, privLevel plevel, const map<string, string>& info) throw(Error) {
     if(username.empty() || password.empty()) throw Error(missingField, "Username or password missing");
     string name = (info.find("name"))->second;
     string surname = info.find("surname")->second;
@@ -75,13 +75,23 @@ void LinqAdmin::insertUser(const string& username, const string& password, const
     try {
         Bio b(name, surname, email, address, phone, website, QDate::fromString(QString::fromStdString(birthdate), "dd.MM.yyyy"), bio);
         Username u(username, password);
-        Subscription s(basic);
+        Subscription s(plevel);
         CreditCard cd("N/A", "N/A");
         Payment p(&u, &s, &cd, true);
-        Account a(&b, u, basic);
+        Account a(&b, u, plevel);
         a.addPayment(p);
-        BasicUser nu(&a);
-        this->insertUser(&nu);
+        if(plevel == basic) {
+            BasicUser nu(&a);
+            this->insertUser(&nu);
+        }
+        else if(plevel == business) {
+            BusinessUser nu(&a);
+            this->insertUser(&nu);
+        }
+        else if(plevel == executive)  {
+            ExecutiveUser nu(&a);
+            this->insertUser(&nu);
+        }
     }catch(Error e) {throw;}
 }
 void LinqAdmin::removeUser(const Username& user) {

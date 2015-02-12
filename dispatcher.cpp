@@ -1,5 +1,6 @@
 #include "dispatcher.h"
 #include "info.h"
+#include <iostream>
 
 Dispatcher::~Dispatcher() {}
 string DispatcherHtml::dispatch(const UserInfo& info) const {
@@ -38,32 +39,32 @@ string DispatcherHtml::dispatch(const UserInfo& info) const {
     }
     list<Experience*> _exp = info.experiences();
     if(!_exp.empty()) {
-        html += "<h4><img src='img/graduate34.png'>  Educations</h4><p style='font-weight: 400; font-size:14px;'>";
+        html += "<h4><img src='img/graduate34.png'>  Educations</h4><ul style='font-weight: 400; font-size:14px;'>";
         list<Experience*>::const_iterator itr = _exp.begin();
         string jobs = "";
         bool job = false;
         for(; itr != _exp.end(); ++itr) {
             if((*itr)->type() == 0)
                 if(itr == _exp.end())
-                    html += (*itr)->role() + " at " + (*itr)->location() + " from " + (*itr)->from().toString("dd.MM.yyyy").toStdString() + " to " + (*itr)->to().toString("dd.MM.yyyy").toStdString();
+                    html += "<li>" + (*itr)->role() + " at " + (*itr)->location() + " from " + (*itr)->from().toString("dd.MM.yyyy").toStdString() + " to " + (*itr)->to().toString("dd.MM.yyyy").toStdString() + "</li>";
                 else
-                    html += (*itr)->role() + " at " + (*itr)->location() + " from " + (*itr)->from().toString("dd.MM.yyyy").toStdString() + " to " + (*itr)->to().toString("dd.MM.yyyy").toStdString() + "<br>";
+                    html += "<li>" + (*itr)->role() + " at " + (*itr)->location() + " from " + (*itr)->from().toString("dd.MM.yyyy").toStdString() + " to " + (*itr)->to().toString("dd.MM.yyyy").toStdString() + "</li>";
             else if((*itr)->type() == 1) {
                 job = true;
                 if(itr == _exp.end())
-                    jobs += (*itr)->role() + " at " + (*itr)->location() + " from " + (*itr)->from().toString("dd.MM.yyyy").toStdString() + " to " + (*itr)->to().toString("dd.MM.yyyy").toStdString();
+                    jobs += "<li>" + (*itr)->role() + " at " + (*itr)->location() + " from " + (*itr)->from().toString("dd.MM.yyyy").toStdString() + " to " + (*itr)->to().toString("dd.MM.yyyy").toStdString() + "</li>";
                 else
-                    jobs += (*itr)->role() + " at " + (*itr)->location() + " from " + (*itr)->from().toString("dd.MM.yyyy").toStdString() + " to " + (*itr)->to().toString("dd.MM.yyyy").toStdString() + "<br>";
+                    jobs += "<li>" + (*itr)->role() + " at " + (*itr)->location() + " from " + (*itr)->from().toString("dd.MM.yyyy").toStdString() + " to " + (*itr)->to().toString("dd.MM.yyyy").toStdString() + "</li>";
             }
         }
         if(job) {
-            html += "<h4><img src='img/work3.png'>  Job Experiences</h4><p style='font-weight: 400; font-size:14px;'>";
+            html += "</ul><h4><img src='img/work3.png'>  Job Experiences</h4><ul style='font-weight: 400; font-size:14px;'>";
             html += jobs;
         }
     }
-    html += "</p>";
+    html += "</ul>";
     if(!info.email().empty() || !info.telephon().empty() || !info.address().empty())
-        html += "<h4><img src='img/business133.png'>  Contacts</h4><p style='font-weight: 400; font-size:14px'>" + info.email() + " &nbsp;&nbsp;<a style='color:#4782EC;' href='#'>" + info.website() + "</a><br> Telephon  " + info.telephon() + "</p>";
+        html += "<h4><img src='img/business133.png'>  Contacts</h4><p style='font-weight: 400; font-size:14px'>E-mail: " + info.email() + " &nbsp;&nbsp;<br>Website: <a style='color:#4782EC;' href='#'>" + info.website() + "</a><br> Telephon: " + info.telephon() + "</p>";
     return html;
 }
 
@@ -103,32 +104,32 @@ string DispatcherHtml::dispatch(const Bio& bio) const {
     }
     list<Experience*> _exp = bio.experiences();
     if(!_exp.empty()) {
-        html += "<h4><img src='img/graduate34.png'>  Educations</h4><p style='font-weight: 400; font-size:14px;'>";
+        html += "<h4><img src='img/graduate34.png'>  Educations</h4><ul style='font-weight: 400; font-size:14px;'>";
         list<Experience*>::const_iterator itr = _exp.begin();
         string jobs = "";
         bool job = false;
         for(; itr != _exp.end(); ++itr) {
             if((*itr)->type() == 0)
                 if(itr == _exp.end())
-                    html += (*itr)->role() + " at " + (*itr)->location() + " from " + (*itr)->from().toString("dd.MM.yyyy").toStdString() + " to " + (*itr)->to().toString("dd.MM.yyyy").toStdString();
+                    html += "<li>" + (*itr)->role() + " at " + (*itr)->location() + " from " + (*itr)->from().toString("dd.MM.yyyy").toStdString() + " to " + (*itr)->to().toString("dd.MM.yyyy").toStdString() + "</li>";
                 else
-                    html += (*itr)->role() + " at " + (*itr)->location() + " from " + (*itr)->from().toString("dd.MM.yyyy").toStdString() + " to " + (*itr)->to().toString("dd.MM.yyyy").toStdString() + "<br>";
+                    html += "<li>" + (*itr)->role() + " at " + (*itr)->location() + " from " + (*itr)->from().toString("dd.MM.yyyy").toStdString() + " to " + (*itr)->to().toString("dd.MM.yyyy").toStdString() + "</li>";
             else if((*itr)->type() == 1) {
                 job = true;
                 if(itr == _exp.end())
-                    jobs += (*itr)->role() + " at " + (*itr)->location() + " from " + (*itr)->from().toString("dd.MM.yyyy").toStdString() + " to " + (*itr)->to().toString("dd.MM.yyyy").toStdString();
+                    jobs += "<li>" + (*itr)->role() + " at " + (*itr)->location() + " from " + (*itr)->from().toString("dd.MM.yyyy").toStdString() + " to " + (*itr)->to().toString("dd.MM.yyyy").toStdString() + "</li>";
                 else
-                    jobs += (*itr)->role() + " at " + (*itr)->location() + " from " + (*itr)->from().toString("dd.MM.yyyy").toStdString() + " to " + (*itr)->to().toString("dd.MM.yyyy").toStdString() + "<br>";
+                    jobs += "<li>" + (*itr)->role() + " at " + (*itr)->location() + " from " + (*itr)->from().toString("dd.MM.yyyy").toStdString() + " to " + (*itr)->to().toString("dd.MM.yyyy").toStdString() + "</li>";
             }
         }
         if(job) {
-            html += "<h4><img src='img/work3.png'>  Job Experiences</h4><p style='font-weight: 400; font-size:14px;'>";
+            html += "</ul><h4><img src='img/work3.png'>  Job Experiences</h4><ul style='font-weight: 400; font-size:14px;'>";
             html += jobs;
         }
     }
-    html += "</p>";
+    html += "</ul>";
     if(!bio.email().empty() || !bio.telephon().empty() || !bio.address().empty())
-        html += "<h4><img src='img/business133.png'>  Contacts</h4><p style='font-weight: 400; font-size:14px'>" + bio.email() + " &nbsp;&nbsp;<a style='color:#4782EC;' href='#'>" + bio.website() + "</a><br> Telephon  " + bio.telephon() + "</p>";
+        html += "<h4><img src='img/business133.png'>  Contacts</h4><p style='font-weight: 400; font-size:14px'>E-mail: " + bio.email() + " &nbsp;&nbsp;<br>Website: <a style='color:#4782EC;' href='#'>" + bio.website() + "</a><br> Telephon: " + bio.telephon() + "</p>";
     if(!(bio.bio()).empty()) {
         html += "<h4><img src='img/user91.png'> Short Summary</h4>";
         html += "<p style='font-weight:400'>" + bio.bio() + "</p>";

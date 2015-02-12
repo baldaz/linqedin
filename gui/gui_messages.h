@@ -24,16 +24,20 @@ private:
     QTextEdit* te;
     int mexcount;
     QString rcv;
+    Message* _m_sel;
 
     QString unreadMex(int);
+    void createLists();
 public:
     explicit Gui_Messages(LinqClient*, QWidget* parent = 0);
 signals:
-    void messageSent();
+    void modified();
 public slots:
     void viewInMailBody();
     void viewOutMailBody();
     void sendMail();
     void refreshMessages();
+    void delMenu(const QPoint&);
+    void deleteMessage();
 };
 #endif

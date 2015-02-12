@@ -1,4 +1,5 @@
 #include "gui_groups.h"
+#include <QMessageBox>
 
 Gui_Groups::Gui_Groups(LinqClient* c, QWidget* parent) : QGridLayout(parent), _client(c) {
     Gui_Avatar* portrait = new Gui_Avatar(QString::fromStdString(_client->avatar()));
@@ -19,30 +20,17 @@ Gui_Groups::Gui_Groups(LinqClient* c, QWidget* parent) : QGridLayout(parent), _c
     newgrplayout->addRow(create);
 
     newbox->setLayout(newgrplayout);
-    newbox->hide();
+    if(_client->level() < executive) newbox->hide();
 
     search->setPlaceholderText("Search group..");
     search->hide();
-    if(_client->level() >= business) {
-        QStringList completions;
-        list<Group*> grps = _client->listAllGroups();
-        if(!grps.empty()) {
-            list<Group*>::iterator it = grps.begin();
-            for(; it != grps.end(); ++it)
-                completions.push_back(QString::fromStdString((*it)->name()));
-        }
-        QCompleter* completer = new QCompleter(completions, this);
-        completer->setCaseSensitivity(Qt::CaseInsensitive);
-        search->setCompleter(completer);
-        search->setClearButtonEnabled(true);
-        search->show();
-        connect(search,  SIGNAL(returnPressed()), this, SLOT(searchGroup()));
-    }
+    connect(search,  SIGNAL(returnPressed()), this, SLOT(searchGroup()));
 
     post = new QPushButton("POST");
     grplist = new QListWidget;
     QLabel* grplbl = new QLabel("Groups");
     grplbl->setMaximumSize(120,20);
+    createGroups();
     QFormLayout* frm = new QFormLayout;
     mbuttons[0] = new QPushButton;
     mbuttons[0]->setIcon(QPixmap("img/document185.png"));
@@ -83,16 +71,6 @@ Gui_Groups::Gui_Groups(LinqClient* c, QWidget* parent) : QGridLayout(parent), _c
     post->hide();
     showgrp->hide();
 
-    list<Group*> g = _client->listGroups();
-    QString out;
-    for(list<Group*>::iterator it = g.begin(); it != g.end(); ++it) {
-       QListWidgetItem* item = new QListWidgetItem;
-       item->setData(Qt::DisplayRole, QString::fromStdString((*it)->name()));
-       item->setData(Qt::UserRole + 1, QString::fromStdString((*it)->admin().login()));
-       item->setData(Qt::UserRole + 2, QString::fromStdString((*it)->description()));
-       grplist->addItem(item);
-    }
-
     // addWidget(tbar, 5, 1, 1, 1);
     addWidget(newbox, 0, 1, 1, 1);
     addWidget(portrait, 0, 0, 1, 1, Qt::AlignTop);
@@ -110,6 +88,40 @@ Gui_Groups::Gui_Groups(LinqClient* c, QWidget* parent) : QGridLayout(parent), _c
     // setColumnStretch(2, 3);
     connect(grplist, SIGNAL(clicked(QModelIndex)), this, SLOT(showGroup()));
     connect(post, SIGNAL(clicked()), this, SLOT(sendPost()));
+    connect(this, SIGNAL(created()), this, SLOT(refresh()));
+}
+
+void Gui_Groups::createGroups() {
+    if(_client->level() >= business) {
+        QStringList completions;
+        list<Group*> grps = _client->listAllGroups();
+        if(!grps.empty()) {
+            list<Group*>::iterator it = grps.begin();
+            for(; it != grps.end(); ++it)
+                completions.push_back(QString::fromStdString((*it)->name()));
+        }
+        QCompleter* completer = new QCompleter(completions, this);
+        completer->setCaseSensitivity(Qt::CaseInsensitive);
+        search->setCompleter(completer);
+        search->setClearButtonEnabled(true);
+        search->show();
+    }
+    list<Group*> g = _client->listGroups();
+    QString out;
+    for(list<Group*>::iterator it = g.begin(); it != g.end(); ++it) {
+       QListWidgetItem* item = new QListWidgetItem;
+       item->setData(Qt::DisplayRole, QString::fromStdString((*it)->name()));
+       item->setData(Qt::UserRole + 1, QString::fromStdString((*it)->admin().login()));
+       item->setData(Qt::UserRole + 2, QString::fromStdString((*it)->description()));
+       grplist->addItem(item);
+    }
+}
+
+//SLOT
+void Gui_Groups::refresh() {
+    grplist->clear();
+    createGroups();
+
 }
 
 //SLOT
@@ -166,6 +178,8 @@ void Gui_Groups::showNewGroup() {
     newpost->hide();
     post->hide();
     newbox->show();
+    mbuttons[1]->hide();
+    mbuttons[2]->hide();
 }
 
 //SLOT
@@ -173,15 +187,27 @@ void Gui_Groups::newGroup() {
     QString name = grpname->text();
     QString desc = newgrp->text();
     Group g(_client->username(), name.toStdString(), desc.toStdString());
-    _client->createNewGroup(g);
-    _client->save();
+    try {
+        _client->createNewGroup(g);
+        _client->save();
+        QMessageBox::information(0, "Operation succesful", "Group \"" + name + " \" successfully created");
+        emit created();
+    }catch(Error e) {
+        QMessageBox::critical(0, "Error occoured", QString::fromStdString(e.errorMessage()));
+    }
 }
 
 //SLOT
 void Gui_Groups::addGroup() {
     QString name = showgrp->info1();
     QString admin = showgrp->info2();
-    _client->addGroup(name.toStdString(), admin.toStdString());
+    try {
+        _client->addGroup(name.toStdString(), admin.toStdString());
+        _client->save();
+        emit created();
+    }catch(Error e) {
+        QMessageBox::critical(0, "Error occoured", QString::fromStdString(e.errorMessage()));
+    }
 }
 
 //SLOT
@@ -220,5 +246,11 @@ void Gui_Groups::searchGroup() {
 void Gui_Groups::deleteGroup() {
     QString name = showgrp->info1();
     QString admin = showgrp->info2();
-    _client->deleteGroup(name.toStdString(), admin.toStdString());
+    try {
+        _client->deleteGroup(name.toStdString(), admin.toStdString());
+        _client->save();
+        emit created();
+    }catch(Error e) {
+        QMessageBox::critical(0, "Error occoured", QString::fromStdString(e.errorMessage()));
+    }
 }

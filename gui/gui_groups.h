@@ -33,9 +33,14 @@ private:
     enum {numTbuttons = 5};
     QToolButton* tbuttons[numTbuttons];
     QPushButton* mbuttons[numTbuttons];
+
+    void createGroups();
 public:
     Gui_Groups(LinqClient*, QWidget* = 0);
+signals:
+    void created();
 public slots:
+    void refresh();
     void showGroup();
     void sendPost();
     void showNewGroup();

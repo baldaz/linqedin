@@ -9,8 +9,6 @@ Gui_Overview::Gui_Overview(LinqClient* cli, QWidget* parent) : QGridLayout(paren
     portrait = new Gui_Avatar(QString::fromStdString(_client->avatar()));
     QLabel* links = new QLabel(tr("Connections (%1)").arg(_client->netSize()));
     links->setMaximumSize(120,20);
-    // QLabel* mayk = new QLabel(tr("People you could know"));
-    // mayk->setMaximumSize(130, 20);
 
     toolbar = new QToolBar;
     toolButtons[0] = new QToolButton(toolbar);
@@ -45,7 +43,6 @@ Gui_Overview::Gui_Overview(LinqClient* cli, QWidget* parent) : QGridLayout(paren
     this->addWidget(portrait, 0, 0, 1, 1, Qt::AlignTop);
     this->addWidget(dispInfo, 0, 1, 3, 1); /* 0 1 4 2*/
     this->addWidget(links, 1, 0, 1, 1);
-    // addWidget(mayk, 0, 2, 1, 3);
     this->addWidget(_links, 2, 0, 1, 1);
     this->addWidget(_search, 3, 0, 1, 1);
     this->addWidget(toolbar, 3, 1, 1, 1, Qt::AlignCenter);
@@ -68,6 +65,13 @@ void Gui_Overview::viewLink() {
     _client->addVisitTo(Username(lnk.toStdString(), ""));
     portrait->setPath(pth);
     dispInfo->setInfo1(lnk);
+    list<Group*> ls = _client->listUserGroups(Username(lnk.toStdString(), ""));
+    if(ls.size() > 0) {
+        sel.append("<h4>Groups</h4><ul style='font-weight:400'>");
+        for(list<Group*>::iterator j = ls.begin(); j != ls.end(); ++j)
+            sel += "<li>" + QString::fromStdString((*j)->name()) + "</li>";
+        sel.append("</ul>");
+    }
     dispInfo->setHtml(sel);
     if(toolbar->isHidden()) toolbar->show();
     if(toolbar->actions().at(0)->isVisible()) toolbar->actions().at(0)->setVisible(false);
@@ -146,11 +150,18 @@ void Gui_Overview::showSearchResult() {
         if(res.size() > 1 && it != res.end()) toolbar->actions().at(2)->setVisible(true);
         else toolbar->actions().at(2)->setVisible(false);
         QString htmloutput = QString("<span style='color: #666'>( " + QString::fromStdString(it->first) + " )</span>" + QString::fromStdString(it->second));
+        std::list<Group*> lsg = _client->listUserGroups(Username(it->first, ""));
+        if(lsg.size() > 0) {
+            htmloutput.append("<h4>Groups</h4><ul style='font-weight:400'>");
+            for(std::list<Group*>::iterator j = lsg.begin(); j != lsg.end(); ++j)
+                htmloutput += "<li>" + QString::fromStdString((*j)->name()) + "</li>";
+            htmloutput.append("</ul>");
+        }
         dispInfo->setHtml(htmloutput);
         portrait->setPath(QString::fromStdString(_client->avatarFromUser(Username(it->first, ""))));
     }
     else {
-        dispInfo->setHtml("<h2>Fine</h2>");
+        dispInfo->setHtml("<h2>End</h2>");
         toolbar->actions().at(2)->setVisible(false);
     }
 }
@@ -215,6 +226,13 @@ void Gui_Overview::viewContact() {
         map<string, string> _contacts = _client->find(sel.toStdString());
         map<string, string>::iterator it = _contacts.begin();
         QString output = QString(QString::fromStdString(it->second));
+        std::list<Group*> lsg = _client->listUserGroups(Username(it->first, ""));
+        if(lsg.size() > 0) {
+            output.append("<h4>Groups</h4><ul style='font-weight:400'>");
+            for(std::list<Group*>::iterator j = lsg.begin(); j != lsg.end(); ++j)
+                output += "<li>" + QString::fromStdString((*j)->name()) + "</li>";
+            output.append("</ul>");
+        }
         dispInfo->setHtml(output);
         portrait->setPath(QString::fromStdString(_client->avatarFromUser(Username(it->first, ""))));
         QString title = QString(QString::fromStdString(it->first));

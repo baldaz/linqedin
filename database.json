@@ -107,6 +107,16 @@
             "name": "Seagal's Raiders",
             "posts": [
             ]
+        },
+        {
+            "admin": "Casey",
+            "description": "seagal",
+            "members": [
+                "Casey"
+            ],
+            "name": "Seagal's enterprise",
+            "posts": [
+            ]
         }
     ],
     "users": [
@@ -600,6 +610,15 @@
                     "recv": "24.01.2015",
                     "sender": "Baldaz",
                     "sent": "24.01.2015"
+                },
+                {
+                    "body": "si va",
+                    "object": "yee",
+                    "read": true,
+                    "receiver": "Casey",
+                    "recv": "12.02.2015",
+                    "sender": "Willg",
+                    "sent": "12.02.2015"
                 }
             ],
             "interests": [
@@ -780,16 +799,6 @@
             ],
             "jobs": [
             ],
-            "keywords": [
-                "daibo",
-                "daibo",
-                "knives",
-                "knives",
-                "knives",
-                "knives",
-                "knives",
-                "ninjitsu"
-            ],
             "languages": [
                 "Italian",
                 "English",
@@ -828,9 +837,7 @@
                 "Knives"
             ],
             "username": "Danny",
-            "visitcount": 8,
-            "visitors": [
-            ]
+            "visitcount": 8
         },
         {
             "avatar": "img/port2.jpg",
@@ -874,13 +881,6 @@
             ],
             "jobs": [
             ],
-            "keywords": [
-                "knives",
-                "knives",
-                "knives",
-                "knives",
-                "knives"
-            ],
             "languages": [
                 "Italian",
                 "English",
@@ -917,9 +917,7 @@
                 "Surgery"
             ],
             "username": "Hannibal",
-            "visitcount": 5,
-            "visitors": [
-            ]
+            "visitcount": 5
         },
         {
             "avatar": "img/port2.jpg",
@@ -950,11 +948,20 @@
                 {
                     "body": "Dovrebbe funzionare.",
                     "object": "Dei che ndemo!",
-                    "read": false,
+                    "read": true,
                     "receiver": "Willg",
                     "recv": "10.02.2015",
                     "sender": "Casey",
                     "sent": "10.02.2015"
+                },
+                {
+                    "body": "Upgrade requested succesfully approved.",
+                    "object": "Upgrade request",
+                    "read": false,
+                    "receiver": "Willg",
+                    "recv": "12.02.2015",
+                    "sender": "Linqedin",
+                    "sent": "12.02.2015"
                 }
             ],
             "interests": [
@@ -968,13 +975,6 @@
             ],
             "jobs": [
             ],
-            "keywords": [
-                "knives",
-                "knives",
-                "knives",
-                "knives",
-                "knives"
-            ],
             "languages": [
                 "Italian"
             ],
@@ -984,6 +984,15 @@
                 "Hannibal"
             ],
             "outmail": [
+                {
+                    "body": "si va",
+                    "object": "yee",
+                    "read": true,
+                    "receiver": "Casey",
+                    "recv": "12.02.2015",
+                    "sender": "Willg",
+                    "sent": "12.02.2015"
+                }
             ],
             "password": "graham",
             "payments": [
@@ -995,23 +1004,21 @@
                     "nominee": "N/A"
                 },
                 {
-                    "appdate": "",
-                    "approved": false,
+                    "appdate": "12.02.2015",
+                    "approved": true,
                     "code": "0123123",
                     "level": 1,
                     "nominee": "Will Graham"
                 }
             ],
-            "privilege": 0,
+            "privilege": 1,
             "skills": [
                 "Knives",
                 "Literature",
                 "Surgery"
             ],
             "username": "Willg",
-            "visitcount": 6,
-            "visitors": [
-            ]
+            "visitcount": 6
         },
         {
             "avatar": "img/port2.jpg",

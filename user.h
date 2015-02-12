@@ -69,6 +69,7 @@ public:
     vector<SmartPtr<User> > listPossibleLinks(const LinqDB&) const;
     virtual map<string, string> userSearch(const LinqDB&, const string&) const =0;
     virtual void sendMessage(const Message&) =0;
+    void deleteMessage(const Message&) throw(Error);
     void loadInMail(const Message&);
     void loadOutMail(const Message&);
     list<SmartPtr<Message> > inMail() const;
