@@ -10,6 +10,8 @@ Gui_Groups::Gui_Groups(LinqClient* c, QWidget* parent) : QGridLayout(parent), _c
     newgrp = new QLineEdit;
     search = new QLineEdit;
     newbox = new QGroupBox;
+    memlbl = new QLabel("Members");
+    memlbl->setMaximumSize(80,20);
 
     grpname = new QLineEdit;
     newgrplayout = new QFormLayout;
@@ -28,6 +30,7 @@ Gui_Groups::Gui_Groups(LinqClient* c, QWidget* parent) : QGridLayout(parent), _c
 
     post = new QPushButton("POST");
     grplist = new QListWidget;
+    memlist = new QListWidget;
     QLabel* grplbl = new QLabel("Groups");
     grplbl->setMaximumSize(120,20);
     createGroups();
@@ -70,8 +73,9 @@ Gui_Groups::Gui_Groups(LinqClient* c, QWidget* parent) : QGridLayout(parent), _c
     newpost->hide();
     post->hide();
     showgrp->hide();
+    memlbl->hide();
+    memlist->hide();
 
-    // addWidget(tbar, 5, 1, 1, 1);
     addWidget(newbox, 0, 1, 1, 1);
     addWidget(portrait, 0, 0, 1, 1, Qt::AlignTop);
     addWidget(showgrp, 0, 1, 3, 1);
@@ -80,7 +84,9 @@ Gui_Groups::Gui_Groups(LinqClient* c, QWidget* parent) : QGridLayout(parent), _c
     addWidget(post, 4, 4, 1, 1, Qt::AlignRight);
     addWidget(grplbl, 1, 0, 1, 1);
     addWidget(grplist, 2, 0, 1, 1);
-    addWidget(search, 4, 0, 1, 1);
+    addWidget(memlbl, 3, 0, 1, 1);
+    addWidget(memlist, 4, 0, 1, 1);
+    addWidget(search, 5, 0, 1, 1);
     setRowStretch(0, 0);
     setRowStretch(1, 10);
     setColumnStretch(0, 1);
@@ -117,6 +123,28 @@ void Gui_Groups::createGroups() {
     }
 }
 
+void Gui_Groups::createMemList(const string& gname) {
+    memlist->clear();
+    Group g = _client->findGroup(gname);
+    list<SmartPtr<User> > mb = g.members();
+    for(list<SmartPtr<User> >::iterator it = mb.begin(); it != mb.end(); ++it) {
+        QListWidgetItem* item = new QListWidgetItem;
+        QString link;
+        if((*it)->account()->username().login() != _client->username().login()) {
+            if(UserInfo* uf = dynamic_cast<UserInfo*> ((*it)->account()->info())) {
+                link = QString::fromStdString(uf->name()) + " " + QString::fromStdString(uf->surname());
+                if((*it)->account()->username().login() == g.admin().login()) link += " - A";
+            }
+            item->setData(Qt::DisplayRole, link);
+            item->setData(Qt::UserRole + 2, QString::fromStdString((*it)->account()->username().login()));
+            if(_client->linked((*it)->account()->username()))
+                item->setData(Qt::DecorationRole, QPixmap("img/link63.png"));
+            else item->setData(Qt::DecorationRole, QPixmap("img/link19.png"));
+            memlist->addItem(item);
+        }
+    }
+}
+
 //SLOT
 void Gui_Groups::refresh() {
     grplist->clear();
@@ -130,7 +158,10 @@ void Gui_Groups::showGroup() {
     showgrp->show();
     newpost->show();
     post->show();
+    memlbl->show();
     name = grplist->currentItem()->data(Qt::DisplayRole).toString();
+    createMemList(name.toStdString());
+    memlist->show();
     desc = grplist->currentItem()->data(Qt::UserRole + 2).toString();
     admin = grplist->currentItem()->data(Qt::UserRole + 1).toString();
     if(admin == QString::fromStdString(_client->username().login()) /*&& mbuttons[1]->isHidden() && mbuttons[2]->isHidden()*/) {
@@ -177,6 +208,8 @@ void Gui_Groups::showNewGroup() {
     showgrp->hide();
     newpost->hide();
     post->hide();
+    memlbl->hide();
+    memlist->hide();
     newbox->show();
     mbuttons[1]->hide();
     mbuttons[2]->hide();

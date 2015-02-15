@@ -20,7 +20,9 @@ class Gui_Groups : public QGridLayout {
 private:
     LinqClient* _client;
     Gui_DisplayInfo* showgrp;
+    QLabel* memlbl;
     QListWidget* grplist;
+    QListWidget* memlist;
     QTextEdit* newpost;
     QLineEdit* newgrp;
     QLineEdit* grpname;
@@ -35,6 +37,7 @@ private:
     QPushButton* mbuttons[numTbuttons];
 
     void createGroups();
+    void createMemList(const string&);
 public:
     Gui_Groups(LinqClient*, QWidget* = 0);
 signals:

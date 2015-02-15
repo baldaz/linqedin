@@ -13,10 +13,12 @@ Gui_Login::Gui_Login(QWidget* parent) : QDialog(parent) {
     passw->setEchoMode(QLineEdit::Password);
     passw->installEventFilter(this);
     splash->setPixmap(QPixmap("img/linked5.png"));
-    buttonBox = new QDialogButtonBox(QDialogButtonBox::Ok | QDialogButtonBox::Cancel);
+    buttonBox = new QDialogButtonBox;
     QPushButton* quit = new QPushButton;
-    // QPushButton* login = new QPushButton("&Login");
-    // QPushButton* reg = new QPushButton("&Register");
+    QPushButton* login = new QPushButton("&Login");
+    QPushButton* reg = new QPushButton("&Register");
+    buttonBox->addButton(login, QDialogButtonBox::AcceptRole);
+    buttonBox->addButton(reg, QDialogButtonBox::RejectRole);
 
     quit->setIcon(QPixmap("img/prohibited1.png"));
     connect(quit, SIGNAL(clicked()), this, SLOT(close()));
@@ -52,8 +54,8 @@ void Gui_Login::resizeEvent(QResizeEvent* event) {
 
 //SLOT
 void Gui_Login::onClicked(QAbstractButton* button) {
-    QDialogButtonBox::StandardButton btn = buttonBox->standardButton(button);
-    if(btn == QDialogButtonBox::Ok) {
+    QDialogButtonBox::ButtonRole btn = buttonBox->buttonRole(button);
+    if(btn == QDialogButtonBox::AcceptRole) {
         bool log = true;
         QString us = uname->text();
         QString pw = passw->text();
