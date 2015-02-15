@@ -90,17 +90,17 @@ void LinqDB::read(const QJsonArray& qjs) {
         // spostare messaggi su heap
         for(int i = 0; i < outmail.size(); ++i) {
             out = outmail[i].toObject();
-            if(QDate::fromString(out["sent"].toString(), "dd.MM.yyyy").month() == QDate::currentDate().month()) {
-                Message* mex = new Message(usr, Username(out["receiver"].toString().toStdString(), ""), out["object"].toString().toStdString(), out["body"].toString().toStdString(), true, QDate::fromString(out["sent"].toString(), "dd.MM.yyyy"), QDate::fromString(out["recv"].toString(), "dd.MM.yyyy"));
-                s->loadOutMail(*mex);    // add to outmail
-                delete mex;
+            if(QDate::fromString(out["sent"].toString(), "dd.MM.yyyy").month() == QDate::currentDate().month() && QDate::fromString(out["sent"].toString(), "dd.MM.yyyy").year() == QDate::currentDate().year()) {
+                Message mex(usr, Username(out["receiver"].toString().toStdString(), ""), out["object"].toString().toStdString(), out["body"].toString().toStdString(), true, QDate::fromString(out["sent"].toString(), "dd.MM.yyyy"), QDate::fromString(out["recv"].toString(), "dd.MM.yyyy"));
+                s->loadOutMail(mex);    // add to outmail
+                // delete mex;
             }
         }
         for(int i = 0; i < inmail.size(); ++i) {
             in = inmail[i].toObject();
-            Message* mex = new Message(Username(in["sender"].toString().toStdString(), ""), usr, in["object"].toString().toStdString(), in["body"].toString().toStdString(), in["read"].toBool(), QDate::fromString(in["sent"].toString(), "dd.MM.yyyy"), QDate::fromString(in["recv"].toString(), "dd.MM.yyyy"));
-            s->loadInMail(*mex);// add to inmail
-            delete mex;
+            Message mex(Username(in["sender"].toString().toStdString(), ""), usr, in["object"].toString().toStdString(), in["body"].toString().toStdString(), in["read"].toBool(), QDate::fromString(in["sent"].toString(), "dd.MM.yyyy"), QDate::fromString(in["recv"].toString(), "dd.MM.yyyy"));
+            s->loadInMail(mex);// add to inmail
+            // delete mex;
         }
         addUser(s);
         delete info;

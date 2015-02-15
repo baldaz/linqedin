@@ -1,0 +1,15 @@
+\subsection*{Gestione dati}
+A livello logico la gestione dei dati è prerogativa esclusiva della classe \textit{LinqDB}, essa si occupa della lettura e scrittura dei dati
+su file permanente in memoria, è il primo oggetto ad essere allocato all'avvio dell'applicazione e si occupa di popolare la struttura di
+LinQedin in ram, rappresentata da una lista di puntatori smart alla classe base polimorfa \textit{User}, mediante metodi privati di lettura
+richiamati dal metodo pubblico \textit{LinqDB::load()} e al salvataggio di eventuali modifiche mediante metodi privati di scrittura richiamati
+dal metodo pubblico costante \textit{LinqDB::save()}.
+La scelta di una lista come contenitore è dettata dal fatto che sia l'inserimento in coda che un eventuale rimozione risultano costanti in tempo O(1),
+rispetto piuttosto ad un vector che richiederebbe il ridimensionamento per l'eliminazione di un oggetto, mentre l'utilizzo di contenitori associativi
+quali set o map sarebbe risultato superfluo e inadatto allo scopo.
+In caricamento o salvataggio dei dati, se non presente, un file viene automaticamente generato, l'operazione di salvataggio si occupa di sovrascrivere
+i dati ad ogni chiamata del metodo, a prescindere che vi siano state eventuali modifiche o meno ai dati in ram.
+\subsubsection*{Il database}
+Per il salvataggio permanente dei dati in LinQedin è stato scelto di utilizzare il formato JSON, piuttosto semplice da gestire grazie alle
+nuove librerie inserite nel framework Qt dalla versione 5 in poi, risulta inoltre più intuitivo e meno verboso di XML, più semplice e leggero
+di un database SQlite e di facile interfacciamento per un eventuale integrazione online mediante javascript e altri linguaggi web.

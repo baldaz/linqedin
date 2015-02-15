@@ -27,4 +27,7 @@ La radice contiene il file \textit{linqedin.pro} generato con il comando qmake, 
 I sorgenti e gli headers della parte logica si trovano all'interno del percorso /logic, mentre /gui contiene tutti i sorgenti Qt adibiti all'interfaccia grafica.
 Alcune direttive grafiche sono state inserite in un file \textit{style.qss} nella cartella /style, la directory /img contiene invece tutte le immagini necessarie all'interfaccia grafica.
 Nel caso si renda necessario rigenerare il file \textit{.pro} con il comando qmake-qt532 -project si dovrà aggiungere la seguente istruzione all'interno del \textit{.pro} generato: \textit{greaterThan(QT\_MAJOR\_VERSION, 4): QT += widgets}.
+\include{user}
+\include{account}
+\include{db}
 \end{document}

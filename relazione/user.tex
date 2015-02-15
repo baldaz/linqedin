@@ -1,0 +1,26 @@
+\subsection*{Gerarchia Utenti}
+La gerarchia degli utenti LinQedin è stata implementata perlopiù seguendo le linee guida offerte dal Prof. Ranzato salvo alcune personalizzazioni.
+Un utente è formato da un account, da una rete di collegamenti e da un campo intero che funge da contavisite, possiede inoltre due classi interne
+incapsulate nella parte privata di esclusivo utilizzo dell'oggetto \textit{User}, esse rappresentano due funtori utilizzati per funzionalità di
+ricerca e utilità, infine è formato da due vettori contenti dei puntatori smart a messaggi, rappresentanti posta in entrata e posta in uscita, la cui capacità
+è limitata dal grado di privilegio dell'utente.
+Il campo dati account è un puntatore ad un istanza di \textit{Account} che rappresenta l'account associato all'utente, comprensivo di informazioni
+personali, livello di privilegio e pagamenti dell'utente associato; mentre il campo dati \textit{net} è un puntatore ad un oggetto \textit{LinqNet},
+costituito da una list di smartpointer a classe base \textit{User} con metodi di aggiunta e rimozione.
+La classe base è astratta in quanto possiede alcuni metodi virtuali puri, è estesa \lq\lq a cascata \rq\rq da altre 3 classi, che rappresentano
+i livelli di privilegio all'interno di LinQedin.
+\subsubsection*{Basic User}
+Utente di livello base, possiede funzionalità comuni a tutti gli utenti come aggiunta e rimozione collegamenti dalla propria rete, l'override del metodo
+di ricerca permette un massimo di 50 risultati e non restituisce alcuna informazione aggiuntiva sui target di ricerca se non la loro effettiva
+presenza all'interno de database LinQedin, l'invio dei messaggi mediante override del metodo \textit{BasicUser::sendMessage(const Username\&)} è limitato a 10 al mese.
+\subsubsection*{Business User}
+Un utente business possiede tutte le funzionalità di un utente basic, inoltre ha la possibilità di effettuare una ricerca più accurata ottenendo informazioni sui target di ricerca,
+il limite è aumentato a 100 risultati e ha la facoltà di iscriversi in gruppi, sezioni di LinQedin amministrate da account Executive dove è possibile creare discussioni o
+semplicemente dei post informativi / proposte lavorative. Implementa inoltre una funzionalità \lq\lq passiva \rq\rq, ossia una lista di utenti suggeriti da un algoritmo di
+confronto che valuta la somiglianza tra account mediante alcuni criteri, quali la media pesata delle competenze, interessi e lingue, riassunta in una percentuale intera.
+\subsubsection*{Executive User}
+L'utente executive possiede le massime funzionalità all'interno di LinQedin, messaggistica in uscita illimitata, possibilità di creare ed amministrare gruppi e può visualizzare
+gli ultimi 10 utenti che hanno visitato il suo profilo con allegate percentuali di somiglianza.
+Può inoltre ricercare mediante filtri attivabili con il carattere \lq:\rq e unificare chiavi di ricerca multiple separandole da una virgola, per esempio ricercando: \lq:c++,perl,java\rq
+restituisce una lista di utenti con competenze / interessi in c++ perl e java, fino ad un massimo di 400 risultati, ogni risultato mostra tutte le informazioni dell'utente in questione,
+quali gruppi di adesione e lista collegamenti.

@@ -751,10 +751,10 @@
             "username": "Casey",
             "visitcount": 10,
             "visitors": [
-                "Pablito",
                 "Baldaz",
                 "Atilio",
-                "Baldaz"
+                "Baldaz",
+                "Pablito"
             ]
         },
         {
@@ -1018,7 +1018,7 @@
                 "Surgery"
             ],
             "username": "Willg",
-            "visitcount": 6
+            "visitcount": 7
         },
         {
             "avatar": "img/port2.jpg",
