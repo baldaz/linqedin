@@ -106,7 +106,8 @@
             "admin": "Casey",
             "description": "Every man who dare call itself a real Steven Seagal fan should undoubtly join this exclusive group!",
             "members": [
-                "Casey"
+                "Casey",
+                "Baldaz"
             ],
             "name": "Seagal's Raiders",
             "posts": [
@@ -745,10 +746,10 @@
             "username": "Casey",
             "visitcount": 10,
             "visitors": [
-                "Pablito",
                 "Baldaz",
                 "Atilio",
-                "Baldaz"
+                "Baldaz",
+                "Pablito"
             ]
         },
         {

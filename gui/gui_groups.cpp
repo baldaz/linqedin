@@ -62,7 +62,7 @@ Gui_Groups::Gui_Groups(LinqClient* c, QWidget* parent) : QGridLayout(parent), _c
     connect(mbuttons[1], SIGNAL(clicked()), this, SLOT(deleteGroup()));
     connect(mbuttons[2], SIGNAL(clicked()), this, SLOT(clearPosts()));
     connect(mbuttons[3], SIGNAL(clicked()), this, SLOT(leaveGroup()));
-    connect(mbuttons[4], SIGNAL(clicked()), this, SLOT(joinGroup()));
+    connect(mbuttons[4], SIGNAL(clicked()), this, SLOT(addGroup()));
 
     mbuttons[0]->hide();
     mbuttons[1]->hide();
@@ -89,7 +89,7 @@ Gui_Groups::Gui_Groups(LinqClient* c, QWidget* parent) : QGridLayout(parent), _c
     addWidget(showgrp, 0, 1, 3, 1);
     addLayout(frm, 0, 2, 1, 1, Qt::AlignRight);
     addWidget(newpost, 3, 1, 2, 3);
-    addWidget(post, 4, 4, 1, 1, Qt::AlignRight);
+    addWidget(post, 5, 4, 1, 1, Qt::AlignRight);
     addWidget(grplbl, 1, 0, 1, 1);
     addWidget(grplist, 2, 0, 1, 1);
     addWidget(memlbl, 3, 0, 1, 1);
@@ -320,11 +320,6 @@ void Gui_Groups::clearPosts() {
     }catch(Error e) {
         QMessageBox::critical(0, "Error occoured", QString::fromStdString(e.errorMessage()));
     }
-}
-
-//SLOT
-void Gui_Groups::joinGroup() {
-
 }
 
 //SLOT

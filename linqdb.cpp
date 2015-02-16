@@ -448,8 +448,11 @@ void LinqDB::addMemberToGroup(const Group& g, const Username& u) {
     bool found = false;
     list<Group*>::iterator it = _grp.begin();
     for(; it != _grp.end() && !found; ++it)
-        if((**it) == g) found = true;
-    if(found) (*it)->addMember(find(u));
+        if((**it) == g) {
+            (*it)->addMember(find(u));
+            found = true;
+        }
+    // if(found) (*it)->addMember(find(u));
 }
 void LinqDB::addPostToGroup(const Group& g, const Post& p) {
     list<Group*>::iterator it = _grp.begin();
