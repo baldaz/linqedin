@@ -19,11 +19,11 @@ private:
     string _name;
     string _description;
 public:
-    // Group();
     Group(const Username& u, const string& n = "", const string& d = "");
     Group(const Group&);
     ~Group();
     bool operator==(const Group&) const;
+    bool isMember(const Username&) const;
     int postNumber() const;
     Username admin() const;
     string name() const;
@@ -32,6 +32,6 @@ public:
     list<Post*> posts() const;
     void addMember(User*);
     void insertPost(const Post&);
-    string print() const;
+    void clearPosts();
 };
 #endif

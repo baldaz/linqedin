@@ -25,15 +25,20 @@ Gui_AdminWindow::Gui_AdminWindow(QWidget* parent) : QWidget(parent) {
     tbar = new QToolBar;
     QToolButton* rm = new QToolButton(tbar);
     QToolButton* ok = new QToolButton(tbar);
+    QToolButton* next = new QToolButton(tbar);
     rm->setIcon(QPixmap("img/cross108.png"));
     rm->setToolTip("Remove this user from Linqedin");
     ok->setIcon(QPixmap("img/check67.png"));
     ok->setToolTip("Upgrade this user");
+    next->setIcon(QPixmap("img/right244.png"));
+    next->setToolTip("Next result");
     connect(rm, SIGNAL(clicked()), this, SLOT(removeUser()));
     connect(add, SIGNAL(clicked()), this, SLOT(addUser()));
     connect(ok, SIGNAL(clicked()), this, SLOT(upgradeUser()));
+    connect(next, SIGNAL(clicked()), this, SLOT(nextResult()));
     tbar->addWidget(rm);
     tbar->addWidget(ok);
+    tbar->addWidget(next);
     tbar->actions().at(1)->setVisible(false);
     tbar->hide();
     QGroupBox* _admbox = new QGroupBox;
@@ -139,6 +144,8 @@ void Gui_AdminWindow::startSearch() {
     else {
         if(tbar->isHidden()) tbar->show();
         if(!tbar->actions().at(0)->isVisible()) tbar->actions().at(0)->setVisible(true);
+        if(res.size() > 1)
+            if(!tbar->actions().at(2)->isVisible()) tbar->actions().at(2)->setVisible(true);
         it = res.begin();
         showSearchResult();
     }
@@ -149,8 +156,9 @@ void Gui_AdminWindow::showSearchResult() {
     if(it != res.end()) {
         _userInfo->setInfo1(QString::fromStdString(it->first));
         _cnt = _userInfo->info1();
-        tbar->actions().at(0)->setVisible(false);
-        tbar->actions().at(1)->setVisible(true);
+        tbar->actions().at(0)->setVisible(true);
+        tbar->actions().at(1)->setVisible(false);
+        if(res.size() > 1 && it != res.end()) tbar->actions().at(2)->setVisible(true);
         QString htmloutput = QString("<span style='color: #666'>( " + QString::fromStdString(it->first) + " )</span>" + QString::fromStdString(it->second));
         std::list<Group*> lsg = _admin->listUserGroups(Username(it->first, ""));
         if(lsg.size() > 0) {
@@ -162,6 +170,12 @@ void Gui_AdminWindow::showSearchResult() {
         _userInfo->setHtml(htmloutput);
     }
     else _userInfo->setHtml("<h2>End</h2>");
+}
+
+//SLOT
+void Gui_AdminWindow::nextResult() {
+    ++it;
+    showSearchResult();
 }
 
 //SLOT

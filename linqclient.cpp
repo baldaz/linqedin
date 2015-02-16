@@ -193,7 +193,7 @@ map<string, int> LinqClient::keywordFrequency() const {
     return ret;
 }
 Group LinqClient::findGroup(const string& n) const {
-    return _db->findGroubByName(n);
+    return _db->findGroupByName(n);
 }
 void LinqClient::addExperience(const Experience& xp) {
     UserInfo* uf = dynamic_cast<UserInfo*> (_usr->account()->info());
@@ -257,6 +257,10 @@ void LinqClient::deleteGroup(const string& n, const string& a) {
     Group* g = new Group(Username(a, ""), n);
     if(ExecutiveUser* ex = dynamic_cast<ExecutiveUser*> (_usr))
         ex->globalRemoveGroup(*_db, *g);
+}
+void LinqClient::clearPosts(const string& name) {
+    Group& g = _db->findGroupByName(name);
+    g.clearPosts();
 }
 int LinqClient::outMailCount() const {
     return _usr->outMailCount();

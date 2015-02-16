@@ -6,16 +6,16 @@ Account::~Account() {delete _info; _history.clear();}
 Account* Account::clone() const {
     return new Account(*this);
 }
-Account& Account::operator=(const Account& acc) {
-    if(this != &acc) {
-        delete _info;
-        _info = acc._info->clone();
-        _user = acc._user;
-        _privilege = acc._privilege;
-        _history = acc._history;
-    }
-    return *this;
-}
+// Account& Account::operator=(const Account& acc) {
+//     if(this != &acc) {
+//         delete _info;
+//         _info = acc._info->clone();
+//         _user = acc._user;
+//         _privilege = acc._privilege;
+//         _history = acc._history;
+//     }
+//     return *this;
+// }
 Username Account::username() const {
     return _user;
 }

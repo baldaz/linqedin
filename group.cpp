@@ -1,6 +1,5 @@
 #include "group.h"
 
-// Group::Group(){}
 Group::Group(const Username& u, const string& n, const string& d) : _admin(u), _name(n), _description(d) {}
 Group::Group(const Group& g) : _admin(g._admin), _members(g._members), _name(g._name), _description(g._description) {
     for(list<Post*>::const_iterator i = g._posts.begin(); i != g._posts.end(); ++i)
@@ -16,6 +15,12 @@ Group::~Group() {
 }
 bool Group::operator==(const Group& g) const {
     return _name == g._name && _admin.login() == g._admin.login();
+}
+bool Group::isMember(const Username& u) const {
+    for(list<SmartPtr<User> >::const_iterator i = _members.begin(); i != _members.end(); ++i)
+        if((*i)->account()->username().login() == u.login())
+            return true;
+    return false;
 }
 int Group::postNumber() const {
     return _posts.size();
@@ -41,6 +46,10 @@ void Group::addMember(User* u) {
 void Group::insertPost(const Post& p) {
     _posts.push_back(const_cast<Post*> (&p));
 }
-string Group::print() const {
-    return "";
+void Group::clearPosts() {
+    if(!_posts.empty()) {
+        for(list<Post*>::iterator i = _posts.begin(); i != _posts.end(); ++i)
+            delete *i;
+        _posts.clear();
+    }
 }

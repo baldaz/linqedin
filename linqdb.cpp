@@ -393,6 +393,35 @@ void LinqDB::load() {
 int LinqDB::size() const {
     return _db.size();
 }
+void LinqDB::addUser(User* u) throw(Error) {
+    list<SmartPtr<User> >::iterator it = _db.begin();
+    bool alreadyIn = false;
+    for(; it != _db.end() && !alreadyIn; ++it) {
+        if(((*it)->account()->username()) == (u->account()->username()))
+            alreadyIn = true;
+    }
+    if(!alreadyIn) _db.push_back(SmartPtr<User>(u));
+    else throw Error(dupUser, "An user with that username already exists in Linqedin");
+}
+void LinqDB::removeUser(const Username& usr) throw(Error) {
+    list<SmartPtr<User> >::iterator it = _db.begin();
+    bool found = false;
+    for(; it != _db.end() && !found; ++it)
+        if(((*it)->account()->username().login()) == usr.login()) {
+            found = true;
+            _db.erase(it);
+        }
+    if(!found) throw Error(userNotFound, "Requested user not found");
+}
+User* LinqDB::find(const Username& usr) const {
+    User* ret = NULL;
+    list<SmartPtr<User> >::const_iterator it = _db.begin();
+    for(; it != _db.end(); ++it)
+        if(((*it)->account()->username().login()) == usr.login())
+            // ret = (*it)->clone();
+            ret = &(*(*it));
+    return ret;
+}
 void LinqDB::deleteGroup(const Group& g) throw(Error) {
     bool found = false;
     list<Group*>::iterator it = _grp.begin();
@@ -428,36 +457,17 @@ void LinqDB::addPostToGroup(const Group& g, const Post& p) {
         if((**it) == g)
             (*it)->insertPost(p);
 }
-void LinqDB::addUser(User* u) throw(Error) {
-    list<SmartPtr<User> >::iterator it = _db.begin();
-    bool alreadyIn = false;
-    for(; it != _db.end() && !alreadyIn; ++it) {
-        if(((*it)->account()->username()) == (u->account()->username()))
-            alreadyIn = true;
-    }
-    if(!alreadyIn) _db.push_back(SmartPtr<User>(u));
-    else throw Error(dupUser, "An user with that username already exists in Linqedin");
-}
-void LinqDB::removeUser(const Username& usr) throw(Error) {
-    list<SmartPtr<User> >::iterator it = _db.begin();
+const Group& LinqDB::findGroupByName(const string& n) const throw(Error) {
     bool found = false;
-    for(; it != _db.end() && !found; ++it)
-        if(((*it)->account()->username().login()) == usr.login()) {
+    list<Group*>::const_iterator it = _grp.begin();
+    for(; it != _grp.end() && !found; ++it)
+        if((*it)->name() == n) {
             found = true;
-            _db.erase(it);
+            return **it;
         }
-    if(!found) throw Error(userNotFound, "Requested user not found");
+    throw Error(groupNotFound, "Requested group not found");
 }
-User* LinqDB::find(const Username& usr) const {
-    User* ret = NULL;
-    list<SmartPtr<User> >::const_iterator it = _db.begin();
-    for(; it != _db.end(); ++it)
-        if(((*it)->account()->username().login()) == usr.login())
-            // ret = (*it)->clone();
-            ret = &(*(*it));
-    return ret;
-}
-Group LinqDB::findGroubByName(const string& n) const throw(Error) {
+Group& LinqDB::findGroupByName(const string& n) throw(Error) {
     bool found = false;
     list<Group*>::const_iterator it = _grp.begin();
     for(; it != _grp.end() && !found; ++it)
@@ -469,12 +479,6 @@ Group LinqDB::findGroubByName(const string& n) const throw(Error) {
 }
 list<SmartPtr<User> > LinqDB::db() const {
     return _db;
-}
-list<SmartPtr<User> >::const_iterator LinqDB::begin() const{
-    return _db.begin();
-}
-list<SmartPtr<User> >::const_iterator LinqDB::end() const{
-    return _db.end();
 }
 list<Group*> LinqDB::allGroups() const {
     return _grp;
@@ -500,10 +504,15 @@ Username LinqDB::getAdmin() const throw(Error) {
         throw Error(IO, "Database not found");
     QByteArray saveData = loadDB.readAll();
     loadDB.close();
-
     QJsonDocument doc(QJsonDocument::fromJson(saveData));
     QJsonObject db = doc.object();
     QJsonObject adm = db["admin"].toObject();
     Username u(adm["username"].toString().toStdString(), adm["password"].toString().toStdString());
     return u;
+}
+list<SmartPtr<User> >::const_iterator LinqDB::begin() const{
+    return _db.begin();
+}
+list<SmartPtr<User> >::const_iterator LinqDB::end() const{
+    return _db.end();
 }

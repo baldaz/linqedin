@@ -95,6 +95,10 @@
                 {
                     "author": "Casey",
                     "content": "Here i am. Sure, you're welcome whenever you want."
+                },
+                {
+                    "author": "Baldaz",
+                    "content": "Ciao"
                 }
             ]
         },
@@ -105,16 +109,6 @@
                 "Casey"
             ],
             "name": "Seagal's Raiders",
-            "posts": [
-            ]
-        },
-        {
-            "admin": "Casey",
-            "description": "seagal",
-            "members": [
-                "Casey"
-            ],
-            "name": "Seagal's enterprise",
             "posts": [
             ]
         }
@@ -751,10 +745,10 @@
             "username": "Casey",
             "visitcount": 10,
             "visitors": [
+                "Pablito",
                 "Baldaz",
                 "Atilio",
-                "Baldaz",
-                "Pablito"
+                "Baldaz"
             ]
         },
         {

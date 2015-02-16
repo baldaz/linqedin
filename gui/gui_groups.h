@@ -51,5 +51,8 @@ public slots:
     void addGroup();
     void searchGroup();
     void deleteGroup();
+    void clearPosts();
+    void joinGroup();
+    void leaveGroup();
 };
 #endif

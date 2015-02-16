@@ -101,7 +101,7 @@ Gui_Settings::Gui_Settings(LinqClient* cli, QWidget* parent) : QGridLayout(paren
     frm->addRow("Skills:", skills);
     frm->addRow(edtInfo[8]);
     frm->addRow("Languages:", lang);
-    frm->addRow(edtInfo[9]);
+    frm->addRow(edtInfo[10]);
     frm2->addRow("Phone:", edtInfo[4]);
     frm2->addRow("E-mail:", edtInfo[5]);
     frm2->addRow("Website:", edtInfo[6]);
@@ -109,7 +109,7 @@ Gui_Settings::Gui_Settings(LinqClient* cli, QWidget* parent) : QGridLayout(paren
     frm2->addRow(bdate, edtInfo[2]);
     frm2->addRow(setBdate, calendar);
     frm2->addRow("Interests:", inters);
-    frm2->addRow(edtInfo[10]);
+    frm2->addRow(edtInfo[9]);
     frm2->addRow("Experiences:", exps);
     frm->addRow("Short bio:", edtBio);
 

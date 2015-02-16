@@ -43,6 +43,7 @@ signals:
 public slots:
     void startSearch();
     void showSearchResult();
+    void nextResult();
     void showUser();
     void addUser();
     void removeUser();

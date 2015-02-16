@@ -19,8 +19,8 @@
 
 QT_BEGIN_MOC_NAMESPACE
 struct qt_meta_stringdata_Gui_Groups_t {
-    QByteArrayData data[11];
-    char stringdata[103];
+    QByteArrayData data[14];
+    char stringdata[135];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -39,11 +39,15 @@ QT_MOC_LITERAL(6, 47, 12),
 QT_MOC_LITERAL(7, 60, 8),
 QT_MOC_LITERAL(8, 69, 8),
 QT_MOC_LITERAL(9, 78, 11),
-QT_MOC_LITERAL(10, 90, 11)
+QT_MOC_LITERAL(10, 90, 11),
+QT_MOC_LITERAL(11, 102, 10),
+QT_MOC_LITERAL(12, 113, 9),
+QT_MOC_LITERAL(13, 123, 10)
     },
     "Gui_Groups\0created\0\0refresh\0showGroup\0"
     "sendPost\0showNewGroup\0newGroup\0addGroup\0"
-    "searchGroup\0deleteGroup\0"
+    "searchGroup\0deleteGroup\0clearPosts\0"
+    "joinGroup\0leaveGroup\0"
 };
 #undef QT_MOC_LITERAL
 
@@ -53,7 +57,7 @@ static const uint qt_meta_data_Gui_Groups[] = {
        7,       // revision
        0,       // classname
        0,    0, // classinfo
-       9,   14, // methods
+      12,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -61,22 +65,28 @@ static const uint qt_meta_data_Gui_Groups[] = {
        1,       // signalCount
 
  // signals: name, argc, parameters, tag, flags
-       1,    0,   59,    2, 0x06,
+       1,    0,   74,    2, 0x06,
 
  // slots: name, argc, parameters, tag, flags
-       3,    0,   60,    2, 0x0a,
-       4,    0,   61,    2, 0x0a,
-       5,    0,   62,    2, 0x0a,
-       6,    0,   63,    2, 0x0a,
-       7,    0,   64,    2, 0x0a,
-       8,    0,   65,    2, 0x0a,
-       9,    0,   66,    2, 0x0a,
-      10,    0,   67,    2, 0x0a,
+       3,    0,   75,    2, 0x0a,
+       4,    0,   76,    2, 0x0a,
+       5,    0,   77,    2, 0x0a,
+       6,    0,   78,    2, 0x0a,
+       7,    0,   79,    2, 0x0a,
+       8,    0,   80,    2, 0x0a,
+       9,    0,   81,    2, 0x0a,
+      10,    0,   82,    2, 0x0a,
+      11,    0,   83,    2, 0x0a,
+      12,    0,   84,    2, 0x0a,
+      13,    0,   85,    2, 0x0a,
 
  // signals: parameters
     QMetaType::Void,
 
  // slots: parameters
+    QMetaType::Void,
+    QMetaType::Void,
+    QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
@@ -103,6 +113,9 @@ void Gui_Groups::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, 
         case 6: _t->addGroup(); break;
         case 7: _t->searchGroup(); break;
         case 8: _t->deleteGroup(); break;
+        case 9: _t->clearPosts(); break;
+        case 10: _t->joinGroup(); break;
+        case 11: _t->leaveGroup(); break;
         default: ;
         }
     } else if (_c == QMetaObject::IndexOfMethod) {
@@ -143,13 +156,13 @@ int Gui_Groups::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 9)
+        if (_id < 12)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 9;
+        _id -= 12;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 9)
+        if (_id < 12)
             *reinterpret_cast<int*>(_a[0]) = -1;
-        _id -= 9;
+        _id -= 12;
     }
     return _id;
 }

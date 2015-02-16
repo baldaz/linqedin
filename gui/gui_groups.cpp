@@ -47,20 +47,28 @@ Gui_Groups::Gui_Groups(LinqClient* c, QWidget* parent) : QGridLayout(parent), _c
     mbuttons[3] = new QPushButton;
     mbuttons[3]->setIcon(QPixmap("img/exit6.png"));
     mbuttons[3]->setToolTip("Leave this group");
+    mbuttons[4] = new QPushButton;
+    mbuttons[4]->setIcon(QPixmap("img/enter3.png"));
+    mbuttons[4]->setToolTip("Join this group");
 
     frm->addRow(mbuttons[0]);
     frm->addRow(mbuttons[3]);
+    frm->addRow(mbuttons[4]);
     frm->addRow(mbuttons[1]);
     frm->addRow(mbuttons[2]);
 
     connect(mbuttons[0], SIGNAL(clicked()), this, SLOT(showNewGroup()));
     connect(create, SIGNAL(clicked()), this, SLOT(newGroup()));
     connect(mbuttons[1], SIGNAL(clicked()), this, SLOT(deleteGroup()));
+    connect(mbuttons[2], SIGNAL(clicked()), this, SLOT(clearPosts()));
+    connect(mbuttons[3], SIGNAL(clicked()), this, SLOT(leaveGroup()));
+    connect(mbuttons[4], SIGNAL(clicked()), this, SLOT(joinGroup()));
 
     mbuttons[0]->hide();
     mbuttons[1]->hide();
     mbuttons[2]->hide();
     mbuttons[3]->hide();
+    mbuttons[4]->hide();
     if(_client->level() >= executive)
         mbuttons[0]->show();
     tbar = new QToolBar;
@@ -164,17 +172,21 @@ void Gui_Groups::showGroup() {
     memlist->show();
     desc = grplist->currentItem()->data(Qt::UserRole + 2).toString();
     admin = grplist->currentItem()->data(Qt::UserRole + 1).toString();
+    // Group g(Username(admin.toStdString(), ""), name.toStdString());
+    Group g = _client->findGroup(name.toStdString());
     if(admin == QString::fromStdString(_client->username().login()) /*&& mbuttons[1]->isHidden() && mbuttons[2]->isHidden()*/) {
         mbuttons[1]->show();
         mbuttons[2]->show();
         mbuttons[3]->hide();
+        mbuttons[4]->hide();
     }
     else {
         mbuttons[1]->hide();
         mbuttons[2]->hide();
-        mbuttons[3]->show();
+        if(g.isMember(_client->username()))
+            mbuttons[3]->show();
+        else mbuttons[4]->show();
     }
-    Group g(Username(admin.toStdString(), ""), name.toStdString());
     list<Post*> p = _client->listPostFromGroup(g);
     int num = _client->postNumberFromGroup(g);
     QString output = "<h1>" + name + "</h1><h4>Admin: <span style='font-weight:400'>" + admin + "</span></h4><h5>" + desc + "</h5>";
@@ -213,6 +225,8 @@ void Gui_Groups::showNewGroup() {
     newbox->show();
     mbuttons[1]->hide();
     mbuttons[2]->hide();
+    mbuttons[3]->hide();
+    mbuttons[4]->hide();
 }
 
 //SLOT
@@ -256,11 +270,19 @@ void Gui_Groups::searchGroup() {
         mbuttons[1]->show();
         mbuttons[2]->show();
         mbuttons[3]->hide();
+        mbuttons[4]->hide();
     }
     else {
         mbuttons[1]->hide();
         mbuttons[2]->hide();
-        mbuttons[3]->show();
+        if(g.isMember(_client->username())) {
+            mbuttons[3]->show();
+            mbuttons[4]->hide();
+        }
+        else {
+            mbuttons[3]->hide();
+            mbuttons[4]->show();
+        }
     }
     list<Post*> p = _client->listPostFromGroup(g);
     int num = _client->postNumberFromGroup(g);
@@ -286,4 +308,26 @@ void Gui_Groups::deleteGroup() {
     }catch(Error e) {
         QMessageBox::critical(0, "Error occoured", QString::fromStdString(e.errorMessage()));
     }
+}
+
+//SLOT
+void Gui_Groups::clearPosts() {
+    QString name = showgrp->info1();
+    try {
+        _client->clearPosts(name.toStdString());
+        _client->save();
+        emit created();
+    }catch(Error e) {
+        QMessageBox::critical(0, "Error occoured", QString::fromStdString(e.errorMessage()));
+    }
+}
+
+//SLOT
+void Gui_Groups::joinGroup() {
+
+}
+
+//SLOT
+void Gui_Groups::leaveGroup() {
+
 }

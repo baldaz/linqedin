@@ -51,7 +51,8 @@ public:
     list<SmartPtr<User> > db() const;
     list<Group*> allGroups() const;
     list<Post*> postsFromGroup(const Group&) const;
-    Group findGroubByName(const string&) const throw(Error);
+    const Group& findGroupByName(const string&) const throw(Error);
+    Group& findGroupByName(const string&) throw(Error);
     User* find(const Username&) const;
     list<SmartPtr<User> >::const_iterator begin() const;
     list<SmartPtr<User> >::const_iterator end() const;

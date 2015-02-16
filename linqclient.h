@@ -53,6 +53,7 @@ public:
     void addGroup(const Group&);
     void addGroup(const string&, const string&);
     void deleteGroup(const string&, const string&);
+    void clearPosts(const string&);
     void addTrait(int, const string&);
     void deleteTrait(int, const string&);
     void deleteMessage(const Message&);

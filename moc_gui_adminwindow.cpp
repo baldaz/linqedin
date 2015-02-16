@@ -19,8 +19,8 @@
 
 QT_BEGIN_MOC_NAMESPACE
 struct qt_meta_stringdata_Gui_AdminWindow_t {
-    QByteArrayData data[10];
-    char stringdata[109];
+    QByteArrayData data[11];
+    char stringdata[120];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -34,15 +34,17 @@ QT_MOC_LITERAL(1, 16, 8),
 QT_MOC_LITERAL(2, 25, 0),
 QT_MOC_LITERAL(3, 26, 11),
 QT_MOC_LITERAL(4, 38, 16),
-QT_MOC_LITERAL(5, 55, 8),
-QT_MOC_LITERAL(6, 64, 7),
-QT_MOC_LITERAL(7, 72, 10),
-QT_MOC_LITERAL(8, 83, 11),
-QT_MOC_LITERAL(9, 95, 12)
+QT_MOC_LITERAL(5, 55, 10),
+QT_MOC_LITERAL(6, 66, 8),
+QT_MOC_LITERAL(7, 75, 7),
+QT_MOC_LITERAL(8, 83, 10),
+QT_MOC_LITERAL(9, 94, 11),
+QT_MOC_LITERAL(10, 106, 12)
     },
     "Gui_AdminWindow\0modified\0\0startSearch\0"
-    "showSearchResult\0showUser\0addUser\0"
-    "removeUser\0upgradeUser\0refreshLists\0"
+    "showSearchResult\0nextResult\0showUser\0"
+    "addUser\0removeUser\0upgradeUser\0"
+    "refreshLists\0"
 };
 #undef QT_MOC_LITERAL
 
@@ -52,7 +54,7 @@ static const uint qt_meta_data_Gui_AdminWindow[] = {
        7,       // revision
        0,       // classname
        0,    0, // classinfo
-       8,   14, // methods
+       9,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -60,21 +62,23 @@ static const uint qt_meta_data_Gui_AdminWindow[] = {
        1,       // signalCount
 
  // signals: name, argc, parameters, tag, flags
-       1,    0,   54,    2, 0x06,
+       1,    0,   59,    2, 0x06,
 
  // slots: name, argc, parameters, tag, flags
-       3,    0,   55,    2, 0x0a,
-       4,    0,   56,    2, 0x0a,
-       5,    0,   57,    2, 0x0a,
-       6,    0,   58,    2, 0x0a,
-       7,    0,   59,    2, 0x0a,
-       8,    0,   60,    2, 0x0a,
-       9,    0,   61,    2, 0x0a,
+       3,    0,   60,    2, 0x0a,
+       4,    0,   61,    2, 0x0a,
+       5,    0,   62,    2, 0x0a,
+       6,    0,   63,    2, 0x0a,
+       7,    0,   64,    2, 0x0a,
+       8,    0,   65,    2, 0x0a,
+       9,    0,   66,    2, 0x0a,
+      10,    0,   67,    2, 0x0a,
 
  // signals: parameters
     QMetaType::Void,
 
  // slots: parameters
+    QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
@@ -94,11 +98,12 @@ void Gui_AdminWindow::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int 
         case 0: _t->modified(); break;
         case 1: _t->startSearch(); break;
         case 2: _t->showSearchResult(); break;
-        case 3: _t->showUser(); break;
-        case 4: _t->addUser(); break;
-        case 5: _t->removeUser(); break;
-        case 6: _t->upgradeUser(); break;
-        case 7: _t->refreshLists(); break;
+        case 3: _t->nextResult(); break;
+        case 4: _t->showUser(); break;
+        case 5: _t->addUser(); break;
+        case 6: _t->removeUser(); break;
+        case 7: _t->upgradeUser(); break;
+        case 8: _t->refreshLists(); break;
         default: ;
         }
     } else if (_c == QMetaObject::IndexOfMethod) {
@@ -139,13 +144,13 @@ int Gui_AdminWindow::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 8)
+        if (_id < 9)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 8;
+        _id -= 9;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 8)
+        if (_id < 9)
             *reinterpret_cast<int*>(_a[0]) = -1;
-        _id -= 8;
+        _id -= 9;
     }
     return _id;
 }
