@@ -43,23 +43,8 @@ Gui_AdminWindow::Gui_AdminWindow(QWidget* parent) : QWidget(parent) {
     // search bar
     edt[3]->setEchoMode(QLineEdit::Password);
     edt[4]->setPlaceholderText("Search user");
-    list<SmartPtr<User> > lst = _admin->listUsers();
-    QStringList completions;
-    if(!lst.empty()) {
-        list<SmartPtr<User> >::iterator it = lst.begin();
-        for(; it != lst.end(); ++it) {
-            QString cmpname = "";
-            if(UserInfo* uf = dynamic_cast<UserInfo*> ((*it)->account()->info()))
-                cmpname = QString::fromStdString(uf->name()) + " " + QString::fromStdString(uf->surname());
-            completions.push_back(QString::fromStdString((*it)->account()->username().login()));
-            completions.push_back(cmpname);
-        }
-    }
-    QCompleter* completer = new QCompleter(completions);
-    completer->setCaseSensitivity(Qt::CaseInsensitive);
-    edt[4]->setCompleter(completer);
-    edt[4]->setClearButtonEnabled(true);
-
+    createSearch();
+    connect(edt[4], SIGNAL(returnPressed()), this, SLOT(startSearch()));
     QVBoxLayout* _mainLayout = new QVBoxLayout;
     _mainLayout->setSpacing(20);
     QGridLayout* _layout = new QGridLayout;
@@ -106,6 +91,25 @@ Gui_AdminWindow::Gui_AdminWindow(QWidget* parent) : QWidget(parent) {
     resize(1150, 720);
 }
 
+void Gui_AdminWindow::createSearch() {
+    list<SmartPtr<User> > lst = _admin->listUsers();
+    QStringList completions;
+    if(!lst.empty()) {
+        list<SmartPtr<User> >::iterator it = lst.begin();
+        for(; it != lst.end(); ++it) {
+            QString cmpname = "";
+            if(UserInfo* uf = dynamic_cast<UserInfo*> ((*it)->account()->info()))
+                cmpname = QString::fromStdString(uf->name()) + " " + QString::fromStdString(uf->surname());
+            completions.push_back(QString::fromStdString((*it)->account()->username().login()));
+            completions.push_back(cmpname);
+        }
+    }
+    QCompleter* completer = new QCompleter(completions);
+    completer->setCaseSensitivity(Qt::CaseInsensitive);
+    edt[4]->setCompleter(completer);
+    edt[4]->setClearButtonEnabled(true);
+}
+
 void Gui_AdminWindow::createUserList() {
     list<SmartPtr<User> > l = _admin->listUsers();
     for(list<SmartPtr<User> >::iterator it = l.begin(); it != l.end(); ++it) {
@@ -123,6 +127,41 @@ void Gui_AdminWindow::createUserList() {
         _userList->addItem(item);
     }
     connect(_userList, SIGNAL(clicked(QModelIndex)), this, SLOT(showUser()));
+}
+
+//SLOT
+void Gui_AdminWindow::startSearch() {
+    res = _admin->find(edt[4]->text().toStdString());
+    if(res.empty()) {
+        if(!tbar->isHidden()) tbar->hide();
+        _userInfo->setHtml("<h2> No results</h2>");
+    }
+    else {
+        if(tbar->isHidden()) tbar->show();
+        if(!tbar->actions().at(0)->isVisible()) tbar->actions().at(0)->setVisible(true);
+        it = res.begin();
+        showSearchResult();
+    }
+}
+
+//SLOT
+void Gui_AdminWindow::showSearchResult() {
+    if(it != res.end()) {
+        _userInfo->setInfo1(QString::fromStdString(it->first));
+        _cnt = _userInfo->info1();
+        tbar->actions().at(0)->setVisible(false);
+        tbar->actions().at(1)->setVisible(true);
+        QString htmloutput = QString("<span style='color: #666'>( " + QString::fromStdString(it->first) + " )</span>" + QString::fromStdString(it->second));
+        std::list<Group*> lsg = _admin->listUserGroups(Username(it->first, ""));
+        if(lsg.size() > 0) {
+            htmloutput.append("<h4>Groups</h4><ul style='font-weight:400'>");
+            for(std::list<Group*>::iterator j = lsg.begin(); j != lsg.end(); ++j)
+                htmloutput += "<li>" + QString::fromStdString((*j)->name()) + "</li>";
+            htmloutput.append("</ul>");
+        }
+        _userInfo->setHtml(htmloutput);
+    }
+    else _userInfo->setHtml("<h2>End</h2>");
 }
 
 //SLOT

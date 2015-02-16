@@ -10,10 +10,8 @@ private:
     string _login;
     string _password;
 public:
-    // Username();
     Username(const string&, const string&);
     Username(const Username&);
-    // ~Username();
     Username* clone() const;
     const string& login() const;
     void setLogin(const string&);

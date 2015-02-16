@@ -20,7 +20,6 @@ class Info {
 public:
     virtual ~Info();
     virtual Info* clone() const =0;
-    virtual string print() const =0;
     virtual string dispatch(const Dispatcher&) const =0;
 };
 
@@ -64,7 +63,6 @@ public:
     void addExperience(const Experience&);
     void removeExperience(const Experience&);
     int age() const;
-    virtual string print() const;
     virtual string dispatch(const Dispatcher&) const;
 };
 
@@ -78,7 +76,6 @@ public:
     Info* clone() const;
     const string& bio() const;
     void setBio(const string&);
-    virtual string print() const;
     virtual string dispatch(const Dispatcher&) const;
 };
 #endif

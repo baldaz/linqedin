@@ -11,6 +11,11 @@
 #include <QListWidget>
 #include <QListWidgetItem>
 #include <QComboBox>
+#include <map>
+#include <string>
+
+using std::map;
+using std::string;
 
 class LinqAdmin;
 class QToolBar;
@@ -25,13 +30,19 @@ private:
     QLineEdit* edt[5];
     QToolBar* tbar;
     QComboBox* _level;
+    map<string, string> res;
+    map<string, string>::iterator it;
+    QString _cnt;
 
     void createUserList();
+    void createSearch();
 public:
     Gui_AdminWindow(QWidget* parent = 0);
 signals:
     void modified();
 public slots:
+    void startSearch();
+    void showSearchResult();
     void showUser();
     void addUser();
     void removeUser();

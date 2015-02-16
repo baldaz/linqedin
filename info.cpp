@@ -42,60 +42,26 @@ UserInfo::~UserInfo() {
 Info* UserInfo::clone() const {
     return new UserInfo(*this);
 }
-string UserInfo::name() const {
-    return _name;
-}
-string UserInfo::surname() const {
-    return _surname;
-}
-QDate UserInfo::birthdate() const {
-    return _birthdate;
-}
-string UserInfo::email() const {
-    return _email;
-}
-string UserInfo::address() const {
-    return _address;
-}
-string UserInfo::telephon() const {
-    return _telephon;
-}
-string UserInfo::website() const {
-    return _website;
-}
-vector<string> UserInfo::languages() const {
-    return _languages;
-}
-vector<string> UserInfo::skills() const {
-    return _skills;
-}
-vector<string> UserInfo::interests() const {
-    return _interests;
-}
-list<Experience*> UserInfo::experiences() const {
-    return _exp;
-}
-void UserInfo::setName(const string& n) {
-    _name = n;
-}
-void UserInfo::setSurname(const string& s) {
-    _surname = s;
-}
+string UserInfo::name() const { return _name; }
+string UserInfo::surname() const { return _surname; }
+QDate UserInfo::birthdate() const { return _birthdate; }
+string UserInfo::email() const { return _email; }
+string UserInfo::address() const { return _address; }
+string UserInfo::telephon() const { return _telephon; }
+string UserInfo::website() const { return _website; }
+vector<string> UserInfo::languages() const { return _languages; }
+vector<string> UserInfo::skills() const { return _skills; }
+vector<string> UserInfo::interests() const { return _interests; }
+list<Experience*> UserInfo::experiences() const { return _exp; }
+void UserInfo::setName(const string& n) { _name = n; }
+void UserInfo::setSurname(const string& s) { _surname = s; }
+void UserInfo::setEmail(const string& e) { _email = e; }
+void UserInfo::setTelephon(const string& t) { _telephon = t; }
+void UserInfo::setAddress(const string& a) { _address = a; }
+void UserInfo::setWebsite(const string& site) { _website = site; }
 void UserInfo::setBirthdate(const QDate& b) throw(Error) {
     if(b > QDate::currentDate()) throw Error(date, "Birthdate must be prior current date");
     else _birthdate = b;
-}
-void UserInfo::setEmail(const string& e) {
-    _email = e;
-}
-void UserInfo::setTelephon(const string& t) {
-    _telephon = t;
-}
-void UserInfo::setAddress(const string& a) {
-    _address = a;
-}
-void UserInfo::setWebsite(const string& site) {
-    _website = site;
 }
 void UserInfo::addLanguage(const string& newlang) {
     vector<string>::iterator it = _languages.begin();
@@ -166,24 +132,6 @@ int UserInfo::age() const {
     if (age == 0) return -1;
     return age / 365;
 }
-string UserInfo::print() const {
-    vector<string>::const_iterator it = _interests.begin();
-    string ret = "";
-    ret += _name + " , " + _surname + " , " + _address + " , " + _telephon + ", nato il " + _birthdate.toString().toStdString() + "\n";
-    ret += "E-mail >> " + _email + " Sito web >> " + _website + "\n";
-    ret += "Personal interests >> ";
-    for(; it < _interests.end(); ++it)
-        ret += *it + ", ";
-    ret += "\nPersonal skills >> ";
-    it = _skills.begin();
-    for(; it < _skills.end(); ++it)
-        ret += *it + ", ";
-    ret += "\nFormation >> ";
-    list<Experience*>::const_iterator itr = _exp.begin();
-    for(; itr != _exp.end(); ++itr)
-        ret += (*itr)->location() + ", " + (*itr)->from().toString().toStdString() + ", " + (*itr)->to().toString().toStdString() + " ";
-    return ret;
-}
 string UserInfo::dispatch(const Dispatcher& d) const {
         return d.dispatch(*this);
 }
@@ -194,15 +142,8 @@ Bio::~Bio() {}
 Info* Bio::clone() const {
     return new Bio(*this);
 }
-const string& Bio::bio() const {
-    return _bio;
-}
-void Bio::setBio(const string& bio) {
-    _bio = bio;
-}
-string Bio::print() const {
-    return "";
-}
+const string& Bio::bio() const { return _bio; }
+void Bio::setBio(const string& bio) { _bio = bio; }
 string Bio::dispatch(const Dispatcher& d) const {
     return d.dispatch(*this);
 }

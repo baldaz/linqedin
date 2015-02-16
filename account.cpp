@@ -1,6 +1,5 @@
 #include "account.h"
 
-// Account::Account() {}
 Account::Account(Info* uf, const Username& us, privLevel l = basic) : _info(uf->clone()), _user(us), _privilege(l) {}
 Account::Account(const Account& acc) : _info(acc._info->clone()), _user(acc._user), _privilege(acc._privilege), _history(acc._history), _avatar(acc._avatar) {}
 Account::~Account() {delete _info; _history.clear();}

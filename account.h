@@ -17,7 +17,6 @@ private:
     vector<SmartPtr<Payment> > _history;
     Avatar _avatar;
 public:
-    // Account();
     Account(Info*, const Username&, privLevel);
     Account(const Account&);
     ~Account();

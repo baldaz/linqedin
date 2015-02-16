@@ -13,6 +13,7 @@ void LinqAdmin::completeRemove::operator()(const SmartPtr<User>& user) const {
 LinqAdmin::adminSearch::adminSearch(const string& w) : _wanted(w){}
 void LinqAdmin::adminSearch::operator()(const SmartPtr<User>& user) {
     UserInfo* uf = dynamic_cast<UserInfo*> (user->account()->info());
+    _wanted = utilities::Utils::toLowerCase(_wanted);
     if(!_wanted.empty() && _wanted.at(0) == ':') {
         if(uf) {
             vector<string> skills = uf->skills();

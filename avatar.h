@@ -13,7 +13,6 @@ public:
 	Avatar(const string& = STANDARD_AVATAR);
     Avatar(const Avatar&);
 	string path() const;
-    // void setPath(const string&);
 };
 
 #endif
