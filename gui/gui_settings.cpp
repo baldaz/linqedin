@@ -73,7 +73,7 @@ Gui_Settings::Gui_Settings(LinqClient* cli, QWidget* parent) : QGridLayout(paren
         edtInfo[2]->setText(b->birthdate().toString("dd.MM.yyyy"));
         edtInfo[4]->setText(QString::fromStdString(b->telephon()));
         edtInfo[6]->setText(QString::fromStdString(b->website()));
-        edtInfo[7]->setText(QString::fromStdString(_client->username().login()));
+        // edtInfo[7]->setText(QString::fromStdString(_client->username().login()));
         edtInfo[11]->setText(QString::fromStdString(_client->avatar()));
         edtBio->setText(QString::fromStdString(b->bio()));
         calendar->setSelectedDate(b->birthdate());
@@ -95,7 +95,7 @@ Gui_Settings::Gui_Settings(LinqClient* cli, QWidget* parent) : QGridLayout(paren
     frm->addRow("Name:", edtInfo[0]);
     frm->addRow("Surname:", edtInfo[1]);
     frm->addRow("Address:" , edtInfo[3]);
-    frm->addRow("Username:", edtInfo[7]);
+    // frm->addRow("Username:", edtInfo[7]);
     frm->addRow(edtInfo[12]); //pwd
 
     frm->addRow("Skills:", skills);
@@ -252,7 +252,7 @@ void Gui_Settings::buttonToggled() {
         edtInfo[4]->setEnabled(true);
         edtInfo[5]->setEnabled(true);
         edtInfo[6]->setEnabled(true);
-        edtInfo[7]->setEnabled(true);
+        // edtInfo[7]->setEnabled(true);
         edtInfo[8]->show();
         edtInfo[8]->setEnabled(true);
         edtInfo[9]->show();
@@ -276,7 +276,7 @@ void Gui_Settings::buttonToggled() {
         edtInfo[4]->setEnabled(false);
         edtInfo[5]->setEnabled(false);
         edtInfo[6]->setEnabled(false);
-        edtInfo[7]->setEnabled(false);
+        // edtInfo[7]->setEnabled(false);
         edtInfo[8]->hide();
         edtInfo[8]->setEnabled(false);
         edtInfo[9]->hide();
@@ -297,10 +297,9 @@ void Gui_Settings::buttonToggled() {
             _client->alterProfile(5, edtInfo[4]->text().toStdString());
             _client->alterProfile(6, edtInfo[6]->text().toStdString());
             _client->alterProfile(7, edtBio->toPlainText().toStdString());
-            _client->alterProfile(8, edtInfo[7]->text().toStdString());
+            // _client->alterProfile(8, edtInfo[7]->text().toStdString());
             _client->alterProfile(9, edtInfo[12]->text().toStdString());
             _client->setAvatar(edtInfo[11]->text().toStdString());
-            edtInfo[2]->setStyleSheet("background:#1a1a1a");
             edtInfo[7]->setStyleSheet("background:#1a1a1a");
         }catch(Error e) {
             if(e.errorType() == dupUser) edtInfo[7]->setStyleSheet("background:#f00");

@@ -19,8 +19,8 @@
 
 QT_BEGIN_MOC_NAMESPACE
 struct qt_meta_stringdata_Gui_UserWindow_t {
-    QByteArrayData data[8];
-    char stringdata[67];
+    QByteArrayData data[11];
+    char stringdata[83];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -30,16 +30,20 @@ struct qt_meta_stringdata_Gui_UserWindow_t {
 static const qt_meta_stringdata_Gui_UserWindow_t qt_meta_stringdata_Gui_UserWindow = {
     {
 QT_MOC_LITERAL(0, 0, 14),
-QT_MOC_LITERAL(1, 15, 8),
-QT_MOC_LITERAL(2, 24, 0),
-QT_MOC_LITERAL(3, 25, 8),
-QT_MOC_LITERAL(4, 34, 8),
-QT_MOC_LITERAL(5, 43, 8),
-QT_MOC_LITERAL(6, 52, 6),
-QT_MOC_LITERAL(7, 59, 6)
+QT_MOC_LITERAL(1, 15, 6),
+QT_MOC_LITERAL(2, 22, 0),
+QT_MOC_LITERAL(3, 23, 3),
+QT_MOC_LITERAL(4, 27, 8),
+QT_MOC_LITERAL(5, 36, 8),
+QT_MOC_LITERAL(6, 45, 8),
+QT_MOC_LITERAL(7, 54, 8),
+QT_MOC_LITERAL(8, 63, 6),
+QT_MOC_LITERAL(9, 70, 6),
+QT_MOC_LITERAL(10, 77, 4)
     },
-    "Gui_UserWindow\0overview\0\0messages\0"
-    "settings\0payments\0groups\0logout\0"
+    "Gui_UserWindow\0logOut\0\0ext\0overview\0"
+    "messages\0settings\0payments\0groups\0"
+    "logout\0exit\0"
 };
 #undef QT_MOC_LITERAL
 
@@ -49,22 +53,32 @@ static const uint qt_meta_data_Gui_UserWindow[] = {
        7,       // revision
        0,       // classname
        0,    0, // classinfo
-       6,   14, // methods
+       9,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
        0,       // flags
-       0,       // signalCount
+       2,       // signalCount
+
+ // signals: name, argc, parameters, tag, flags
+       1,    0,   59,    2, 0x06,
+       3,    0,   60,    2, 0x06,
 
  // slots: name, argc, parameters, tag, flags
-       1,    0,   44,    2, 0x0a,
-       3,    0,   45,    2, 0x0a,
-       4,    0,   46,    2, 0x0a,
-       5,    0,   47,    2, 0x0a,
-       6,    0,   48,    2, 0x0a,
-       7,    0,   49,    2, 0x0a,
+       4,    0,   61,    2, 0x0a,
+       5,    0,   62,    2, 0x0a,
+       6,    0,   63,    2, 0x0a,
+       7,    0,   64,    2, 0x0a,
+       8,    0,   65,    2, 0x0a,
+       9,    0,   66,    2, 0x0a,
+      10,    0,   67,    2, 0x0a,
+
+ // signals: parameters
+    QMetaType::Void,
+    QMetaType::Void,
 
  // slots: parameters
+    QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
@@ -80,13 +94,31 @@ void Gui_UserWindow::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _
     if (_c == QMetaObject::InvokeMetaMethod) {
         Gui_UserWindow *_t = static_cast<Gui_UserWindow *>(_o);
         switch (_id) {
-        case 0: _t->overview(); break;
-        case 1: _t->messages(); break;
-        case 2: _t->settings(); break;
-        case 3: _t->payments(); break;
-        case 4: _t->groups(); break;
-        case 5: _t->logout(); break;
+        case 0: _t->logOut(); break;
+        case 1: _t->ext(); break;
+        case 2: _t->overview(); break;
+        case 3: _t->messages(); break;
+        case 4: _t->settings(); break;
+        case 5: _t->payments(); break;
+        case 6: _t->groups(); break;
+        case 7: _t->logout(); break;
+        case 8: _t->exit(); break;
         default: ;
+        }
+    } else if (_c == QMetaObject::IndexOfMethod) {
+        int *result = reinterpret_cast<int *>(_a[0]);
+        void **func = reinterpret_cast<void **>(_a[1]);
+        {
+            typedef void (Gui_UserWindow::*_t)();
+            if (*reinterpret_cast<_t *>(func) == static_cast<_t>(&Gui_UserWindow::logOut)) {
+                *result = 0;
+            }
+        }
+        {
+            typedef void (Gui_UserWindow::*_t)();
+            if (*reinterpret_cast<_t *>(func) == static_cast<_t>(&Gui_UserWindow::ext)) {
+                *result = 1;
+            }
         }
     }
     Q_UNUSED(_a);
@@ -117,14 +149,26 @@ int Gui_UserWindow::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 6)
+        if (_id < 9)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 6;
+        _id -= 9;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 6)
+        if (_id < 9)
             *reinterpret_cast<int*>(_a[0]) = -1;
-        _id -= 6;
+        _id -= 9;
     }
     return _id;
+}
+
+// SIGNAL 0
+void Gui_UserWindow::logOut()
+{
+    QMetaObject::activate(this, &staticMetaObject, 0, 0);
+}
+
+// SIGNAL 1
+void Gui_UserWindow::ext()
+{
+    QMetaObject::activate(this, &staticMetaObject, 1, 0);
 }
 QT_END_MOC_NAMESPACE

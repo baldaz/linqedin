@@ -22,7 +22,7 @@ Gui_UserWindow::Gui_UserWindow(LinqClient* cli, QWidget* parent) : QWidget(paren
     _mainLayout = new QVBoxLayout;
     QPushButton* quit = new QPushButton;
     quit->setIcon(QPixmap("img/prohibited1.png"));
-    connect(quit, SIGNAL(clicked()), this, SLOT(close()));
+    connect(quit, SIGNAL(clicked()), this, SLOT(exit()));
     _mainLayout->addWidget(quit, 0, Qt::AlignTop | Qt::AlignRight);
     _mainLayout->addWidget(horizontalGroupBox);
     _mainLayout->addLayout(_layoutStack);
@@ -174,8 +174,8 @@ void Gui_UserWindow::logout() {
     delete _pay;
     delete _grp;
     delete _layout;
+    emit logOut();
     close();
-    // logW->show();
 }
 
 void Gui_UserWindow::closeEvent(QCloseEvent* event) {
@@ -187,4 +187,9 @@ void Gui_UserWindow::closeEvent(QCloseEvent* event) {
     // delete _layout;
     // delete this;
     event->accept();
+}
+
+void Gui_UserWindow::exit() {
+    emit ext();
+    close();
 }

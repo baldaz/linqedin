@@ -41,9 +41,6 @@ private:
     Gui_Statistics* _pay;
     Gui_Groups* _grp;
     LinqClient* user;
-    // Gui_Login* logW;
-
-    // void logicInitialize(const string&, const string&);
     void createHorizontalGroupBox();
     void createOverview();
     void createMessages();
@@ -54,7 +51,8 @@ private:
     void mouseDoubleClickEvent(QMouseEvent*);
     void closeEvent(QCloseEvent*);
 signals:
-
+    void logOut();
+    void ext();
 public slots:
     void overview();
     void messages();
@@ -62,6 +60,7 @@ public slots:
     void payments();
     void groups();
     void logout();
+    void exit();
 };
 
 #endif

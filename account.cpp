@@ -16,7 +16,10 @@ Account* Account::clone() const {
 //     }
 //     return *this;
 // }
-Username Account::username() const {
+const Username& Account::username() const {
+    return _user;
+}
+Username& Account::username() {
     return _user;
 }
 Info* Account::info() const {

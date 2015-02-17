@@ -40,6 +40,7 @@ Gui_Login::Gui_Login(QWidget* parent) : QDialog(parent) {
     }
     connect(buttonBox, SIGNAL(clicked(QAbstractButton*)), this, SLOT(onClicked(QAbstractButton*)));
     connect(this, SIGNAL(logged()), this, SLOT(login()));
+
 }
 
 void Gui_Login::resizeEvent(QResizeEvent* event) {
@@ -86,12 +87,12 @@ void Gui_Login::onClicked(QAbstractButton* button) {
 void Gui_Login::login() {
     window = new Gui_UserWindow(c);
     window->show();
-    close();
+    connect(window, SIGNAL(logOut()), this, SLOT(showMe()));
+    connect(window, SIGNAL(ext()), this, SLOT(close()));
+    hide();
 }
 
-// void Gui_Login::closeEvent(QCloseEvent* event) {
-//     if(window) delete window;
-//     // if(reg) delete reg;
-//     // if(admwin) delete admwin;
-//     event->accept();
-// }
+//SLOT
+void Gui_Login::showMe() {
+    show();
+}

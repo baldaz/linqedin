@@ -22,7 +22,8 @@ public:
     ~Account();
     Account* clone() const;
     // Account& operator=(const Account&);
-    Username username() const;
+    const Username& username() const;
+    Username& username();
     Info* info() const;
     privLevel prLevel() const;
     Avatar avatar() const;
