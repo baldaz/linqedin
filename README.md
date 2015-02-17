@@ -25,3 +25,5 @@ P2 Project 2014
 
 ####IMPORTANT
     - Watch for random segfaults in registration with more client logged.
+    - 54 seconds compile time
+    - save in all critical points

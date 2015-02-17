@@ -38,8 +38,10 @@ void User::searchFunctor::operator()(const SmartPtr<User>& spu) {
             if(uf) {
                 string fullName = utilities::Utils::toLowerCase(uf->name() + " " + uf->surname());
                 if(utilities::Utils::toLowerCase(uf->name()) == _wanted || utilities::Utils::toLowerCase(uf->surname()) == _wanted || fullName == _wanted) {
-                    _result.insert(std::pair<string, string>(spu->account()->username().login(), uf->name() + " " + uf->surname() + "\n"));
-                    spu->addVisit();
+                    if(_result.size() < 50) {
+                        _result.insert(std::pair<string, string>(spu->account()->username().login(), uf->name() + " " + uf->surname() + "\n"));
+                        spu->addVisit();
+                    }
                 }
             }
         break;
@@ -47,8 +49,10 @@ void User::searchFunctor::operator()(const SmartPtr<User>& spu) {
             if(uf) {
                 string fullName = utilities::Utils::toLowerCase(uf->name() + " " + uf->surname());
                 if(utilities::Utils::toLowerCase(uf->name()) == _wanted || utilities::Utils::toLowerCase(uf->surname()) == _wanted || fullName == _wanted) {
-                    _result.insert(std::pair<string, string>(spu->account()->username().login(), spu->showInfo() + "\n"));
-                    spu->addVisit();
+                    if(_result.size() < 100) {
+                        _result.insert(std::pair<string, string>(spu->account()->username().login(), spu->showInfo() + "\n"));
+                        spu->addVisit();
+                    }
                 }
             }
         break;
@@ -75,8 +79,10 @@ void User::searchFunctor::operator()(const SmartPtr<User>& spu) {
                             found = false;
                         else found = true;
                     if(!found) {
-                        _result.insert(std::pair<string, string>(spu->account()->username().login(), spu->showInfo() + "\n" + spu->net()->printHtml()));
-                        spu->addVisit();
+                        if(_result.size() < 400) {
+                            _result.insert(std::pair<string, string>(spu->account()->username().login(), spu->showInfo() + "\n" + spu->net()->printHtml()));
+                            spu->addVisit();
+                        }
                     }
                 }
             }
@@ -96,15 +102,17 @@ void User::searchFunctor::operator()(const SmartPtr<User>& spu) {
                         *it = utilities::Utils::toLowerCase(*it);
                     string fullName = utilities::Utils::toLowerCase(uf->name() + " " + uf->surname());
                     if((utilities::Utils::toLowerCase(uf->name()) == _wanted ||
-                       utilities::Utils::toLowerCase(uf->surname()) == _wanted ||
-                       fullName == _wanted || std::find(skills.begin(), skills.end(), _wanted) != skills.end() ||
-                       std::find(g_names.begin(), g_names.end(), _wanted) != g_names.end()) && (spu->account()->username().login() != _caller->account()->username().login())){
-                        _result.insert(std::pair<string, string>(spu->account()->username().login(), spu->showInfo() + "\n" + spu->net()->printHtml()));
-                        spu->addVisit();
-                        if(spu->account()->prLevel() == executive) {
-                            ExecutiveUser* eu = dynamic_cast<ExecutiveUser*> (&(*spu));
-                            eu->addKeyword(_wanted);
-                            eu->addVisitor(SmartPtr<User>(const_cast<User*> (_caller)));
+                        utilities::Utils::toLowerCase(uf->surname()) == _wanted ||
+                        fullName == _wanted || std::find(skills.begin(), skills.end(), _wanted) != skills.end() ||
+                        std::find(g_names.begin(), g_names.end(), _wanted) != g_names.end()) && (spu->account()->username().login() != _caller->account()->username().login())){
+                        if(_result.size() < 400) {
+                            _result.insert(std::pair<string, string>((spu)->account()->username().login(), (spu)->showInfo() + "\n" + (spu)->net()->printHtml()));
+                            (spu)->addVisit();
+                            if((spu)->account()->prLevel() == executive) {
+                                ExecutiveUser* eu = dynamic_cast<ExecutiveUser*> (&(*(spu)));
+                                eu->addKeyword(_wanted);
+                                eu->addVisitor(SmartPtr<User>(const_cast<User*> (_caller)));
+                            }
                         }
                     }
                 }
@@ -125,7 +133,7 @@ vector<SmartPtr<User> > User::linkedWith::result() const {
     return _mates;
 }
 vector<SmartPtr<User> > User::listPossibleLinks(const LinqDB& db) const {
-    return std::for_each(db.begin(), db.end(), linkedWith(40, const_cast<User*> (this))).result();
+    return std::for_each(db.begin(), db.end(), linkedWith(45, const_cast<User*> (this))).result();
 }
 void User::addContact(User* usr) {
     _net->addUser(usr);
@@ -155,7 +163,7 @@ void User::addVisit() {
 int User::similarity(const SmartPtr<User>& user) const {
     UserInfo* uf = dynamic_cast<UserInfo*> (_acc->info());
     UserInfo* host = dynamic_cast<UserInfo*> (user->account()->info());
-    int i_w = 2, s_w = 5, l_w = 2;
+    int i_w = 2, s_w = 6, l_w = 2;
     double counter = 0;
     // interests
     vector<string> interests = uf->interests();

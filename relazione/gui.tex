@@ -1,0 +1,49 @@
+\subsection*{GUI}
+Per l'interfaccia grafica dell'applicazione sono state utilizzate le librerie Qt alla versione 5.3.2, il front-end è strutturato come una pila
+di \textit{QGridLayout} contenuti all'interno di un \textit{Widget} padre \lq\lq globale \rq\rq mediante un \texit{QStackedLayout} che richiamando lo
+slot appropriato carica la sezione richiesta.
+Un menù orizzontale è stato creato utilizzando un \textit{QHboxLayout} contente i pulsanti necessari a spostarsi tra le sezioni, ogni sezione
+è in effetti un \textit{QGridLayout} ed al suo interno contiene i \textit{widget} necessari alle interazioni dell'utente con la base di dati di
+LinQedin. Per i contenuti prettamente testuali ho scelto di utilizzare \textit{QTextEdit} e \textit{QTextBrowser} per poter usufruire delle funzionalità
+HTML supportate ed ottenere cosi una migliore presentazione.
+All'avvio compare una finestra di login, con due pulsanti, adibiti all'ingresso in LinQedin o alla registrazione di un nuovo profilo mediante un form,
+mentre utilizzando le credenziali \lq\lq root \rq\rq e \lq\lq toor \rq\rq, rispettivamente come username e password, viene lanciata la finestra di amministrazione.
+Le eventuali situazioni di errore sono state gestite mediante \textit{QMessageBox} catturando le eccezioni sollevate dai vari metodi, ogni sezione possiede un
+puntatore all'oggetto \textit{LinqClient} che fa da interfaccia tra la parte logica e la parte grafica.
+Tutto il codice è stato scritto interamente a mano, senza alcun utilizzo di \textit{QtCreator} o dello strumento \textit{QtDesigner}.
+\subsubsection*{Sezioni}
+\begin{enumerate}
+    \item
+    \texttt{Gui\_Userwindow:} \textit{Widget} padre contenitore dei layout, deriva pubblicamente da \textit{QWidget} e genera il menù orizzontale
+    formato da \textit{QPushButton}, possiede inoltre l'overload di alcuni eventi del mouse, come ad esempio il \texit{dragging} o l'ingrandimento
+    mediante doppio click, in quanto trattandosi di una finestra \textit{frameless} si distacca completamente dalle direttive del sistema operativo
+    per le operazioni di spostamento o ingrandimento / rimpicciolimento. Tutte le sezioni presentano un avatar, generato mediante la classe \textit{Gui\_Avatar}.
+    \item
+    \texttt{Gui\_Overview:} E' la prima sezione caricata una volta effettuato il login e rappresenta una sorta di homepage del proprio profilo LinQedin,
+    con le informazioni personali, competenze, interessi, gruppi etc  visualizzabili all'interno di \textit{Gui\_DispInfo},classe personalizzata
+    che deriva pubblicamente \textit{QTextBrowser} costituita da un campo edit in modalità \textit{readonly} e due campi dati \texit{QString} utili a
+    mantenere traccia di alcune informazioni in base al contenuto da visualizzare.
+    In questa sezione si trova inoltre la lista delle connessioni e un campo \textit{QLineEdit} adibito alla ricerca, parametrizzata e non; sia i risultati della ricerca
+    che le connessioni sono visualizzate sempre attraverso l'oggetto \textit{Gui\_DispInfo}, inoltre vengono generati alcuni pulsanti contenuti in una \texit{QToolBar}
+    appena sotto l'area di output, utili per le operazioni comuni agli utenti quali eliminazione o aggiunta di connessioni, esplorazione dei risulati di ricerce
+    qualora fossero più d'uno. Infine per account di livello Business o superiore vi è inoltre una lista di profili \lq\lq somiglianti \rq\rq, che potrebbero rappresentare
+    delle possibili connessioni per offerte lavorative o altro. Deriva da \textit{QGridLayout}.
+    \item
+    \texttt{Gui\_Statistics:} Qui troviamo alcune statistiche di profilo, quali lo storico dei pagamenti, un conta visite, il numero di messaggi inviati e rimanenti nel mese corrent e in base ai privilegi
+    dell'account è possibile vedere gli ultimi 10 visitatori, il loro grado di somiglianza con il proprio profilo e la percentuale di keywords che rimandano al proprio account utilizzate nella ricerca dagli
+    altri profili. Deriva da \textit{QGridLayout}.
+    \item
+    \texttt{Gui\_Groups:} Area accessibile solo a profili di livello Business o superiore, qui è possibile gestire l'interazione con i gruppi all'interno di LinQedin, o, previa qualifica di livello Executive,
+    crearne e amministrarne di propri. Deriva da \textit{QGridLayout}.
+    \item
+    \texttt{Gui\_Messages:} Sezione adibita alla gestione della posta interna di LinQedin, è possibile leggere, inviare messaggi ad altri utenti LinQedin o eliminare la posta più vecchia, ogni account è limitato
+    ad un determinato numero di messaggi in uscita, che, una volta raggiunta la quota, viene resettato automaticamente al primo avvio del mese successivo. Deriva da \textit{QGridLayout}.
+    \item
+    \texttt{Gui\_Settings:} Qui viene gestita \lq\lq l'apparenza \rq\rq del profilo, viene generata una serie di \textit{QLineEdit} per la modifica o inserimento di informazioni personali, clickando sul pulsante in basso
+    a destra \lq\lq UNLOCK \rq\rq è possibile sbloccare questi campi e modificarli, una volta terminato clickando il pulsante \lq\lq SAVE \rq\rq le modifiche vengono apportate anche al database e rese permanenti mediante
+    salvataggio.
+    è inoltre possibile aggiungere competenze, lingue o interessi con lo stesso sistema, oppure eliminarne utilizzando un \textit{ContextMenu} accessibile mediante click destro sulle liste. Sempre utilizzando menu a tendina
+    è infine possibile aggiungere, o eliminare esperienze, lavorative o scolastiche.
+\end{enumerate}
+Ad ogni modifica effettuata viene sempre richiamato il metodo di salvataggio dall'interfaccia \texit{LinqClient}, in ogni caso eventuali modifiche vengono rese permanenti al logout dell'applicazione.
+I restati layout, \textit{Gui\_Login}, \textit{Gui\_AdminWindow} e \textit{Gui\_Registration} si occupano delle sezioni precedentemente introdotte, login, pannello amministrativo e registrazione nuovo utente.
