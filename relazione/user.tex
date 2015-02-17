@@ -1,5 +1,10 @@
-\subsection*{Gerarchia Utenti}
-La gerarchia degli utenti LinQedin è stata implementata perlopiù seguendo le linee guida offerte dal Prof. Ranzato salvo alcune personalizzazioni.
+\section*{LOGICA}
+La parte logica del progetto LinQedin è stata implementata perlopiù seguendo le linee guida offerte dal Prof. Ranzato salvo alcune personalizzazioni. La memoria
+è interamente gestita mediante l'uso di puntatori smart ove necessario, negli alti casi la deallocazione avviene nei distruttori, tutti i puntatori che popolano i contenitori
+utilizzati, se non associati all'uso di smart pointer, vengono prima deallocati e poi rimossi con i metodi \textit{clear()}.
+Ho scelto di creare una classe \textit{SmartPtr<T>} che costituisce un puntatore smart templatizzato per poterlo utilizzare liberamente in ogni parte del programma che richieda
+gestione automatica di memoria allocata e/o per futuri scopi.
+\subsection*{GERARCHIA UTENTI E RICERCA}
 Un utente è formato da un account, da una rete di collegamenti e da un campo intero che funge da contavisite, possiede inoltre due classi interne
 incapsulate nella parte privata di esclusivo utilizzo dell'oggetto \textit{User}, esse rappresentano due funtori utilizzati per funzionalità di
 ricerca e utilità, infine è formato da due vettori contenti dei puntatori smart a messaggi, rappresentanti posta in entrata e posta in uscita, la cui capacità
@@ -8,7 +13,8 @@ Il campo dati account è un puntatore ad un istanza di \textit{Account} che rapp
 personali, livello di privilegio e pagamenti dell'utente associato; mentre il campo dati \textit{net} è un puntatore ad un oggetto \textit{LinqNet},
 costituito da una list di smartpointer a classe base \textit{User} con metodi di aggiunta e rimozione.
 La classe base è astratta in quanto possiede alcuni metodi virtuali puri, è estesa \lq\lq a cascata \rq\rq da altre 3 classi, che rappresentano
-i livelli di privilegio all'interno di LinQedin.
+i livelli di privilegio all'interno di LinQedin. La ricerca è uno degli aspetti su cui verte maggiormente il concetto di polimorfismo, implementato mediante funtore,
+ogni livello privilegio ha accesso ad un diverso grado di precisione nella ricerca.
 \subsubsection*{Basic User}
 Utente di livello base, possiede funzionalità comuni a tutti gli utenti come aggiunta e rimozione collegamenti dalla propria rete, l'override del metodo
 di ricerca permette un massimo di 50 risultati e non restituisce alcuna informazione aggiuntiva sui target di ricerca se non la loro effettiva
