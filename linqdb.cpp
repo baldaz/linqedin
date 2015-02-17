@@ -418,7 +418,6 @@ User* LinqDB::find(const Username& usr) const {
     list<SmartPtr<User> >::const_iterator it = _db.begin();
     for(; it != _db.end(); ++it)
         if(((*it)->account()->username().login()) == usr.login())
-            // ret = (*it)->clone();
             ret = &(*(*it));
     return ret;
 }
@@ -440,7 +439,7 @@ void LinqDB::addGroup(const Group& g) throw(Error) {
     if(!found) {
         Group& gg = const_cast<Group&> (g);
         gg.addMember(this->find(g.admin()));
-        _grp.push_back(static_cast<Group*> (&gg));
+        _grp.push_back(&gg);
     }
     else throw Error(dupGroup, "A group with the same name already exists");
 }
@@ -452,7 +451,9 @@ void LinqDB::addMemberToGroup(const Group& g, const Username& u) {
             (*it)->addMember(find(u));
             found = true;
         }
-    // if(found) (*it)->addMember(find(u));
+}
+void LinqDB::removeMemberFromGroup(Group& g, const Username& u) {
+    g.removeMember(u);
 }
 void LinqDB::addPostToGroup(const Group& g, const Post& p) {
     list<Group*>::iterator it = _grp.begin();
@@ -472,7 +473,7 @@ const Group& LinqDB::findGroupByName(const string& n) const throw(Error) {
 }
 Group& LinqDB::findGroupByName(const string& n) throw(Error) {
     bool found = false;
-    list<Group*>::const_iterator it = _grp.begin();
+    list<Group*>::iterator it = _grp.begin();
     for(; it != _grp.end() && !found; ++it)
         if((*it)->name() == n) {
             found = true;
@@ -487,9 +488,8 @@ list<Group*> LinqDB::allGroups() const {
     return _grp;
 }
 list<Post*> LinqDB::postsFromGroup(const Group& g) const {
-    list<Group*>::const_iterator i;
     list<Post*> ret;
-    for(i = _grp.begin(); i != _grp.end(); ++i)
+    for(list<Group*>::const_iterator i = _grp.begin(); i != _grp.end(); ++i)
         if((**i) == g)
             ret = (*i)->posts();
     return ret;

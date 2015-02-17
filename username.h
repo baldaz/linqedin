@@ -10,7 +10,7 @@ private:
     string _login;
     string _password;
 public:
-    Username(const string&, const string&);
+    Username(const string& = "", const string& = "");
     // Username(const Username&);
     // Username* clone() const;
     const string& login() const;

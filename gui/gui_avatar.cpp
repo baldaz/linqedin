@@ -1,4 +1,6 @@
+#include "avatar.h"
 #include "gui_avatar.h"
+#include <QFile>
 
 Gui_Avatar::Gui_Avatar(const QString& path, QWidget* parent) : QLabel(parent), _path(path) {
    setPath(_path);
@@ -6,6 +8,7 @@ Gui_Avatar::Gui_Avatar(const QString& path, QWidget* parent) : QLabel(parent), _
 
 void Gui_Avatar::setPath(const QString& path) {
     _path = path;
+    if(!QFile::exists(_path)) _path = QString::fromStdString(STANDARD_AVATAR);
     QPixmap avatar(_path);
     QPixmap mask(avatar.size());
     QPainter maskPainter(&mask);

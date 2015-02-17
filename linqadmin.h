@@ -8,9 +8,13 @@
 class LinqAdmin {
 private:
     class completeRemove {
+    private:
         Username rmusr;
+        Group* g;
+        int mode;
     public:
-        completeRemove(const Username&);
+        completeRemove(const Username&, int = 0);
+        completeRemove(Group*, int = 1);
         ~completeRemove();
         void operator()(const SmartPtr<User>&) const;
     };
@@ -31,7 +35,11 @@ public:
     void insertUser(const string&, const string&, privLevel, const map<string, string>& = map<string,string>()) throw(Error);
     void removeUser(const Username&);
     map<string,string> find(const string&) const;
+    Group findGroup(const string&) const;
+    list<Group*> listGroups() const;
     list<Group*> listUserGroups(const Username&) const;
+    list<Post*> listPostFromGroup(const Group&) const;
+    void deleteGroup(const string&);
     void upgradeSubscription(const Username&, privLevel);
     void save() const;
 };

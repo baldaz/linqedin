@@ -2,12 +2,31 @@
 #include "utils.h"
 #include <sstream>
 
-LinqAdmin::completeRemove::completeRemove(const Username& usr) : rmusr(usr) {}
+LinqAdmin::completeRemove::completeRemove(const Username& usr, int m) : rmusr(usr), mode(m) {}
+LinqAdmin::completeRemove::completeRemove(Group* gr, int m) : g(gr), mode(m) {}
 LinqAdmin::completeRemove::~completeRemove() { }
 void LinqAdmin::completeRemove::operator()(const SmartPtr<User>& user) const {
-    try {
-        user->removeContact(rmusr);
-    }catch(Error e){}
+    switch(mode) {
+        case 0:
+        {
+            try {
+                user->removeContact(rmusr);
+            }catch(Error e){}
+        }
+        break;
+        case 1:
+        {
+            if(BusinessUser* ex = dynamic_cast<BusinessUser*> (&(*user))) {
+                list<Group*> lu = ex->groups();
+                list<Group*>::iterator it = lu.begin();
+                for(; it != lu.end(); ++it) {
+                    if((**it) == *g)
+                        ex->removeGroup(**it);
+                }
+            }
+        }
+        break;
+    }
 }
 
 LinqAdmin::adminSearch::adminSearch(const string& w) : _wanted(w){}
@@ -112,12 +131,27 @@ void LinqAdmin::upgradeSubscription(const Username& usr, privLevel newlevel) {
 map<string,string> LinqAdmin::find(const string& s) const {
     return std::for_each(_db->begin(), _db->end(), adminSearch(s)).result();
 }
+Group LinqAdmin::findGroup(const string& name) const {
+    return _db->findGroupByName(name);
+}
+list<Group*> LinqAdmin::listGroups() const {
+    return _db->allGroups();
+}
 list<Group*> LinqAdmin::listUserGroups(const Username& u) const {
     list<Group*> ret;
     User* x = _db->find(u);
     if(BusinessUser* bu = dynamic_cast<BusinessUser*> (x))
         ret = bu->groups();
     return ret;
+}
+list<Post*> LinqAdmin::listPostFromGroup(const Group& g) const {
+    return _db->postsFromGroup(g);
+}
+void LinqAdmin::deleteGroup(const string& a) {
+    Group g = _db->findGroupByName(a);
+    std::for_each(_db->begin(), _db->end(), completeRemove(&g));
+    _db->deleteGroup(g);
+    save();
 }
 void LinqAdmin::save() const {
     _db->save();

@@ -27,7 +27,6 @@ Gui_UserWindow::Gui_UserWindow(LinqClient* cli, QWidget* parent) : QWidget(paren
     _mainLayout->addWidget(horizontalGroupBox);
     _mainLayout->addLayout(_layoutStack);
     setLayout(_mainLayout);
-    // show();
     move(100, 30);
     resize(1150, 720);
 }

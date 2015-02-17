@@ -1,5 +1,6 @@
 #include "gui_messages.h"
 #include <QMenu>
+#include <QMouseEvent>
 #include <QMessageBox>
 
 Gui_Messages::Gui_Messages(LinqClient* cli, QWidget* parent) : QGridLayout(parent), _client(cli) {
@@ -28,7 +29,8 @@ Gui_Messages::Gui_Messages(LinqClient* cli, QWidget* parent) : QGridLayout(paren
     setRowStretch(1, 0);
     setRowStretch(2, 10);
 
-    QPushButton* box = new QPushButton("SEND");
+    box = new QPushButton("SEND");
+    box->installEventFilter(this);
 
     QLabel* ne = new QLabel("<h2>New message</h2>");
     addWidget(ne, 1, 0, 1, -1, Qt::AlignCenter);
@@ -118,8 +120,12 @@ void Gui_Messages::sendMail() {
     QString dest = edt1->text();
     QString obj = edt2->text();
     QString body = te->toPlainText();
-    _client->sendMail(dest.toStdString(), obj.toStdString(), body.toStdString(), false);
-    emit modified();
+    try {
+        _client->sendMail(dest.toStdString(), obj.toStdString(), body.toStdString(), false);
+        emit modified();
+    }catch(Error e) {
+        QMessageBox::critical(0, "An error occoured", QString::fromStdString(e.errorMessage()));
+    }
 }
 
 void Gui_Messages::refreshMessages() {
@@ -165,4 +171,13 @@ void Gui_Messages::deleteMessage() {
     }catch (Error e) {
         QMessageBox::critical(0, "Error occoured", QString::fromStdString(e.errorMessage()));
     }
+}
+
+bool Gui_Messages::eventFilter(QObject* obj, QEvent* event) {
+    if(obj == box && event->type() == QEvent::MouseButtonDblClick) {
+        QMouseEvent * mouseEvent = static_cast <QMouseEvent *> (event);
+        if(mouseEvent->button() == Qt::LeftButton)
+            return true;
+    }
+    return false;
 }

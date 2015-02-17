@@ -104,7 +104,7 @@ public:
     virtual map<string, string> userSearch(const LinqDB&, const string&) const;
     virtual void sendMessage(const Message&) throw(Error);
     list<Group*> groups() const;
-    void addGroup(const Group&);
+    void addGroup(const Group&) throw(Error);
     void removeGroup(const Group&);
     void addBio(const string&) const;
     static unsigned int businessLimit();

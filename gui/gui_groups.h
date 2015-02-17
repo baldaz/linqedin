@@ -28,7 +28,7 @@ private:
     QLineEdit* grpname;
     QLineEdit* search;
     QPushButton* post;
-    QString name, desc, admin;
+    QString name, desc, admin, _selected;
     QFormLayout* newgrplayout;
     QGroupBox* newbox;
     QToolBar* tbar;
@@ -41,9 +41,9 @@ private:
 public:
     Gui_Groups(LinqClient*, QWidget* = 0);
 signals:
-    void created();
+    void created(int);
 public slots:
-    void refresh();
+    void refresh(int);
     void showGroup();
     void sendPost();
     void showNewGroup();
@@ -53,5 +53,7 @@ public slots:
     void deleteGroup();
     void clearPosts();
     void leaveGroup();
+    void memListMenu(const QPoint&);
+    void kickMember();
 };
 #endif

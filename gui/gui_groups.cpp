@@ -1,5 +1,6 @@
 #include "gui_groups.h"
 #include <QMessageBox>
+#include <QMenu>
 
 Gui_Groups::Gui_Groups(LinqClient* c, QWidget* parent) : QGridLayout(parent), _client(c) {
     Gui_Avatar* portrait = new Gui_Avatar(QString::fromStdString(_client->avatar()));
@@ -83,6 +84,8 @@ Gui_Groups::Gui_Groups(LinqClient* c, QWidget* parent) : QGridLayout(parent), _c
     showgrp->hide();
     memlbl->hide();
     memlist->hide();
+    memlist->setContextMenuPolicy(Qt::CustomContextMenu);
+    connect(memlist, SIGNAL(customContextMenuRequested(const QPoint&)), this, SLOT(memListMenu(const QPoint&)));
 
     addWidget(newbox, 0, 1, 1, 1);
     addWidget(portrait, 0, 0, 1, 1, Qt::AlignTop);
@@ -102,7 +105,7 @@ Gui_Groups::Gui_Groups(LinqClient* c, QWidget* parent) : QGridLayout(parent), _c
     // setColumnStretch(2, 3);
     connect(grplist, SIGNAL(clicked(QModelIndex)), this, SLOT(showGroup()));
     connect(post, SIGNAL(clicked()), this, SLOT(sendPost()));
-    connect(this, SIGNAL(created()), this, SLOT(refresh()));
+    connect(this, SIGNAL(created(int)), this, SLOT(refresh(int)));
 }
 
 void Gui_Groups::createGroups() {
@@ -119,15 +122,15 @@ void Gui_Groups::createGroups() {
         search->setCompleter(completer);
         search->setClearButtonEnabled(true);
         search->show();
-    }
-    list<Group*> g = _client->listGroups();
-    QString out;
-    for(list<Group*>::iterator it = g.begin(); it != g.end(); ++it) {
-       QListWidgetItem* item = new QListWidgetItem;
-       item->setData(Qt::DisplayRole, QString::fromStdString((*it)->name()));
-       item->setData(Qt::UserRole + 1, QString::fromStdString((*it)->admin().login()));
-       item->setData(Qt::UserRole + 2, QString::fromStdString((*it)->description()));
-       grplist->addItem(item);
+        for(list<Group*>::iterator it = grps.begin(); it != grps.end(); ++it) {
+            if((*it)->isMember(_client->username())) {
+               QListWidgetItem* item = new QListWidgetItem;
+               item->setData(Qt::DisplayRole, QString::fromStdString((*it)->name()));
+               item->setData(Qt::UserRole + 1, QString::fromStdString((*it)->admin().login()));
+               item->setData(Qt::UserRole + 2, QString::fromStdString((*it)->description()));
+               grplist->addItem(item);
+           }
+        }
     }
 }
 
@@ -154,10 +157,23 @@ void Gui_Groups::createMemList(const string& gname) {
 }
 
 //SLOT
-void Gui_Groups::refresh() {
-    grplist->clear();
-    createGroups();
-
+void Gui_Groups::refresh(int t) {
+    switch(t) {
+        case 0:
+        {
+            grplist->clear();
+            createGroups();
+            memlist->clear();
+            createMemList(showgrp->info1().toStdString());
+        }
+        break;
+        case 1:
+        {
+            grplist->clear();
+            createGroups();
+            memlist->clear();
+        }
+    }
 }
 
 //SLOT
@@ -170,15 +186,16 @@ void Gui_Groups::showGroup() {
     name = grplist->currentItem()->data(Qt::DisplayRole).toString();
     createMemList(name.toStdString());
     memlist->show();
+    memlist->setEnabled(false);
     desc = grplist->currentItem()->data(Qt::UserRole + 2).toString();
     admin = grplist->currentItem()->data(Qt::UserRole + 1).toString();
-    // Group g(Username(admin.toStdString(), ""), name.toStdString());
     Group g = _client->findGroup(name.toStdString());
-    if(admin == QString::fromStdString(_client->username().login()) /*&& mbuttons[1]->isHidden() && mbuttons[2]->isHidden()*/) {
+    if(admin == QString::fromStdString(_client->username().login())) {
         mbuttons[1]->show();
         mbuttons[2]->show();
         mbuttons[3]->hide();
         mbuttons[4]->hide();
+        memlist->setEnabled(true);
     }
     else {
         mbuttons[1]->hide();
@@ -188,7 +205,7 @@ void Gui_Groups::showGroup() {
         else mbuttons[4]->show();
     }
     list<Post*> p = _client->listPostFromGroup(g);
-    int num = _client->postNumberFromGroup(g);
+    int num = p.size();
     QString output = "<h1>" + name + "</h1><h4>Admin: <span style='font-weight:400'>" + admin + "</span></h4><h5>" + desc + "</h5>";
     if(!p.empty()) {
         output.append(QString("<h2>Posts (%1):</h2>").arg(num));
@@ -233,12 +250,12 @@ void Gui_Groups::showNewGroup() {
 void Gui_Groups::newGroup() {
     QString name = grpname->text();
     QString desc = newgrp->text();
-    Group g(_client->username(), name.toStdString(), desc.toStdString());
+    Group* g = new Group(_client->username(), name.toStdString(), desc.toStdString()); // freed in db destructor
     try {
-        _client->createNewGroup(g);
+        _client->createNewGroup(*g);
         _client->save();
         QMessageBox::information(0, "Operation succesful", "Group \"" + name + " \" successfully created");
-        emit created();
+        emit created(1);
     }catch(Error e) {
         QMessageBox::critical(0, "Error occoured", QString::fromStdString(e.errorMessage()));
     }
@@ -251,7 +268,7 @@ void Gui_Groups::addGroup() {
     try {
         _client->addGroup(name.toStdString(), admin.toStdString());
         _client->save();
-        emit created();
+        emit created(0);
     }catch(Error e) {
         QMessageBox::critical(0, "Error occoured", QString::fromStdString(e.errorMessage()));
     }
@@ -263,48 +280,57 @@ void Gui_Groups::searchGroup() {
     showgrp->show();
     newpost->show();
     post->show();
+    memlbl->show();
     QString name = search->text();
-    Group g = _client->findGroup(name.toStdString());
-    admin = QString::fromStdString(g.admin().login());
-    if(admin == QString::fromStdString(_client->username().login()) && mbuttons[1]->isHidden() && mbuttons[2]->isHidden()) {
-        mbuttons[1]->show();
-        mbuttons[2]->show();
-        mbuttons[3]->hide();
-        mbuttons[4]->hide();
-    }
-    else {
-        mbuttons[1]->hide();
-        mbuttons[2]->hide();
-        if(g.isMember(_client->username())) {
-            mbuttons[3]->show();
+    try {
+        Group g = _client->findGroup(name.toStdString());
+        admin = QString::fromStdString(g.admin().login());
+        createMemList(name.toStdString());
+        memlist->show();
+        memlist->setEnabled(false);
+        if(admin == QString::fromStdString(_client->username().login()) && mbuttons[1]->isHidden() && mbuttons[2]->isHidden()) {
+            mbuttons[1]->show();
+            mbuttons[2]->show();
+            mbuttons[3]->hide();
             mbuttons[4]->hide();
+            memlist->setEnabled(true);
         }
         else {
-            mbuttons[3]->hide();
-            mbuttons[4]->show();
+            mbuttons[1]->hide();
+            mbuttons[2]->hide();
+            if(g.isMember(_client->username())) {
+                mbuttons[3]->show();
+                mbuttons[4]->hide();
+            }
+            else {
+                mbuttons[3]->hide();
+                mbuttons[4]->show();
+            }
         }
+        list<Post*> p = _client->listPostFromGroup(g);
+        int num = _client->postNumberFromGroup(g);
+        QString output = "<h1>" + name + "</h1><h4>Admin: <span style='font-weight:400'>" + admin + "</span></h4><h5>" + desc + "</h5>";
+        if(!p.empty()) {
+            output.append(QString("<h2>Posts (%1):</h2>").arg(num));
+            for(list<Post*>::iterator it = p.begin(); it != p.end(); ++it)
+                output.append(QString("<h5>Author: <span style='font-weight:400;font-size:10px'>" + QString::fromStdString((*it)->author().login()) + "</span></h5><p style='font-weight:400;font-size:11px;'>" + QString::fromStdString((*it)->content()) + "</p><hr>"));
+        }
+        showgrp->setInfo1(name);
+        showgrp->setInfo2(admin);
+        showgrp->setHtml(output);
+    }catch(Error e) {
+        QMessageBox::critical(0, "An error occoured", QString::fromStdString(e.errorMessage()));
+        return;
     }
-    list<Post*> p = _client->listPostFromGroup(g);
-    int num = _client->postNumberFromGroup(g);
-    QString output = "<h1>" + name + "</h1><h4>Admin: <span style='font-weight:400'>" + admin + "</span></h4><h5>" + desc + "</h5>";
-    if(!p.empty()) {
-        output.append(QString("<h2>Posts (%1):</h2>").arg(num));
-        for(list<Post*>::iterator it = p.begin(); it != p.end(); ++it)
-            output.append(QString("<h5>Author: <span style='font-weight:400;font-size:10px'>" + QString::fromStdString((*it)->author().login()) + "</span></h5><p style='font-weight:400;font-size:11px;'>" + QString::fromStdString((*it)->content()) + "</p><hr>"));
-    }
-    showgrp->setInfo1(name);
-    showgrp->setInfo2(admin);
-    showgrp->setHtml(output);
 }
 
 //SLOT
 void Gui_Groups::deleteGroup() {
     QString name = showgrp->info1();
-    QString admin = showgrp->info2();
     try {
-        _client->deleteGroup(name.toStdString(), admin.toStdString());
+        _client->deleteGroup(name.toStdString());
         _client->save();
-        emit created();
+        emit created(1);
     }catch(Error e) {
         QMessageBox::critical(0, "Error occoured", QString::fromStdString(e.errorMessage()));
     }
@@ -316,7 +342,7 @@ void Gui_Groups::clearPosts() {
     try {
         _client->clearPosts(name.toStdString());
         _client->save();
-        emit created();
+        emit created(0);
     }catch(Error e) {
         QMessageBox::critical(0, "Error occoured", QString::fromStdString(e.errorMessage()));
     }
@@ -324,5 +350,35 @@ void Gui_Groups::clearPosts() {
 
 //SLOT
 void Gui_Groups::leaveGroup() {
+    QString name = showgrp->info1();
+    try {
+        _client->leaveGroup(name.toStdString());
+        emit created(0);
+    }catch(Error e) {
+        QMessageBox::critical(0, "Error occoured", QString::fromStdString(e.errorMessage()));
+    }
+}
 
+//SLOT
+void Gui_Groups::kickMember() {
+    name = showgrp->info1();
+    try {
+        _client->kickMember(name.toStdString(), _selected.toStdString());
+        emit created(0);
+    }catch(Error e) {
+        QMessageBox::critical(0, "Error occoured", QString::fromStdString(e.errorMessage()));
+    }
+}
+
+//SLOT
+void Gui_Groups::memListMenu(const QPoint& pos) {
+    if(memlist->item(memlist->indexAt(pos).row())) {
+        QPoint globalPos = memlist->mapToGlobal(pos);    // Map the global position to the userlist
+        QModelIndex t = memlist->indexAt(pos);
+        memlist->item(t.row())->setSelected(true);           // even a right click will select the item
+        _selected = memlist->item(t.row())->data(Qt::UserRole + 2).toString();
+        QMenu myMenu;
+        myMenu.addAction("Kick member", this, SLOT(kickMember()));
+        myMenu.exec(globalPos);
+    }
 }

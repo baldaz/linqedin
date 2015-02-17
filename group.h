@@ -31,6 +31,7 @@ public:
     list<SmartPtr<User> > members() const;
     list<Post*> posts() const;
     void addMember(User*);
+    void removeMember(const Username&) throw(Error);
     void insertPost(const Post&);
     void clearPosts();
 };

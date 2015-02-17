@@ -161,28 +161,6 @@ list<SmartPtr<Message> > LinqClient::inMail() const {
 list<SmartPtr<Message> > LinqClient::outMail() const {
     return _usr->outMail();
 }
-list<Group*> LinqClient::listGroups() const {
-    list<Group*> ret;
-    if(BusinessUser* bu = dynamic_cast<BusinessUser*> (_usr))
-        ret = bu->groups();
-    return ret;
-}
-list<Group*> LinqClient::listAllGroups() const {
-    return _db->allGroups();
-}
-list<Group*> LinqClient::listUserGroups(const Username& u) const {
-    list<Group*> ret;
-    User* x = _db->find(u);
-    if(BusinessUser* bu = dynamic_cast<BusinessUser*> (x))
-        ret = bu->groups();
-    return ret;
-}
-list<Post*> LinqClient::listPostFromGroup(const Group& g) const {
-    return _db->postsFromGroup(g);
-}
-int LinqClient::postNumberFromGroup(const Group& g) const {
-    return _db->postNumberFromGroup(g);
-}
 map<string, string> LinqClient::find(const string& wanted = "") const {
     return _usr->userSearch(*_db, wanted);
 }
@@ -217,14 +195,13 @@ void LinqClient::setAvatar(const string& path) {
     Avatar avt(path);
     _usr->account()->setAvatar(avt);
 }
-void LinqClient::sendMail(const string& dest, const string& obj, const string& body, bool read) {
-    Username* dst = new Username(dest, "");
-    User* recip = _db->find(*dst);
-    Message* mail = new Message(_usr->account()->username(), *dst, obj, body, read);
-    recip->loadInMail(*mail);
-    _usr->sendMessage(*mail);
-    delete dst;
-    delete mail;
+void LinqClient::sendMail(const string& dest, const string& obj, const string& body, bool read) throw(Error){
+    Username dst(dest, "");
+    User* recip = _db->find(dst);
+    if(recip == NULL) throw Error(userNotFound, "Recipient not found, maybe it doesn't exists");
+    Message mail(_usr->account()->username(), dst, obj, body, read);
+    recip->loadInMail(mail);
+    _usr->sendMessage(mail);
 }
 void LinqClient::deleteMessage(const Message& m) {
     _usr->deleteMessage(m);
@@ -234,6 +211,28 @@ int LinqClient::visitCount() const {
 }
 void LinqClient::modifyInMail(const list<SmartPtr<Message> >& l) {
     _usr->setInMail(l);
+}
+list<Group*> LinqClient::listGroups() const {
+    list<Group*> ret;
+    if(BusinessUser* bu = dynamic_cast<BusinessUser*> (_usr))
+        ret = bu->groups();
+    return ret;
+}
+list<Group*> LinqClient::listAllGroups() const {
+    return _db->allGroups();
+}
+list<Group*> LinqClient::listUserGroups(const Username& u) const {
+    list<Group*> ret;
+    User* x = _db->find(u);
+    if(BusinessUser* bu = dynamic_cast<BusinessUser*> (x))
+        ret = bu->groups();
+    return ret;
+}
+list<Post*> LinqClient::listPostFromGroup(const Group& g) const {
+    return _db->postsFromGroup(g);
+}
+int LinqClient::postNumberFromGroup(const Group& g) const {
+    return _db->postNumberFromGroup(g);
 }
 void LinqClient::addPostToGroup(const Group& g, const Post& p) {
     _db->addPostToGroup(g, p);
@@ -253,10 +252,24 @@ void LinqClient::addGroup(const string& n, const string& a) {
     Group* g = new Group(Username(a, ""), n);
     addGroup(*g);
 }
-void LinqClient::deleteGroup(const string& n, const string& a) {
-    Group* g = new Group(Username(a, ""), n);
-    if(ExecutiveUser* ex = dynamic_cast<ExecutiveUser*> (_usr))
+void LinqClient::leaveGroup(const string& name) {
+    Group& g = _db->findGroupByName(name);
+    if(BusinessUser* bu = dynamic_cast<BusinessUser*> (_usr))
+        bu->removeGroup(g);
+    _db->removeMemberFromGroup(g, username());
+    _db->save();
+}
+void LinqClient::kickMember(const string& name, const string& u_name) {
+    Group& g = _db->findGroupByName(name);
+    _db->removeMemberFromGroup(g, Username(u_name, ""));
+    _db->save();
+}
+void LinqClient::deleteGroup(const string& n) {
+    Group* g = new Group(_db->findGroupByName(n));
+    if(ExecutiveUser* ex = dynamic_cast<ExecutiveUser*> (_usr)) {
         ex->globalRemoveGroup(*_db, *g);
+    }
+    _db->deleteGroup(*g);
 }
 void LinqClient::clearPosts(const string& name) {
     Group& g = _db->findGroupByName(name);

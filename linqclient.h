@@ -46,13 +46,15 @@ public:
     void removeContact(const Username&);
     void addExperience(const Experience&);
     void addVisitTo(const Username&);
-    void sendMail(const string& = "",  const string& = "", const string& = "", bool = false);
+    void sendMail(const string& = "",  const string& = "", const string& = "", bool = false) throw(Error);
     void modifyInMail(const list<SmartPtr<Message> >&);
     void addPostToGroup(const Group&, const Post&);
     void createNewGroup(const Group&) throw(Error);
     void addGroup(const Group&);
     void addGroup(const string&, const string&);
-    void deleteGroup(const string&, const string&);
+    void leaveGroup(const string&);
+    void kickMember(const string&, const string&);
+    void deleteGroup(const string&);
     void clearPosts(const string&);
     void addTrait(int, const string&);
     void deleteTrait(int, const string&);

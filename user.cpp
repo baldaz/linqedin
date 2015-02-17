@@ -303,8 +303,13 @@ void BusinessUser::sendMessage(const Message& mex) throw(Error) {
 list<Group*> BusinessUser::groups() const {
     return _groups;
 }
-void BusinessUser::addGroup(const Group& g) {
-    _groups.push_back(const_cast<Group*> (&g)); // controllo gruppi duplicati
+void BusinessUser::addGroup(const Group& g) throw(Error){
+    bool found = false;
+    list<Group*>::iterator it = _groups.begin();
+    for(; it != _groups.end() && !found; ++it)
+        if((**it) == g) found = true;
+    if(!found) _groups.push_back(const_cast<Group*> (&g)); // controllo gruppi duplicati
+    else throw Error(dupGroup, "Already member of this group");
 }
 void BusinessUser::removeGroup(const Group& g) {
     bool found = false;
@@ -365,8 +370,9 @@ void ExecutiveUser::addKeyword(const string& key) {
 }
 void ExecutiveUser::globalRemoveGroup(const LinqDB& db, const Group& g) {
     std::for_each(db.begin(), db.end(), RemoveGroup(const_cast<Group*> (&g)));
-    LinqDB& d = const_cast<LinqDB&> (db);
-    d.deleteGroup(g);
+    removeGroup(g);
+    // LinqDB& d = const_cast<LinqDB&> (db);
+    // d.deleteGroup(g);
 }
 map<string, int> ExecutiveUser::keywordPercent() const {
     map<string, int> ret;

@@ -14,7 +14,7 @@ Group::~Group() {
     _members.clear();
 }
 bool Group::operator==(const Group& g) const {
-    return _name == g._name && _admin.login() == g._admin.login();
+    return (_name == g._name) && (_admin.login() == g._admin.login());
 }
 bool Group::isMember(const Username& u) const {
     for(list<SmartPtr<User> >::const_iterator i = _members.begin(); i != _members.end(); ++i)
@@ -42,6 +42,15 @@ list<Post*> Group::posts() const {
 }
 void Group::addMember(User* u) {
     _members.push_back(SmartPtr<User> (u));
+}
+void Group::removeMember(const Username& u) throw(Error) {
+    bool found = false;
+    for(list<SmartPtr<User> >::iterator i = _members.begin(); i != _members.end() && !found; ++i)
+        if((*i)->account()->username().login() == u.login()) {
+            _members.erase(i);
+            found = true;
+        }
+    if(!found) throw Error(groupNotFound, "Requested group not found");
 }
 void Group::insertPost(const Post& p) {
     _posts.push_back(const_cast<Post*> (&p));

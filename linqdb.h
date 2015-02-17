@@ -46,6 +46,7 @@ public:
     void deleteGroup(const Group&) throw(Error);
     void addGroup(const Group&) throw(Error);
     void addMemberToGroup(const Group&, const Username&);
+    void removeMemberFromGroup(Group&, const Username&);
     void addPostToGroup(const Group&, const Post&);
     Username getAdmin() const throw(Error);
     list<SmartPtr<User> > db() const;

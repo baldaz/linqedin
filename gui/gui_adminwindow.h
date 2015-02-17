@@ -26,6 +26,7 @@ class Gui_AdminWindow : public QWidget {
 private:
     LinqAdmin* _admin;
     QListWidget* _userList;
+    QListWidget* _groupList;
     Gui_DisplayInfo* _userInfo;
     QLineEdit* edt[5];
     QToolBar* tbar;
@@ -35,6 +36,7 @@ private:
     QString _cnt;
 
     void createUserList();
+    void createGroupList();
     void createSearch();
 public:
     Gui_AdminWindow(QWidget* parent = 0);
@@ -45,6 +47,8 @@ public slots:
     void showSearchResult();
     void nextResult();
     void showUser();
+    void showGroup();
+    void deleteGroup();
     void addUser();
     void removeUser();
     void upgradeUser();

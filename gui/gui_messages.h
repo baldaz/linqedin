@@ -19,6 +19,7 @@ private:
     QListWidget* _listIn;
     QListWidget* _listOut;
     QTextBrowser* _output;
+    QPushButton* box;
     QLineEdit* edt1;
     QLineEdit* edt2;
     QTextEdit* te;
@@ -28,6 +29,7 @@ private:
 
     QString unreadMex(int);
     void createLists();
+    bool eventFilter(QObject*, QEvent*);
 public:
     explicit Gui_Messages(LinqClient*, QWidget* parent = 0);
 signals:
