@@ -1,24 +1,25 @@
 #ifndef LINQDB_H
 #define LINQDB_H
 
-#include <iostream>
-#include <vector>
-#include <list>
+// #include <vector>
+// #include <list>
 #include <QFile>
 #include <QJsonObject>
 #include <QJsonArray>
 #include <QJsonDocument>
 #include <QString>
-#include <string>
+// #include <string>
 #include "user.h"
 #include "linqnet.h"
 #include "privlevel.h"
-#include "smartptr.h"
-#include "error.h"
+// #include "smartptr.h"
+// #include "error.h"
 
-using std::list;
-using std::vector;
-using std::string;
+// using std::list;
+// using std::vector;
+// using std::string;
+
+class Info;
 
 class LinqDB {
 private:

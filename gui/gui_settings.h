@@ -2,15 +2,15 @@
 #define GUI_SETTINGS_H
 
 #include <QGridLayout>
-#include <QFormLayout>
+// #include <QFormLayout>
 #include <QListWidget>
 #include <QPushButton>
-#include <QMessageBox>
+// #include <QMessageBox>
 #include <QTextEdit>
 #include <QMenu>
 #include <QLabel>
-#include <QCalendarWidget>
-#include <QLineEdit>
+// #include <QCalendarWidget>
+// #include <QLineEdit>
 #include <QGroupBox>
 #include <QFileDialog>
 #include "gui_newexp.h"

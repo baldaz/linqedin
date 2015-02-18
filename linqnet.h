@@ -1,15 +1,13 @@
 #ifndef LINQNET_H
 #define LINQNET_H
 
-#include <iostream>
-#include <vector>
-#include <list>
+// #include <vector>
+// #include <list>
 #include "user.h"
-#include "error.h"
+// #include "error.h"
 
-using std::list;
-using std::vector;
-using std::ostream;
+// using std::list;
+// using std::vector;
 
 class LinqNet {
 private:
@@ -26,6 +24,5 @@ public:
     string printHtml() const;
     list<SmartPtr<User> >::const_iterator begin() const;
     list<SmartPtr<User> >::const_iterator end() const;
-    friend ostream& operator<<(ostream&, const LinqNet&);
 };
 #endif

@@ -1,4 +1,5 @@
 #include "linqclient.h"
+#include <sstream>
 
 using std::map;
 

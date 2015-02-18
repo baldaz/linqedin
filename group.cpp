@@ -1,4 +1,5 @@
 #include "group.h"
+#include "account.h"
 
 Group::Group(const Username& u, const string& n, const string& d) : _admin(u), _name(n), _description(d) {}
 Group::Group(const Group& g) : _admin(g._admin), _members(g._members), _name(g._name), _description(g._description) {

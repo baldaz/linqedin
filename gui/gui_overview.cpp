@@ -167,7 +167,6 @@ void Gui_Overview::showSearchResult() {
 }
 
 void Gui_Overview::incrementIterator() {
-    std::cout << "forward" << std::endl;
     ++it;
     showSearchResult();
 }

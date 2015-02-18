@@ -1,5 +1,6 @@
 #include "linqdb.h"
-#include "error.h"
+// #include "error.h"
+#include "info.h"
 
 using std::ostream;
 using std::endl;
@@ -387,8 +388,6 @@ void LinqDB::save() const {
 }
 void LinqDB::load() {
     bool s = readJson();
-    if(!s) std::cout << "Errore connessione DB" << std::endl;
-    else std::cout<<"Connessione DB ok" << std::endl;
 }
 int LinqDB::size() const {
     return _db.size();

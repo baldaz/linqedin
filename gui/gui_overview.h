@@ -9,9 +9,9 @@
 #include <QToolButton>
 #include <QEvent>
 #include <QMouseEvent>
-#include <QLabel>
-#include <QPainter>
-#include <QBitmap>
+// #include <QLabel>
+// #include <QPainter>
+// #include <QBitmap>
 #include "gui_displayinfo.h"
 #include "gui_avatar.h"
 #include "linqclient.h"

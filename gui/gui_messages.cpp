@@ -153,7 +153,6 @@ void Gui_Messages::delMenu(const QPoint& pos) {
         string to = _client->username().login();
         QDate sent, recv;
         sent = recv = _listIn->item(t.row())->data(Qt::UserRole + 5).toDate();
-        std::cout << obj << " " << body << " " << from << " " << to << " " << sent.toString("dd.MM.yyyy").toStdString() << " " << recv.toString("dd.MM.yyyy").toStdString() << std::endl;
         bool read = _listIn->item(t.row())->data(Qt::UserRole + 3).toBool();
         _m_sel = new Message(Username(from, ""), Username(to, ""), obj, body, read, sent, recv);
         QMenu myMenu;

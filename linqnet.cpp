@@ -1,9 +1,6 @@
 #include "linqnet.h"
 #include <sstream>
 
-using std::cout;
-using std::endl;
-
 LinqNet::LinqNet() {}
 LinqNet::LinqNet(const LinqNet& net) : _net(net._net) {}
 LinqNet::~LinqNet() { _net.clear(); }
@@ -62,13 +59,4 @@ list<SmartPtr<User> >::const_iterator LinqNet::begin() const {
 }
 list<SmartPtr<User> >::const_iterator LinqNet::end() const {
     return _net.end();
-}
-ostream& operator<<(ostream& os, const LinqNet& net) {
-    if(!net.size()) { os << "Nessun amico per te" << endl; }
-    else {
-        list<SmartPtr<User> >::const_iterator it = net.begin();
-        for(; it != net.end(); ++it)
-            os << (*it)->account()->username().login() << " ";
-    }
-    return os;
 }

@@ -12,6 +12,7 @@ greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 # Input
 HEADERS += account.h \
            avatar.h \
+           baseuser.h \
            billmethod.h \
            dispatcher.h \
            error.h \
@@ -49,6 +50,7 @@ HEADERS += account.h \
            utils.h
 SOURCES += account.cpp \
            avatar.cpp \
+           baseuser.cpp \
            billmethod.cpp \
            dispatcher.cpp \
            experience.cpp \
