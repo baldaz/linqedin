@@ -5,19 +5,6 @@ std::string utilities::Utils::toLowerCase(std::string s) {
         s[i] = std::tolower(s[i]);
     return s;
 }
-
-std::string utilities::Utils::levelToString(privLevel prl) {
-    std::string ret = "";
-    switch(prl) {
-        case 0: ret = "Basic";
-        break;
-        case 1: ret = "Business";
-        break;
-        case 2: ret = "Executive";
-        break;
-    }
-    return ret;
-}
 bool utilities::Utils::contains(const std::vector<std::string>& vec, const std::string& s) {
     bool found = false;
     if(!vec.empty()) {

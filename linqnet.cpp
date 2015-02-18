@@ -1,8 +1,6 @@
 #include "linqnet.h"
 #include <sstream>
 
-LinqNet::LinqNet() {}
-LinqNet::LinqNet(const LinqNet& net) : _net(net._net) {}
 LinqNet::~LinqNet() { _net.clear(); }
 LinqNet* LinqNet::clone() const {
     return new LinqNet(*this);

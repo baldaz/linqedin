@@ -151,10 +151,10 @@ void Gui_Messages::delMenu(const QPoint& pos) {
         string body = _listIn->item(t.row())->data(Qt::UserRole + 2).toString().toStdString();
         string from = _listIn->item(t.row())->data(Qt::UserRole + 6).toString().toStdString();
         string to = _client->username().login();
-        QDate sent, recv;
-        sent = recv = _listIn->item(t.row())->data(Qt::UserRole + 5).toDate();
+        QDate sent;
+        sent = _listIn->item(t.row())->data(Qt::UserRole + 5).toDate();
         bool read = _listIn->item(t.row())->data(Qt::UserRole + 3).toBool();
-        _m_sel = new Message(Username(from, ""), Username(to, ""), obj, body, read, sent, recv);
+        _m_sel = new Message(Username(from, ""), Username(to, ""), obj, body, read, sent);
         QMenu myMenu;
         myMenu.addAction("Delete", this, SLOT(deleteMessage()));
         myMenu.exec(globalPos);

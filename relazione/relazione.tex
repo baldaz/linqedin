@@ -1,12 +1,16 @@
-\documentclass[11pt,a4paper]{article}
+\documentclass[10pt,a4paper]{article}
 \usepackage[utf8]{inputenc}
 \usepackage{alltt}
+\usepackage{caption}
 \usepackage{listings}
 \usepackage{xcolor}
 \usepackage{graphicx}
 \usepackage[T1]{fontenc}
 \usepackage{lmodern}
 \usepackage[top=2in, bottom=1.5in, left=0.7in, right=0.7in]{geometry}
+
+\DeclareCaptionFormat{listing}{\rule{\dimexpr\textwidth+17pt\relax}{0.4pt}\vskip1pt#1#2#3}
+\captionsetup[lstlisting]{ singlelinecheck=false, margin=0pt, font={bf,footnotesize} }
 
 \title{Relazione Programmazione ad oggetti 2014-2015}
 \author{Andrea Giacomo Baldan 579117}
@@ -21,13 +25,13 @@ basata sul famoso \textit{social network} Linkedin\textcopyright, da cui eredita
 \section*{SPECIFICHE PROGETTUALI}
 Il programma è stato sviluppato in C++/Qt 5.3.2 con compilatore gcc ver. 4.8.2 e testato su ambiente Linux Ubuntu 12.10 e 14.04, inoltre compila ed esegue con successo in ambiente Windows, testato
 alla versione 7 e nei computer del laboratorio Paolotti, tuttavia essendo stato implementato utilizzando alcune funzionalità della libreria Qt rilasciate solo dalla versione 5 in poi,
-la compilazione necessita del comando qmake-qt532.
-Per lo sviluppo è stato utilizzato esclusivamente l'editor Sublime Text 3, non è stato utilizzato QtCreator ne QtDesigner.
+la compilazione necessita del comando qmake-qt532, non e' stata utilizzata alcuna funzionalita di C++11.
+Per lo sviluppo del codice, sia logico che grafico, è stato utilizzato esclusivamente l'editor Sublime Text 3, non è stato utilizzato QtCreator ne QtDesigner.
 \subsection*{ORGANIZZAZIONE DIRECTORY E INSTALLAZIONE}
 La radice contiene il file \textit{linqedin.pro} generato con il comando qmake, \textit{main.cpp} e \textit{relazione.pdf}.
 I sorgenti e gli headers della parte logica si trovano all'interno del percorso /logic, mentre /gui contiene tutti i sorgenti Qt adibiti all'interfaccia grafica.
 Alcune direttive grafiche sono state inserite in un file \textit{style.qss} nella cartella /style, la directory /img contiene invece tutte le immagini utilizzate nell'interfaccia grafica.
-Nel caso si renda necessario rigenerare il file \textit{.pro} con il comando qmake-qt532 -project si dovrà aggiungere la seguente istruzione all'interno del \textit{.pro} generato: \textit{greaterThan(QT\_MAJOR\_VERSION, 4): QT += widgets}.
+Nel caso si renda necessario rigenerare il file \textit{.pro} con il comando qmake-qt532 -project si dovrà aggiungere la seguente istruzione all'interno del \textit{.pro} generato: \textit{greaterThan(QT\_MAJOR\_VERSION, 4): QT += widgets}. E' stato inserito un database di prova, \textit{database.json}, con le credenziali \textit{Baldan} e \textit{ciao} come username e password oppure \textit{Casey} e \textit{rayback} si accede ad un profilo di immagine completo.
 \include{user}
 \include{account}
 \include{db}

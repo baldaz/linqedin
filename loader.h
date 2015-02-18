@@ -1,10 +1,9 @@
 #ifndef LOADER_H
 #define LOADER_H
 
-#include "username.h"
 
+class Username;
 class LinqClient;
-class LinqAdmin;
 class LinqDB;
 
 class Loader {
@@ -15,6 +14,5 @@ public:
     ~Loader();
     bool isAdmin(const Username&) const;
     LinqClient* getClientHandle(const Username&) const;
-    LinqAdmin* getAdminHandle() const;
 };
 #endif

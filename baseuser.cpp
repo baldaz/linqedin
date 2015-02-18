@@ -39,6 +39,11 @@ void User::searchFunctor::operator()(const SmartPtr<User>& spu) {
                     if(_result.size() < 50) {
                         _result.insert(std::pair<string, string>(spu->account()->username().login(), uf->name() + " " + uf->surname() + "\n"));
                         spu->addVisit();
+                        if((spu)->account()->prLevel() == executive) {
+                                ExecutiveUser* eu = dynamic_cast<ExecutiveUser*> (&(*(spu)));
+                                eu->addKeyword(_wanted);
+                                eu->addVisitor(SmartPtr<User>(const_cast<User*> (_caller)));
+                        }
                     }
                 }
             }
@@ -50,6 +55,11 @@ void User::searchFunctor::operator()(const SmartPtr<User>& spu) {
                     if(_result.size() < 100) {
                         _result.insert(std::pair<string, string>(spu->account()->username().login(), spu->showInfo() + "\n"));
                         spu->addVisit();
+                        if((spu)->account()->prLevel() == executive) {
+                                ExecutiveUser* eu = dynamic_cast<ExecutiveUser*> (&(*(spu)));
+                                eu->addKeyword(_wanted);
+                                eu->addVisitor(SmartPtr<User>(const_cast<User*> (_caller)));
+                        }
                     }
                 }
             }
@@ -80,6 +90,11 @@ void User::searchFunctor::operator()(const SmartPtr<User>& spu) {
                         if(_result.size() < 400) {
                             _result.insert(std::pair<string, string>(spu->account()->username().login(), spu->showInfo() + "\n" + spu->net()->printHtml()));
                             spu->addVisit();
+                            if((spu)->account()->prLevel() == executive) {
+                                ExecutiveUser* eu = dynamic_cast<ExecutiveUser*> (&(*(spu)));
+                                eu->addKeyword(_wanted);
+                                eu->addVisitor(SmartPtr<User>(const_cast<User*> (_caller)));
+                            }
                         }
                     }
                 }
@@ -121,18 +136,6 @@ void User::searchFunctor::operator()(const SmartPtr<User>& spu) {
 map<string, string> User::searchFunctor::result() const {
     return _result;
 }
-User::linkedWith::linkedWith(int s = 0, User* usr = 0) : _offset(s), _owner(usr) {}
-void User::linkedWith::operator()(const SmartPtr<User>& spu) {
-    if(!_owner->linked((spu->account()->username())) && (spu->account()->username()) != (_owner->account()->username()))
-        if(_owner->similarity(spu) >= _offset)
-            _mates.push_back(spu);
-}
-vector<SmartPtr<User> > User::linkedWith::result() const {
-    return _mates;
-}
-vector<SmartPtr<User> > User::listPossibleLinks(const LinqDB& db) const {
-    return std::for_each(db.begin(), db.end(), linkedWith(45, const_cast<User*> (this))).result();
-}
 void User::addContact(User* usr) {
     _net->addUser(usr);
 }
@@ -157,62 +160,6 @@ void User::setVisitCount(int count) {
 }
 void User::addVisit() {
     _visitcount++;
-}
-int User::similarity(const SmartPtr<User>& user) const {
-    UserInfo* uf = dynamic_cast<UserInfo*> (_acc->info());
-    UserInfo* host = dynamic_cast<UserInfo*> (user->account()->info());
-    int i_w = 2, s_w = 6, l_w = 2;
-    double counter = 0;
-    // interests
-    vector<string> interests = uf->interests();
-    vector<string> h_interests = host->interests();
-    if(interests.size() <= h_interests.size()) {
-        vector<string>::const_iterator it = interests.begin();
-        for(; it < interests.end(); ++it)
-            if(std::find(h_interests.begin(), h_interests.end(), (*it)) != h_interests.end()) counter++;
-        counter = (counter / h_interests.size()) * 100;
-    }
-    else {
-        vector<string>::const_iterator ith = h_interests.begin();
-        for(; ith < h_interests.end(); ++ith)
-            if(std::find(interests.begin(), interests.end(), (*ith)) != interests.end()) counter++;
-        counter = (counter / interests.size()) * 100;
-    }
-    double countsk = 0;
-    // skills
-    vector<string> skills = uf->skills();
-    vector<string> h_skills = host->skills();
-    if(skills.size() <= h_skills.size()) {
-        vector<string>::const_iterator it = skills.begin();
-        for(; it < skills.end(); ++it)
-            if(std::find(h_skills.begin(), h_skills.end(), (*it)) != h_skills.end()) countsk++;
-        countsk = (countsk / h_skills.size()) * 100;
-    }
-    else {
-        vector<string>::const_iterator ith = h_skills.begin();
-        for(; ith < h_skills.end(); ++ith)
-            if(std::find(skills.begin(), skills.end(), (*ith)) != skills.end()) countsk++;
-        countsk = (countsk / skills.size()) * 100;
-    }
-    double countl = 0;
-    // language
-    vector<string> languages = uf->languages();
-    vector<string> h_languages = host->languages();
-    if(languages.size() <= h_languages.size()) {
-        vector<string>::const_iterator it = languages.begin();
-        for(; it < languages.end(); ++it)
-            if(std::find(h_languages.begin(), h_languages.end(), (*it)) != h_languages.end()) countl++;
-        countl = (countl / h_languages.size()) * 100;
-    }
-    else {
-        vector<string>::const_iterator ith = h_languages.begin();
-        for(; ith < h_languages.end(); ++ith)
-            if(std::find(languages.begin(), languages.end(), (*ith)) != languages.end()) countl++;
-        countl = (countl / languages.size()) * 100;
-    }
-    double res;
-    res = ((counter * i_w) + (countsk * s_w) + (countl * l_w)) / (i_w + s_w + l_w);
-    return static_cast<int> (res);
 }
 int User::outMailCount() const {
     return _outMail.size();

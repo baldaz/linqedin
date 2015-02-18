@@ -3,10 +3,8 @@
 
 #include <map>
 #include <list>
-// #include <vector>
 #include "smartptr.h"
 #include "message.h"
-// #include "error.h"
 #include "account.h"
 
 using std::map;
@@ -35,16 +33,6 @@ protected:
         void operator()(const SmartPtr<User>&);
         map<string, string> result() const;
     };
-    class linkedWith {
-    private:
-        int _offset;
-        User* _owner;
-        vector<SmartPtr<User> > _mates;
-    public:
-        linkedWith(int, User*);
-        void operator()(const SmartPtr<User>&);
-        vector<SmartPtr<User> > result() const;
-    };
 public:
     User(Account*);
     User(const User&);
@@ -59,9 +47,7 @@ public:
     int visitCount() const;
     void setVisitCount(int);
     void addVisit();
-    int similarity(const SmartPtr<User>&) const;
     bool linked(const Username&) const;
-    vector<SmartPtr<User> > listPossibleLinks(const LinqDB&) const;
     virtual map<string, string> userSearch(const LinqDB&, const string&) const =0;
     virtual void sendMessage(const Message&) =0;
     void deleteMessage(const Message&) throw(Error);

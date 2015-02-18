@@ -1,29 +1,29 @@
 \section*{LOGICA}
 La parte logica del progetto LinQedin è stata implementata perlopiù seguendo le linee guida offerte dal Prof. Ranzato salvo alcune personalizzazioni. La memoria
-è interamente gestita mediante l'uso di puntatori smart ove necessario, negli alti casi la deallocazione avviene nei distruttori, tutti i puntatori che popolano i contenitori
-utilizzati, se non associati all'uso di smart pointer, vengono prima deallocati e poi rimossi con i metodi \textit{clear()}.
-Ho scelto di creare una classe \textit{SmartPtr<T>} che costituisce un puntatore smart templatizzato per poterlo utilizzare liberamente in ogni parte del programma che richieda
+è interamente gestita mediante l'uso di puntatori smart ove necessario, negli altri casi la deallocazione avviene nei distruttori, tutti i puntatori che popolano i contenitori
+utilizzati, se non associati all'uso di smart pointer, vengono prima deallocati e poi rimossi con i metodi della libreria \textit{std} \textit{erase()} e \textit{clear()}.
+Ho scelto di creare una classe \textit{SmartPtr<T>}, che costituisce un puntatore smart templatizzato, per poterlo utilizzare liberamente in ogni parte del programma che richieda
 gestione automatica di memoria allocata e/o per futuri scopi.
 \subsection*{GERARCHIA UTENTI E RICERCA}
 Un utente è formato da un account, da una rete di collegamenti e da un campo intero che funge da contavisite, possiede inoltre due classi interne
 incapsulate nella parte privata di esclusivo utilizzo dell'oggetto \textit{User}, esse rappresentano due funtori utilizzati per funzionalità di
-ricerca e utilità, infine è formato da due vettori contenti dei puntatori smart a messaggi, rappresentanti posta in entrata e posta in uscita, la cui capacità
+ricerca e utilità, infine è formato da due vettori contenti dei puntatori smart alla classe \textit{Messagge}, rappresentanti posta in entrata e posta in uscita;di quest'ultima, la capacità
 è limitata dal grado di privilegio dell'utente.
 Il campo dati account è un puntatore ad un istanza di \textit{Account} che rappresenta l'account associato all'utente, comprensivo di informazioni
 personali, livello di privilegio e pagamenti dell'utente associato; mentre il campo dati \textit{net} è un puntatore ad un oggetto \textit{LinqNet},
-costituito da una list di smartpointer a classe base \textit{User} con metodi di aggiunta e rimozione.
-La classe base è astratta in quanto possiede alcuni metodi virtuali puri, è estesa \lq\lq a cascata \rq\rq da altre 3 classi, che rappresentano
-i livelli di privilegio all'interno di LinQedin. La ricerca è uno degli aspetti su cui verte maggiormente il concetto di polimorfismo, implementato mediante funtore,
-ogni livello privilegio ha accesso ad un diverso grado di precisione nella ricerca.
+costituito da una lista di puntatori smart alla classe base \textit{User} con metodi di aggiunta e rimozione.
+\textit{User} è astratta in quanto possiede alcuni metodi virtuali puri, in particolare il metodo di ricerca, rappresenta è uno degli aspetti su cui verte maggiormente il concetto di polimorfismo, implementato mediante funtore,
+ogni livello privilegio ha accesso ad un diverso grado di precisione nella ricerca. è estesa \lq\lq a cascata \rq\rq da altre 3 classi, che rappresentano
+i livelli di privilegio all'interno di LinQedin.
 \subsubsection*{Basic User}
-Utente di livello base, possiede funzionalità comuni a tutti gli utenti come aggiunta e rimozione collegamenti dalla propria rete, l'override del metodo
-di ricerca permette un massimo di 50 risultati e non restituisce alcuna informazione aggiuntiva sui target di ricerca se non la loro effettiva
-presenza all'interno de database LinQedin, l'invio dei messaggi mediante override del metodo \textit{BasicUser::sendMessage(const Username\&)} è limitato a 10 al mese.
+Utente di livello base, derivato pubblicamente da \textit{User}, possiede funzionalità comuni a tutti gli utenti ereditate da \textit{User} come aggiunta e rimozione collegamenti dalla propria rete, \textit{getters} e \textit{setters} e i metodi di utilita' implementati in \textit{Userc.cpp}. l'override del metodo
+di ricerca permette un massimo di 50 risultati e non restituisce alcuna informazione aggiuntiva sui target di ricerca se non l' effettiva
+presenza all'interno del database LinQedin, l'invio dei messaggi mediante override del metodo \textit{BasicUser::sendMessage(const Username\&)} è limitato al valore del campo dati statico \textit{static int basicMailLimit}, fissato a 10.
 \subsubsection*{Business User}
-Un utente business possiede tutte le funzionalità di un utente basic, inoltre ha la possibilità di effettuare una ricerca più accurata ottenendo informazioni sui target di ricerca,
-il limite è aumentato a 100 risultati e ha la facoltà di iscriversi in gruppi, sezioni di LinQedin amministrate da account Executive dove è possibile creare discussioni o
+Un utente business possiede tutte le funzionalità di un utente basic, inoltre ha la possibilità di effettuare una ricerca più accurata ottenendo informazioni sui target visualizzando il profilo completo,
+il limite è aumentato a 100 risultati, ha inoltre la facoltà di iscriversi a dei gruppi, sezioni di LinQedin amministrate da account Executive dove è possibile creare discussioni o
 semplicemente dei post informativi / proposte lavorative. Implementa inoltre una funzionalità \lq\lq passiva \rq\rq, ossia una lista di utenti suggeriti da un algoritmo di
-confronto che valuta la somiglianza tra account mediante alcuni criteri, quali la media pesata delle competenze, interessi e lingue, riassunta in una percentuale intera.
+confronto che valuta la somiglianza tra account mediante alcuni criteri, quali la media pesata delle competenze, interessi e lingue, riassunta in una percentuale intera. Quest'ultima feature e' stata creata mediante l'utilizzo di un metodo di calcolo somiglianza, \textit{int similarity(const SmartPtr<User> >\&)}, che mediante medie pesate calcola una percentuale di somiglianza tra i profili in base a competenze, lingue e interessi, accoppiato ad un funtore che scorre tutto il database di LinQedin e restituisce un vettore popolato da puntatori smart ad \textit{User} che superano una certa soglia di somiglianza.
 \subsubsection*{Executive User}
 L'utente executive possiede le massime funzionalità all'interno di LinQedin, messaggistica in uscita illimitata, possibilità di creare ed amministrare gruppi e può visualizzare
 gli ultimi 10 utenti che hanno visitato il suo profilo con allegate percentuali di somiglianza.

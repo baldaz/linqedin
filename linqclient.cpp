@@ -114,10 +114,14 @@ list<SmartPtr<User> > LinqClient::visitors() const {
     return u;
 }
 int LinqClient::userSimilarity(const SmartPtr<User>& u) const {
-    return _usr->similarity(u);
+    if(BusinessUser* bu = dynamic_cast<BusinessUser*> (_usr))
+        return bu->similarity(u);
+    else throw Error(permission, "You must be at least business privileged");
 }
 vector<SmartPtr<User> > LinqClient::similarity() const {
-    return _usr->listPossibleLinks(*_db);
+    if(BusinessUser* bu = dynamic_cast<BusinessUser*> (_usr))
+        return bu->listPossibleLinks(*_db);
+    else throw Error(permission, "You must be at least business privileged");
 }
 bool LinqClient::linked(const Username& usr) const {
    return _usr->linked(usr);
@@ -162,7 +166,7 @@ list<SmartPtr<Message> > LinqClient::inMail() const {
 list<SmartPtr<Message> > LinqClient::outMail() const {
     return _usr->outMail();
 }
-map<string, string> LinqClient::find(const string& wanted = "") const {
+map<string, string> LinqClient::find(const string& wanted) const {
     return _usr->userSearch(*_db, wanted);
 }
 map<string, int> LinqClient::keywordFrequency() const {
@@ -231,9 +235,6 @@ list<Group*> LinqClient::listUserGroups(const Username& u) const {
 }
 list<Post*> LinqClient::listPostFromGroup(const Group& g) const {
     return _db->postsFromGroup(g);
-}
-int LinqClient::postNumberFromGroup(const Group& g) const {
-    return _db->postNumberFromGroup(g);
 }
 void LinqClient::addPostToGroup(const Group& g, const Post& p) {
     _db->addPostToGroup(g, p);

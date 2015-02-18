@@ -95,6 +95,10 @@
                 {
                     "author": "Casey",
                     "content": "Here i am. Sure, you're welcome whenever you want."
+                },
+                {
+                    "author": "Baldaz",
+                    "content": "Ciao"
                 }
             ]
         },
@@ -218,38 +222,31 @@
                 "Pablito",
                 "aui",
                 "ser",
-                "Sara87",
-                "Casey"
+                "Sara87"
             ],
             "outmail": [
-                {
-                    "body": "God bless smart pointer!",
-                    "object": "Yeah! it works now!",
-                    "read": true,
-                    "receiver": "Casey",
-                    "recv": "24.01.2015",
-                    "sender": "Baldaz",
-                    "sent": "24.01.2015"
-                }
             ],
             "password": "qwerty",
             "payments": [
                 {
-                    "appdate": "",
+                    "appdate": "12.12.2014",
+                    "approved": true,
+                    "code": "N/A",
+                    "level": 0,
+                    "nominee": "N/A"
+                },
+                {
+                    "appdate": "18.12.2014",
                     "approved": true,
                     "code": "0132532",
+                    "level": 1,
                     "nominee": "Andrea Baldan"
                 },
                 {
-                    "appdate": "",
+                    "appdate": "02.02.2015",
                     "approved": true,
                     "code": "0132532",
-                    "nominee": "Andrea Baldan"
-                },
-                {
-                    "appdate": "",
-                    "approved": true,
-                    "code": "0132532",
+                    "level": 2,
                     "nominee": "Andrea Baldan"
                 }
             ],
@@ -320,10 +317,11 @@
             "password": "maurisio",
             "payments": [
                 {
-                    "appdate": "",
+                    "appdate": "26.12.2014",
                     "approved": true,
-                    "code": "0132532",
-                    "nominee": "Pablos Escobar"
+                    "code": "N/A",
+                    "level": 0,
+                    "nominee": "N/A"
                 }
             ],
             "privilege": 0,
@@ -332,7 +330,7 @@
                 "PHP"
             ],
             "username": "Pablito",
-            "visitcount": 12
+            "visitcount": 14
         },
         {
             "avatar": "img/atilio.jpg",
@@ -374,10 +372,11 @@
             "password": "piovra",
             "payments": [
                 {
-                    "appdate": "",
-                    "approved": false,
-                    "code": "0132532",
-                    "nominee": "Atilio Sousa"
+                    "appdate": "10.02.2015",
+                    "approved": true,
+                    "code": "N/A",
+                    "level": 0,
+                    "nominee": "N/A"
                 }
             ],
             "privilege": 0,
@@ -388,7 +387,7 @@
                 "Ruby"
             ],
             "username": "Atilio",
-            "visitcount": 13
+            "visitcount": 16
         },
         {
             "avatar": "img/port2.jpg",
@@ -426,10 +425,18 @@
             "password": "rd",
             "payments": [
                 {
-                    "appdate": "",
+                    "appdate": "10.02.2015",
                     "approved": true,
-                    "code": "0132532",
-                    "nominee": "Sara Rea"
+                    "code": "N/A",
+                    "level": 0,
+                    "nominee": "N/A"
+                },
+                {
+                    "appdate": "",
+                    "approved": false,
+                    "code": "0123456",
+                    "level": 2,
+                    "nominee": "Auir Ien"
                 }
             ],
             "privilege": 0,
@@ -482,10 +489,11 @@
             "password": "sara",
             "payments": [
                 {
-                    "appdate": "",
+                    "appdate": "01.01.2015",
                     "approved": true,
-                    "code": "0132532",
-                    "nominee": "Sara Rea"
+                    "code": "N/A",
+                    "level": 0,
+                    "nominee": "N/A"
                 }
             ],
             "privilege": 0,
@@ -535,10 +543,11 @@
             "password": "wword",
             "payments": [
                 {
-                    "appdate": "",
+                    "appdate": "05.01.2015",
                     "approved": true,
-                    "code": "0132532",
-                    "nominee": "Dan Serrano"
+                    "code": "N/A",
+                    "level": 0,
+                    "nominee": "N/A"
                 }
             ],
             "privilege": 0,
@@ -569,8 +578,8 @@
             "info": {
                 "address": "Stra via 4 novembre 24 (VE) Italy",
                 "biography": "Seagal was born in Lansing, Michigan, where he lived until he was five years old, when the family moved to California. His mother, Patricia (1930–2003), was a medical technician, and his father, Samuel Steven Seagal (1928–1991), was a high school math teacher. His mother was of Irish ancestry and his father was Jewish (the son of immigrants from Russia). Seagal has reported that he had a Mongolian grandfather, but this seems unlikely. His parents relocated to Fullerton, California, where Seagal attended Buena Park High School in Buena Park.",
-                "birthdate": "08.10.1949",
-                "email": "seagal@steven.ss",
+                "birthdate": "14.10.1949",
+                "email": "seagal@steven.st",
                 "name": "Steven",
                 "surname": "Seagal",
                 "telephon": "3250525147",
@@ -594,6 +603,15 @@
                     "recv": "24.01.2015",
                     "sender": "Baldaz",
                     "sent": "24.01.2015"
+                },
+                {
+                    "body": "si va",
+                    "object": "yee",
+                    "read": true,
+                    "receiver": "Casey",
+                    "recv": "12.02.2015",
+                    "sender": "Willg",
+                    "sent": "12.02.2015"
                 }
             ],
             "interests": [
@@ -624,6 +642,12 @@
                     "location": "Hollywood Studios, California",
                     "role": "Actor",
                     "to": "15.09.2015"
+                },
+                {
+                    "from": "17.02.1984",
+                    "location": "Japan",
+                    "role": "Martialist",
+                    "to": "08.10.2003"
                 }
             ],
             "keywords": [
@@ -652,15 +676,6 @@
             ],
             "outmail": [
                 {
-                    "body": "Finally smart pointer solves our probems!",
-                    "object": "1000th try!",
-                    "read": true,
-                    "receiver": "Baldaz",
-                    "recv": "24.01.2015",
-                    "sender": "Casey",
-                    "sent": "24.01.2015"
-                },
-                {
                     "body": "Have to test exception!",
                     "object": "Test",
                     "read": true,
@@ -668,6 +683,15 @@
                     "recv": "06.02.2015",
                     "sender": "Casey",
                     "sent": "06.02.2015"
+                },
+                {
+                    "body": "Dovrebbe funzionare.",
+                    "object": "Dei che ndemo!",
+                    "read": true,
+                    "receiver": "Willg",
+                    "recv": "10.02.2015",
+                    "sender": "Casey",
+                    "sent": "10.02.2015"
                 }
             ],
             "password": "rayback",
@@ -675,19 +699,22 @@
                 {
                     "appdate": "06.12.2014",
                     "approved": true,
-                    "code": "0132532",
-                    "nominee": "Steven Seagal"
+                    "code": "N/A",
+                    "level": 0,
+                    "nominee": "N/A"
                 },
                 {
-                    "appdate": "06.01.2015",
+                    "appdate": "02.01.2015",
                     "approved": true,
                     "code": "0132532",
+                    "level": 1,
                     "nominee": "Steven Seagal"
                 },
                 {
-                    "appdate": "06.02.2015",
-                    "approved": false,
+                    "appdate": "11.02.2015",
+                    "approved": true,
                     "code": "0132532",
+                    "level": 2,
                     "nominee": "Steven Seagal"
                 }
             ],
@@ -715,7 +742,7 @@
                 "Knives"
             ],
             "username": "Casey",
-            "visitcount": 10,
+            "visitcount": 11,
             "visitors": [
                 "Baldaz",
                 "Atilio",
@@ -765,16 +792,6 @@
             ],
             "jobs": [
             ],
-            "keywords": [
-                "daibo",
-                "daibo",
-                "knives",
-                "knives",
-                "knives",
-                "knives",
-                "knives",
-                "ninjitsu"
-            ],
             "languages": [
                 "Italian",
                 "English",
@@ -791,13 +808,14 @@
             "password": "machete",
             "payments": [
                 {
-                    "appdate": "",
-                    "approved": false,
-                    "code": "0132532",
-                    "nominee": "Danny Trejo"
+                    "appdate": "02.01.2015",
+                    "approved": true,
+                    "code": "N/A",
+                    "level": 0,
+                    "nominee": "N/A"
                 }
             ],
-            "privilege": 2,
+            "privilege": 0,
             "skills": [
                 "Machete",
                 "M-16",
@@ -809,12 +827,13 @@
                 "Ninjitsu",
                 "Ju-Jitsu",
                 "Daibo",
-                "Knives"
+                "Knives",
+                "C++",
+                "CSS",
+                "Java"
             ],
             "username": "Danny",
-            "visitcount": 8,
-            "visitors": [
-            ]
+            "visitcount": 10
         },
         {
             "avatar": "img/port2.jpg",
@@ -858,13 +877,6 @@
             ],
             "jobs": [
             ],
-            "keywords": [
-                "knives",
-                "knives",
-                "knives",
-                "knives",
-                "knives"
-            ],
             "languages": [
                 "Italian",
                 "English",
@@ -885,13 +897,14 @@
             "password": "lecter",
             "payments": [
                 {
-                    "appdate": "",
+                    "appdate": "01.01.2015",
                     "approved": true,
-                    "code": "0132532",
-                    "nominee": "Hannibal Lecter"
+                    "code": "N/A",
+                    "level": 0,
+                    "nominee": "N/A"
                 }
             ],
-            "privilege": 2,
+            "privilege": 0,
             "skills": [
                 "Knives",
                 "Meatplates",
@@ -900,9 +913,7 @@
                 "Surgery"
             ],
             "username": "Hannibal",
-            "visitcount": 5,
-            "visitors": [
-            ]
+            "visitcount": 5
         },
         {
             "avatar": "img/port2.jpg",
@@ -930,6 +941,24 @@
                 "website": "www.grahamwill.gw"
             },
             "inmail": [
+                {
+                    "body": "Dovrebbe funzionare.",
+                    "object": "Dei che ndemo!",
+                    "read": true,
+                    "receiver": "Willg",
+                    "recv": "10.02.2015",
+                    "sender": "Casey",
+                    "sent": "10.02.2015"
+                },
+                {
+                    "body": "Upgrade requested succesfully approved.",
+                    "object": "Upgrade request",
+                    "read": false,
+                    "receiver": "Willg",
+                    "recv": "12.02.2015",
+                    "sender": "Linqedin",
+                    "sent": "12.02.2015"
+                }
             ],
             "interests": [
                 "Meat",
@@ -942,13 +971,6 @@
             ],
             "jobs": [
             ],
-            "keywords": [
-                "knives",
-                "knives",
-                "knives",
-                "knives",
-                "knives"
-            ],
             "languages": [
                 "Italian"
             ],
@@ -958,26 +980,83 @@
                 "Hannibal"
             ],
             "outmail": [
+                {
+                    "body": "si va",
+                    "object": "yee",
+                    "read": true,
+                    "receiver": "Casey",
+                    "recv": "12.02.2015",
+                    "sender": "Willg",
+                    "sent": "12.02.2015"
+                }
             ],
             "password": "graham",
             "payments": [
                 {
-                    "appdate": "",
+                    "appdate": "06.01.2015",
                     "approved": true,
-                    "code": "0132532",
+                    "code": "N/A",
+                    "level": 0,
+                    "nominee": "N/A"
+                },
+                {
+                    "appdate": "12.02.2015",
+                    "approved": true,
+                    "code": "0123123",
+                    "level": 1,
                     "nominee": "Will Graham"
                 }
             ],
-            "privilege": 2,
+            "privilege": 1,
             "skills": [
                 "Knives",
                 "Literature",
                 "Surgery"
             ],
             "username": "Willg",
-            "visitcount": 5,
-            "visitors": [
-            ]
+            "visitcount": 7
+        },
+        {
+            "avatar": "img/port2.jpg",
+            "formations": [
+            ],
+            "info": {
+                "address": "via padova 12",
+                "biography": "Lived in Padova since birth. Studied computer science ad I.T.I.S. \"F.Severi\".",
+                "birthdate": "14.06.1988",
+                "email": "alesalvi@gmail.com",
+                "name": "Alessandro",
+                "surname": "Salvi",
+                "telephon": "3345678928",
+                "website": "www.puffopro.altervista.org"
+            },
+            "inmail": [
+            ],
+            "interests": [
+            ],
+            "jobs": [
+            ],
+            "languages": [
+            ],
+            "net": [
+            ],
+            "outmail": [
+            ],
+            "password": "ale",
+            "payments": [
+                {
+                    "appdate": "10.02.2015",
+                    "approved": true,
+                    "code": "N/A",
+                    "level": 0,
+                    "nominee": "N/A"
+                }
+            ],
+            "privilege": 0,
+            "skills": [
+            ],
+            "username": "Puffo",
+            "visitcount": 0
         }
     ]
 }

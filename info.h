@@ -74,7 +74,7 @@ public:
     Bio(const Bio&);
     virtual ~Bio();
     Info* clone() const;
-    const string& bio() const;
+    string bio() const;
     void setBio(const string&);
     virtual string dispatch(const Dispatcher&) const;
 };

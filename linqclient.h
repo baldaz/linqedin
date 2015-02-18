@@ -3,10 +3,6 @@
 
 #include "user.h"
 #include "linqdb.h"
-// #include "utils.h"
-// #include <string>
-
-// using std::string;
 
 class LinqClient {
 private:
@@ -37,7 +33,6 @@ public:
     list<Group*> listAllGroups() const;
     list<Group*> listUserGroups(const Username&) const;
     list<Post*> listPostFromGroup(const Group&) const;
-    int postNumberFromGroup(const Group&) const;
     void alterProfile(int, const string&) throw(Error);
     void requestUpgrade(const string&, const string&, privLevel) throw(Error);
     void removeExperience(const Experience&);

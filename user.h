@@ -9,7 +9,7 @@ class Post;
 
 class BasicUser : public User {
 private:
-    static unsigned int basicMailLimit;
+    static int basicMailLimit;
 public:
     BasicUser(Account*);
     BasicUser(const BasicUser&);
@@ -17,13 +17,23 @@ public:
     virtual User* clone() const;
     virtual map<string, string> userSearch(const LinqDB&, const string&) const;
     virtual void sendMessage(const Message&) throw(Error);
-    static unsigned int basicLimit();
+    static int basicLimit();
 };
 
 class BusinessUser : public BasicUser {
 private:
     list<Group*> _groups;
-    static unsigned int businessMailLimit;
+    static int businessMailLimit;
+    class linkedWith {
+    private:
+        int _offset;
+        BusinessUser* _owner;
+        vector<SmartPtr<User> > _mates;
+    public:
+        linkedWith(int, BusinessUser*);
+        void operator()(const SmartPtr<User>&);
+        vector<SmartPtr<User> > result() const;
+    };
 public:
     BusinessUser(Account*);
     BusinessUser(const BusinessUser&);
@@ -32,11 +42,12 @@ public:
     virtual User* clone() const;
     virtual map<string, string> userSearch(const LinqDB&, const string&) const;
     virtual void sendMessage(const Message&) throw(Error);
+    int similarity(const SmartPtr<User>&) const;
+    vector<SmartPtr<User> > listPossibleLinks(const LinqDB&) const;
     list<Group*> groups() const;
     void addGroup(const Group&) throw(Error);
-    void removeGroup(const Group&);
-    void addBio(const string&) const;
-    static unsigned int businessLimit();
+    void removeGroup(const Group&);    
+    static int businessLimit();
 };
 
 class ExecutiveUser : public BusinessUser {
@@ -64,8 +75,9 @@ public:
     map<string, int> keywordPercent() const;
     map<string, int> keywords() const;
     void addVisitor(const SmartPtr<User>&);
+    bool removeVisitorOccurences(const SmartPtr<User>&);
     list<SmartPtr<User> > visitors() const;
-    static unsigned int executiveLimit();
+    static int executiveLimit();
 };
 
 #endif

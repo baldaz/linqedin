@@ -86,14 +86,9 @@ void LinqAdmin::insertUser(const string& username, const string& password, privL
     if(username.empty() || password.empty()) throw Error(missingField, "Username or password missing");
     string name = (info.find("name"))->second;
     string surname = info.find("surname")->second;
-    string address = info.find("address")->second;
-    string phone = info.find("telephone")->second;
-    string website = info.find("website")->second;
-    string email = info.find("e-mail")->second;
     string birthdate = info.find("birthdate")->second;
-    string bio = info.find("bio")->second;
     try {
-        Bio b(name, surname, email, address, phone, website, QDate::fromString(QString::fromStdString(birthdate), "dd.MM.yyyy"), bio);
+        Bio b(name, surname, "", "", "", "", QDate::fromString(QString::fromStdString(birthdate), "dd.MM.yyyy"), "");
         Username u(username, password);
         Subscription s(plevel);
         CreditCard cd("N/A", "N/A");

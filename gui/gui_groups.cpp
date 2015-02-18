@@ -308,7 +308,7 @@ void Gui_Groups::searchGroup() {
             }
         }
         list<Post*> p = _client->listPostFromGroup(g);
-        int num = _client->postNumberFromGroup(g);
+        int num = p.size();
         QString output = "<h1>" + name + "</h1><h4>Admin: <span style='font-weight:400'>" + admin + "</span></h4><h5>" + desc + "</h5>";
         if(!p.empty()) {
             output.append(QString("<h2>Posts (%1):</h2>").arg(num));

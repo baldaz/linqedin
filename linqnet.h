@@ -1,20 +1,12 @@
 #ifndef LINQNET_H
 #define LINQNET_H
 
-// #include <vector>
-// #include <list>
 #include "user.h"
-// #include "error.h"
-
-// using std::list;
-// using std::vector;
 
 class LinqNet {
 private:
     list<SmartPtr<User> > _net;
 public:
-    LinqNet();
-    LinqNet(const LinqNet&);
     ~LinqNet();
     LinqNet* clone() const;
     void addUser(User*) throw(Error);

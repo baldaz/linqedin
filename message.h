@@ -13,9 +13,9 @@ private:
     Username _receiver;
     string _object, _body;
     bool _read;
-    QDate _sent, _recv;
+    QDate _sent;
 public:
-    Message(const Username&, const Username&, const string&, const string&, bool, const QDate& = QDate::currentDate(), const QDate& = QDate::currentDate());
+    Message(const Username&, const Username&, const string&, const string&, bool, const QDate& = QDate::currentDate());
     Message* clone() const;
     bool operator==(const Message&) const;
     bool isRead() const;
@@ -25,6 +25,5 @@ public:
     string object() const;
     string body() const;
     QDate sent() const;
-    QDate recv() const;
 };
 #endif

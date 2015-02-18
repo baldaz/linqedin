@@ -13,8 +13,6 @@ private:
     QDate _from, _to;
 public:
     Experience(int = 0, const string& ="", const string& ="", const QDate& = QDate::currentDate(), const QDate& = QDate::currentDate());
-    Experience(const Experience&);
-    Experience& operator=(const Experience&);
 	bool operator==(const Experience&) const;
     int type() const;
     void setType(int);

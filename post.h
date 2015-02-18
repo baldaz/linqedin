@@ -12,7 +12,6 @@ private:
     string _content;
 public:
     Post(const Username&, const string& = "");
-    // ~Post();
     Username author() const;
     string content() const;
 };

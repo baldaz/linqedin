@@ -1,15 +1,10 @@
 #ifndef GROUP_H
 #define GROUP_H
 
-// #include <string>
-// #include <list>
 #include "user.h"
 #include "post.h"
 
 class User;
-
-// using std::string;
-// using std::list;
 
 class Group {
 private:

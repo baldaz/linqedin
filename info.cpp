@@ -142,7 +142,7 @@ Bio::~Bio() {}
 Info* Bio::clone() const {
     return new Bio(*this);
 }
-const string& Bio::bio() const { return _bio; }
+string Bio::bio() const { return _bio; }
 void Bio::setBio(const string& bio) { _bio = bio; }
 string Bio::dispatch(const Dispatcher& d) const {
     return d.dispatch(*this);

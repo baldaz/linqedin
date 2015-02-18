@@ -21,7 +21,7 @@ public:
     Account(const Account&);
     ~Account();
     Account* clone() const;
-    // Account& operator=(const Account&);
+    Account& operator=(const Account&);
     const Username& username() const;
     Username& username();
     Info* info() const;

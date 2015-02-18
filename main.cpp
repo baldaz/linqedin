@@ -1,5 +1,4 @@
 #include "gui/gui_login.h"
-#include "gui/gui_userwindow.h"
 
 int main(int argc, char**argv) {
     QApplication app(argc, argv);

@@ -1,5 +1,4 @@
 #include "linqdb.h"
-// #include "error.h"
 #include "info.h"
 
 using std::ostream;
@@ -14,7 +13,7 @@ LinqDB::~LinqDB() {
         delete *i;
     _grp.clear();
 }
-bool LinqDB::readJson() throw(Error) {
+void LinqDB::readJson() throw(Error) {
     QFile loadDB("database.json");
     if (!loadDB.open(QIODevice::ReadOnly)) {
         loadDB.open(QIODevice::WriteOnly | QIODevice::ReadOnly);
@@ -26,7 +25,6 @@ bool LinqDB::readJson() throw(Error) {
         loadDB.write(doc.toJson());
         loadDB.close();
         throw Error(IO, "Database not found");
-        return false;
     }
     QByteArray saveData = loadDB.readAll();
     loadDB.close();
@@ -35,9 +33,9 @@ bool LinqDB::readJson() throw(Error) {
     QJsonObject db = doc.object();
     read(db["users"].toArray());
     readNet(db["users"].toArray());
-    initGroups(db["groups"].toArray()); // populate _grp list
+    readVisitors(db["users"].toArray());
+    initGroups(db["groups"].toArray()); 
     readGroups(db["groups"].toArray());
-    return true;
 }
 void LinqDB::read(const QJsonArray& qjs) {
     Info* info = NULL;
@@ -63,7 +61,7 @@ void LinqDB::read(const QJsonArray& qjs) {
         }
         User* s = NULL;
         ExecutiveUser* us;
-        QJsonArray keys, visitors;
+        QJsonArray keys;
         switch(priv) {
             case 0:
                 s = new BasicUser(&ac);
@@ -77,35 +75,45 @@ void LinqDB::read(const QJsonArray& qjs) {
                 us = dynamic_cast<ExecutiveUser*> (s);
                 for(int i = 0; i < keys.size(); ++i)
                     us->addKeyword(keys[i].toString().toStdString());
-                visitors = obj["visitors"].toArray();
-                for(int i = 0; i < visitors.size(); ++i) {
-                    Username usr(visitors[i].toString().toStdString(), "");
-                    us->addVisitor(find(usr));
-                }
             break;
         }
         s->setVisitCount(obj["visitcount"].toInt());
         QJsonArray outmail = obj["outmail"].toArray();
         QJsonArray inmail = obj["inmail"].toArray();
         QJsonObject in, out;
-        // spostare messaggi su heap
         for(int i = 0; i < outmail.size(); ++i) {
             out = outmail[i].toObject();
             if(QDate::fromString(out["sent"].toString(), "dd.MM.yyyy").month() == QDate::currentDate().month() && QDate::fromString(out["sent"].toString(), "dd.MM.yyyy").year() == QDate::currentDate().year()) {
-                Message mex(usr, Username(out["receiver"].toString().toStdString(), ""), out["object"].toString().toStdString(), out["body"].toString().toStdString(), true, QDate::fromString(out["sent"].toString(), "dd.MM.yyyy"), QDate::fromString(out["recv"].toString(), "dd.MM.yyyy"));
-                s->loadOutMail(mex);    // add to outmail
-                // delete mex;
+                Message mex(usr, Username(out["receiver"].toString().toStdString(), ""), out["object"].toString().toStdString(), out["body"].toString().toStdString(), true, QDate::fromString(out["sent"].toString(), "dd.MM.yyyy"));
+                s->loadOutMail(mex);
             }
         }
         for(int i = 0; i < inmail.size(); ++i) {
             in = inmail[i].toObject();
-            Message mex(Username(in["sender"].toString().toStdString(), ""), usr, in["object"].toString().toStdString(), in["body"].toString().toStdString(), in["read"].toBool(), QDate::fromString(in["sent"].toString(), "dd.MM.yyyy"), QDate::fromString(in["recv"].toString(), "dd.MM.yyyy"));
-            s->loadInMail(mex);// add to inmail
-            // delete mex;
+            Message mex(Username(in["sender"].toString().toStdString(), ""), usr, in["object"].toString().toStdString(), in["body"].toString().toStdString(), in["read"].toBool(), QDate::fromString(in["sent"].toString(), "dd.MM.yyyy"));
+            s->loadInMail(mex);
         }
         addUser(s);
         delete info;
         delete s;
+    }
+}
+void LinqDB::readVisitors(const QJsonArray& qjs) {
+    list<SmartPtr<User> >::iterator it = _db.begin();
+    QJsonArray visitors;
+    for(; it != _db.end(); ++it) {
+        for(int i = 0; i < qjs.size(); ++i) {
+            QJsonObject obj = qjs[i].toObject();
+            privLevel priv = static_cast<privLevel> (obj["privilege"].toInt());
+            if(priv == executive && ((*it)->account()->username().login()) == (obj["username"].toString().toStdString()) && (*it)->account()->prLevel() == priv)
+                visitors = obj["visitors"].toArray();
+                if(ExecutiveUser* us = dynamic_cast<ExecutiveUser*> (&(**it))) {
+                    for(int j = 0; j < visitors.size(); ++j) {
+                        Username usr(visitors[j].toString().toStdString(), "");
+                        us->addVisitor(find(usr));
+                    }
+                }
+        }
     }
 }
 void LinqDB::readInfo(Info* inf, const QJsonObject& obj) const {
@@ -295,7 +303,7 @@ vector<QJsonObject> LinqDB::writeJson() const {
             jInMail["body"] = QString::fromStdString((*m_it)->body());
             jInMail["read"] = (*m_it)->isRead();
             jInMail["sent"] = (*m_it)->sent().toString("dd.MM.yyyy");
-            jInMail["recv"] = (*m_it)->recv().toString("dd.MM.yyyy");
+ //           jInMail["recv"] = (*m_it)->recv().toString("dd.MM.yyyy");
             jInMailArr.append(jInMail);
         }
         m_it = outMail.begin();
@@ -306,7 +314,7 @@ vector<QJsonObject> LinqDB::writeJson() const {
             jOutMail["body"] = QString::fromStdString((*m_it)->body());
             jOutMail["read"] = (*m_it)->isRead();
             jOutMail["sent"] = (*m_it)->sent().toString("dd.MM.yyyy");
-            jOutMail["recv"] = (*m_it)->recv().toString("dd.MM.yyyy");
+//            jOutMail["recv"] = (*m_it)->recv().toString("dd.MM.yyyy");
             jOutMailArr.append(jOutMail);
         }
         jUser["net"] = jArr;
@@ -362,6 +370,14 @@ vector<QJsonObject> LinqDB::writeGroups() const {
     }
     return vjs;
 }
+void LinqDB::cleanGroups() {
+    for(list<Group*>::iterator it = _grp.begin(); it != _grp.end(); ++it) {
+        if(find((*it)->admin()) == NULL) {
+            delete *it;
+            it = _grp.erase(it);
+        }
+    }
+}
 void LinqDB::write(const vector<QJsonObject>& json, const vector<QJsonObject>& jg) const throw(Error) {
     QFile saveDB(QStringLiteral("database.json"));
     if (!saveDB.open(QIODevice::WriteOnly))
@@ -387,7 +403,7 @@ void LinqDB::save() const {
     write(writeJson(), writeGroups());
 }
 void LinqDB::load() {
-    bool s = readJson();
+    readJson();
 }
 int LinqDB::size() const {
     return _db.size();
@@ -404,11 +420,23 @@ void LinqDB::addUser(User* u) throw(Error) {
 }
 void LinqDB::removeUser(const Username& usr) throw(Error) {
     list<SmartPtr<User> >::iterator it = _db.begin();
+    for(; it != _db.end(); ++it) {
+        bool del = true;
+        while(del) {
+            if(ExecutiveUser* eu = dynamic_cast<ExecutiveUser*> (&(**it)))
+                del = eu->removeVisitorOccurences(find(usr));
+            else del = false;
+        }
+    }
     bool found = false;
-    for(; it != _db.end() && !found; ++it)
+    for(it = _db.begin(); it != _db.end() && !found; ++it)
         if(((*it)->account()->username().login()) == usr.login()) {
             found = true;
+            for(list<Group*>::iterator itg = _grp.begin(); itg != _grp.end(); ++itg)
+                if((*itg)->isMember((*it)->account()->username()))
+                    (*itg)->removeMember((*it)->account()->username());
             _db.erase(it);
+            cleanGroups();
         }
     if(!found) throw Error(userNotFound, "Requested user not found");
 }
@@ -492,13 +520,6 @@ list<Post*> LinqDB::postsFromGroup(const Group& g) const {
         if((**i) == g)
             ret = (*i)->posts();
     return ret;
-}
-int LinqDB::postNumberFromGroup(const Group& g) const {
-    list<Group*>::const_iterator i;
-    for(i = _grp.begin(); i != _grp.end(); ++i)
-        if((**i) == g)
-            return (*i)->postNumber();
-    return 0;
 }
 Username LinqDB::getAdmin() const throw(Error) {
     QFile loadDB("database.json");

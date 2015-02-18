@@ -168,24 +168,26 @@ void Gui_UserWindow::groups() {
 //SLOT
 void Gui_UserWindow::logout() {
     user->save();
-    delete user;
     delete _mex;
     delete _set;
     delete _pay;
-    delete _grp;
+    if(user->level() > basic)
+        delete _grp;
     delete _layout;
+    delete user;
     emit logOut();
     close();
 }
 
 void Gui_UserWindow::closeEvent(QCloseEvent* event) {
-    // delete user;
-    // delete _mex;
-    // delete _set;
-    // delete _pay;
-    // delete _grp;
-    // delete _layout;
-    // delete this;
+     delete _mex;
+     delete _set;
+     delete _pay;
+     if(user->level() > basic)
+        delete _grp;
+     delete _layout;
+     delete user;
+     delete this;
     event->accept();
 }
 

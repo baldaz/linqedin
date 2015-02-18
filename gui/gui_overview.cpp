@@ -8,7 +8,7 @@ Gui_Overview::Gui_Overview(LinqClient* cli, QWidget* parent) : QGridLayout(paren
 
     portrait = new Gui_Avatar(QString::fromStdString(_client->avatar()));
     QLabel* links = new QLabel(tr("Connections (%1)").arg(_client->netSize()));
-    links->setMaximumSize(120,20);
+    links->setMaximumSize(130,20);
 
     toolbar = new QToolBar;
     toolButtons[0] = new QToolButton(toolbar);
@@ -46,8 +46,8 @@ Gui_Overview::Gui_Overview(LinqClient* cli, QWidget* parent) : QGridLayout(paren
     this->addWidget(_links, 2, 0, 1, 1);
     this->addWidget(_search, 3, 0, 1, 1);
     this->addWidget(toolbar, 3, 1, 1, 1, Qt::AlignCenter);
-
-    createRightSideList(this);
+    if(_client->level() > basic)
+        createRightSideList(this);
 
     this->setColumnStretch(0, 1);
     this->setColumnStretch(1, 6);
@@ -151,7 +151,7 @@ void Gui_Overview::showSearchResult() {
         else toolbar->actions().at(2)->setVisible(false);
         QString htmloutput = QString("<span style='color: #666'>( " + QString::fromStdString(it->first) + " )</span>" + QString::fromStdString(it->second));
         std::list<Group*> lsg = _client->listUserGroups(Username(it->first, ""));
-        if(lsg.size() > 0) {
+        if(lsg.size() > 0 && _client->level() > basic) {
             htmloutput.append("<h4>Groups</h4><ul style='font-weight:400'>");
             for(std::list<Group*>::iterator j = lsg.begin(); j != lsg.end(); ++j)
                 htmloutput += "<li>" + QString::fromStdString((*j)->name()) + "</li>";
@@ -204,7 +204,8 @@ void Gui_Overview::createRightSideList(QGridLayout* lay) {
 void Gui_Overview::refresh() {
     _links->clear();
     createLinks();
-    createRightSideList(this);
+    if(_client->level() > basic)
+        createRightSideList(this);
     dispInfo->setHtml(QString::fromStdString(_client->displayHtmlInfo()));
     toolbar->hide();
     portrait->setPath(QString::fromStdString(_client->avatar()));
@@ -226,7 +227,7 @@ void Gui_Overview::viewContact() {
         map<string, string>::iterator it = _contacts.begin();
         QString output = QString(QString::fromStdString(it->second));
         std::list<Group*> lsg = _client->listUserGroups(Username(it->first, ""));
-        if(lsg.size() > 0) {
+        if(lsg.size() > 0 && _client->level() > basic) {
             output.append("<h4>Groups</h4><ul style='font-weight:400'>");
             for(std::list<Group*>::iterator j = lsg.begin(); j != lsg.end(); ++j)
                 output += "<li>" + QString::fromStdString((*j)->name()) + "</li>";
@@ -246,15 +247,18 @@ void Gui_Overview::viewContact() {
 
 void Gui_Overview::refreshLists() {
     _links->clear();
-    rightSide->clear();
+    if(_client->level() > basic) {
+        rightSide->clear();
+        createRightSideList(this);
+    }
     createLinks();
-    createRightSideList(this);
 }
 
 void Gui_Overview::addConnection() {
     Username us((dispInfo->info1()).toStdString(), "");
     try {
         _client->addContact(us);
+        _client->sendMail((dispInfo->info1()).toStdString(), "Connection request", "Hello, i'd like to add you to my connection, hope you will add me too.", false);
     }catch(Error e) {
         QMessageBox::warning(0, "Connection warning", QString::fromStdString(e.errorMessage()));
     }

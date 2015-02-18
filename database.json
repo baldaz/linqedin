@@ -5,110 +5,13 @@
     },
     "groups": [
         {
-            "admin": "Baldaz",
-            "description": "Sample group about this own exam, test of a functionality",
-            "members": [
-                "Casey",
-                "Pablito",
-                "Sara87",
-                "Willg",
-                "Baldaz"
-            ],
-            "name": "Coders of Linqedin",
-            "posts": [
-                {
-                    "author": "Pablito",
-                    "content": "How's gone 26.01.2015 test??"
-                },
-                {
-                    "author": "Casey",
-                    "content": "Can i try to post something here??"
-                },
-                {
-                    "author": "Casey",
-                    "content": "Ya it works!"
-                },
-                {
-                    "author": "Casey",
-                    "content": "Another try!"
-                },
-                {
-                    "author": "Casey",
-                    "content": "Testing for memory leaks!"
-                }
-            ]
-        },
-        {
-            "admin": "Baldaz",
-            "description": "OOP is hard! Those nasty pointers!",
-            "members": [
-                "Casey",
-                "Pablito",
-                "Sara87",
-                "Willg",
-                "Baldaz"
-            ],
-            "name": "OOP & Segfaults",
-            "posts": [
-                {
-                    "author": "Pablito",
-                    "content": "How's gone 26.01.2015 test??"
-                },
-                {
-                    "author": "Willg",
-                    "content": "Today's test was a bit hard on the second part, those pointers messed me up."
-                },
-                {
-                    "author": "Atilio",
-                    "content": "I've founded it really easy, model exercise was a bit long but definetly doable."
-                },
-                {
-                    "author": "Casey",
-                    "content": "I hope i've did it well, nothing more."
-                },
-                {
-                    "author": "Casey",
-                    "content": "ou"
-                }
-            ]
-        },
-        {
             "admin": "Casey",
-            "description": "Martial arts group",
+            "description": "Fan group",
             "members": [
                 "Casey",
-                "Pablito",
-                "Sara87",
-                "Willg",
-                "Baldaz"
+                "Baldan"
             ],
-            "name": "Haikido&co",
-            "posts": [
-                {
-                    "author": "Pablito",
-                    "content": "Can i have a free lesson to try? thanks"
-                },
-                {
-                    "author": "Atilio",
-                    "content": "Our master should answer soon. I think there'll be no problems."
-                },
-                {
-                    "author": "Casey",
-                    "content": "Here i am. Sure, you're welcome whenever you want."
-                },
-                {
-                    "author": "Baldaz",
-                    "content": "Ciao"
-                }
-            ]
-        },
-        {
-            "admin": "Casey",
-            "description": "Every man who dare call itself a real Steven Seagal fan should undoubtly join this exclusive group!",
-            "members": [
-                "Casey"
-            ],
-            "name": "Seagal's Raiders",
+            "name": "Steven' raiders",
             "posts": [
             ]
         }
@@ -118,450 +21,191 @@
             "avatar": "img/port2.jpg",
             "formations": [
                 {
-                    "from": "15.09.2002",
-                    "location": "ITIS F.Severi",
+                    "from": "10.09.2002",
+                    "location": "I.T.I.S \"F.Severi\"",
                     "role": "Student",
-                    "to": "15.09.2007"
+                    "to": "04.07.2007"
                 },
                 {
-                    "from": "15.09.2012",
-                    "location": "Università Degli Studi di Padova facoltà di Scienze MM.FF.NN. Informatica",
+                    "from": "10.09.2002",
+                    "location": "Universita' degli studi di Padova",
                     "role": "Student",
-                    "to": "15.09.2042"
+                    "to": "23.10.2042"
                 }
             ],
             "info": {
-                "address": "Stra via 4 novembre 24 (VE) Italy",
-                "biography": "San Pietro di Stra",
+                "address": "via IV novembre 24",
+                "biography": "Live in san pietro.",
                 "birthdate": "08.10.1988",
                 "email": "a.g.baldan@gmail.com",
                 "name": "Andrea",
                 "surname": "Baldan",
-                "telephon": "3450515048",
-                "website": "www.baldaz.ba"
+                "telephon": "02032030",
+                "website": "baldan.bd"
             },
             "inmail": [
                 {
-                    "body": "Test mail from Pablito.",
-                    "object": "Test",
-                    "read": true,
-                    "receiver": "Baldaz",
-                    "recv": "23.01.2015",
-                    "sender": "Pablito",
-                    "sent": "23.01.2015"
+                    "body": "Thank you for connection.",
+                    "object": "Hello",
+                    "read": false,
+                    "receiver": "Baldan",
+                    "sender": "Casey",
+                    "sent": "18.02.2015"
                 },
                 {
-                    "body": "Finally smart pointer solves our probems!",
-                    "object": "1000th try!",
+                    "body": "Hello, i'd like to add you to my connection, hope you will add me too.",
+                    "object": "Connection request",
                     "read": false,
-                    "receiver": "Baldaz",
-                    "recv": "24.01.2015",
+                    "receiver": "Baldan",
                     "sender": "Casey",
-                    "sent": "24.01.2015"
+                    "sent": "18.02.2015"
                 },
                 {
-                    "body": "Have to test exception!",
-                    "object": "Test",
+                    "body": "Upgrade requested succesfully approved.",
+                    "object": "Upgrade request",
                     "read": false,
-                    "receiver": "Baldaz",
-                    "recv": "06.02.2015",
-                    "sender": "Casey",
-                    "sent": "06.02.2015"
+                    "receiver": "Baldan",
+                    "sender": "Linqedin",
+                    "sent": "18.02.2015"
                 }
             ],
             "interests": [
-                "Web",
                 "Movies",
-                "Coding",
-                "Cooking",
-                "BBQ",
+                "Sport",
                 "Snowboard",
-                "Homebrew"
+                "Games"
             ],
             "jobs": [
                 {
-                    "from": "09.06.2005",
-                    "location": "Barbato SRL, Fiesso d'artico (VE)",
+                    "from": "01.06.2005",
+                    "location": "Barbato calzature SRL",
                     "role": "Worker",
-                    "to": "10.09.2005"
+                    "to": "10.08.2005"
                 },
                 {
-                    "from": "15.09.2010",
-                    "location": "RGIS Padova",
+                    "from": "13.10.2010",
+                    "location": "RGIS inventory specialists",
                     "role": "Auditor",
-                    "to": "10.05.2012"
+                    "to": "15.08.2012"
                 },
                 {
-                    "from": "09.06.2007",
+                    "from": "20.05.2008",
                     "location": "Me",
-                    "role": "Freelance Web Developer",
-                    "to": "10.09.2015"
+                    "role": "Freelance webdev",
+                    "to": "18.02.2015"
                 }
-            ],
-            "keywords": [
-                "c++",
-                "c++",
-                "c++",
-                "c++",
-                "c++",
-                "c++",
-                "c++",
-                "c++",
-                "html",
-                "nodejs",
-                "perl",
-                "php",
-                "php"
             ],
             "languages": [
                 "Italian",
-                "English",
-                "Espagnol"
+                "English"
             ],
             "net": [
-                "Pablito",
-                "aui",
-                "ser",
-                "Sara87",
-                "Casey"
             ],
             "outmail": [
             ],
-            "password": "qwerty",
+            "password": "ciao",
             "payments": [
                 {
-                    "appdate": "12.12.2014",
+                    "appdate": "18.02.2015",
                     "approved": true,
                     "code": "N/A",
                     "level": 0,
                     "nominee": "N/A"
                 },
                 {
-                    "appdate": "18.12.2014",
+                    "appdate": "18.02.2015",
                     "approved": true,
-                    "code": "0132532",
+                    "code": "Andrea Baldan",
                     "level": 1,
-                    "nominee": "Andrea Baldan"
-                },
-                {
-                    "appdate": "02.02.2015",
-                    "approved": true,
-                    "code": "0132532",
-                    "level": 2,
-                    "nominee": "Andrea Baldan"
+                    "nominee": "1290392"
                 }
             ],
-            "privilege": 2,
+            "privilege": 1,
             "skills": [
-                "Nodejs",
-                "C++",
-                "Mojolicious",
-                "PHP",
                 "Perl",
-                "Python",
-                "Ruby",
-                "Ruby-Sinatra",
-                "Ruby on Rails",
-                "Java",
                 "Javascript",
-                "HTML",
-                "CSS",
-                "Bootstrap"
-            ],
-            "username": "Baldaz",
-            "visitcount": 19,
-            "visitors": [
-            ]
-        },
-        {
-            "avatar": "img/pablo-escobar.jpg",
-            "formations": [
-            ],
-            "info": {
-                "address": "calle de la muerte 1",
-                "biography": "maurisio",
-                "birthdate": "15.12.1923",
-                "email": "escobar@cartello.cb",
-                "name": "Pablos",
-                "surname": "Escobar",
-                "telephon": "9873478233",
-                "website": "www.cartel.cl"
-            },
-            "inmail": [
-                {
-                    "body": "Test mail from Baldaz.",
-                    "object": "Test",
-                    "read": true,
-                    "receiver": "Pablito",
-                    "recv": "23.01.2015",
-                    "sender": "Baldaz",
-                    "sent": "23.01.2015"
-                }
-            ],
-            "interests": [
-                "Web design",
-                "Ski",
-                "Homebrew"
-            ],
-            "jobs": [
-            ],
-            "languages": [
-                "Italian",
-                "English",
-                "Espagnol"
-            ],
-            "net": [
-                "Atilio"
-            ],
-            "outmail": [
-            ],
-            "password": "maurisio",
-            "payments": [
-                {
-                    "appdate": "26.12.2014",
-                    "approved": true,
-                    "code": "N/A",
-                    "level": 0,
-                    "nominee": "N/A"
-                }
-            ],
-            "privilege": 0,
-            "skills": [
-                "C++",
-                "PHP"
-            ],
-            "username": "Pablito",
-            "visitcount": 14
-        },
-        {
-            "avatar": "img/atilio.jpg",
-            "formations": [
-            ],
-            "info": {
-                "address": "calle de la muerte 2",
-                "birthdate": "15.10.1973",
-                "email": "atos@bierta.es",
-                "name": "Atos",
-                "surname": "Bierta",
-                "telephon": "4872474213",
-                "website": "www.cartel.mx"
-            },
-            "inmail": [
-            ],
-            "interests": [
-                "Gym",
-                "Boxe",
-                "Blades",
-                "Knives",
-                "Murder",
-                "Homicide",
-                "Martials arts",
-                "BBQ"
-            ],
-            "jobs": [
-            ],
-            "languages": [
-                "Italian",
-                "English",
-                "Espagnol"
-            ],
-            "net": [
-                "Pablito"
-            ],
-            "outmail": [
-            ],
-            "password": "piovra",
-            "payments": [
-                {
-                    "appdate": "10.02.2015",
-                    "approved": true,
-                    "code": "N/A",
-                    "level": 0,
-                    "nominee": "N/A"
-                }
-            ],
-            "privilege": 0,
-            "skills": [
-                "C++",
+                "OOP",
+                "ExpressJS",
                 "PHP",
-                "Perl",
-                "Ruby"
+                "Homebrewing"
             ],
-            "username": "Atilio",
-            "visitcount": 15
+            "username": "Baldan",
+            "visitcount": 4
         },
         {
-            "avatar": "img/port2.jpg",
+            "avatar": "/server1/1/2012/abaldan/P2/linqedin/img/atilio.jpg",
             "formations": [
             ],
             "info": {
-                "address": "via 7 dicembre 12",
-                "birthdate": "08.10.1288",
-                "email": "a.g.ba@gmail.com",
-                "name": "Andr",
-                "surname": "jsjs",
-                "telephon": "35015048",
-                "website": "www.andr.ad"
+                "address": "via sesto 14",
+                "biography": "Former cook at la duree.",
+                "birthdate": "10.02.1976",
+                "email": "red@rossi.it",
+                "name": "Paolo",
+                "surname": "Rossi",
+                "telephon": "45548485",
+                "website": "www.red.rd"
             },
             "inmail": [
+                {
+                    "body": "Upgrade requested succesfully approved.",
+                    "object": "Upgrade request",
+                    "read": false,
+                    "receiver": "Red",
+                    "sender": "Linqedin",
+                    "sent": "18.02.2015"
+                }
             ],
             "interests": [
-                "Web developing",
-                "Videogames"
+                "Fishing",
+                "Football",
+                "Rugby",
+                "Swimming"
             ],
             "jobs": [
+                {
+                    "from": "01.02.2011",
+                    "location": "Da Paolo",
+                    "role": "Chef",
+                    "to": "18.02.2015"
+                }
             ],
             "languages": [
                 "Italian",
-                "English",
-                "Espagnol"
+                "French"
             ],
             "net": [
-                "Pablito",
-                "Atilio",
-                "Baldaz"
             ],
             "outmail": [
             ],
-            "password": "rd",
+            "password": "red",
             "payments": [
                 {
-                    "appdate": "10.02.2015",
+                    "appdate": "18.02.2015",
                     "approved": true,
                     "code": "N/A",
                     "level": 0,
                     "nominee": "N/A"
                 },
                 {
-                    "appdate": "",
-                    "approved": false,
-                    "code": "0123456",
-                    "level": 2,
-                    "nominee": "Auir Ien"
-                }
-            ],
-            "privilege": 0,
-            "skills": [
-                "C#",
-                "Visual Basic",
-                "Objective-C"
-            ],
-            "username": "aui",
-            "visitcount": 0
-        },
-        {
-            "avatar": "img/port2.jpg",
-            "formations": [
-            ],
-            "info": {
-                "address": "via monghi 12",
-                "birthdate": "08.10.1928",
-                "email": "a.g.ban@gmail.com",
-                "name": "Sara",
-                "surname": "Mira",
-                "telephon": "3250515048",
-                "website": "www.sara.sr"
-            },
-            "inmail": [
-            ],
-            "interests": [
-                "Reading",
-                "Fishing",
-                "Decoupage",
-                "Web",
-                "Movies",
-                "Coding",
-                "Snowboard"
-            ],
-            "jobs": [
-            ],
-            "languages": [
-                "Italian",
-                "English",
-                "Espagnol"
-            ],
-            "net": [
-                "Pablito",
-                "Atilio",
-                "aui"
-            ],
-            "outmail": [
-            ],
-            "password": "sara",
-            "payments": [
-                {
-                    "appdate": "01.01.2015",
+                    "appdate": "18.02.2015",
                     "approved": true,
-                    "code": "N/A",
-                    "level": 0,
-                    "nominee": "N/A"
+                    "code": "Paolo Rossi",
+                    "level": 1,
+                    "nominee": "01203203"
                 }
             ],
-            "privilege": 0,
+            "privilege": 1,
             "skills": [
-                "Math",
-                "Matlab",
-                "R"
+                "Pizza",
+                "Cooking",
+                "Knives"
             ],
-            "username": "Sara87",
+            "username": "Red",
             "visitcount": 0
         },
         {
-            "avatar": "img/port2.jpg",
-            "formations": [
-            ],
-            "info": {
-                "address": "via 4 novembre 12",
-                "birthdate": "08.10.1988",
-                "email": "dan@gmail.com",
-                "name": "Giacomo",
-                "surname": "Ser",
-                "telephon": "345215048",
-                "website": "www.idiota.ser"
-            },
-            "inmail": [
-            ],
-            "interests": [
-                "Drums",
-                "Keyboard",
-                "Music"
-            ],
-            "jobs": [
-            ],
-            "languages": [
-                "Italian",
-                "English",
-                "Espagnol"
-            ],
-            "net": [
-                "Pablito",
-                "Atilio",
-                "Baldaz",
-                "Sara87"
-            ],
-            "outmail": [
-            ],
-            "password": "wword",
-            "payments": [
-                {
-                    "appdate": "05.01.2015",
-                    "approved": true,
-                    "code": "N/A",
-                    "level": 0,
-                    "nominee": "N/A"
-                }
-            ],
-            "privilege": 0,
-            "skills": [
-                "Elettronica",
-                "MosFet",
-                "Bode"
-            ],
-            "username": "ser",
-            "visitcount": 0
-        },
-        {
-            "avatar": "/home/codep/scuola/P2/linqedin/img/seagal.jpg",
+            "avatar": "img/seagal.jpg",
             "formations": [
                 {
                     "from": "15.09.1962",
@@ -587,33 +231,6 @@
                 "website": "www.stevenseagal.ss"
             },
             "inmail": [
-                {
-                    "body": "Test mail from Danny.",
-                    "object": "Test",
-                    "read": true,
-                    "receiver": "Casey",
-                    "recv": "21.01.2015",
-                    "sender": "Danny",
-                    "sent": "21.01.2015"
-                },
-                {
-                    "body": "God bless smart pointer!",
-                    "object": "Yeah! it works now!",
-                    "read": true,
-                    "receiver": "Casey",
-                    "recv": "24.01.2015",
-                    "sender": "Baldaz",
-                    "sent": "24.01.2015"
-                },
-                {
-                    "body": "si va",
-                    "object": "yee",
-                    "read": true,
-                    "receiver": "Casey",
-                    "recv": "12.02.2015",
-                    "sender": "Willg",
-                    "sent": "12.02.2015"
-                }
             ],
             "interests": [
                 "Web",
@@ -670,29 +287,24 @@
                 "Esquimese"
             ],
             "net": [
-                "Pablito",
-                "Atilio",
-                "Hannibal",
-                "Willg"
+                "Baldan"
             ],
             "outmail": [
                 {
-                    "body": "Have to test exception!",
-                    "object": "Test",
+                    "body": "Thank you for connection.",
+                    "object": "Hello",
                     "read": true,
-                    "receiver": "Baldaz",
-                    "recv": "06.02.2015",
+                    "receiver": "Baldan",
                     "sender": "Casey",
-                    "sent": "06.02.2015"
+                    "sent": "18.02.2015"
                 },
                 {
-                    "body": "Dovrebbe funzionare.",
-                    "object": "Dei che ndemo!",
+                    "body": "Hello, i'd like to add you to my connection, hope you will add me too.",
+                    "object": "Connection request",
                     "read": true,
-                    "receiver": "Willg",
-                    "recv": "10.02.2015",
+                    "receiver": "Baldan",
                     "sender": "Casey",
-                    "sent": "10.02.2015"
+                    "sent": "18.02.2015"
                 }
             ],
             "password": "rayback",
@@ -743,321 +355,9 @@
                 "Knives"
             ],
             "username": "Casey",
-            "visitcount": 10,
+            "visitcount": 11,
             "visitors": [
-                "Pablito",
-                "Baldaz",
-                "Atilio",
-                "Baldaz"
             ]
-        },
-        {
-            "avatar": "img/machete.jpg",
-            "formations": [
-                {
-                    "from": "15.09.1958",
-                    "location": "ITIS F.Severi",
-                    "role": "Student",
-                    "to": "15.09.1964"
-                },
-                {
-                    "from": "15.09.1966",
-                    "location": "Università Degli Studi di Padova facoltà di Scienze MM.FF.NN. Informatica",
-                    "role": "Student",
-                    "to": "15.09.1977"
-                }
-            ],
-            "info": {
-                "address": "El Paso Muerte-Negra lane Texas",
-                "birthdate": "08.07.1943",
-                "email": "danny@trejo.dt",
-                "name": "Danny \"Machete\"",
-                "surname": "Trejo",
-                "telephon": "3150535157",
-                "website": "www.dannytrejo.dt"
-            },
-            "inmail": [
-            ],
-            "interests": [
-                "Drugdealing",
-                "Kidnapp",
-                "Guerrilla",
-                "Weapons",
-                "Fighting",
-                "Traps",
-                "Blades",
-                "Knives",
-                "Cooking",
-                "Movies",
-                "BBQ"
-            ],
-            "jobs": [
-            ],
-            "languages": [
-                "Italian",
-                "English",
-                "Espagnol",
-                "Portuguese"
-            ],
-            "net": [
-                "Pablito",
-                "Atilio",
-                "aui"
-            ],
-            "outmail": [
-            ],
-            "password": "machete",
-            "payments": [
-                {
-                    "appdate": "02.01.2015",
-                    "approved": true,
-                    "code": "N/A",
-                    "level": 0,
-                    "nominee": "N/A"
-                }
-            ],
-            "privilege": 0,
-            "skills": [
-                "Machete",
-                "M-16",
-                "Narcotraffic",
-                "Burritos",
-                "Tortillas",
-                "Smartphones",
-                "Hapkido",
-                "Ninjitsu",
-                "Ju-Jitsu",
-                "Daibo",
-                "Knives",
-                "C++",
-                "CSS",
-                "Java"
-            ],
-            "username": "Danny",
-            "visitcount": 8
-        },
-        {
-            "avatar": "img/port2.jpg",
-            "formations": [
-                {
-                    "from": "15.09.1967",
-                    "location": "ITIS F.Severi",
-                    "role": "Student",
-                    "to": "15.09.1972"
-                },
-                {
-                    "from": "15.09.1973",
-                    "location": "Università Degli Studi di Padova facoltà di Scienze MM.FF.NN. Informatica",
-                    "role": "Student",
-                    "to": "15.09.1977"
-                }
-            ],
-            "info": {
-                "address": "Washington lane Philadelphia",
-                "birthdate": "08.07.1943",
-                "email": "hannibal@lecter.hl",
-                "name": "Hannibal",
-                "surname": "Lecter",
-                "telephon": "3150335121",
-                "website": "www.hanniballecter.hl"
-            },
-            "inmail": [
-            ],
-            "interests": [
-                "Meat",
-                "Cooking",
-                "Anatomy",
-                "Wines",
-                "Psichology",
-                "Psichiatry",
-                "Murder",
-                "Mind-illness",
-                "Cannibalism",
-                "Movies",
-                "BBQ"
-            ],
-            "jobs": [
-            ],
-            "languages": [
-                "Italian",
-                "English",
-                "Espagnol",
-                "Portuguese",
-                "Deutch",
-                "Francais"
-            ],
-            "net": [
-                "Pablito",
-                "Atilio",
-                "aui",
-                "Sara87",
-                "Willg"
-            ],
-            "outmail": [
-            ],
-            "password": "lecter",
-            "payments": [
-                {
-                    "appdate": "01.01.2015",
-                    "approved": true,
-                    "code": "N/A",
-                    "level": 0,
-                    "nominee": "N/A"
-                }
-            ],
-            "privilege": 0,
-            "skills": [
-                "Knives",
-                "Meatplates",
-                "Psichiatry",
-                "Literature",
-                "Surgery"
-            ],
-            "username": "Hannibal",
-            "visitcount": 5
-        },
-        {
-            "avatar": "img/port2.jpg",
-            "formations": [
-                {
-                    "from": "15.09.1977",
-                    "location": "ITIS F.Severi",
-                    "role": "Student",
-                    "to": "15.09.1983"
-                },
-                {
-                    "from": "15.09.1985",
-                    "location": "Università Degli Studi di Padova facoltà di Scienze MM.FF.NN. Informatica",
-                    "role": "Student",
-                    "to": "15.09.1991"
-                }
-            ],
-            "info": {
-                "address": "Washington lane Philadelphia",
-                "birthdate": "08.07.1943",
-                "email": "hannibal@lecter.hl",
-                "name": "Will",
-                "surname": "Graham",
-                "telephon": "3150335121",
-                "website": "www.grahamwill.gw"
-            },
-            "inmail": [
-                {
-                    "body": "Dovrebbe funzionare.",
-                    "object": "Dei che ndemo!",
-                    "read": true,
-                    "receiver": "Willg",
-                    "recv": "10.02.2015",
-                    "sender": "Casey",
-                    "sent": "10.02.2015"
-                },
-                {
-                    "body": "Upgrade requested succesfully approved.",
-                    "object": "Upgrade request",
-                    "read": false,
-                    "receiver": "Willg",
-                    "recv": "12.02.2015",
-                    "sender": "Linqedin",
-                    "sent": "12.02.2015"
-                }
-            ],
-            "interests": [
-                "Meat",
-                "Cooking",
-                "Anatomy",
-                "Wines",
-                "Psichology",
-                "Psichiatry",
-                "Murder"
-            ],
-            "jobs": [
-            ],
-            "languages": [
-                "Italian"
-            ],
-            "net": [
-                "Pablito",
-                "Atilio",
-                "Hannibal"
-            ],
-            "outmail": [
-                {
-                    "body": "si va",
-                    "object": "yee",
-                    "read": true,
-                    "receiver": "Casey",
-                    "recv": "12.02.2015",
-                    "sender": "Willg",
-                    "sent": "12.02.2015"
-                }
-            ],
-            "password": "graham",
-            "payments": [
-                {
-                    "appdate": "06.01.2015",
-                    "approved": true,
-                    "code": "N/A",
-                    "level": 0,
-                    "nominee": "N/A"
-                },
-                {
-                    "appdate": "12.02.2015",
-                    "approved": true,
-                    "code": "0123123",
-                    "level": 1,
-                    "nominee": "Will Graham"
-                }
-            ],
-            "privilege": 1,
-            "skills": [
-                "Knives",
-                "Literature",
-                "Surgery"
-            ],
-            "username": "Willg",
-            "visitcount": 7
-        },
-        {
-            "avatar": "img/port2.jpg",
-            "formations": [
-            ],
-            "info": {
-                "address": "via padova 12",
-                "biography": "Lived in Padova since birth. Studied computer science ad I.T.I.S. \"F.Severi\".",
-                "birthdate": "14.06.1988",
-                "email": "alesalvi@gmail.com",
-                "name": "Alessandro",
-                "surname": "Salvi",
-                "telephon": "3345678928",
-                "website": "www.puffopro.altervista.org"
-            },
-            "inmail": [
-            ],
-            "interests": [
-            ],
-            "jobs": [
-            ],
-            "languages": [
-            ],
-            "net": [
-            ],
-            "outmail": [
-            ],
-            "password": "ale",
-            "payments": [
-                {
-                    "appdate": "10.02.2015",
-                    "approved": true,
-                    "code": "N/A",
-                    "level": 0,
-                    "nominee": "N/A"
-                }
-            ],
-            "privilege": 0,
-            "skills": [
-            ],
-            "username": "Puffo",
-            "visitcount": 0
         }
     ]
 }
