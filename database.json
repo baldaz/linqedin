@@ -4,17 +4,6 @@
         "username": "root"
     },
     "groups": [
-        {
-            "admin": "Casey",
-            "description": "Fan group",
-            "members": [
-                "Casey",
-                "Baldan"
-            ],
-            "name": "Steven' raiders",
-            "posts": [
-            ]
-        }
     ],
     "users": [
         {
@@ -100,8 +89,33 @@
                 "English"
             ],
             "net": [
+                "Red"
             ],
             "outmail": [
+                {
+                    "body": "Hello, i'd like to add you to my connection, hope you will add me too.",
+                    "object": "Connection request",
+                    "read": true,
+                    "receiver": "Casey",
+                    "sender": "Baldan",
+                    "sent": "18.02.2015"
+                },
+                {
+                    "body": "Hello, i'd like to add you to my connection, hope you will add me too.",
+                    "object": "Connection request",
+                    "read": true,
+                    "receiver": "Red",
+                    "sender": "Baldan",
+                    "sent": "18.02.2015"
+                },
+                {
+                    "body": "Hello, i'd like to add you to my connection, hope you will add me too.",
+                    "object": "Connection request",
+                    "read": false,
+                    "receiver": "Red",
+                    "sender": "Baldan",
+                    "sent": "18.02.2015"
+                }
             ],
             "password": "ciao",
             "payments": [
@@ -154,6 +168,22 @@
                     "receiver": "Red",
                     "sender": "Linqedin",
                     "sent": "18.02.2015"
+                },
+                {
+                    "body": "Hello, i'd like to add you to my connection, hope you will add me too.",
+                    "object": "Connection request",
+                    "read": false,
+                    "receiver": "Red",
+                    "sender": "Baldan",
+                    "sent": "18.02.2015"
+                },
+                {
+                    "body": "Hello, i'd like to add you to my connection, hope you will add me too.",
+                    "object": "Connection request",
+                    "read": false,
+                    "receiver": "Red",
+                    "sender": "Baldan",
+                    "sent": "18.02.2015"
                 }
             ],
             "interests": [
@@ -202,162 +232,129 @@
                 "Knives"
             ],
             "username": "Red",
-            "visitcount": 0
+            "visitcount": 3
         },
         {
-            "avatar": "img/seagal.jpg",
+            "avatar": "img/port2.jpg",
             "formations": [
-                {
-                    "from": "15.09.1962",
-                    "location": "ITIS F.Severi",
-                    "role": "Student",
-                    "to": "15.09.1967"
-                },
-                {
-                    "from": "15.09.1970",
-                    "location": "Università Degli Studi di Padova facoltà di Scienze MM.FF.NN. Informatica",
-                    "role": "Student",
-                    "to": "15.09.1980"
-                }
             ],
             "info": {
-                "address": "Stra via 4 novembre 24 (VE) Italy",
-                "biography": "Seagal was born in Lansing, Michigan, where he lived until he was five years old, when the family moved to California. His mother, Patricia (1930–2003), was a medical technician, and his father, Samuel Steven Seagal (1928–1991), was a high school math teacher. His mother was of Irish ancestry and his father was Jewish (the son of immigrants from Russia). Seagal has reported that he had a Mongolian grandfather, but this seems unlikely. His parents relocated to Fullerton, California, where Seagal attended Buena Park High School in Buena Park.",
-                "birthdate": "14.10.1949",
-                "email": "seagal@steven.st",
-                "name": "Steven",
-                "surname": "Seagal",
-                "telephon": "3250525147",
-                "website": "www.stevenseagal.ss"
+                "address": "via sassara 12",
+                "biography": "Worked hard for a long time at \"La Taverna\".",
+                "birthdate": "24.04.1986",
+                "email": "marco@gmail.com",
+                "name": "Marco",
+                "surname": "Verdi",
+                "telephon": "049 547282",
+                "website": "www.facebook.com/marcoverdi"
             },
             "inmail": [
             ],
             "interests": [
-                "Web",
-                "Movies",
-                "Coding",
-                "Cooking",
-                "Snowboard",
-                "Homebrew",
-                "Haikido",
-                "Hapkido",
-                "Martial arts",
-                "Fighting",
-                "Traps",
-                "Blades",
-                "Knives",
-                "BBQ"
+                "Rugny",
+                "Football"
             ],
             "jobs": [
                 {
-                    "from": "15.09.1968",
-                    "location": "Hollywood Studios, California",
-                    "role": "Stuntman",
-                    "to": "15.09.1975"
-                },
-                {
-                    "from": "15.09.1978",
-                    "location": "Hollywood Studios, California",
-                    "role": "Actor",
-                    "to": "15.09.2015"
-                },
-                {
-                    "from": "17.02.1984",
-                    "location": "Japan",
-                    "role": "Martialist",
-                    "to": "08.10.2003"
+                    "from": "19.04.2001",
+                    "location": "La Taverna",
+                    "role": "Chef",
+                    "to": "18.02.2015"
                 }
-            ],
-            "keywords": [
-                "css",
-                "daibo",
-                "daibo",
-                "knives",
-                "knives",
-                "knives",
-                "knives",
-                "knives",
-                "ninjitsu",
-                "steven seagal"
             ],
             "languages": [
                 "Italian",
-                "English",
-                "Espagnol",
-                "Esquimese"
+                "Francais"
             ],
             "net": [
-                "Baldan"
             ],
             "outmail": [
-                {
-                    "body": "Thank you for connection.",
-                    "object": "Hello",
-                    "read": true,
-                    "receiver": "Baldan",
-                    "sender": "Casey",
-                    "sent": "18.02.2015"
-                },
-                {
-                    "body": "Hello, i'd like to add you to my connection, hope you will add me too.",
-                    "object": "Connection request",
-                    "read": true,
-                    "receiver": "Baldan",
-                    "sender": "Casey",
-                    "sent": "18.02.2015"
-                }
             ],
-            "password": "rayback",
+            "password": "nopass",
             "payments": [
                 {
-                    "appdate": "06.12.2014",
+                    "appdate": "18.02.2015",
                     "approved": true,
                     "code": "N/A",
                     "level": 0,
                     "nominee": "N/A"
-                },
-                {
-                    "appdate": "02.01.2015",
-                    "approved": true,
-                    "code": "0132532",
-                    "level": 1,
-                    "nominee": "Steven Seagal"
-                },
-                {
-                    "appdate": "11.02.2015",
-                    "approved": true,
-                    "code": "0132532",
-                    "level": 2,
-                    "nominee": "Steven Seagal"
                 }
             ],
-            "privilege": 2,
+            "privilege": 0,
             "skills": [
-                "Nodejs",
-                "C++",
-                "Mojolicious",
+                "Cook",
+                "Fishing",
+                "Photoshop",
+                "Photography"
+            ],
+            "username": "Marco",
+            "visitcount": 0
+        },
+        {
+            "avatar": "img/port2.jpg",
+            "formations": [
+            ],
+            "info": {
+                "address": "via pauro 33",
+                "biography": "Still in construction.",
+                "birthdate": "02.02.1988",
+                "email": "fil@yahoo.it",
+                "name": "Filippo",
+                "surname": "Berti",
+                "telephon": "023 932939",
+                "website": "www.facebook.com/filippoberti32"
+            },
+            "inmail": [
+                {
+                    "body": "Welcome in LinQedin, currently you're a Basic user, you can easily modify  your profile data using SETTINGS tab, and from there you can UPGRADE your account. Greetings.",
+                    "object": "Welcome",
+                    "read": true,
+                    "receiver": "Fil",
+                    "sender": "Fil",
+                    "sent": "18.02.2015"
+                }
+            ],
+            "interests": [
+                "Snowboard",
+                "Movies",
+                "Sport"
+            ],
+            "jobs": [
+            ],
+            "languages": [
+                "Italian"
+            ],
+            "net": [
+            ],
+            "outmail": [
+                {
+                    "body": "Welcome in LinQedin, currently you're a Basic user, you can easily modify  your profile data using SETTINGS tab, and from there you can UPGRADE your account. Greetings.",
+                    "object": "Welcome",
+                    "read": true,
+                    "receiver": "Fil",
+                    "sender": "Fil",
+                    "sent": "18.02.2015"
+                }
+            ],
+            "password": "ippo",
+            "payments": [
+                {
+                    "appdate": "18.02.2015",
+                    "approved": true,
+                    "code": "N/A",
+                    "level": 0,
+                    "nominee": "N/A"
+                }
+            ],
+            "privilege": 0,
+            "skills": [
                 "PHP",
                 "Perl",
-                "Python",
-                "Ruby",
-                "Ruby-Sinatra",
-                "Ruby on Rails",
-                "Java",
                 "Javascript",
-                "HTML",
-                "CSS",
-                "Bootstrap",
-                "Haikido",
-                "Hapkido",
-                "Ninjitsu",
-                "Ju-Jitsu",
-                "Daibo",
-                "Knives"
+                "OOP"
             ],
-            "username": "Casey",
-            "visitcount": 11,
-            "visitors": [
-            ]
+            "username": "Fil",
+            "visitcount": 0
         }
     ]
 }

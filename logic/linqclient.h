@@ -23,7 +23,7 @@ public:
     string avatar() const;
     string displayHtmlInfo() const;
     string avatarFromUser(const Username&) const;
-    vector<string> displayHtmlNet() const;
+    vector<string> displayLinQedin() const;
     vector<SmartPtr<User> > contactsInfo() const;
     vector<SmartPtr<Payment> > paymentHistory() const;
     list<SmartPtr<User> > visitors() const;

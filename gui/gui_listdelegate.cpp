@@ -32,7 +32,6 @@ void ListDelegate::paint(QPainter* painter, const QStyleOptionViewItem& option, 
     }
     else {
         //BACKGROUND
-        //ALTERNATING COLORS
         painter->setBrush(QColor(23,23,23));
         painter->drawRect(r);
 
@@ -72,19 +71,16 @@ void ListDelegate::paint(QPainter* painter, const QStyleOptionViewItem& option, 
     r = option.rect.adjusted(imageSpace, 0, -10, -30);
     if(!read) painter->setFont(font);
 
-    // painter->setFont(QFont("Lucida Grande", 12, QFont::Bold));
     painter->drawText(r.left(), r.top(), r.width(), r.height(), Qt::AlignBottom|Qt::AlignLeft, title, &r);
 
     //DESCRIPTION
     r = option.rect.adjusted(imageSpace, 20, -10, 0);
     font.setBold(false);
     painter->setFont(font);
-    // painter->setFont(QFont("Lucida Grande", 8, QFont::Normal));
     painter->drawText(r.left(), r.top(), r.width(), r.height(), Qt::AlignLeft, description, &r);
 }
 
 QSize ListDelegate::sizeHint(const QStyleOptionViewItem& option, const QModelIndex& index) const {
-//    return QSize(80, 50); // very dumb value
     const QString text = index.data(Qt::DisplayRole).toString();
     QRect r = option.rect.adjusted(55, 0, -10, -30);
 //    QSize s = option.fontMetrics.boundingRect(r.left(), r.top(), r.width(), r.height(), Qt::AlignVCenter|Qt::AlignLeft|Qt::TextWordWrap, text).size();

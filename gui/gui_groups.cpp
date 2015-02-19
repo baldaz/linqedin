@@ -102,7 +102,6 @@ Gui_Groups::Gui_Groups(LinqClient* c, QWidget* parent) : QGridLayout(parent), _c
     setRowStretch(1, 10);
     setColumnStretch(0, 1);
     setColumnStretch(1, 5);
-    // setColumnStretch(2, 3);
     connect(grplist, SIGNAL(clicked(QModelIndex)), this, SLOT(showGroup()));
     connect(post, SIGNAL(clicked()), this, SLOT(sendPost()));
     connect(this, SIGNAL(created(int)), this, SLOT(refresh(int)));
@@ -222,8 +221,8 @@ void Gui_Groups::sendPost() {
     QString pst = newpost->toPlainText();
     Group g(Username(admin.toStdString(), ""), name.toStdString());
     if(!pst.isEmpty()) {
-        Post p(_client->username(), pst.toStdString());
-        _client->addPostToGroup(g, p);
+        Post* p = new Post(_client->username(), pst.toStdString());
+        _client->addPostToGroup(g, *p);
         QString dump = showgrp->toHtml();
         QString me = QString::fromStdString(_client->username().login());
         dump.append(QString("<h5>Author: <span style='font-weight:400;font-size:10px'>" + me + "</span></h5><p style='font-weight:400;font-size:11px;'>" + pst + "</p><hr>"));

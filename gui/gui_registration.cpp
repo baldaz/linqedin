@@ -70,7 +70,7 @@ void Gui_Registration::createForm() {
 //SLOT
 void Gui_Registration::submitData() {
     bool created = true;
-    QString uname = edt[0]->text();
+    uname = edt[0]->text();
     QString pass = edt[1]->text();
     QMap<string, string> info;
     info.insert("name", edt[2]->text().toStdString());
@@ -97,6 +97,7 @@ void Gui_Registration::proceed(bool pr) {
     if(pr) {
         QMessageBox::information(this, "Operation complete", "Account successfully created!", QMessageBox::Ok);
         LinqClient* c = new LinqClient(Username(edt[0]->text().toStdString(), edt[1]->text().toStdString()));
+        c->sendMail(uname.toStdString(), "Welcome", "Welcome in LinQedin, currently you're a Basic user, you can easily modify  your profile data using SETTINGS tab, and from there you can UPGRADE your account. Greetings.", false);
         Gui_UserWindow* w = new Gui_UserWindow(c);
         w->show();
         close();

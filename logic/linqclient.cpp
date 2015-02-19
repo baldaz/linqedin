@@ -126,23 +126,15 @@ vector<SmartPtr<User> > LinqClient::similarity() const {
 bool LinqClient::linked(const Username& usr) const {
    return _usr->linked(usr);
 }
-vector<string> LinqClient::displayHtmlNet() const {
+vector<string> LinqClient::displayLinQedin() const {
     vector<string> ret;
     string html = "";
-    std::ostringstream o;
-    o << _usr->net()->size();
-    UserInfo* info;
-    string name, surname;
-    vector<Username> vec = _usr->net()->username();
-    vector<Username>::const_iterator it = vec.begin();
-    for(; it < vec.end(); ++it) {
-        info = dynamic_cast<UserInfo*> ((_db->find(*it))->account()->info());
-        if(info) {
-            name = info->name();
-            surname = info->surname();
+    list<SmartPtr<User> > users = _db->db();
+    for(list<SmartPtr<User> >::const_iterator it = users.begin(); it != users.end(); ++it) {
+        if(UserInfo* uif = dynamic_cast<UserInfo*> ((*it)->account()->info())) {
+            html = uif->name() + " " + uif->surname();
+            ret.push_back(html);
         }
-        html = name + " " + surname;
-        ret.push_back(html);
     }
     return ret;
 }

@@ -82,13 +82,26 @@ void LinqAdmin::insertUser(User* newuser) {
 list<SmartPtr<User> > LinqAdmin::listUsers() const {
     return _db->db();
 }
-void LinqAdmin::insertUser(const string& username, const string& password, privLevel plevel, const map<string, string>& info) throw(Error) {
+void LinqAdmin::insertUser(const string& username, const string& password, privLevel plevel, const map<string, string>& info, int t) throw(Error) {
     if(username.empty() || password.empty()) throw Error(missingField, "Username or password missing");
-    string name = (info.find("name"))->second;
-    string surname = info.find("surname")->second;
-    string birthdate = info.find("birthdate")->second;
+    string name = "", surname = "", address = "", phone = "", website = "", email = "", bio = "", birthdate = "";
+    if(t == 0) {
+        name = (info.find("name"))->second;
+        surname = info.find("surname")->second;
+        address = info.find("address")->second;
+        phone = info.find("telephone")->second;
+        website = info.find("website")->second;
+        email = info.find("e-mail")->second;
+        birthdate = info.find("birthdate")->second;
+        bio = info.find("bio")->second;
+    }
+    else {
+        name = (info.find("name"))->second;
+        surname = info.find("surname")->second;
+        birthdate = info.find("birthdate")->second;
+    }
     try {
-        Bio b(name, surname, "", "", "", "", QDate::fromString(QString::fromStdString(birthdate), "dd.MM.yyyy"), "");
+        Bio b(name, surname, email, address, phone, website, QDate::fromString(QString::fromStdString(birthdate), "dd.MM.yyyy"), bio);
         Username u(username, password);
         Subscription s(plevel);
         CreditCard cd("N/A", "N/A");

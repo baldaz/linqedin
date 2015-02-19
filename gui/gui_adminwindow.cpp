@@ -274,7 +274,7 @@ void Gui_AdminWindow::addUser() {
     map.insert("surname", surn.toStdString());
     map.insert("birthdate", QDate::currentDate().toString("dd.MM.yyyy").toStdString());
     try {
-        _admin->insertUser(uname.toStdString(), passw.toStdString(), (privLevel) level, map.toStdMap());
+        _admin->insertUser(uname.toStdString(), passw.toStdString(), (privLevel) level, map.toStdMap(), 1);
     }catch(Error e) {
         QMessageBox::critical(this, "Error", QString::fromStdString(e.errorMessage()));
         inserted = false;

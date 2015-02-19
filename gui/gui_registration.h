@@ -20,11 +20,11 @@ private:
     QLineEdit* edt[edit];
     QTextEdit* bio;
     QCalendarWidget* calendar;
-    // QGridLayout* _mainLayout;
     QVBoxLayout* _mainLayout;
     QGroupBox* _registration;
     QGroupBox* _mandatory;
     LinqAdmin* _admin;
+    QString uname;
 
     void createForm();
 public:

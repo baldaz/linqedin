@@ -96,3 +96,8 @@ void Gui_Login::login() {
 void Gui_Login::showMe() {
     show();
 }
+
+void Gui_Login::closeEvent(QCloseEvent* event) {
+    delete c;
+    event->accept();
+}

@@ -13,6 +13,13 @@ LinqDB::~LinqDB() {
         delete *i;
     _grp.clear();
 }
+
+/* metodi di lettura da db, inizialmente viene rilevata la presenza del database.json, in seguito viene inizializzata tutta la struttura
+ * in ram di LinQedin partendo prima dagli Utenti, in seguito per ogni utente viene popolata la net delle connessioni, vengono inizializzati i gruppi
+ * ed infine i visitatori. Questo perchè facendo uso del metodo find(const Username&), avremmo dei puntatori NULL senza aver prima popolato la struttura
+ * principale, ossia la lista di smart pointer
+ */
+
 void LinqDB::readJson() throw(Error) {
     QFile loadDB("database.json");
     if (!loadDB.open(QIODevice::ReadOnly)) {
@@ -34,7 +41,7 @@ void LinqDB::readJson() throw(Error) {
     read(db["users"].toArray());
     readNet(db["users"].toArray());
     readVisitors(db["users"].toArray());
-    initGroups(db["groups"].toArray()); 
+    initGroups(db["groups"].toArray());
     readGroups(db["groups"].toArray());
 }
 void LinqDB::read(const QJsonArray& qjs) {
@@ -207,6 +214,11 @@ void LinqDB::readNet(const QJsonArray& qjs) {
         }
     }
 }
+
+/*
+ * Metodi di scrittura, tutta la struttura in ram viene riversata sul file database.json, sovrascrivendolo di volta in volta
+ */
+
 vector<QJsonObject> LinqDB::writeJson() const {
     vector<QJsonObject> vjs;
     UserInfo* uif; Bio* bio;
@@ -370,14 +382,6 @@ vector<QJsonObject> LinqDB::writeGroups() const {
     }
     return vjs;
 }
-void LinqDB::cleanGroups() {
-    for(list<Group*>::iterator it = _grp.begin(); it != _grp.end(); ++it) {
-        if(find((*it)->admin()) == NULL) {
-            delete *it;
-            it = _grp.erase(it);
-        }
-    }
-}
 void LinqDB::write(const vector<QJsonObject>& json, const vector<QJsonObject>& jg) const throw(Error) {
     QFile saveDB(QStringLiteral("database.json"));
     if (!saveDB.open(QIODevice::WriteOnly))
@@ -447,6 +451,19 @@ User* LinqDB::find(const Username& usr) const {
         if(((*it)->account()->username().login()) == usr.login())
             ret = &(*(*it));
     return ret;
+}
+
+//METODI PER LA GESTIONE DEI GRUPPI
+//Metodo di pulizia dei gruppi "orfani", ossia i gruppi aventi come amministratore un utente non più esistente, per esempio in seguito ad un eliminazione
+//da parte dell'amministratore
+
+void LinqDB::cleanGroups() {
+    for(list<Group*>::iterator it = _grp.begin(); it != _grp.end(); ++it) {
+        if(find((*it)->admin()) == NULL) {
+            delete *it;
+            it = _grp.erase(it);
+        }
+    }
 }
 void LinqDB::deleteGroup(const Group& g) throw(Error) {
     bool found = false;
@@ -521,6 +538,9 @@ list<Post*> LinqDB::postsFromGroup(const Group& g) const {
             ret = (*i)->posts();
     return ret;
 }
+
+// rileva l'utente amministratore, presente in ogni database dalla generazione
+
 Username LinqDB::getAdmin() const throw(Error) {
     QFile loadDB("database.json");
     if (!loadDB.open(QIODevice::ReadOnly))

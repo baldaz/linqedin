@@ -27,6 +27,7 @@ private:
     LinqClient* c;
 
     void resizeEvent(QResizeEvent*);
+    void closeEvent(QCloseEvent*);
 public:
     Gui_Login(QWidget* = 0);
 signals:

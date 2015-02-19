@@ -122,6 +122,7 @@ void Gui_Messages::sendMail() {
     QString body = te->toPlainText();
     try {
         _client->sendMail(dest.toStdString(), obj.toStdString(), body.toStdString(), false);
+        _client->save();
         emit modified();
     }catch(Error e) {
         QMessageBox::critical(0, "An error occoured", QString::fromStdString(e.errorMessage()));

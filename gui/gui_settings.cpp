@@ -84,7 +84,7 @@ Gui_Settings::Gui_Settings(LinqClient* cli, QWidget* parent) : QGridLayout(paren
 
     QFormLayout* frm = new QFormLayout;
     QFormLayout* frm2 = new QFormLayout;
-    toggle = new QPushButton("Unlock");
+    toggle = new QPushButton("UNLOCK");
     toggle->setCheckable(true);
     connect(toggle, SIGNAL(clicked()), this, SLOT(buttonToggled()));
     connect(edtInfo[11], SIGNAL(returnPressed()), this, SLOT(triggerFileDialog()));
@@ -241,7 +241,7 @@ void Gui_Settings::experiencesMenu(const QPoint& pos) {
 
 void Gui_Settings::buttonToggled() {
     if(toggle->isChecked()) {
-        toggle->setText("Save");
+        toggle->setText("SAVE");
         edtInfo[0]->setEnabled(true);
         edtInfo[1]->setEnabled(true);
         edtInfo[2]->hide();
@@ -265,7 +265,7 @@ void Gui_Settings::buttonToggled() {
         edtBio->setStyleSheet("background: #1a1a1a;");
     }
     else {
-        toggle->setText("Unlock");
+        toggle->setText("UNLOCK");
         edtInfo[0]->setEnabled(false);
         edtInfo[1]->setEnabled(false);
         edtInfo[2]->show();
@@ -301,6 +301,7 @@ void Gui_Settings::buttonToggled() {
             _client->alterProfile(9, edtInfo[12]->text().toStdString());
             _client->setAvatar(edtInfo[11]->text().toStdString());
             edtInfo[7]->setStyleSheet("background:#1a1a1a");
+            _client->save();
         }catch(Error e) {
             if(e.errorType() == dupUser) edtInfo[7]->setStyleSheet("background:#f00");
             else if(e.errorType() == date) edtInfo[2]->setStyleSheet("background:#f00");

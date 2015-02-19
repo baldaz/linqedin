@@ -49,4 +49,6 @@ Tutto il codice è stato scritto interamente a mano, senza alcun utilizzo di \te
 Ad ogni modifica effettuata viene sempre richiamato il metodo di salvataggio dall'interfaccia \textit{LinqClient}, in ogni caso eventuali modifiche vengono rese permanenti al logout dell'applicazione.
 I restati layout, \textit{Gui\_Login}, \textit{Gui\_AdminWindow} e \textit{Gui\_Registration} si occupano delle sezioni precedentemente introdotte, login, pannello amministrativo e registrazione nuovo utente.
 \subsection*{NOTE}
+Le eventuali situazioni di errore sono gestite tutte a livello logico mediante la classe \textit{Error}, essa contiene una collezione di codici errore ed un costruttore che inizializza il messaggio, una volta catturata l'eccezione
+a livello grafico, viene utilizzata la classe \textit{QMessageBox} per stampare a video i problemi rilevati.
 Per mancanza di tempo non sono riuscito a commentare adeguatamente il codice, e la compilazione presenta un paio di warning innocui.

@@ -19,19 +19,27 @@
 \maketitle
 \begingroup
 \let\clearpage\relax
+\begin{enumerate}
+    \item
+    \texttt{Username:} Casey
+    \texttt{Password:} rayback
+    \item
+    \texttt{Username:} root
+    \texttt{Password:} toor
+\end{enumerate}
 \section*{INTRODUZIONE}
 Il progetto LinQedin tratta lo sviluppo di un applicazione desktop atta a gestire una rete di contatti professionali e interazioni lavorative tra utenti
 basata sul famoso \textit{social network} Linkedin\textcopyright, da cui eredita alcune funzionalità.
 \section*{SPECIFICHE PROGETTUALI}
 Il programma è stato sviluppato in C++/Qt 5.3.2 con compilatore gcc ver. 4.8.2 e testato su ambiente Linux Ubuntu 12.10 e 14.04, inoltre compila ed esegue con successo in ambiente Windows, testato
-alla versione 7 e nei computer del laboratorio Paolotti, tuttavia essendo stato implementato utilizzando alcune funzionalità della libreria Qt rilasciate solo dalla versione 5 in poi,
-la compilazione necessita del comando qmake-qt532, non e' stata utilizzata alcuna funzionalita di C++11.
+alla versione 7 e nei computer del laboratorio Paolotti, tuttavia essendo stato implementato utilizzando alcune funzionalità della libreria Qt rilasciate solo dalla versione 5 in poi, per
+la compilazione basta lanciare il comando \textit{make}, nel caso fosse necessario ricreare il file .pro va utilizzato il comando qmake-qt532 - project, non e' stata utilizzata alcuna funzionalita di C++11.
 Per lo sviluppo del codice, sia logico che grafico, è stato utilizzato esclusivamente l'editor Sublime Text 3, non è stato utilizzato QtCreator ne QtDesigner.
 \subsection*{ORGANIZZAZIONE DIRECTORY E INSTALLAZIONE}
-La radice contiene il file \textit{linqedin.pro} generato con il comando qmake, \textit{main.cpp} e \textit{relazione.pdf}.
+La radice contiene il file \textit{linqedin.pro} generato con il comando qmake-qt532 -project e \textit{relazione.pdf}.
 I sorgenti e gli headers della parte logica si trovano all'interno del percorso /logic, mentre /gui contiene tutti i sorgenti Qt adibiti all'interfaccia grafica.
 Alcune direttive grafiche sono state inserite in un file \textit{style.qss} nella cartella /style, la directory /img contiene invece tutte le immagini utilizzate nell'interfaccia grafica.
-Nel caso si renda necessario rigenerare il file \textit{.pro} con il comando qmake-qt532 -project si dovrà aggiungere la seguente istruzione all'interno del \textit{.pro} generato: \textit{greaterThan(QT\_MAJOR\_VERSION, 4): QT += widgets}. E' stato inserito un database di prova, \textit{database.json}, con le credenziali \textit{Baldan} e \textit{ciao} come username e password oppure \textit{Casey} e \textit{rayback} si accede ad un profilo di immagine completo.
+Nel caso si renda necessario rigenerare il file \textit{.pro} con il comando qmake-qt532 -project si dovrà aggiungere la seguente istruzione all'interno del \textit{.pro} generato: \textit{QT += widgets}. E' stato inserito un database di prova, \textit{database.json}, con le credenziali \textit{Baldan} e \textit{ciao} come username e password oppure \textit{Casey} e \textit{rayback} si accede ad un profilo di immagine completo.
 \include{user}
 \include{account}
 \include{db}

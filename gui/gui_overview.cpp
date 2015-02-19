@@ -100,7 +100,7 @@ void Gui_Overview::createSearchBar() {
     _search = new QLineEdit;
     _search->setPlaceholderText("Search..");
     _search->setToolTip("<p>You can activate unified search by typing ':'. E.G: ':c++,perl,snowboard' will list all users that have c++ perl and snowboard into their skills / interests fields.</p>");
-    vector<string> vec = _client->displayHtmlNet();
+    vector<string> vec = _client->displayLinQedin();
     QStringList completions;
     if(!vec.empty()) {
         vector<string>::iterator it = vec.begin();
@@ -259,6 +259,7 @@ void Gui_Overview::addConnection() {
     try {
         _client->addContact(us);
         _client->sendMail((dispInfo->info1()).toStdString(), "Connection request", "Hello, i'd like to add you to my connection, hope you will add me too.", false);
+        _client->save();
     }catch(Error e) {
         QMessageBox::warning(0, "Connection warning", QString::fromStdString(e.errorMessage()));
     }
@@ -269,6 +270,7 @@ void Gui_Overview::removeConnection() {
     Username us((dispInfo->info1()).toStdString(), "");
     try {
         _client->removeContact(us);
+        _client->save();
     }catch(Error e) {
         QMessageBox::warning(0, "Connection warning", QString::fromStdString(e.errorMessage()));
     }

@@ -32,7 +32,7 @@ public:
     ~LinqAdmin();
     list<SmartPtr<User> > listUsers() const;
     void insertUser(User*);
-    void insertUser(const string&, const string&, privLevel, const map<string, string>& = map<string,string>()) throw(Error);
+    void insertUser(const string&, const string&, privLevel, const map<string, string>& = map<string,string>(), int = 0) throw(Error);
     void removeUser(const Username&);
     map<string,string> find(const string&) const;
     Group findGroup(const string&) const;
