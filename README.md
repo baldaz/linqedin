@@ -10,12 +10,18 @@ P2 Project 2014
             - UserName
 
     - LinQNet -> contacts network
-        use map / vector
+        use map / vector / list
 
     - lib QT 4.8 or 5.3
     - clone methods probably useless
     - remove smartptr.cpp from .pro generated file
     - deep find vs deep copy smartptr    <<<<<<<<<<< --------------------------
+####TODO
+    - Loader class <<<<< --- object factory, RTTI sensible reduction
+    - UserInterface polymorphic hierarchy <<<<< --- RTTI sensible reduction
+    - Informations polymorphic hierarchy optimization
+    - Comments..
+    - DB polymorphic hierarchy [optional]
 
 ####Graphic
     - Modularize parts (showuser etc..)
