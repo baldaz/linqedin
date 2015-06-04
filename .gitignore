@@ -3,6 +3,6 @@ linqedin
 *.out
 *.log
 *.aux
-*.pdf
+*.tex
 Makefile
 userinterface.h

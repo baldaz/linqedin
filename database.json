@@ -16,6 +16,10 @@
                 {
                     "author": "Baldan",
                     "content": "Hey thereee"
+                },
+                {
+                    "author": "Casey",
+                    "content": "fdsfds"
                 }
             ]
         }
@@ -107,14 +111,6 @@
                 "Casey"
             ],
             "outmail": [
-                {
-                    "body": "Hello, i'd like to add you to my connection, hope you will add me too.",
-                    "object": "Connection request",
-                    "read": false,
-                    "receiver": "Casey",
-                    "sender": "Baldan",
-                    "sent": "18.02.2015"
-                }
             ],
             "password": "ciao",
             "payments": [
@@ -143,7 +139,7 @@
                 "Homebrewing"
             ],
             "username": "Baldan",
-            "visitcount": 4
+            "visitcount": 5
         },
         {
             "avatar": "/server1/1/2012/abaldan/P2/linqedin/img/atilio.jpg",
@@ -215,7 +211,7 @@
                 "Knives"
             ],
             "username": "Red",
-            "visitcount": 0
+            "visitcount": 1
         },
         {
             "avatar": "img/seagal.jpg",
@@ -312,22 +308,6 @@
                 "Baldan"
             ],
             "outmail": [
-                {
-                    "body": "Thank you for connection.",
-                    "object": "Hello",
-                    "read": true,
-                    "receiver": "Baldan",
-                    "sender": "Casey",
-                    "sent": "18.02.2015"
-                },
-                {
-                    "body": "Hello, i'd like to add you to my connection, hope you will add me too.",
-                    "object": "Connection request",
-                    "read": true,
-                    "receiver": "Baldan",
-                    "sender": "Casey",
-                    "sent": "18.02.2015"
-                }
             ],
             "password": "rayback",
             "payments": [
@@ -379,6 +359,8 @@
             "username": "Casey",
             "visitcount": 12,
             "visitors": [
+                "Baldan",
+                "Baldan",
                 "Baldan"
             ]
         },
@@ -475,14 +457,6 @@
             "net": [
             ],
             "outmail": [
-                {
-                    "body": "Welcome in LinQedin, currently you're a Basic user, you can easily modify  your profile data using SETTINGS tab, and from there you can UPGRADE your account. Greetings.",
-                    "object": "Welcome",
-                    "read": true,
-                    "receiver": "Fil",
-                    "sender": "Fil",
-                    "sent": "18.02.2015"
-                }
             ],
             "password": "ippo",
             "payments": [
